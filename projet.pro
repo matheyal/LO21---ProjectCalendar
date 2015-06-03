@@ -30,7 +30,8 @@ SOURCES += main.cpp \
     projet.cpp \
     fabrique.cpp \
     fabriqueactiv.cpp \
-    projetmanager.cpp
+    projetmanager.cpp \
+    tachepreemptable.cpp
 
 HEADERS += \
     agenda.h \
@@ -46,4 +47,5 @@ HEADERS += \
     fabrique.h \
     fabriqueactiv.h \
     projetmanager.h \
-    calendar.h
+    calendar.h \
+    tachepreemptable.h

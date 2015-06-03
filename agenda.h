@@ -10,11 +10,17 @@ using namespace std;
 using namespace TIME;
 
 class Agenda {
-public:
+private:
    vector<Programmation*> progs;
+   void addItem(Programmation* t);
+   Programmation* trouverProgrammation(const Evenement& e) const;
 
-//public:
-   void ajouterProg(const Date& d,const Horaire& h, Evenement* e);
+public:
+   Agenda();
+   ~Agenda();
+   Agenda(const Agenda& a);
+   Agenda& operator=(const Agenda& a);
+   void ajouterProg(const Evenement& e, const Date& d, const Horaire& h);
    void supprimerProg(const Evenement& e);
    void afficherProg();
 

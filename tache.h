@@ -4,6 +4,7 @@
 #include "timing.h"
 #include "evenement.h"
 #include <vector>
+#include <QDate>
 
 class Projet;
 class Tache : public Evenement {
@@ -16,6 +17,7 @@ public:
     virtual bool terminated()=0;
 };
 
+std::ostream& operator<<(std::ostream& f, const Tache& t);
 
 
 #endif // TACHE

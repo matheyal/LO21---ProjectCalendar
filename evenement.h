@@ -3,6 +3,8 @@
 
 #include "timing.h"
 #include <Qstring>
+#include <QDate>
+#include <QTextStream>
 
 using namespace std;
 
@@ -25,7 +27,7 @@ public:
     void setEcheance(const Date& ech) {echeance = ech;}
 };
 
-
+std::ostream& operator<<(std::ostream& fout, const Evenement& e);
 
 #endif // EVENEMENT
 

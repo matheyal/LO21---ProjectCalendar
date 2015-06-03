@@ -16,8 +16,12 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    Agenda * A1= new Agenda();
-    Evenement* e= new Evenement("1","ok", Date(12,5,2015), Date(45,5,2015));
-    A1->ajouterProg(Date(2,5,2015),Horaire(13,07), e);
+    Projet *p=new Projet("1","cool", Date(12,10,1984), Date(12,10,2000));
+    p->ajouterTacheUnitaire("1","toto", Date(14,10,1999), Date(16,10,1999),Duree(20));
+    p->ajouterTacheComposite("2","titi", Date(14,10,1999), Date(16,10,1999));
+    p->afficherTaches();
+    p->supprimerTache("1");
+    p->afficherTaches();
+
     return a.exec();
 }

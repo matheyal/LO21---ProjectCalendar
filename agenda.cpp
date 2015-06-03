@@ -2,8 +2,8 @@
 #include "programmation.h"
 #include "calendar.h"
 
-void Agenda::ajouterProg(const Date& d, const Horaire& h, Evenement *e){
-    if(e->getDate()<d && d<e->getEcheance()){
+void Agenda::ajouterProg(const Evenement& e, const Date& d, const Horaire& h){
+    if(e.getDate()<d && d<e.getEcheance()){
         Programmation* p= new Programmation(d, h, e);
         progs.push_back(p);
     } else throw CalendarException("Erreur les dates ne concordent pas");

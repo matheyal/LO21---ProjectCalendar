@@ -1,10 +1,15 @@
 #ifndef PROJET
 #define PROJET
 
+#include "tacheunitaire.h"
+#include "tachecomposite.h"
+#include "tachepreemptable.h"
 #include "tache.h"
 #include "fabrique.h"
 #include <QString>
-
+#include <QDate>
+#include "calendar.h"
+#include "timing.h"
 
 class ProjetException
 {
@@ -22,12 +27,21 @@ private:
      Date dispo;
      Date echeance;
      vector<Tache*> taches;
+     void addItemU(TacheUnitaire* t);
+     void addItemC(TacheComposite* t);
+     void addItemP(TachePreemptable* t);
+
 public:
      Projet(const QString& ti, const QString& desc, const Date& d,const Date& ech):titre(ti),description(desc),dispo(d),echeance(ech),taches(0){}
-     void ajouterTache(const QString& ident, const QString& t, const Date& d,const Date& ech);
-     void supprimerTache(const QString& ident, const QString& t, const Date& d,const Date& ech);
-     Tache& getTache(int ident);
-     Tache& creation(const QString& ident, const QString& t, const Date& d,const Date& ech){Tache(ident,t,d,ech);}
+     ~Projet();
+     TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur);
+     TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur);
+     TacheComposite& ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline);
+     void supprimerTache(const QString& ident);
+     void afficherTaches();
+     Tache& getTache(const QString& id);
+     Tache* trouverTache(const QString& id)const;
+     const Tache& getTache(const QString& id)const;
      QString getTitre(){return titre;}
      QString getDesc() {return description;}
      Date getDispo(){return dispo;}

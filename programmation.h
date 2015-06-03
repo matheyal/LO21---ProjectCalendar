@@ -10,12 +10,12 @@ class Programmation {
 private:
     Date date;
     Horaire heure;
-    Evenement* event;
+    const Evenement* event;
 public:
-    Programmation(const Date& d, const Horaire& h, Evenement* e):date(d),heure(h),event(e){}
+    Programmation(const Date& d, const Horaire& h, const Evenement& e):date(d),heure(h),event(&e){}
     Date getDate() const {return date;}
     Horaire getHoraire() const {return heure;}
-    Evenement* getEvenement() {return event;}
+    const Evenement& getEvenement() {return *event;}
 
 };
 
