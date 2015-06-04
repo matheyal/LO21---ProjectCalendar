@@ -27,9 +27,7 @@ private:
      Date dispo;
      Date echeance;
      vector<Tache*> taches;
-     void addItemU(TacheUnitaire* t);
-     void addItemC(TacheComposite* t);
-     void addItemP(TachePreemptable* t);
+     void addItem(Tache* t);
 
 public:
      Projet(const QString& ti, const QString& desc, const Date& d,const Date& ech):titre(ti),description(desc),dispo(d),echeance(ech),taches(0){}

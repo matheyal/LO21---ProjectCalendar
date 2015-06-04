@@ -16,21 +16,21 @@ void Projet::afficherTaches(){
 TacheUnitaire& Projet::ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur){
     if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet");
     TacheUnitaire* newt=new TacheUnitaire(id,t,dispo,deadline, dur);
-    addItemU(newt);
+    addItem(newt);
     return *newt;
 }
 
 TachePreemptable& Projet::ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur){
     if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet");
     TachePreemptable* newt=new TachePreemptable(id,t,dispo,deadline, dur);
-    addItemP(newt);
+    addItem(newt);
     return *newt;
 }
 
 TacheComposite& Projet::ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline){
     if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet");
     TacheComposite* newt=new TacheComposite(id,t,dispo,deadline);
-    addItemC(newt);
+    addItem(newt);
     return *newt;
 }
 
@@ -46,17 +46,10 @@ Tache& Projet::getTache(const QString& id){
     return *t;
 }
 
-void Projet::addItemU(TacheUnitaire* t){
+void Projet::addItem(Tache* t){
     taches.push_back(t);
 }
 
-void Projet::addItemP(TachePreemptable* t){
-    taches.push_back(t);
-}
-
-void Projet::addItemC(TacheComposite* t){
-    taches.push_back(t);
-}
 const Tache& Projet::getTache(const QString& id)const{
     return const_cast<Projet*>(this)->getTache(id);
 }
