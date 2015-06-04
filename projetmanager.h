@@ -19,7 +19,7 @@ public:
     Projet* ajouterProjet(const QString& ti, const QString& desc, const Date& d,const Date& ech);
     void supprimerProjet(const QString& ti);
     Projet* trouverProjet(const QString &ti) const;
-};
+};//hello
 
 #endif // PROJETMANAGER
 
