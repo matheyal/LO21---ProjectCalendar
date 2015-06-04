@@ -15,6 +15,7 @@ public:
     Duree getDuree() const{return duree;}
     bool begun(){};
     bool terminated(){};
+    void afficher()const{Evenement::afficher(); std::cout<<this->getDuree()<<endl;}
 };
 std::ostream& operator<<(std::ostream& fout, const TacheUnitaire& t);
 

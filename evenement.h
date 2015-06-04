@@ -10,6 +10,7 @@ using namespace std;
 
 using namespace TIME;
 
+
 class Evenement {
 private:
     QString id;
@@ -25,9 +26,14 @@ public:
     void setTitre(const QString& t) {titre = t;}
     void setDateDisponibilite(const Date& d) {dispo = d;}
     void setEcheance(const Date& ech) {echeance = ech;}
+    virtual void afficher()const{cout<<this->getId().toStdString()<<"\n";
+                            cout<<this->getTitre().toStdString()<<"\n";
+                            cout<<this->getDate()<<"\n";
+                            cout<<this->getEcheance()<<"\n";;}
 };
 
 std::ostream& operator<<(std::ostream& fout, const Evenement& e);
+bool operator ==(const Evenement& e1, const Evenement& e2);
 
 #endif // EVENEMENT
 

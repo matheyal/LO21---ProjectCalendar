@@ -14,6 +14,7 @@ public:
     void supprimerSousTache(const Tache& t);
     bool begun(){};
     bool terminated(){};
+
 };
 
 std::ostream& operator<<(std::ostream& fout, const TacheComposite& t);

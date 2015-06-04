@@ -15,7 +15,7 @@ public:
     Programmation(const Date& d, const Horaire& h, const Evenement& e):date(d),heure(h),event(&e){}
     Date getDate() const {return date;}
     Horaire getHoraire() const {return heure;}
-    const Evenement& getEvenement() {return *event;}
+    const Evenement& getEvenement() const {return *event;}
 
 };
 
