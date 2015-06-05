@@ -22,6 +22,7 @@ public:
 
 class Projet : public Fabrique{
 private:
+     QString id;
      QString titre;
      QString description;
      Date dispo;
@@ -30,23 +31,27 @@ private:
      void addItem(Tache* t);
 
 public:
-     Projet(const QString& ti, const QString& desc, const Date& d,const Date& ech):titre(ti),description(desc),dispo(d),echeance(ech),taches(0){}
+     Projet(const QString& i, const QString& ti, const QString& desc, const Date& d,const Date& ech):id(i), titre(ti),description(desc),dispo(d),echeance(ech),taches(0){}
      ~Projet();
      TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur);
      TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur);
      TacheComposite& ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline);
      void supprimerTache(const QString& ident);
-     void afficherTaches();
+     void afficherTaches() const;
      Tache& getTache(const QString& id);
      Tache* trouverTache(const QString& id)const;
      const Tache& getTache(const QString& id)const;
-     QString getTitre(){return titre;}
-     QString getDesc() {return description;}
-     Date getDispo(){return dispo;}
+     QString getId() const {return id;}
+     QString getTitre() const{return titre;}
+     QString getDesc() const {return description;}
+     Date getDispo()const {return dispo;}
+     Date getEcheance() const {return echeance;}
      void setTitre(const QString& nom){titre = nom;}
      void setDispo(const Date& dateDispo){dispo  = dateDispo;}
      void setEcheance(const Date& ech){echeance  = ech;}
 };
+
+std::ostream& operator<<(std::ostream& f, const Projet& p);
 
 #endif // PROJET
 

@@ -7,7 +7,7 @@ Tache* Projet::trouverTache(const QString& id)const{
     return 0;
 }
 
-void Projet::afficherTaches(){
+void Projet::afficherTaches() const {
     for(std::size_t i=0;i<taches.size();++i) {
         std::cout<<*taches[i]<<std::endl;
     }
@@ -53,3 +53,16 @@ void Projet::addItem(Tache* t){
 const Tache& Projet::getTache(const QString& id)const{
     return const_cast<Projet*>(this)->getTache(id);
 }
+
+
+std::ostream& operator<<(std::ostream& f, const Projet& p){
+    f<<p.getId().toStdString()<<"\n";
+    f<<p.getTitre().toStdString()<<"\n";
+    f<<p.getDesc().toStdString()<<"\n";
+    f<<p.getDispo()<<"\n";
+    f<<p.getEcheance()<<"\n";
+    f<<"\n";
+    return f;
+}
+
+

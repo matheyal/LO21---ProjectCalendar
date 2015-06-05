@@ -26,18 +26,19 @@ private:
    ~Agenda();
    Agenda(const Agenda& a);
    Agenda& operator=(const Agenda& a);
-
-public:
    struct Handler{
        Agenda* instance;
        Handler():instance(0){}
        // destructeur appelé la fin du programme
        ~Handler(){ if (instance) delete instance; }
    };
-   Programmation* trouverProgrammation(const Evenement& e) const;
-   Agenda& getInstance();
-   void libererInstance();
    static Handler handler;
+
+public:
+
+   Programmation* trouverProgrammation(const Evenement& e) const;
+   static Agenda& getInstance();
+   static void libererInstance();
    Programmation& ajouterProg(const Evenement& e, const Date& d, const Horaire& h);
    void supprimerProg(const Evenement& e);
    void afficherProg();

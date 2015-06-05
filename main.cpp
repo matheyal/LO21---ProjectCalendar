@@ -16,12 +16,10 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    Projet *p=new Projet("1","cool", Date(12,10,1984), Date(12,10,2000));
-    p->ajouterTacheUnitaire("1","toto", Date(14,10,1999), Date(16,10,1999),Duree(20));
-    p->ajouterTacheComposite("2","titi", Date(14,10,1999), Date(16,10,1999));
-    p->afficherTaches();
-    p->supprimerTache("1");
-    p->afficherTaches();
+    ProjetManager& pm= ProjetManager::getInstance();
+    pm.ajouterProjet("1","cool","c'est top", Date(12,10,1984), Date(12,10,2000));
+    pm.afficherProjets();
+
 
     return a.exec();
 }
