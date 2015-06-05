@@ -16,7 +16,7 @@ private:
     Date dispo;
     Date echeance;
 public:
-    Evenement(const QString& ident, const QString& t, const Date& d,const Date& ech):id(ident),titre(t),dispo(d),echeance(ech){}
+    Evenement(const QString& ident, const QString& t, const Date& d,const Date& ech):id(ident),titre(t),dispo(d),echeance(ech){std::cout<<"creation d'un evenement";}
     QString getId() const{return id;}
     QString getTitre() const{return titre;}
     Date getDate() const{return dispo;}
@@ -24,7 +24,7 @@ public:
     void setTitre(const QString& t) {titre = t;}
     void setDateDisponibilite(const Date& d) {dispo = d;}
     void setEcheance(const Date& ech) {echeance = ech;}
-    virtual QTextStream& afficher(QTextStream& f)const{f<<id<<"\n"<<titre<<"\n"<<date<<"\n"<<echeance<<"\n"; return f;} //arranger l'affichage pour le polymorphisme + créer la fonction dans les classes filles
+    virtual void afficher(std::ostream& f) const{f<<"Dispo : "<<dispo<<"\nEcheance"<<echeance;} //arranger l'affichage pour le polymorphisme + créer la fonction dans les classes filles
 };
 
 std::ostream& operator<<(std::ostream& fout, const Evenement& e);

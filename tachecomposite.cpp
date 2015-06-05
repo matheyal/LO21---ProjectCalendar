@@ -2,6 +2,6 @@
 
 
 std::ostream& operator<<(std::ostream& fout, const TacheComposite& t){
-    t.TacheComposite::afficher();
+    t.TacheComposite::afficher(fout);
     return fout;
 };

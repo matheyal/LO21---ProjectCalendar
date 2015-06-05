@@ -2,6 +2,6 @@
 
 
 std::ostream& operator<<(std::ostream& fout, const TacheUnitaire& t){
-    t.TacheUnitaire::afficher();
+    t.TacheUnitaire::afficher(fout);
     return fout;
 };

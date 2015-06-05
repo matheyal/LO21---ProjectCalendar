@@ -12,13 +12,14 @@ friend class Projet;
 private:
     vector<Tache*> taches;
 public:
-    Tache(const QString& ident, const QString& t, const Date& d,const Date& ech): Evenement(ident,t,d,ech),taches(0){}
+    Tache(const QString& ident, const QString& t, const Date& d,const Date& ech): Evenement(ident,t,d,ech),taches(0){std::cout<<"creation d'une tache";}
     virtual bool begun()=0;
     virtual bool terminated()=0;
-    void afficher()const {Evenement::afficher();}
+    virtual void afficher(std::ostream& f)const {Evenement::afficher(f);}
 };
 
-std::ostream& operator<<(std::ostream& f, const Tache& t);
+QTextStream& operator<<(QTextStream& f, const Tache& e);
+//std::ostream& operator<<(std::ostream& f, const Tache& t);
 
 
 #endif // TACHE
