@@ -2,7 +2,7 @@
 #define EVENEMENT
 
 #include "timing.h"
-#include <Qstring>
+#include <QString>
 #include <QDate>
 #include <QTextStream>
 
@@ -26,10 +26,7 @@ public:
     void setTitre(const QString& t) {titre = t;}
     void setDateDisponibilite(const Date& d) {dispo = d;}
     void setEcheance(const Date& ech) {echeance = ech;}
-    virtual void afficher()const{cout<<this->getId().toStdString()<<"\n";
-                            cout<<this->getTitre().toStdString()<<"\n";
-                            cout<<this->getDate()<<"\n";
-                            cout<<this->getEcheance()<<"\n";;}
+    virtual QTextStream& afficher(QTextStream& f)const{f<<id<<"\n"<<titre<<"\n"<<date<<"\n"<<echeance<<"\n"; return f;} //arranger l'affichage pour le polymorphisme + créer la fonction dans les classes filles
 };
 
 std::ostream& operator<<(std::ostream& fout, const Evenement& e);
