@@ -15,6 +15,8 @@ public:
     void supprimerSousTache(const Tache& t);
     bool begun(){};
     bool terminated(){};
+    void addItem(Tache* t);
+    void afficherPrecedence() const;
 
 };
 

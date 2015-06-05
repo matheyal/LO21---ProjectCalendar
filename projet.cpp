@@ -14,12 +14,15 @@ Tache* Projet::trouverTache(const QString& id)const{
 }
 
 void Projet::afficherTaches() const {
+    if(tachesUnitaires.size())std::cout<<"\nTaches Unitaires :";
     for(std::size_t i=0;i<tachesUnitaires.size();++i) {
         std::cout<<*tachesUnitaires[i]<<std::endl;
     }
+    if(tachesComposites.size())std::cout<<"\nTaches Composites :";
     for(std::size_t i=0;i<tachesComposites.size();++i) {
         std::cout<<*tachesComposites[i]<<std::endl;
     }
+    if(tachesPreemptables.size())std::cout<<"\nTaches Preemptables : ";
     for(std::size_t i=0;i<tachesPreemptables.size();++i) {
         std::cout<<*tachesPreemptables[i]<<std::endl;
     }
@@ -28,6 +31,34 @@ void Projet::afficherTaches() const {
 TacheUnitaire& Projet::ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur){
     if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet");
     TacheUnitaire* newt=new TacheUnitaire(id,t,dispo,deadline, dur);
+    //Ajouter les taches precedentes
+    for(std::size_t i=0; i<tachesUnitaires.size(); ++i)
+    {
+        Date ech = tachesUnitaires[i]->getDate();
+        //if(ech<newt->getDate())
+        //{
+            std::cout<<"MArceau YAAAAYE";
+            newt->addItem(tachesUnitaires[i]);
+        //}
+    }
+    for(std::size_t i=0; i<tachesComposites.size(); ++i)
+    {
+        Date ech = tachesComposites[i]->getDate();
+        //if(ech<newt->getDate())
+        //{
+            std::cout<<"MArceau YAAAAYE";
+            newt->addItem(tachesComposites[i]);
+        //}
+    }
+    for(std::size_t i=0; i<tachesPreemptables.size(); ++i)
+    {
+        Date ech = tachesPreemptables[i]->getDate();
+        //if(ech<newt->getDate())
+        //{
+            std::cout<<"MArceau YAAAAYE";
+            newt->addItem(tachesPreemptables[i]);
+        //}
+    }
     addItemU(newt);
     return *newt;
 }
@@ -35,6 +66,34 @@ TacheUnitaire& Projet::ajouterTacheUnitaire(const QString& id, const QString& t,
 TachePreemptable& Projet::ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur){
     if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet");
     TachePreemptable* newt=new TachePreemptable(id,t,dispo,deadline, dur);
+    //Ajouter les taches precedentes
+    for(std::size_t i=0; i<tachesUnitaires.size(); ++i)
+    {
+        Date ech = tachesUnitaires[i]->getDate();
+        //if(ech<newt->getDate())
+        //{
+            std::cout<<"MArceau YAAAAYE";
+            newt->addItem(tachesUnitaires[i]);
+        //}
+    }
+    for(std::size_t i=0; i<tachesComposites.size(); ++i)
+    {
+        Date ech = tachesComposites[i]->getDate();
+        //if(ech<newt->getDate())
+        //{
+            std::cout<<"MArceau YAAAAYE";
+            newt->addItem(tachesComposites[i]);
+        //}
+    }
+    for(std::size_t i=0; i<tachesPreemptables.size(); ++i)
+    {
+        Date ech = tachesPreemptables[i]->getDate();
+        //if(ech<newt->getDate())
+        //{
+            std::cout<<"MArceau YAAAAYE";
+            newt->addItem(tachesPreemptables[i]);
+        //}
+    }
     addItemP(newt);
     return *newt;
 }
@@ -42,6 +101,34 @@ TachePreemptable& Projet::ajouterTachePreemptable(const QString& id, const QStri
 TacheComposite& Projet::ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline){
     if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet");
     TacheComposite* newt=new TacheComposite(id,t,dispo,deadline);
+    //Ajouter les taches precedentes
+    for(std::size_t i=0; i<tachesUnitaires.size(); ++i)
+    {
+        Date ech = tachesUnitaires[i]->getDate();
+        //if(ech<newt->getDate())
+        //{
+            std::cout<<"MArceau YAAAAYE";
+            newt->addItem(tachesUnitaires[i]);
+        //}
+    }
+    for(std::size_t i=0; i<tachesComposites.size(); ++i)
+    {
+        Date ech = tachesComposites[i]->getDate();
+        //if(ech<newt->getDate())
+        //{
+            std::cout<<"MArceau YAAAAYE";
+            newt->addItem(tachesComposites[i]);
+        //}
+    }
+    for(std::size_t i=0; i<tachesPreemptables.size(); ++i)
+    {
+        Date ech = tachesPreemptables[i]->getDate();
+        //if(ech<newt->getDate())
+        //{
+            std::cout<<"MArceau YAAAAYE";
+            newt->addItem(tachesPreemptables[i]);
+        //}
+    }
     addItemC(newt);
     return *newt;
 }
@@ -103,4 +190,28 @@ std::ostream& operator<<(std::ostream& f, const Projet& p){
     return f;
 }
 
+void Projet::afficherPrecedence(const QString& id) const
+{
+    for(std::size_t i=0;i<tachesUnitaires.size();++i) {
+        if (id==tachesUnitaires[i]->getId())
+        {
+            tachesUnitaires[i]->afficherPrecedence();
+            return;
+        }
+    }
+    for(std::size_t i=0;i<tachesComposites.size();++i) {
+        if (id==tachesComposites[i]->getId())
+        {
+            tachesComposites[i]->afficherPrecedence();
+            return;
+        }
+    }
+    for(std::size_t i=0;i<tachesPreemptables.size();++i) {
+        if (id==tachesPreemptables[i]->getId())
+        {
+            tachesPreemptables[i]->afficherPrecedence();
+            return;
+        }
+    }
+}
 
