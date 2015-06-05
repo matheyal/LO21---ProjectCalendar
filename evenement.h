@@ -2,9 +2,7 @@
 #define EVENEMENT
 
 #include "timing.h"
-#include <QString>
-#include <QDate>
-#include <QTextStream>
+#include "qt.h"
 
 using namespace std;
 

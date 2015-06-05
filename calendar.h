@@ -1,8 +1,8 @@
 #ifndef CALENDAR_h
 #define CALENDAR_h
-#include <QString>
-#include <QDate>
-#include <QTextStream>
+
+#include "qt.h"
+
 using namespace std;
 
 class CalendarException{

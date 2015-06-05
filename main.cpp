@@ -1,4 +1,4 @@
-#include <QCoreApplication>
+#include "qt.h"
 #include <iostream>
 #include "activite.h"
 #include "agenda.h"

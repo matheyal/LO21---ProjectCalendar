@@ -3,7 +3,7 @@
 
 #include "timing.h"
 #include "tache.h"
-#include <QDate>
+#include "qt.h"
 
 class TacheUnitaire : public Tache {
 private:

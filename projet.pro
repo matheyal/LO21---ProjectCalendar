@@ -48,4 +48,5 @@ HEADERS += \
     fabriqueactiv.h \
     projetmanager.h \
     calendar.h \
-    tachepreemptable.h
+    tachepreemptable.h \
+    qt.h

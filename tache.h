@@ -4,7 +4,7 @@
 #include "timing.h"
 #include "evenement.h"
 #include <vector>
-#include <QDate>
+#include "qt.h"
 
 class Projet;
 class Tache : public Evenement {
