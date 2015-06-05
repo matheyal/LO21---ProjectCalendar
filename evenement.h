@@ -8,7 +8,6 @@ using namespace std;
 
 using namespace TIME;
 
-
 class Evenement {
 private:
     QString id;
@@ -24,11 +23,12 @@ public:
     void setTitre(const QString& t) {titre = t;}
     void setDateDisponibilite(const Date& d) {dispo = d;}
     void setEcheance(const Date& ech) {echeance = ech;}
-    virtual void afficher(std::ostream& f) const{f<<"Dispo : "<<dispo<<"\nEcheance"<<echeance;} //arranger l'affichage pour le polymorphisme + créer la fonction dans les classes filles
+    virtual void afficher(std::ostream& f) const{f<<"\nID : "<<qPrintable(id)<<"\nTitre : "<<qPrintable(titre)<<"\nDispo : "<<dispo<<"\nEcheance : "<<echeance;} //arranger l'affichage pour le polymorphisme + créer la fonction dans les classes filles
 };
 
 std::ostream& operator<<(std::ostream& fout, const Evenement& e);
 bool operator ==(const Evenement& e1, const Evenement& e2);
+
 
 #endif // EVENEMENT
 
