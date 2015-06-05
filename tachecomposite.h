@@ -10,7 +10,7 @@ private:
     vector<Tache*> tachesPrecedentes;
     vector<Tache*> soustaches;
 public:
-    TacheComposite(const QString& ident, const QString& t, const Date& d,const Date& ech):Tache(ident,t,d,ech),soustaches(0), tachesPrecedentes(0){}
+    TacheComposite(const QString& ident, const QString& t, const Date& d,const Date& ech):Tache(ident,t,d,ech), tachesPrecedentes(0), soustaches(0){}
     void ajouterSousTache(const QString& ident, const QString& t, const Date& d,const Date& ech);
     void supprimerSousTache(const Tache& t);
     bool begun(){};

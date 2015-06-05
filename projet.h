@@ -34,7 +34,7 @@ private:
      void addItemC(TacheComposite* t);
 
 public:
-     Projet(const QString& i, const QString& ti, const QString& desc, const Date& d,const Date& ech):id(i), titre(ti),description(desc),dispo(d),echeance(ech),tachesUnitaires(0), tachesComposites(0), tachesPreemptables(0){}
+     Projet(const QString& i, const QString& ti, const QString& desc, const Date& d,const Date& ech):id(i), titre(ti),description(desc),dispo(d),echeance(ech),tachesUnitaires(0), tachesPreemptables(0), tachesComposites(0){}
      ~Projet();
      TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur);
      TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur);

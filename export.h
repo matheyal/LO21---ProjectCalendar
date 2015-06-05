@@ -2,11 +2,17 @@
 #define EXPORT_H
 
 #include "projetmanager.h"
+#include "calendar.h"
 #include "qt.h"
 
 class ExportStrategy {
 public:
-    virtual save(ExportStrategy* strategy, const QString& f) = 0;
+    virtual void save(const QString& f) = 0;
+};
+
+class ExportXML : public ExportStrategy {
+public:
+    void save(const QString& f);
 };
 
 #endif // EXPORT_H
