@@ -5,6 +5,10 @@
 #include <QString>
 #include <QDate>
 #include <QTextStream>
+#include <QFile>
+#include <QTextCodec>
+#include <QtXml>
+#include <QMessageBox>
 
 #endif // QT_H
 
