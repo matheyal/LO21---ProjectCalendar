@@ -1,4 +1,4 @@
-#include "export.h"
+/*#include "export.h"
 
 void ExportXML::save(const QString& f){
     //file=f;
@@ -25,4 +25,4 @@ void ExportXML::save(const QString& f){
     stream.writeEndElement();
     stream.writeEndDocument();
     newfile.close();
-}
+}*/
