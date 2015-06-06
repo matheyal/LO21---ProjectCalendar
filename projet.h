@@ -26,16 +26,14 @@ private:
      QString description;
      Date dispo;
      Date echeance;
-     vector<TacheUnitaire*> tachesUnitaires;
-     vector<TachePreemptable*> tachesPreemptables;
-     vector<TacheComposite*> tachesComposites;
-     void addItemU(TacheUnitaire* t);
-     void addItemP(TachePreemptable* t);
-     void addItemC(TacheComposite* t);
+     vector<Tache*> taches;
+     void addItem(Tache* t);
+     Projet(const QString& i, const QString& ti, const QString& desc, const Date& d,const Date& ech):id(i), titre(ti),description(desc),dispo(d),echeance(ech),taches(0){}
+     ~Projet();
+     friend class ProjetManager;
 
 public:
-     Projet(const QString& i, const QString& ti, const QString& desc, const Date& d,const Date& ech):id(i), titre(ti),description(desc),dispo(d),echeance(ech),tachesUnitaires(0), tachesPreemptables(0), tachesComposites(0){}
-     ~Projet();
+
      TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur);
      TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur);
      TacheComposite& ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline);
@@ -53,9 +51,9 @@ public:
      void setDispo(const Date& dateDispo){dispo  = dateDispo;}
      void setEcheance(const Date& ech){echeance  = ech;}
      void afficherPrecedence(const QString& id) const;
-     size_t getSizeUnitaire(){return tachesUnitaires.size();}
+     /*size_t getSizeUnitaire(){return tachesUnitaires.size();}
      size_t getSizeComposite(){return tachesComposites.size();}
-     size_t getSizePreemptable(){return tachesPreemptables.size();}
+     size_t getSizePreemptable(){return tachesPreemptables.size();}*/
 };
 
 std::ostream& operator<<(std::ostream& f, const Projet& p);

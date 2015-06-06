@@ -12,7 +12,7 @@ public:
     Duree getDuree() const{return getDuree();}
     void addItem(Tache *t);
     void afficherPrecedence() const;
-    void afficher(std::ostream& f)const {Evenement::afficher(f);std::cout<<"\nDuree : "<<getDuree();}
+    //void afficher(std::ostream& f)const {Evenement::afficher(f);std::cout<<"\nDuree : "<<getDuree();}
 
 };
 
