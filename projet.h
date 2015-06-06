@@ -50,10 +50,6 @@ public:
      void setTitre(const QString& nom){titre = nom;}
      void setDispo(const Date& dateDispo){dispo  = dateDispo;}
      void setEcheance(const Date& ech){echeance  = ech;}
-     void afficherPrecedence(const QString& id) const;
-     /*size_t getSizeUnitaire(){return tachesUnitaires.size();}
-     size_t getSizeComposite(){return tachesComposites.size();}
-     size_t getSizePreemptable(){return tachesPreemptables.size();}*/
 };
 
 std::ostream& operator<<(std::ostream& f, const Projet& p);

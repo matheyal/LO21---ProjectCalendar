@@ -102,14 +102,5 @@ std::ostream& operator<<(std::ostream& f, const Projet& p){
     return f;
 }
 
-/*void Projet::afficherPrecedence(const QString& id) const
-{
-    for(std::size_t i=0;i<taches.size();++i) {
-        if (id==taches[i]->getId())
-        {
-            taches[i]->afficherPrecedence();
-            return;
-        }
-    }
-}*/
+
 

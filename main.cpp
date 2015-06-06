@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     pm.trouverProjet("1")->ajouterTachePreemptable("5","c'est Cool", Date(12,10,1984), Date(12,10,2000), Duree(2,30));
     pm.trouverProjet("1")->ajouterTacheUnitaire("6","c'est toptip", Date(12,10,1982), Date(12,10,1983), Duree(2,30));
 
-   pm.afficherProjets();
+    pm.afficherProjets();
 
 
     return 0;
