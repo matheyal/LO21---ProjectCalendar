@@ -12,7 +12,7 @@ private:
     Duree duree;
 
 public:
-    TacheUnitaire(const QString& ident, const QString& t, const Date& d,const Date& ech,const Duree& du):Tache(ident,t,d,ech),tachesPrecedentes(0),duree(du){std::cout<<"creation d'une tache unitaire";}
+    TacheUnitaire(const QString& ident, const QString& t, const Date& d,const Date& ech,const Duree& du):Tache(ident,t,d,ech),tachesPrecedentes(0),duree(du){std::cout<<"creation d'une tache unitaire\n";}
     Duree getDuree() const{return duree;}
     bool begun(){};
     bool terminated(){};

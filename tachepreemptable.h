@@ -8,7 +8,7 @@ class TachePreemptable : public TacheUnitaire {
 private:
     vector<Tache*> tachesPrecedentes;
 public:
-    TachePreemptable(const QString& ident, const QString& t, const Date& d,const Date& ech,const Duree& du):TacheUnitaire(ident,t,d,ech, du), tachesPrecedentes(0){}
+    TachePreemptable(const QString& ident, const QString& t, const Date& d,const Date& ech,const Duree& du):TacheUnitaire(ident,t,d,ech, du), tachesPrecedentes(0){std::cout<<"qui est preemptable\n";}
     Duree getDuree() const{return getDuree();}
     void addItem(Tache *t);
     void afficherPrecedence() const;

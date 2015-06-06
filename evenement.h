@@ -15,7 +15,7 @@ private:
     Date dispo;
     Date echeance;
 public:
-    Evenement(const QString& ident, const QString& t, const Date& d,const Date& ech):id(ident),titre(t),dispo(d),echeance(ech){std::cout<<"creation d'un evenement";}
+    Evenement(const QString& ident, const QString& t, const Date& d,const Date& ech):id(ident),titre(t),dispo(d),echeance(ech){std::cout<<"creation d'un evenement\n";}
     QString getId() const{return id;}
     QString getTitre() const{return titre;}
     Date getDate() const{return dispo;}
