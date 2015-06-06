@@ -13,6 +13,7 @@ public:
     TacheComposite(const QString& ident, const QString& t, const Date& d,const Date& ech):Tache(ident,t,d,ech), tachesPrecedentes(0), soustaches(0){}
     void ajouterSousTache(const QString& ident, const QString& t, const Date& d,const Date& ech);
     void supprimerSousTache(const Tache& t);
+    void afficher(std::ostream& f)const {Evenement::afficher(f);}
     bool begun(){};
     bool terminated(){};
     void addItem(Tache* t);

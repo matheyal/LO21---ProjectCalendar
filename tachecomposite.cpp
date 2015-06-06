@@ -6,6 +6,11 @@ std::ostream& operator<<(std::ostream& fout, const TacheComposite& t){
     return fout;
 };
 
+void ajouterSousTache(const QString& ident, const QString& t, const Date& d,const Date& ech)
+{
+
+}
+
 void TacheComposite::addItem(Tache* t){
     tachesPrecedentes.push_back(t);
 }

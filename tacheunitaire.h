@@ -16,7 +16,7 @@ public:
     Duree getDuree() const{return duree;}
     bool begun(){};
     bool terminated(){};
-    void afficher(std::ostream& f)const {Evenement::afficher(f);std::cout<<"\nDuree : "<<duree;}
+    void afficher(std::ostream& f)const {Evenement::afficher(f);std::cout<<"\nDuree : "<<getDuree();}
     void addItem(Tache* t);
     void afficherPrecedence() const;
     size_t getSizeVector(){return tachesPrecedentes.size();}
