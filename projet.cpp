@@ -16,55 +16,62 @@ void Projet::afficherTaches() const {
 }
 
 TacheUnitaire& Projet::ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur){
-    if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet");
-    TacheUnitaire* newt=new TacheUnitaire(id,t,dispo,deadline, dur);
-    //Ajouter les taches precedentes
-    for(std::size_t i=0; i<taches.size(); ++i)
-    {
-        Date ech(taches[i]->getEcheance());
-        std::cout<<"Date"<<ech;
-        if(ech<newt->getDate())
+    if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet\n");
+    if (dispo<deadline){
+        TacheUnitaire* newt=new TacheUnitaire(id,t,dispo,deadline, dur);
+        //Ajouter les taches precedentes
+        for(std::size_t i=0; i<taches.size(); ++i)
         {
-            std::cout<<"Ajout tache unitaire\n";
-            newt->addItem(taches[i]);
+            Date ech(taches[i]->getEcheance());
+            std::cout<<"Date"<<ech;
+            if(ech<newt->getDate())
+            {
+                std::cout<<"Ajout tache unitaire\n";
+                newt->addItem(taches[i]);
+            }
         }
-    }
-    addItem(newt);
-    return *newt;
+        addItem(newt);
+        return *newt;
+    } else throw ProjetException("erreur, date d'échéance antérieur à la date de disponibilité\n");
+
 }
 
 TachePreemptable& Projet::ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur){
-    if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet");
-    TachePreemptable* newt=new TachePreemptable(id,t,dispo,deadline, dur);
-    //Ajouter les taches precedentes
-    for(std::size_t i=0; i<taches.size(); ++i)
-    {
-        Date ech(taches[i]->getEcheance());
-        if(ech<newt->getDate())
+    if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet\n");
+    if (dispo<deadline){
+        TachePreemptable* newt=new TachePreemptable(id,t,dispo,deadline, dur);
+        //Ajouter les taches precedentes
+        for(std::size_t i=0; i<taches.size(); ++i)
         {
-            newt->addItem(taches[i]);
+            Date ech(taches[i]->getEcheance());
+            if(ech<newt->getDate())
+            {
+                newt->addItem(taches[i]);
+            }
         }
-    }
-    addItem(newt);
-    return *newt;
+        addItem(newt);
+        return *newt;
+    } else throw ProjetException("erreur, date d'échéance antérieur à la date de disponibilité\n");
 }
 
 
 TacheComposite& Projet::ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline){
-    if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet");
-    TacheComposite* newt=new TacheComposite(id,t,dispo,deadline);
-    //Ajouter les taches precedentes
-    for(std::size_t i=0; i<taches.size(); ++i)
-    {
-        Date ech(taches[i]->getEcheance());
-        if(ech<newt->getDate())
+    if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet\n");
+    if (dispo<deadline){
+        TacheComposite* newt=new TacheComposite(id,t,dispo,deadline);
+        //Ajouter les taches precedentes
+        for(std::size_t i=0; i<taches.size(); ++i)
         {
-            std::cout<<"Ajout tache unitaire";
-            newt->addItem(taches[i]);
+            Date ech(taches[i]->getEcheance());
+            if(ech<newt->getDate())
+            {
+                std::cout<<"Ajout tache unitaire";
+                newt->addItem(taches[i]);
+            }
         }
-    }
-    addItem(newt);
-    return *newt;
+        addItem(newt);
+        return *newt;
+    } else throw ProjetException("erreur, date d'échéance antérieur à la date de disponibilité\n");
 }
 
 void Projet::supprimerTache(const QString& ident){
