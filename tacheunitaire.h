@@ -19,6 +19,7 @@ public:
     void afficher(std::ostream& f)const {Evenement::afficher(f);std::cout<<"\nDuree : "<<duree;}
     void addItem(Tache* t);
     void afficherPrecedence() const;
+    size_t getSizeVector(){return tachesPrecedentes.size();}
 
 };
 std::ostream& operator<<(std::ostream& fout, const TacheUnitaire& t);

@@ -10,10 +10,10 @@ void TacheUnitaire::addItem(Tache *t){
     tachesPrecedentes.push_back(t);
 }
 
-void TacheUnitaire::afficherPrecedence() const
+void TacheUnitaire::afficherPrecedence()  const
 {
-    for(std::size_t i=0;i<tachesPrecedentes.size();++i) {
-        std::cout<<*tachesPrecedentes[i]<<std::endl;
-        std::cout<<"hello";
+    for(std::size_t i=0; i<tachesPrecedentes.size();i++)
+    {
+        std::cout<<"Echeance : "<<tachesPrecedentes[i]->getEcheance();
     }
 }

@@ -12,6 +12,6 @@ void TachePreemptable::addItem(Tache* t){
 void TachePreemptable::afficherPrecedence() const
 {
     for(std::size_t i=0;i<tachesPrecedentes.size();++i) {
-        std::cout<<*tachesPrecedentes[i]<<std::endl;
+        std::cout<<"\nID : "<<qPrintable(tachesPrecedentes[i]->getId())<<"\nTitre : "<<qPrintable(tachesPrecedentes[i]->getTitre());
     }
 }
