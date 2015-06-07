@@ -1,4 +1,4 @@
-/*
+
 #include "export.h"
 
 void ExportXML::save(const QString& f){
@@ -17,24 +17,26 @@ void ExportXML::save(const QString& f){
         stream.writeTextElement("identificateur",(*it1)->getId());
         stream.writeTextElement("titre",(*it1)->getTitre());
         stream.writeTextElement("description",(*it1)->getDesc());
-        stream.writeTextElement("disponibilite",(*it1)->getDispo().toString(Qt::ISODate));
-        stream.writeTextElement("echeance",(*it1)->getEcheance().toString(Qt::ISODate));
+        stream.writeTextElement("disponibilite",(*it1)->getDispo().toString());
+        stream.writeTextElement("echeance",(*it1)->getEcheance().toString());
         for (vector<Tache*>::iterator it2 = (*it1)->getTaches().begin() ; it2 != (*it1)->getTaches().end() ; ++it2){
-
+            stream.writeStartElement("tache");
+            //pour préemptive s'arranger pour trouver si la Tache est du type tachepreemptable
+            //stream.writeAttribute("preemptive", ((*it2)->isPreemptive())?"true":"false");
+            stream.writeTextElement("identificateur",(*it2)->getId());
+            stream.writeTextElement("titre",(*it2)->getTitre());
+            stream.writeTextElement("disponibilite",(*it2)->getDate().toString());
+            stream.writeTextElement("echeance",(*it2)->getEcheance().toString());
+            //Durée uniquement si tache unitaire
+            /*
+            QString str;
+            str.setNum(taches[i]->getDuree().getDureeEnMinutes());
+            stream.writeTextElement("duree",str);
+            */
+            stream.writeEndElement();
         }
-        stream.writeStartElement("tache");
-        stream.writeAttribute("preemptive", (taches[i]->isPreemptive())?"true":"false");
-        stream.writeTextElement("identificateur",taches[i]->getId());
-        stream.writeTextElement("titre",taches[i]->getTitre());
-        stream.writeTextElement("disponibilite",taches[i]->getDateDisponibilite().toString(Qt::ISODate));
-        stream.writeTextElement("echeance",taches[i]->getDateEcheance().toString(Qt::ISODate));
-        QString str;
-        str.setNum(taches[i]->getDuree().getDureeEnMinutes());
-        stream.writeTextElement("duree",str);
-        stream.writeEndElement();
     }
     stream.writeEndElement();
     stream.writeEndDocument();
     newfile.close();
 }
-*/

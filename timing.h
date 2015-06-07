@@ -3,6 +3,8 @@
 
 #include<iostream>
 #include<iomanip>
+#include <sstream>
+#include "qt.h"
 
 namespace TIME {
 	/*! \class TimeException
@@ -43,7 +45,7 @@ namespace TIME {
 		Date demain() const; //<! Retourne la date du lendemain
 		Date operator+(unsigned int nb) const; //<!Retourne la date de dans nb jours
         Date(const Date& date):jour(date.getJour()), mois(date.getMois()), annee(date.getAnnee()){}
-            private:
+        QString toString() const;
 	private:
 		// attributs
 		unsigned short int jour; // jour entre 1 et 31
