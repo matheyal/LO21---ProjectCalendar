@@ -17,6 +17,7 @@ public:
     bool terminated(){};
     void afficher(std::ostream& f)const {Evenement::afficher(f);std::cout<<"\nDuree : "<<getDuree();}
     void commencer();
+    void setDuree(Duree d){duree=d;}
 
 };
 std::ostream& operator<<(std::ostream& fout, const TacheUnitaire& t);
