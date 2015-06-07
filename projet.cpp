@@ -29,7 +29,7 @@ TacheUnitaire& Projet::ajouterTacheUnitaire(const QString& id, const QString& t,
     }else throw ProjetException("erreur, les dates ne concordent pas");
 }
 
-TachePreemptable& Projet::ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur,  Tache *t2=0){
+TachePreemptable& Projet::ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur,  Tache *t2){
     if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet");
     if (dispo<deadline && dur<Duree(12,0)){
         TachePreemptable* newt=new TachePreemptable(id,t,dispo,deadline, dur);
@@ -42,7 +42,7 @@ TachePreemptable& Projet::ajouterTachePreemptable(const QString& id, const QStri
 }
 
 
-TacheComposite& Projet::ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline,  Tache *t2=0){
+TacheComposite& Projet::ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline,  Tache *t2){
 
     if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet");
     if (dispo<deadline){

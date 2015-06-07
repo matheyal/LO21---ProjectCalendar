@@ -34,9 +34,9 @@ private:
 
 public:
 
-     TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur, Tache *t2);
-     TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur,  Tache *t2);
-     TacheComposite& ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline,  Tache *t2);
+     TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur, Tache *t2=0);
+     TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur,  Tache *t2=0);
+     TacheComposite& ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline,  Tache *t2=0);
      void supprimerTache(const QString& ident);
      void afficherTaches() const;
      Tache& getTache(const QString& id);
