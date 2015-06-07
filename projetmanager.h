@@ -35,7 +35,9 @@ public:
     void supprimerProjet(const QString& id);
     Projet* trouverProjet(const QString &id) const;
     void afficherProjets() const;
-};//hello
+    unsigned int size() const {return projets.size();};
+    vector<Projet*> getProjets() const{return projets;}
+};
 
 #endif // PROJETMANAGER
 

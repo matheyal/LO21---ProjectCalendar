@@ -1,3 +1,4 @@
+/*
 #ifndef EXPORT_H
 #define EXPORT_H
 
@@ -6,6 +7,8 @@
 #include "qt.h"
 
 class ExportStrategy {
+friend class ProjetManager;
+friend class Projet;
 public:
     virtual void save(const QString& f) = 0;
 };
@@ -16,4 +19,4 @@ public:
 };
 
 #endif // EXPORT_H
-
+*/

@@ -50,6 +50,7 @@ public:
      void setTitre(const QString& nom){titre = nom;}
      void setDispo(const Date& dateDispo){dispo  = dateDispo;}
      void setEcheance(const Date& ech){echeance  = ech;}
+     vector<Tache*> getTaches() const{return taches;}
 };
 
 std::ostream& operator<<(std::ostream& f, const Projet& p);
