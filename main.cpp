@@ -3,8 +3,6 @@
 #include "activite.h"
 #include "agenda.h"
 #include "evenement.h"
-#include "fabrique.h"
-#include "fabriqueactiv.h"
 #include "programmation.h"
 #include "projet.h"
 #include "projetmanager.h"
@@ -12,6 +10,7 @@
 #include "tachecomposite.h"
 #include "tacheunitaire.h"
 #include "timing.h"
+#include <vector>
 #include <unistd.h>
 #include "export.h"
 
@@ -29,5 +28,16 @@ int main(int argc, char *argv[])
     prem->interruption();
     prem->reprise();
 
-    return 0;
+   Reunion* pt=new Reunion("3","caca",Date(12,10,1324),Date(15,10,1324),Duree(2,4),"coucou");
+    pt->afficher(cout);
+  /* pt->ajouterParticipant("prout");
+    cout<<pt->getNbParticipants();
+
+    pt->afficher(cout);
+    pt->supprimmerParticipant("prout");
+    pt->afficher(cout);
+ */
+
+  // return a.exec();
+   return 0;
 }

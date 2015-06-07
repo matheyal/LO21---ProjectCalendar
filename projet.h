@@ -5,7 +5,6 @@
 #include "tachecomposite.h"
 #include "tachepreemptable.h"
 #include "tache.h"
-#include "fabrique.h"
 #include "qt.h"
 #include "calendar.h"
 #include "timing.h"
@@ -19,7 +18,7 @@ public:
     QString& getInfo() { return info; }
 };
 
-class Projet{
+class Projet {
 private:
      QString id;
      QString titre;

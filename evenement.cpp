@@ -4,7 +4,6 @@
 
 
 std::ostream& operator<<(std::ostream& fout, const Evenement& e){
-    //e.Evenement::afficher();
     e.afficher(fout);
     return fout;
 }
