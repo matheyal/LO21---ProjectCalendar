@@ -19,7 +19,7 @@ public:
     QString& getInfo() { return info; }
 };
 
-class Projet : public Fabrique{
+class Projet{
 private:
      QString id;
      QString titre;
@@ -34,9 +34,9 @@ private:
 
 public:
 
-     TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur);
-     TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur);
-     TacheComposite& ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline);
+     TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur, Tache *t2);
+     TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur,  Tache *t2);
+     TacheComposite& ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline,  Tache *t2);
      void supprimerTache(const QString& ident);
      void afficherTaches() const;
      Tache& getTache(const QString& id);
