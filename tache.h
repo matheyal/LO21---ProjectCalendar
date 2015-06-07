@@ -17,8 +17,6 @@ public:
     virtual bool begun()=0;
     virtual bool terminated()=0;
     virtual void afficher(std::ostream& f)const =0;
-    //Déclarationde getDUree pour pouvoir accéder à cette méthode de la classe TacheUnitaire à partir d'un pointeur de Tache
-    virtual Duree getDuree() const = 0;
     void addItem(Tache* t);
     void afficherPrecedence();
 };

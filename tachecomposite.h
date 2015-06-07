@@ -30,8 +30,6 @@ public:
     void afficher(std::ostream& f)const {Evenement::afficher(f);}
     bool begun(){};
     bool terminated(){};
-    //Définition de getDuree() pour éviter que la classe soit abstraite mais n'a pas rellement de sens
-    virtual Duree getDuree() const{return 0;};
     Tache* trouverTache(const QString& id)const;
 };
 
