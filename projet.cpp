@@ -19,6 +19,7 @@ TacheUnitaire& Projet::ajouterTacheUnitaire(const QString& id, const QString& t,
     if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet");
     TacheUnitaire* newt=new TacheUnitaire(id,t,dispo,deadline, dur);
     //Ajouter les taches precedentes
+    /*
     for(std::size_t i=0; i<taches.size(); ++i)
     {
         Date ech(taches[i]->getEcheance());
@@ -28,7 +29,7 @@ TacheUnitaire& Projet::ajouterTacheUnitaire(const QString& id, const QString& t,
             std::cout<<"Ajout tache unitaire\n";
             newt->addItem(taches[i]);
         }
-    }
+    }*/
     addItem(newt);
     return *newt;
 }
