@@ -15,12 +15,8 @@ private:
     QDateTime debut;
     QDateTime fin;
 public:
-<<<<<<< HEAD
     QString Type() const {return typeid(*this).name();}
-    Tache(const QString& ident, const QString& t, const Date& d,const Date& ech): Evenement(ident,t,d,ech){std::cout<<"creation d'une tache";}
-=======
     Tache(const QString& ident, const QString& t, const Date& d,const Date& ech): Evenement(ident,t,d,ech), tachesPrecedentes(0), debut(QDateTime::currentDateTime()), fin(QDateTime::currentDateTime()){std::cout<<"creation d'une tache\n";}
->>>>>>> a6cd4216acc54cca3aec88cf4c12149b93bf0892
     virtual bool begun()=0;
     virtual bool terminated()=0;
     virtual void afficher(std::ostream& f)const =0;

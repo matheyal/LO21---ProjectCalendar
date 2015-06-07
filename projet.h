@@ -18,11 +18,7 @@ public:
     QString& getInfo() { return info; }
 };
 
-<<<<<<< HEAD
 class Projet {
-=======
-class Projet{
->>>>>>> a6cd4216acc54cca3aec88cf4c12149b93bf0892
 private:
      QString id;
      QString titre;
