@@ -23,9 +23,9 @@ public:
     void afficherPrecedence();
     virtual void commencer()=0;
     void setDebut(QDateTime d){debut=d;}
-    QDateTime getDebut(){return debut;}
+    QDateTime getDebut() const {return debut;}
     void setFin(QDateTime f){fin=f;}
-    QDateTime getFin(){return fin;}
+    QDateTime getFin() const{return fin;}
     virtual Duree getDuree() const =0;
 };
 

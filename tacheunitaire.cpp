@@ -9,7 +9,6 @@ std::ostream& operator<<(std::ostream& fout, const TacheUnitaire& t){
 void TacheUnitaire::commencer()
 {
     setDebut(QDateTime::currentDateTime());
-    int min=duree.getDureeEnMinutes();
+    int min=getDuree().getDureeEnMinutes();
     setFin(getDebut().addSecs(min*60));
-    std::cout<<"tout va bien";
 }

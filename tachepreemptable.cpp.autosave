@@ -33,7 +33,7 @@ void TachePreemptable::reprise()
 {
     if (getEnCours()==true)
     {
-        std::cout<<"Tache pas commencée";
+        std::cout<<"Tache déja en cours";
         return;
     }
     setEnCours(true);
