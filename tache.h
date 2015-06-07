@@ -26,7 +26,11 @@ public:
     QDateTime getDebut() const {return debut;}
     void setFin(QDateTime f){fin=f;}
     QDateTime getFin() const{return fin;}
+    //méthode virtuelle pour permettre l'appel de getDuree() sur un pointeur de Tache
     virtual Duree getDuree() const =0;
+    //méthode virtuelle pour permettre l'appel de getSousTaches() sur un pointeur de Tache
+    virtual const vector<Tache*>* getSousTaches() const = 0;
+    const vector<Tache*>* getTachesPrecedentes() const{return &tachesPrecedentes;}
 };
 
 std::ostream& operator<<(std::ostream& f, const Tache& t);

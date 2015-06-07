@@ -31,9 +31,10 @@ public:
     bool begun(){};
     bool terminated(){};
     //Définition de getDuree() pour éviter que la classe soit abstraite mais n'a pas rellement de sens
-    Duree getDuree() const{return 0;};
+    Duree getDuree() const{return 0;}
     Tache* trouverTache(const QString& id)const;
     void commencer();
+    const vector<Tache*>* getSousTaches() const{return &soustaches;}
 };
 
 std::ostream& operator<<(std::ostream& fout, const TacheComposite& t);

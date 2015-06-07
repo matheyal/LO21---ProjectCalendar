@@ -18,6 +18,8 @@ public:
     void afficher(std::ostream& f)const {Evenement::afficher(f);std::cout<<"\nDuree : "<<getDuree();}
     void commencer();
     void setDuree(Duree d){duree=d;}
+    //Définition de getSousTaches pour ne pas avoir de classe abstraite
+    const vector<Tache*>* getSousTaches() const{return 0;}
 
 };
 std::ostream& operator<<(std::ostream& fout, const TacheUnitaire& t);
