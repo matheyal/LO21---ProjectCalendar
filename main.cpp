@@ -10,6 +10,7 @@
 #include "tachecomposite.h"
 #include "tacheunitaire.h"
 #include "timing.h"
+<<<<<<< HEAD
 #include <vector>
 
 int main(int argc, char *argv[])
@@ -26,8 +27,26 @@ int main(int argc, char *argv[])
     p1->afficherPrecedence("3");
     std::cout<<"Fin de la precedence";
     p1->afficherTaches();*/
+=======
+#include <unistd.h>
+#include "export.h"
 
+int main(int argc, char *argv[])
+{
 
+    //QCoreApplication a(argc, argv);
+    ProjetManager& pm= ProjetManager::getInstance();
+>>>>>>> a6cd4216acc54cca3aec88cf4c12149b93bf0892
+
+    TacheUnitaire* unit = new TacheUnitaire("1", "coucou", Date(10,01,2015), Date(10,10,2015), Duree(10,50));
+    unit->commencer();
+    TachePreemptable* prem = new TachePreemptable("2", "coucou", Date(10,01,2015), Date(10,10,2015), Duree(10,50));
+    prem->commencer();
+    TacheUnitaire* unit2 = new TacheUnitaire("3", "coucou", Date(10,01,2015), Date(10,10,2015), Duree(10,50));
+    prem->interruption();
+    prem->reprise();
+
+<<<<<<< HEAD
    Reunion* pt=new Reunion("3","caca",Date(12,10,1324),Date(15,10,1324),Duree(2,4),"coucou");
     pt->afficher(cout);
   /* pt->ajouterParticipant("prout");
@@ -39,4 +58,7 @@ int main(int argc, char *argv[])
  */
 
   // return a.exec();
+=======
+    return 0;
+>>>>>>> a6cd4216acc54cca3aec88cf4c12149b93bf0892
 }

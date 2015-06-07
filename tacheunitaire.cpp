@@ -6,14 +6,9 @@ std::ostream& operator<<(std::ostream& fout, const TacheUnitaire& t){
     return fout;
 };
 
-void TacheUnitaire::addItem(Tache *t){
-    tachesPrecedentes.push_back(t);
-}
-
-void TacheUnitaire::afficherPrecedence() const
+void TacheUnitaire::commencer()
 {
-    for(std::size_t i=0;i<tachesPrecedentes.size();++i) {
-        std::cout<<*tachesPrecedentes[i]<<std::endl;
-        std::cout<<"hello";
-    }
+    setDebut(QDateTime::currentDateTime());
+    int min=getDuree().getDureeEnMinutes();
+    setFin(getDebut().addSecs(min*60));
 }

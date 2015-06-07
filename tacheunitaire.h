@@ -7,18 +7,19 @@
 
 class TacheUnitaire : public Tache {
 private:
-    vector<Tache*> tachesPrecedentes;
     static const int DUREE_MAX = 12;
     Duree duree;
 
 public:
-    TacheUnitaire(const QString& ident, const QString& t, const Date& d,const Date& ech,const Duree& du):Tache(ident,t,d,ech),tachesPrecedentes(0),duree(du){std::cout<<"creation d'une tache unitaire";}
+    TacheUnitaire(const QString& ident, const QString& t, const Date& d,const Date& ech,const Duree& du):Tache(ident,t,d,ech),duree(du){std::cout<<"creation d'une tache unitaire\n";}
     Duree getDuree() const{return duree;}
     bool begun(){};
     bool terminated(){};
-    void afficher(std::ostream& f)const {Evenement::afficher(f);std::cout<<"\nDuree : "<<duree;}
-    void addItem(Tache* t);
-    void afficherPrecedence() const;
+    void afficher(std::ostream& f)const {Evenement::afficher(f);std::cout<<"\nDuree : "<<getDuree();}
+    void commencer();
+    void setDuree(Duree d){duree=d;}
+    //Définition de getSousTaches pour ne pas avoir de classe abstraite
+    const vector<Tache*>* getSousTaches() const{return 0;}
 
 };
 std::ostream& operator<<(std::ostream& fout, const TacheUnitaire& t);

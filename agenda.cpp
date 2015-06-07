@@ -18,9 +18,11 @@ void Agenda::libererInstance(){
 
 Programmation& Agenda::ajouterProg(const Evenement& e, const Date& d, const Horaire& h){
     if (trouverProgrammation(e)) throw AgendaException("erreur, tache deja existante dans le projet");
-    Programmation* newt=new Programmation(d,h,e);
-    addItem(newt);
-    return *newt;
+    if (e.getDate()<d && d<e.getEcheance()){
+        Programmation* newt=new Programmation(d,h,e);
+        addItem(newt);
+        return *newt;
+    }else throw AgendaException("erreur les dates ne concordent pas");
 };
 
 Programmation* Agenda::trouverProgrammation(const Evenement& e) const{

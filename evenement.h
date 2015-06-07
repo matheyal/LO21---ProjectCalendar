@@ -16,7 +16,11 @@ protected:
     Date echeance;
     bool estProg;
 public:
+<<<<<<< HEAD
     Evenement(const QString& ident, const QString& t, const Date& d,const Date& ech, bool estProg=false):id(ident),titre(t),dispo(d),echeance(ech){std::cout<<"creation d'un evenement";}
+=======
+    Evenement(const QString& ident, const QString& t, const Date& d,const Date& ech):id(ident),titre(t),dispo(d),echeance(ech){std::cout<<"creation d'un evenement\n";}
+>>>>>>> a6cd4216acc54cca3aec88cf4c12149b93bf0892
     QString getId() const{return id;}
     bool getStatus()const {return estProg;}
     QString getTitre() const{return titre;}

@@ -1,4 +1,4 @@
-#include "import.h"
+/*#include "import.h"
 
 /* void ImportXML::load(const QString& f){
     //qDebug()<<"debut load\n";
@@ -33,7 +33,11 @@
                 bool preemptive;
 
                 QXmlStreamAttributes attributes = xml.attributes();
+<<<<<<< HEAD
                 Let's check that Task has attribute.
+=======
+                // Let's check that Task has attribute.
+>>>>>>> a6cd4216acc54cca3aec88cf4c12149b93bf0892
                 if(attributes.hasAttribute("preemptive")) {
                     QString val =attributes.value("preemptive").toString();
                     preemptive=(val == "true" ? true : false);
@@ -93,5 +97,9 @@
     // Removes any device() or data from the reader * and resets its internal state to the initial state.
     xml.clear();
     //qDebug()<<"fin load\n";
+<<<<<<< HEAD
 }
 */
+=======
+}*/
+>>>>>>> a6cd4216acc54cca3aec88cf4c12149b93bf0892

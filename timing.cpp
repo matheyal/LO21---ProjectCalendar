@@ -37,6 +37,12 @@ void Date::afficher(std::ostream& f) const{
 	f<<std::setfill('0')<<std::setw(2)<<jour<<"/"<<std::setw(2)<<mois<<"/"<<annee<<std::setfill(' ');
 }
 
+QString Date::toString() const{
+    std::stringstream s;
+    s<<std::setfill('0')<<std::setw(2)<<jour<<"/"<<std::setw(2)<<mois<<"/"<<annee<<std::setfill(' ');
+    return QString::fromStdString(s.str());
+}
+
 bool Date::operator==(const Date& d) const{
 	if (annee<d.annee) return false;
 	if (annee>d.annee) return false;
@@ -174,4 +180,8 @@ std::istream& operator>>(std::istream& flot, TIME::Duree& duree){
 	}
 	if (ok) duree=Duree(h,m); else flot.clear(std::ios::failbit);
 	return flot;
+}
+
+bool Duree::operator<(const Duree& d) const{
+    return (this->getDureeEnMinutes()<d.getDureeEnMinutes());
 }

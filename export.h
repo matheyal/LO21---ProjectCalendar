@@ -1,7 +1,6 @@
 #ifndef EXPORT_H
 #define EXPORT_H
 
-#include "projetmanager.h"
 #include "calendar.h"
 #include "qt.h"
 
@@ -16,4 +15,3 @@ public:
 };
 
 #endif // EXPORT_H
-
