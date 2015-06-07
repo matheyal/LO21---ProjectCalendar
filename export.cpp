@@ -12,6 +12,7 @@ void ExportXML::save(const QString& f){
     stream.setAutoFormatting(true);
     stream.writeStartDocument();
     //Écriture de tous les projets dans une balise <projets>
+    stream.writeStartElement("projectcalendar");
     stream.writeStartElement("projets");
     const vector<Projet*>* projets = PM.getProjets();
     for(vector<Projet*>::const_iterator it1 = projets->begin(); it1 != projets->end(); ++it1){
@@ -61,7 +62,7 @@ void ExportXML::save(const QString& f){
         const vector<Tache*>* taches = (*it1)->getTaches();
         for (vector<Tache*>::const_iterator it2 = taches->begin() ; it2 != taches->end() ; ++it2){ //Itération sur les taches du projet
             const vector<Tache*>* tachesPrecedentes = (*it2)->getTachesPrecedentes();
-            if (tachesPrecedentes != 0){ //La tache a des contraintes de precedence
+            if (!tachesPrecedentes->empty()){ //La tache a des contraintes de precedence
                 stream.writeStartElement("precedence");
                 stream.writeAttribute("id", (*it2)->getId());
                 for (vector<Tache*>::const_iterator it3 = tachesPrecedentes->begin() ; it3 != tachesPrecedentes->end() ; ++it3) //Pour chaque tache, itération sur les taches précédentes
@@ -88,7 +89,7 @@ void ExportXML::save(const QString& f){
         }
     }
     stream.writeEndElement(); // Fin <composites>
-
+    stream.writeEndElement(); // Fin <projectcalendar>
     stream.writeEndDocument();
     newfile.close();
 }
