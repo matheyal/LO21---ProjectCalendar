@@ -34,7 +34,6 @@ public:
     Duree getDuree() const{return 0;};
     Tache* trouverTache(const QString& id)const;
     void commencer();
-    Duree getDuree() const{return 0;}
 };
 
 std::ostream& operator<<(std::ostream& fout, const TacheComposite& t);
