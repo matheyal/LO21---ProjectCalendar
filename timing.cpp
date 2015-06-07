@@ -181,3 +181,7 @@ std::istream& operator>>(std::istream& flot, TIME::Duree& duree){
 	if (ok) duree=Duree(h,m); else flot.clear(std::ios::failbit);
 	return flot;
 }
+
+bool Duree::operator<(const Duree& d) const{
+    return (this->getDureeEnMinutes()<d.getDureeEnMinutes());
+}

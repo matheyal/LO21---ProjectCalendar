@@ -15,57 +15,43 @@ void Projet::afficherTaches() const {
     }
 }
 
-TacheUnitaire& Projet::ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur){
+
+TacheUnitaire& Projet::ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur,  Tache *t2){
     if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet");
-    TacheUnitaire* newt=new TacheUnitaire(id,t,dispo,deadline, dur);
-    //Ajouter les taches precedentes
-    for(std::size_t i=0; i<taches.size(); ++i)
-    {
-        Date ech(taches[i]->getEcheance());
-        std::cout<<"Date"<<ech;
-        if(ech<newt->getDate())
-        {
-            std::cout<<"Ajout tache unitaire\n";
-            newt->addItem(taches[i]);
+    if (dispo<deadline && dur<Duree(12,0)){
+        TacheUnitaire* newt=new TacheUnitaire(id,t,dispo,deadline, dur);
+        if (t2){
+            newt->addItem(t2);
         }
-    }
-    addItem(newt);
-    return *newt;
+        addItem(newt);
+        return *newt;
+    }else throw ProjetException("erreur, les dates ne concordent pas");
 }
 
-TachePreemptable& Projet::ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur){
+TachePreemptable& Projet::ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur,  Tache *t2=0){
     if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet");
-    TachePreemptable* newt=new TachePreemptable(id,t,dispo,deadline, dur);
-    //Ajouter les taches precedentes
-    for(std::size_t i=0; i<taches.size(); ++i)
-    {
-        Date ech(taches[i]->getEcheance());
-        if(ech<newt->getDate())
-        {
-            newt->addItem(taches[i]);
+    if (dispo<deadline && dur<Duree(12,0)){
+        TachePreemptable* newt=new TachePreemptable(id,t,dispo,deadline, dur);
+        if (t2){
+            newt->addItem(t2);
         }
-    }
-    addItem(newt);
-    return *newt;
+        addItem(newt);
+        return *newt;
+    }else throw ProjetException("erreur, les dates ne concordent pas");
 }
 
 
-TacheComposite& Projet::ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline){
+TacheComposite& Projet::ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline,  Tache *t2=0){
 
     if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet");
-    TacheComposite* newt=new TacheComposite(id,t,dispo,deadline);
-    //Ajouter les taches precedentes
-    for(std::size_t i=0; i<taches.size(); ++i)
-    {
-        Date ech(taches[i]->getEcheance());
-        if(ech<newt->getDate())
-        {
-            std::cout<<"Ajout tache unitaire";
-            newt->addItem(taches[i]);
+    if (dispo<deadline){
+        TacheComposite* newt=new TacheComposite(id,t,dispo,deadline);
+        if (t2){
+            newt->addItem(t2);
         }
-    }
-    addItem(newt);
-    return *newt;
+        addItem(newt);
+        return *newt;
+    }else throw ProjetException("erreur, les dates ne concordent pas");
 }
 
 void Projet::supprimerTache(const QString& ident){
@@ -103,14 +89,5 @@ std::ostream& operator<<(std::ostream& f, const Projet& p){
     return f;
 }
 
-/*void Projet::afficherPrecedence(const QString& id) const
-{
-    for(std::size_t i=0;i<taches.size();++i) {
-        if (id==taches[i]->getId())
-        {
-            taches[i]->afficherPrecedence();
-            return;
-        }
-    }
-}*/
+
 
