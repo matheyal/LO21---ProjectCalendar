@@ -2,6 +2,7 @@
 #define PROJETMANAGER
 
 #include "projet.h"
+#include "export.h"
 
 class ProjetManagerException
 {
@@ -36,7 +37,8 @@ public:
     Projet* trouverProjet(const QString &id) const;
     void afficherProjets() const;
     unsigned int size() const {return projets.size();};
-    vector<Projet*> getProjets() const{return projets;}
+    const vector<Projet*>* getProjets() const{return &projets;}
+    void save(ExportStrategy *strategy ,const QString& f){strategy->save(f);}
 };
 
 #endif // PROJETMANAGER

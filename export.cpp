@@ -1,4 +1,4 @@
-
+#include "projetmanager.h"
 #include "export.h"
 #include <typeinfo>
 
@@ -13,7 +13,12 @@ void ExportXML::save(const QString& f){
     stream.writeStartDocument();
     //Écriture de tous les projets dans une balise <projets>
     stream.writeStartElement("projets");
+<<<<<<< HEAD
     for(vector<Projet*>::iterator it1 = PM.getProjets().begin(); it1 != PM.getProjets().end(); ++it1){
+=======
+    const vector<Projet*>* projets = PM.getProjets();
+    for(vector<Projet*>::const_iterator it1 = projets->begin(); it1 != projets->end(); ++it1){
+>>>>>>> c933bdbd8de200ae63109b99db883cdc97ed0283
         //chaque projet est dans une balise <projet>
         stream.writeStartElement("projet");
         stream.writeTextElement("identificateur",(*it1)->getId());
@@ -23,7 +28,12 @@ void ExportXML::save(const QString& f){
         stream.writeTextElement("echeance",(*it1)->getEcheance().toString());
         //Liste des taches du projet dans une balise <taches>
         stream.writeStartElement("taches");
+<<<<<<< HEAD
         for (vector<Tache*>::iterator it2 = (*it1)->getTaches().begin() ; it2 != (*it1)->getTaches().end() ; ++it2){
+=======
+        const vector<Tache*>* taches = (*it1)->getTaches();
+        for (vector<Tache*>::const_iterator it2 = taches->begin() ; it2 != taches->end() ; ++it2){
+>>>>>>> c933bdbd8de200ae63109b99db883cdc97ed0283
             //Chaque tache dans une balise <tache>
             stream.writeStartElement("tache");
             //Met l'attribut preemptive à true si tache préemptable, false sinon
@@ -50,6 +60,7 @@ void ExportXML::save(const QString& f){
         }
         stream.writeEndElement();
         stream.writeEndElement();
+<<<<<<< HEAD
     }
     stream.writeEndElement();
     //Liste des précédences de Taches dans la balise <precedences>
@@ -61,6 +72,20 @@ void ExportXML::save(const QString& f){
     }
     stream.writeEndElement();
 
+=======
+    }
+    stream.writeEndElement();
+    /*
+    //Liste des précédences de Taches dans la balise <precedences>
+    stream.writeStartElement("precedences");
+    for(vector<Projet*>::iterator it1 = PM.getProjets().begin(); it1 != PM.getProjets().end(); ++it1){
+        for (vector<Tache*>::iterator it2 = (*it1)->getTaches().begin() ; it2 != (*it1)->getTaches().end() ; ++it2){
+
+        }
+    }
+    stream.writeEndElement();
+    */
+>>>>>>> c933bdbd8de200ae63109b99db883cdc97ed0283
     stream.writeEndDocument();
     newfile.close();
 }
