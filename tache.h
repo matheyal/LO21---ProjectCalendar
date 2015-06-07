@@ -19,6 +19,8 @@ public:
     virtual void afficher(std::ostream& f)const =0;
     void addItem(Tache* t);
     void afficherPrecedence();
+    //Déclarationde getDUree pour pouvoir accéder à cette méthode de la classe TacheUnitaire à partir d'un pointeur de Tache
+    virtual Duree getDuree() const = 0;
 };
 
 std::ostream& operator<<(std::ostream& f, const Tache& t);
