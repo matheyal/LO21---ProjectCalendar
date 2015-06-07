@@ -1,6 +1,6 @@
 #include "export.h"
 
-void ExportXML::save(const QString& f){
+/*void ExportXML::save(const QString& f){
     //file=f;
     QFile newfile(f);
     if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -26,3 +26,4 @@ void ExportXML::save(const QString& f){
     stream.writeEndDocument();
     newfile.close();
 }
+*/

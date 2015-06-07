@@ -28,8 +28,6 @@ SOURCES += main.cpp \
     tacheunitaire.cpp \
     tachecomposite.cpp \
     projet.cpp \
-    fabrique.cpp \
-    fabriqueactiv.cpp \
     projetmanager.cpp \
     tachepreemptable.cpp \
     export.cpp \
@@ -46,8 +44,6 @@ HEADERS += \
     tacheunitaire.h \
     tachecomposite.h \
     projet.h \
-    fabrique.h \
-    fabriqueactiv.h \
     projetmanager.h \
     calendar.h \
     tachepreemptable.h \

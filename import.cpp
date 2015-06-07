@@ -1,6 +1,6 @@
 #include "import.h"
 
-void ImportXML::load(const QString& f){
+/* void ImportXML::load(const QString& f){
     //qDebug()<<"debut load\n";
     //this->~TacheManager();
     file=f;
@@ -33,7 +33,7 @@ void ImportXML::load(const QString& f){
                 bool preemptive;
 
                 QXmlStreamAttributes attributes = xml.attributes();
-                /* Let's check that Task has attribute. */
+                Let's check that Task has attribute.
                 if(attributes.hasAttribute("preemptive")) {
                     QString val =attributes.value("preemptive").toString();
                     preemptive=(val == "true" ? true : false);
@@ -94,3 +94,4 @@ void ImportXML::load(const QString& f){
     xml.clear();
     //qDebug()<<"fin load\n";
 }
+*/
