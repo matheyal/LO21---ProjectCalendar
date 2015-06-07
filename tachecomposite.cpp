@@ -84,3 +84,9 @@ void TacheComposite::supprimerSousTache(const QString& ident){
         }
     }
 }
+
+void TacheComposite::commencer()
+{
+
+}
+
