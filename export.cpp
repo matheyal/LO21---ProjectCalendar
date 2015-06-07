@@ -34,7 +34,7 @@ void ExportXML::save(const QString& f){
             else
                 stream.writeAttribute("preemptive", "false");
             //Met l'attribut composite à true si tache composite, false sinon
-            if (typeid(*it2) == typeid(TachePreemptable))
+            if (typeid(*it2) == typeid(TacheComposite))
                 stream.writeAttribute("composite", "true");
             else
                 stream.writeAttribute("composite", "false");
@@ -48,22 +48,47 @@ void ExportXML::save(const QString& f){
                 str.setNum((*it2)->getDuree().getDureeEnMinutes());
                 stream.writeTextElement("duree",str);
             }
-            stream.writeEndElement();
+            stream.writeEndElement();// Fin <tache>
         }
-        stream.writeEndElement();
-        stream.writeEndElement();
+        stream.writeEndElement(); // Fin <taches>
+        stream.writeEndElement(); // Fin <projet>
     }
-    stream.writeEndElement();
-    /*
+    stream.writeEndElement(); // Fin <projets>
+
     //Liste des précédences de Taches dans la balise <precedences>
     stream.writeStartElement("precedences");
-    for(vector<Projet*>::iterator it1 = PM.getProjets().begin(); it1 != PM.getProjets().end(); ++it1){
-        for (vector<Tache*>::iterator it2 = (*it1)->getTaches().begin() ; it2 != (*it1)->getTaches().end() ; ++it2){
-
+    for(vector<Projet*>::const_iterator it1 = projets->begin(); it1 != projets->end(); ++it1){ //Itération sur les projets
+        const vector<Tache*>* taches = (*it1)->getTaches();
+        for (vector<Tache*>::const_iterator it2 = taches->begin() ; it2 != taches->end() ; ++it2){ //Itération sur les taches du projet
+            const vector<Tache*>* tachesPrecedentes = (*it2)->getTachesPrecedentes();
+            if (tachesPrecedentes != 0){ //La tache a des contraintes de precedence
+                stream.writeStartElement("precedence");
+                stream.writeAttribute("id", (*it2)->getId());
+                for (vector<Tache*>::const_iterator it3 = tachesPrecedentes->begin() ; it3 != tachesPrecedentes->end() ; ++it3) //Pour chaque tache, itération sur les taches précédentes
+                    stream.writeTextElement("id_precedence", (*it3)->getId());
+                stream.writeEndElement(); // Fin <precedence>
+            }
         }
     }
-    stream.writeEndElement();
-    */
+    stream.writeEndElement(); // Fin <precedences>
+
+    //Liste des composants pour les taches compositees
+    stream.writeStartElement("composites");
+    for(vector<Projet*>::const_iterator it1 = projets->begin(); it1 != projets->end(); ++it1){ //Itération sur les projets
+        const vector<Tache*>* taches = (*it1)->getTaches();
+        for (vector<Tache*>::const_iterator it2 = taches->begin() ; it2 != taches->end() ; ++it2){ //Itération sur les taches du projet
+            if (typeid(*it2) == typeid(TacheComposite)){
+                stream.writeStartElement("composite");
+                stream.writeAttribute("id", (*it2)->getId());
+                const vector<Tache*>* sousTaches = (*it2)->getSousTaches();
+                for (vector<Tache*>::const_iterator it3 = sousTaches->begin() ; it3 != sousTaches->end() ; ++it3) //Pour chaque tache, itération sur les sous taches
+                    stream.writeTextElement("id_composant", (*it3)->getId());
+                stream.writeEndElement(); // Fin <composite>
+            }
+        }
+    }
+    stream.writeEndElement(); // Fin <composites>
+
     stream.writeEndDocument();
     newfile.close();
 }
