@@ -17,7 +17,10 @@ int main(int argc, char *argv[])
 {
     //QCoreApplication a(argc, argv);
     ProjetManager& pm= ProjetManager::getInstance();
+
+    try{
     pm.ajouterProjet("1","cool","c'est top", Date(12,10,1984), Date(12,10,2000));
+<<<<<<< HEAD
     pm.trouverProjet("1")->ajouterTacheUnitaire("3","c'est top", Date(12,10,1984), Date(12,10,2000), Duree(2,30));
     pm.trouverProjet("1")->ajouterTacheComposite("4","c'est tip", Date(12,10,1984), Date(12,10,2000));
     pm.trouverProjet("1")->ajouterTachePreemptable("5","c'est Cool", Date(12,10,1984), Date(12,10,2000), Duree(2,30));
@@ -26,5 +29,16 @@ int main(int argc, char *argv[])
    pm.afficherProjets();
 
 
+=======
+    pm.trouverProjet("1")->ajouterTacheUnitaire("3","c'est top", Date(12,10,1995), Date(12,10,2000), Duree(2,30));
+    pm.trouverProjet("1")->ajouterTacheComposite("4","c'est tip", Date(12,10,1984), Date(12,10,2000));
+    pm.trouverProjet("1")->ajouterTachePreemptable("3","c'est Cool", Date(12,10,1984), Date(12,10,2000), Duree(2,30));
+    pm.trouverProjet("1")->ajouterTacheUnitaire("6","c'est toptip", Date(12,10,1982), Date(12,10,1983), Duree(2,30));
+
+    }catch(ProjetException e) { std::cout<<e.getInfo().toStdString();}
+
+    pm.afficherProjets();
+
+>>>>>>> ec6243985d75c533162aa3cc4e848d83285ae75a
     return 0;
 }
