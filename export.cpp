@@ -2,7 +2,7 @@
 #include "export.h"
 #include <typeinfo>
 
-/*void ExportXML::save(const QString& f){
+void ExportXML::save(const QString& f){
     //file=f;
     ProjetManager& PM = ProjetManager::getInstance();
     QFile newfile(f);
@@ -30,12 +30,12 @@
             //Chaque tache dans une balise <tache>
             stream.writeStartElement("tache");
             //Met l'attribut preemptive à true si tache préemptable, false sinon
-            if (typeid(*it2) == typeid(TachePreemptable))
+            if (typeid(**it2) == typeid(TachePreemptable))
                 stream.writeAttribute("preemptive", "true");
             else
                 stream.writeAttribute("preemptive", "false");
             //Met l'attribut composite à true si tache composite, false sinon
-            if (typeid(*it2) == typeid(TacheComposite))
+            if (typeid(**it2) == typeid(TacheComposite*))
                 stream.writeAttribute("composite", "true");
             else
                 stream.writeAttribute("composite", "false");
@@ -44,7 +44,7 @@
             stream.writeTextElement("disponibilite",(*it2)->getDate().toString());
             stream.writeTextElement("echeance",(*it2)->getEcheance().toString());
             //Durée uniquement si tache unitaire
-            if (typeid(*it2) ==  typeid(TacheUnitaire)){
+            if (typeid(**it2) ==  typeid(TacheUnitaire*)){
                 QString str;
                 str.setNum((*it2)->getDuree().getDureeEnMinutes());
                 stream.writeTextElement("duree",str);
@@ -78,7 +78,7 @@
     for(vector<Projet*>::const_iterator it1 = projets->begin(); it1 != projets->end(); ++it1){ //Itération sur les projets
         const vector<Tache*>* taches = (*it1)->getTaches();
         for (vector<Tache*>::const_iterator it2 = taches->begin() ; it2 != taches->end() ; ++it2){ //Itération sur les taches du projet
-            if (typeid(*it2) == typeid(TacheComposite)){
+            if (typeid(**it2) == typeid(TacheComposite*)){
                 stream.writeStartElement("composite");
                 stream.writeAttribute("id", (*it2)->getId());
                 const vector<Tache*>* sousTaches = (*it2)->getSousTaches();
@@ -93,4 +93,3 @@
     stream.writeEndDocument();
     newfile.close();
 }
-*/
