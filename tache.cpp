@@ -12,13 +12,13 @@ void Tache::addItem(Tache *t)
     {
         if(t->getId()==tachesPrecedentes[i]->getId())
         {
-            std::cout<<"tache deja prÈsente dans la contrainte de precedence";
+            std::cout<<"tache deja prÃ©sente dans la contrainte de precedence";
             return;
         }
     }
     if((this->getEcheance())<(t->getDate()))
     {
-        std::cout<<"Tache prÈcÈdente finie avant que notre tache commence";
+        std::cout<<"Tache prÃ©cÃ©dente finie avant que notre tache commence";
         return;
     }
     tachesPrecedentes.push_back(t);

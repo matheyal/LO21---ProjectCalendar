@@ -33,9 +33,15 @@ private:
 
 public:
 
+<<<<<<< HEAD
      TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur, Tache *t2,bool b=false);
      TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur,  Tache *t2, bool b=false);
      TacheComposite& ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline,  Tache *t2,bool b=false);
+=======
+     TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur, Tache *t2=0);
+     TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur,  Tache *t2=0);
+     TacheComposite& ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline,  Tache *t2=0);
+>>>>>>> 62ce39313f6a275830db4387ae090b91406e8580
      void supprimerTache(const QString& ident);
      void afficherTaches() const;
      Tache& getTache(const QString& id);

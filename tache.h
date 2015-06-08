@@ -30,6 +30,7 @@ public:
     //méthode virtuelle pour permettre l'appel de getSousTaches() sur un pointeur de Tache
     virtual const vector<Tache*>* getSousTaches() const = 0;
     const vector<Tache*>* getTachesPrecedentes() const{return &tachesPrecedentes;}
+    void addPrecedence(Tache* t){tachesPrecedentes.push_back(t);}
 };
 
 std::ostream& operator<<(std::ostream& f, const Tache& t);
