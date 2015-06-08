@@ -5,6 +5,7 @@
 #include "evenement.h"
 #include <vector>
 #include "qt.h"
+#include <typeinfo>
 
 class Projet;
 

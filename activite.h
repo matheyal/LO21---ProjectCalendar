@@ -9,6 +9,7 @@ using namespace std;
 #include <vector>
 #include <sstream>
 #include <iostream>
+#include <typeinfo>
 
 class Activite : public Evenement {
 protected:
