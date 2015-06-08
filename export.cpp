@@ -35,7 +35,7 @@ void ExportXML::save(const QString& f){
             else
                 stream.writeAttribute("preemptive", "false");
             //Met l'attribut composite à true si tache composite, false sinon
-            if (typeid(**it2) == typeid(TacheComposite*))
+            if (typeid(**it2) == typeid(TacheComposite))
                 stream.writeAttribute("composite", "true");
             else
                 stream.writeAttribute("composite", "false");
@@ -78,7 +78,7 @@ void ExportXML::save(const QString& f){
     for(vector<Projet*>::const_iterator it1 = projets->begin(); it1 != projets->end(); ++it1){ //Itération sur les projets
         const vector<Tache*>* taches = (*it1)->getTaches();
         for (vector<Tache*>::const_iterator it2 = taches->begin() ; it2 != taches->end() ; ++it2){ //Itération sur les taches du projet
-            if (typeid(**it2) == typeid(TacheComposite*)){
+            if (typeid(**it2) == typeid(TacheComposite)){
                 stream.writeStartElement("composite");
                 stream.writeAttribute("id", (*it2)->getId());
                 const vector<Tache*>* sousTaches = (*it2)->getSousTaches();
