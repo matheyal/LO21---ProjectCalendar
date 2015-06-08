@@ -17,7 +17,7 @@ void TachePreemptable::interruption()
 {
     if (getEnCours()==false)
     {
-        std::cout<<"Tache pas commencée";
+        std::cout<<"Tache pas commencee";
         return;
     }
     setEnCours(false);

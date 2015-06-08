@@ -18,25 +18,17 @@ int main(int argc, char *argv[])
 {
 
     //QCoreApplication a(argc, argv);
+    Agenda& a = Agenda::getInstance();
     ProjetManager& pm= ProjetManager::getInstance();
-
-    TacheUnitaire* unit = new TacheUnitaire("1", "coucou", Date(10,01,2015), Date(10,10,2015), Duree(10,50));
-    unit->commencer();
-    TachePreemptable* prem = new TachePreemptable("2", "coucou", Date(10,01,2015), Date(10,10,2015), Duree(10,50));
-    prem->commencer();
-    TacheUnitaire* unit2 = new TacheUnitaire("3", "coucou", Date(10,01,2015), Date(10,10,2015), Duree(10,50));
-    prem->interruption();
-    prem->reprise();
-
-   Reunion* pt=new Reunion("3","caca",Date(12,10,1324),Date(15,10,1324),Duree(2,4),"coucou");
-    pt->afficher(cout);
-  /* pt->ajouterParticipant("prout");
-    cout<<pt->getNbParticipants();
-
-    pt->afficher(cout);
-    pt->supprimmerParticipant("prout");
-    pt->afficher(cout);
- */
+    pm.ajouterProjet("1","cool","c'est top", Date(12,10,1984), Date(12,10,2000));
+    pm.trouverProjet("1")->ajouterTacheComposite("1","compo",Date(12,10,1994), Date(12,10,2000),NULL);
+    pm.trouverProjet("1")->getTache("1").afficher(std::cout);
+    Rdv *rdv = new Rdv("1","coco", Date(12,10,2000), Date(20,12,2015), Duree(2,0), "marie", "bf");
+    rdv->afficher(std::cout);
+    a.ajouterProg(rdv, Date(12,12,2012), Horaire(15,30));
+    a.ajouterProg(pm.trouverProjet("1")->trouverTache("1"),Date(15,10,1999), Horaire(14,30));
+    a.supprimerProg(rdv);
+    a.afficherProg();
 
   // return a.exec();
    return 0;

@@ -36,11 +36,11 @@ private:
 
 public:
 
-   Programmation* trouverProgrammation(const Evenement& e) const;
+   Programmation* trouverProgrammation(Evenement* e) const;
    static Agenda& getInstance();
    static void libererInstance();
-   Programmation& ajouterProg(const Evenement& e, const Date& d, const Horaire& h);
-   void supprimerProg(const Evenement& e);
+   Programmation& ajouterProg(Evenement* e, const Date& d, const Horaire& h);
+   void supprimerProg(Evenement* e);
    void afficherProg();
 
 };

@@ -9,9 +9,7 @@ private:
     bool enCours;
     Duree reste;
 public:
-    TachePreemptable(const QString& ident, const QString& t, const Date& d,const Date& ech,const Duree& du):TacheUnitaire(ident,t,d,ech, du), reste(getDuree()), enCours(false){std::cout<<"qui est preemptable\n";}
-    //Duree getDuree() const{return getDuree();}
-    //void afficher(std::ostream& f)const {Evenement::afficher(f);std::cout<<"\nDuree : "<<getDuree();}
+    TachePreemptable(const QString& ident, const QString& t, const Date& d,const Date& ech,const Duree& du, bool b=false):TacheUnitaire(ident,t,d,ech, du,b), reste(getDuree()), enCours(false){std::cout<<" qui est preemptable\n";}
     void commencer();
     bool getEnCours() const {return enCours;}
     void setEnCours(bool b){enCours=b;}

@@ -21,16 +21,13 @@ private:
     vector<Tache*> soustaches;
 
 public:
-    TacheComposite(const QString& ident, const QString& t, const Date& d,const Date& ech):Tache(ident,t,d,ech), soustaches(0){std::cout<<"creation d'une tache composite\n";}
-    TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur);
-    TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur);
-    TacheComposite& ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline);
+    TacheComposite(const QString& ident, const QString& t, const Date& d,const Date& ech, bool b=false):Tache(ident,t,d,ech,b), soustaches(0){std::cout<<"\ncreation d'une tache composite\n";}
+    TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur, bool b=false);
+    TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur, bool b=false);
+    TacheComposite& ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline,bool b=false);
     void supprimerSousTache(const QString& ident);
     void afficherSousTaches() const ;
     void afficher(std::ostream& f)const {Evenement::afficher(f);}
-    bool begun(){};
-    bool terminated(){};
-    //Définition de getDuree() pour éviter que la classe soit abstraite mais n'a pas rellement de sens
     Duree getDuree() const{return 0;}
     Tache* trouverTache(const QString& id)const;
     void commencer();

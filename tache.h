@@ -5,6 +5,7 @@
 #include "evenement.h"
 #include <vector>
 #include "qt.h"
+#include <typeinfo>
 
 class Projet;
 
@@ -16,10 +17,7 @@ private:
     QDateTime fin;
 public:
     QString Type() const {return typeid(*this).name();}
-    Tache(const QString& ident, const QString& t, const Date& d,const Date& ech): Evenement(ident,t,d,ech), tachesPrecedentes(0), debut(QDateTime::currentDateTime()), fin(QDateTime::currentDateTime()){std::cout<<"creation d'une tache\n";}
-    virtual bool begun()=0;
-    virtual bool terminated()=0;
-    virtual void afficher(std::ostream& f)const =0;
+    Tache(const QString& ident, const QString& t, const Date& d,const Date& ech, bool b=false): Evenement(ident,t,d,ech,b), tachesPrecedentes(0), debut(QDateTime::currentDateTime()), fin(QDateTime::currentDateTime()){std::cout<<"\ncreation d'une tache";}
     void addItem(Tache* t);
     void afficherPrecedence();
     virtual void commencer()=0;
