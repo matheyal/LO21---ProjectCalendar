@@ -50,7 +50,7 @@ void ExportXML::save(const QString& f){
             stream.writeTextElement("disponibilite",(*it2)->getDate().toString());
             stream.writeTextElement("echeance",(*it2)->getEcheance().toString());
             //Durée uniquement si tache unitaire
-            if (typeid(**it2) ==  typeid(TacheUnitaire)){
+            if ((typeid(**it2) ==  typeid(TacheUnitaire)) || (typeid(**it2) == typeid(TachePreemptable))){
                 QString str;
                 str.setNum((*it2)->getDuree().getDureeEnMinutes());
                 stream.writeTextElement("duree",str);

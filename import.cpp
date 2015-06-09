@@ -68,7 +68,7 @@ void ImportXML::load(const QString& f){
                                     // We loop on all the taches of the <taches> element
                                     while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "taches")){
                                         if(xml.name() == "tache"){
-                                            //il faudra prendre en compte si la tache est programmée ou non
+                                            //! il faudra prendre en compte si la tache est programmée ou non
                                             QString id_tache;
                                             QString titre_tache;
                                             QDate disponibilite_tache;
@@ -130,7 +130,14 @@ void ImportXML::load(const QString& f){
                                             if (composite){
                                                 projet->ajouterTacheComposite(id_tache,titre_tache,disponibilite_tache,echeance_tache);
                                             }
+                                            if (preemptive){
+                                                projet->ajouterTachePreemptable(id_tache,titre_tache,disponibilite_tache,echeance_tache,duree_tache);
+                                            }
+                                            if (unitaire){
+                                                projet->ajouterTacheUnitaire(id_tache,titre_tache,disponibilite_tache,echeance_tache,duree_tache);
+                                            }
                                         }
+                                        xml.readNext();
                                     }
                                 }
                         }
@@ -261,4 +268,5 @@ void ImportXML::load(const QString& f){
     xml.clear();
     //qDebug()<<"fin load\n";
 }
+
 */
