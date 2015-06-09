@@ -134,7 +134,7 @@ public:
          *  \param f : Flux sur lequel on écrit
          */
     virtual void afficher(std::ostream& f) const{
-        f<<"\n\nID : "<<qPrintable(id)<<"\nTitre : "<<qPrintable(titre)<<"\nDispo : "<<qPrintable(dispo.toString(Qt::TextDate))<<"\nEcheance : "<<qPrintable(echeance.toString(Qt::TextDate))<< " \nEst programme:";
+        f<<"\n\nID : "<<qPrintable(id)<<"\nTitre : "<<qPrintable(titre)<<"\nDispo : "<<qPrintable(dispo.toString(Qt::ISODate))<<"\nEcheance : "<<qPrintable(echeance.toString(Qt::ISODate))<< " \nEst programme:";
         if (estProg) f<<"vrai";
         else f<<"faux";
     }
