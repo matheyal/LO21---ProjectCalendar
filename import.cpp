@@ -1,6 +1,6 @@
 /*#include "import.h"
 
-/* void ImportXML::load(const QString& f){
+void ImportXML::load(const QString& f){
     //qDebug()<<"debut load\n";
     //this->~TacheManager();
     file=f;

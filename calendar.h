@@ -1,16 +1,41 @@
 #ifndef CALENDAR_h
 #define CALENDAR_h
 
+/*!
+ * \file calendar.h
+ * \brief Fichier gerant les exceptions liées au calendrier ainsi que la classe Duree
+ */
+
 #include "qt.h"
 
 using namespace std;
 
+/*! \class CalendarException
+   * \brief classe permettant de gérer les exceptions liées au calendrier
+   *
+   *  La classe CalendarException est une classe qui renvoie une chaine de caractere
+   *  pour informer l'utilisateur d'une éventuelle execption soulevée
+   */
 class CalendarException{
 public:
+    /*!
+      *  \brief Constructeur
+      *
+      *  Constructeur de la classe AgendaException
+      *
+      *  \param message : le message d'erreur à afficher
+      */
     CalendarException(const QString& message):info(message){}
+
+    /*!
+        *  \brief getInfo
+        *
+        *  Accesseur en lecture sur le message d'erreur à renvoyer lorsqu'une exception survient.
+        *
+        */
     QString getInfo() const { return info; }
 private:
-    QString info;
+    QString info;/*!< Message texte renvoyé en cas d'exception reliée à l'Agenda */
 };
 
 

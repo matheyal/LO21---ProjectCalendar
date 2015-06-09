@@ -2,7 +2,7 @@
 #include "export.h"
 #include <typeinfo>
 
-/*void ExportXML::save(const QString& f){
+void ExportXML::save(const QString& f){
     //file=f;
     ProjetManager& PM = ProjetManager::getInstance();
     QFile newfile(f);
@@ -92,4 +92,4 @@
     stream.writeEndDocument();
     newfile.close();
 }
-*/
+
