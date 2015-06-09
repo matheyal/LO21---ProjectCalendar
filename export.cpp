@@ -39,12 +39,18 @@ void ExportXML::save(const QString& f){
                 stream.writeAttribute("composite", "true");
             else
                 stream.writeAttribute("composite", "false");
+            //Met l'attribut unitaire à true si tache unitaire, false sinon
+            if (typeid(**it2) == typeid(TacheComposite))
+                stream.writeAttribute("unitaire", "true");
+            else
+                stream.writeAttribute("unitaire", "false");
+
             stream.writeTextElement("identificateur",(*it2)->getId());
             stream.writeTextElement("titre",(*it2)->getTitre());
             stream.writeTextElement("disponibilite",(*it2)->getDate().toString());
             stream.writeTextElement("echeance",(*it2)->getEcheance().toString());
             //Durée uniquement si tache unitaire
-            if (typeid(**it2) ==  typeid(TacheUnitaire*)){
+            if (typeid(**it2) ==  typeid(TacheUnitaire)){
                 QString str;
                 str.setNum((*it2)->getDuree().getDureeEnMinutes());
                 stream.writeTextElement("duree",str);
