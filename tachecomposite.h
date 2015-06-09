@@ -68,7 +68,6 @@ public:
          */
     TacheComposite(const QString& ident, const QString& t, const Date& d,const Date& ech, bool b=false):Tache(ident,t,d,ech,b), soustaches(0){std::cout<<"\ncreation d'une tache composite\n";}
 
-    /*
     /*!
          *  \brief ajouterTacheUnitaire
          *
@@ -82,7 +81,6 @@ public:
          */
     //TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur);
 
-    /*
     /*!
          *  \brief ajouterTachePreemptable
          *
@@ -97,7 +95,6 @@ public:
          */
     //TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur);
 
-    /*
     /*!
          *  \brief ajouterTacheComposite
          *
