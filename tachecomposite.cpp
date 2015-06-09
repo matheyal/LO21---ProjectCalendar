@@ -16,13 +16,13 @@ Tache* TacheComposite::trouverTache(const QString& id)const{
     return 0;
 }
 
-/*TacheUnitaire& TacheComposite::ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur,bool b){
+/*TacheUnitaire& TacheComposite::ajouterTacheUnitaire(const QString& id, const QString& t, const QDate& dispo, const QDate& deadline, const Duree& dur,bool b){
     if (trouverTache(id)) throw CompositeException("erreur, tache deja existante dans la tache composite");
     TacheUnitaire* newt=new TacheUnitaire(id,t,dispo,deadline, dur, b);
     //Ajouter les taches precedentes
     for(std::size_t i=0; i<soustaches.size(); ++i)
     {
-        Date ech(soustaches[i]->getEcheance());
+        QDate ech(soustaches[i]->getEcheance());
         std::cout<<"Date"<<ech;
         if(ech<newt->getDate())
         {
@@ -33,13 +33,13 @@ Tache* TacheComposite::trouverTache(const QString& id)const{
     return *newt;
 }
 
-TachePreemptable& TacheComposite::ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur,bool b){
+TachePreemptable& TacheComposite::ajouterTachePreemptable(const QString& id, const QString& t, const QDate& dispo, const QDate& deadline, const Duree& dur,bool b){
     if (trouverTache(id)) throw CompositeException("erreur, tache deja existante dans la tache composite");
     TachePreemptable* newt=new TachePreemptable(id,t,dispo,deadline, dur, b);
     //Ajouter les taches precedentes
     for(std::size_t i=0; i<soustaches.size(); ++i)
     {
-        Date ech(soustaches[i]->getEcheance());
+        QDate ech(soustaches[i]->getEcheance());
         if(ech<newt->getDate())
         {
             newt->addItem(soustaches[i]);
@@ -50,13 +50,13 @@ TachePreemptable& TacheComposite::ajouterTachePreemptable(const QString& id, con
 }
 
 
-TacheComposite& TacheComposite::ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline, bool b){
+TacheComposite& TacheComposite::ajouterTacheComposite(const QString& id, const QString& t, const QDate& dispo, const QDate& deadline, bool b){
     if (trouverTache(id)) throw CompositeException("erreur, tache deja existante dans la atche composite");
     TacheComposite* newt=new TacheComposite(id,t,dispo,deadline, b);
     //Ajouter les taches precedentes
     for(std::size_t i=0; i<soustaches.size(); ++i)
     {
-        Date ech(soustaches[i]->getEcheance());
+        QDate ech(soustaches[i]->getEcheance());
         if(ech<newt->getDate())
         {
             std::cout<<"Ajout tache unitaireSALADE";

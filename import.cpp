@@ -1,4 +1,4 @@
-#include "import.h"
+/*#include "import.h"
 
 void ImportXML::load(const QString& f){
     //qDebug()<<"debut load\n";
@@ -54,13 +54,13 @@ void ImportXML::load(const QString& f){
                                     // We've found disponibilite
                                     if(xml.name() == "disponibilite") {
                                         xml.readNext();
-                                        disponibilite_projet=QDate::fromString(xml.text().toString(),Qt::ISODate);
+                                        disponibilite_projet=QDate::fromString(xml.text().toString(),Qt::TextDate);
                                         //qDebug()<<"disp="<<disponibilite.toString()<<"\n";
                                     }
                                     // We've found echeance
                                     if(xml.name() == "echeance") {
                                         xml.readNext();
-                                        echeance_projet=QDate::fromString(xml.text().toString(),Qt::ISODate);
+                                        echeance_projet=QDate::fromString(xml.text().toString(),Qt::TextDate);
                                         //qDebug()<<"echeance="<<echeance.toString()<<"\n";
                                     }
                                     // We've found taches, we dig into to find all the taches
@@ -111,13 +111,13 @@ void ImportXML::load(const QString& f){
                                                             // We've found disponibilite
                                                             if(xml.name() == "disponibilite") {
                                                                 xml.readNext();
-                                                                disponibilite_tache=QDate::fromString(xml.text().toString(),Qt::ISODate);
+                                                                disponibilite_tache=QDate::fromString(xml.text().toString(),Qt::TextDate);
                                                                 //qDebug()<<"disp="<<disponibilite.toString()<<"\n";
                                                             }
                                                             // We've found echeance
                                                             if(xml.name() == "echeance") {
                                                                 xml.readNext();
-                                                                echeance_tache=QDate::fromString(xml.text().toString(),Qt::ISODate);
+                                                                echeance_tache=QDate::fromString(xml.text().toString(),Qt::TextDate);
                                                                 //qDebug()<<"echeance="<<echeance.toString()<<"\n";
                                                             }
                                                             // We've found duree
@@ -193,3 +193,4 @@ void ImportXML::load(const QString& f){
     //qDebug()<<"fin load\n";
 }
 
+*/

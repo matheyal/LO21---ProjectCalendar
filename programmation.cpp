@@ -2,5 +2,5 @@
 
 void Programmation::afficher(std::ostream& f) const{
     event->afficher(cout);
-    f<<"\nDate : "<<date<<"\nHeure : "<<heure<<std::endl;
+    f<<"\nDate : "<<qPrintable(date.toString(Qt::TextDate))<<"\nHeure : "<<heure<<std::endl;
 }

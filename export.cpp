@@ -21,8 +21,8 @@ void ExportXML::save(const QString& f){
         stream.writeTextElement("identificateur",(*it1)->getId());
         stream.writeTextElement("titre",(*it1)->getTitre());
         stream.writeTextElement("description",(*it1)->getDesc());
-        stream.writeTextElement("disponibilite",(*it1)->getDispo().toString());
-        stream.writeTextElement("echeance",(*it1)->getEcheance().toString());
+        stream.writeTextElement("disponibilite",(*it1)->getDispo().toString(Qt::TextDate));
+        stream.writeTextElement("echeance",(*it1)->getEcheance().toString(Qt::TextDate));
         //Liste des taches du projet dans une balise <taches>
         stream.writeStartElement("taches");
         const vector<Tache*>* taches = (*it1)->getTaches();
@@ -47,8 +47,8 @@ void ExportXML::save(const QString& f){
 
             stream.writeTextElement("identificateur",(*it2)->getId());
             stream.writeTextElement("titre",(*it2)->getTitre());
-            stream.writeTextElement("disponibilite",(*it2)->getDate().toString());
-            stream.writeTextElement("echeance",(*it2)->getEcheance().toString());
+            stream.writeTextElement("disponibilite",(*it2)->getDate().toString(Qt::TextDate));
+            stream.writeTextElement("echeance",(*it2)->getEcheance().toString(Qt::TextDate));
             //Durée uniquement si tache unitaire
             if ((typeid(**it2) ==  typeid(TacheUnitaire)) || (typeid(**it2) == typeid(TachePreemptable))){
                 QString str;

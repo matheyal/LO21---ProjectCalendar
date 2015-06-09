@@ -163,7 +163,7 @@ public:
         *  \param d : Date à laquelle on veut ajouter la programmation dans l'agenda
         *  \param e : Horaire auquel on veut ajouter la programmation dans l'agenda
         */
-   Programmation& ajouterProg(Evenement* e, const Date& d, const Horaire& h);
+   Programmation& ajouterProg(Evenement* e, const QDate &d, const Horaire& h);
 
    /*!
         *  \brief supprimerProg

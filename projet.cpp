@@ -16,7 +16,7 @@ void Projet::afficherTaches() const {
 }
 
 
-TacheUnitaire& Projet::ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur, bool b){
+TacheUnitaire& Projet::ajouterTacheUnitaire(const QString& id, const QString& t, const QDate &dispo, const QDate &deadline, const Duree& dur, bool b){
     if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet");
 
     if (dispo<deadline && dur<Duree(12,0)){
@@ -26,7 +26,7 @@ TacheUnitaire& Projet::ajouterTacheUnitaire(const QString& id, const QString& t,
     }else throw ProjetException("erreur, les dates ne concordent pas");
 }
 
-TachePreemptable& Projet::ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur, bool b){
+TachePreemptable& Projet::ajouterTachePreemptable(const QString& id, const QString& t, const QDate& dispo, const QDate& deadline, const Duree& dur, bool b){
     if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet");
     if (dispo<deadline && dur<Duree(12,0)){
         TachePreemptable* newt=new TachePreemptable(id,t,dispo,deadline, dur, b);
@@ -36,7 +36,7 @@ TachePreemptable& Projet::ajouterTachePreemptable(const QString& id, const QStri
 }
 
 
-TacheComposite& Projet::ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline, bool b){
+TacheComposite& Projet::ajouterTacheComposite(const QString& id, const QString& t, const QDate &dispo, const QDate &deadline, bool b){
     if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet");
     if (dispo<deadline){
         TacheComposite* newt=new TacheComposite(id,t,dispo,deadline, b);
@@ -77,8 +77,8 @@ std::ostream& operator<<(std::ostream& f, const Projet& p){
     f<<p.getId().toStdString()<<"\n";
     f<<p.getTitre().toStdString()<<"\n";
     f<<p.getDesc().toStdString()<<"\n";
-    f<<p.getDispo()<<"\n";
-    f<<p.getEcheance()<<"\n";
+    f<<qPrintable(p.getDispo().toString(Qt::TextDate))<<"\n";
+    f<<qPrintable(p.getEcheance().toString(Qt::TextDate))<<"\n";
     f<<"\n";
     return f;
 }
