@@ -18,19 +18,23 @@ private:
 public:
     QString Type() const {return typeid(*this).name();}
     Tache(const QString& ident, const QString& t, const Date& d,const Date& ech, bool b=false): Evenement(ident,t,d,ech,b), tachesPrecedentes(0), debut(QDateTime::currentDateTime()), fin(QDateTime::currentDateTime()){std::cout<<"\ncreation d'une tache";}
-    void addItem(Tache* t);
     void afficherPrecedence();
     virtual void commencer()=0;
     void setDebut(QDateTime d){debut=d;}
     QDateTime getDebut() const {return debut;}
     void setFin(QDateTime f){fin=f;}
     QDateTime getFin() const{return fin;}
+    //méthode virtuelle pour permettre l'appel de afficherSousTache() sur une Tache
+    virtual void afficherSousTache()const =0;
+    //méthode virtuelle pour permettre l'appel de ajouterSousTache() sur une Tache
+    virtual void ajouterSousTache(Tache*)=0;
     //méthode virtuelle pour permettre l'appel de getDuree() sur un pointeur de Tache
     virtual Duree getDuree() const =0;
     //méthode virtuelle pour permettre l'appel de getSousTaches() sur un pointeur de Tache
     virtual const vector<Tache*>* getSousTaches() const = 0;
     const vector<Tache*>* getTachesPrecedentes() const{return &tachesPrecedentes;}
-    void addPrecedence(Tache* t){tachesPrecedentes.push_back(t);}
+    void addItem(Tache* t);
+    void addPrecedence(Tache* t){addItem(t);}
 };
 
 std::ostream& operator<<(std::ostream& f, const Tache& t);

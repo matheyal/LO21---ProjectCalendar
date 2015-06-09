@@ -26,8 +26,5 @@ void Tache::addItem(Tache *t)
 
 void Tache::afficherPrecedence()
 {
-    for(std::size_t i=0; i<tachesPrecedentes.size(); i++)
-    {
-        std::cout<<"\nID : "<<qPrintable(tachesPrecedentes[i]->getId())<<"\nTitre : "<<qPrintable(tachesPrecedentes[i]->getTitre())<<"\nDate dispo : "<<tachesPrecedentes[i]->getDate()<<"\nDate echeance : "<<tachesPrecedentes[i]->getEcheance()<<"\n";
-    }
+    for(std::size_t i=0; i<tachesPrecedentes.size(); i++) tachesPrecedentes[i]->afficher(std::cout);
 }

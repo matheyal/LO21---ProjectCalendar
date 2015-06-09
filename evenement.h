@@ -29,7 +29,7 @@ public:
     virtual ~Evenement() {}
     virtual QString Type() const=0;
     virtual void afficher(std::ostream& f) const{
-        f<<"\nID : "<<qPrintable(id)<<"\nTitre : "<<qPrintable(titre)<<"\nDispo : "<<dispo<<"\nEcheance : "<<echeance<< " \nEst programme:";
+        f<<"\n\nID : "<<qPrintable(id)<<"\nTitre : "<<qPrintable(titre)<<"\nDispo : "<<dispo<<"\nEcheance : "<<echeance<< " \nEst programme:";
         if (estProg) f<<"vrai";
         else f<<"faux";
     }
