@@ -70,6 +70,7 @@ namespace TIME {
 			*/
 		Duree(unsigned int m=0):nb_minutes(m) {}
 		void setDuree(unsigned int heures, unsigned int minutes) { if (minutes>59) throw TimeException("erreur: initialisation duree invalide"); nb_minutes=heures*60+minutes; }
+        void setDuree(unsigned int minutes) { nb_minutes=minutes; }
 		unsigned int getDureeEnMinutes() const { return nb_minutes; } //<!Retourne la duree en minutes
 		double getDureeEnHeures() const { return double(nb_minutes)/60; } //<!Retourne la duree en heures
 		void afficher(std::ostream& f=std::cout) const { f<<std::setfill('0')<<std::setw(2)<<nb_minutes/60<<"H"<<std::setw(2)<<nb_minutes%60<<std::setfill(' '); } //<!Affiche la duree sous le format hhHmm
