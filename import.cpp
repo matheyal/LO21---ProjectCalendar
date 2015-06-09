@@ -1,10 +1,10 @@
 /*#include "import.h"
 
-/* void ImportXML::load(const QString& f){
+void ImportXML::load(const QString& f){
     //qDebug()<<"debut load\n";
     //this->~TacheManager();
-    file=f;
-    QFile fin(file);
+    //file=f;
+    QFile fin(f);
     // If we can't open it, let's show an error message.
     if (!fin.open(QIODevice::ReadOnly | QIODevice::Text)) {
         throw CalendarException("Erreur ouverture fichier tâches");
@@ -20,8 +20,175 @@
         if(token == QXmlStreamReader::StartDocument) continue;
         // If token is StartElement, we'll see if we can read it.
         if(token == QXmlStreamReader::StartElement) {
-            // If it's named taches, we'll go to the next.
-            if(xml.name() == "taches") continue;
+            // If it's named projectcalendar, we'll go to the next.
+            if(xml.name() == "projectcalendar") continue;
+            // If it's named projets, we dig into to find all the projects.
+            if(xml.name() == "projets") {
+                ProjetManager& PM = ProjetManager::getInstance();
+                while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "projets")) {
+                    if(xml.name() == "projet"){
+                        //qDebug()<<"new projet\n";
+                        QString id_projet;
+                        QString titre_projet;
+                        QString description_projet;
+                        QDate disponibilite_projet;
+                        QDate echeance_projet;
+                        vector<Tache*> taches_projet;
+
+                        xml.readNext();
+                        //We're going to loop over the things because the order might change.
+                        //We'll continue the loop until we hit an EndElement named projet.
+                        while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "projet")) {
+                            if(xml.tokenType() == QXmlStreamReader::StartElement) {
+                                // We've found identificteur.
+                                if(xml.name() == "identificateur") {
+                                    xml.readNext(); id_projet<identificateur<<"\n";
+                                }
+
+                                // We've found titre.
+                                if(xml.name() == "titre") {
+                                    xml.readNext(); titre_projet=xml.text().toString();
+                                    //qDebug()<<"titre="<<titre<<"\n";
+                                }
+                                // We've found disponibilite
+                                if(xml.name() == "disponibilite") {
+                                    xml.readNext();
+                                    disponibilite_projet=QDate::fromString(xml.text().toString(),Qt::ISODate);
+                                    //qDebug()<<"disp="<<disponibilite.toString()<<"\n";
+                                }
+                                // We've found echeance
+                                if(xml.name() == "echeance") {
+                                    xml.readNext();
+                                    echeance_projet=QDate::fromString(xml.text().toString(),Qt::ISODate);
+                                    //qDebug()<<"echeance="<<echeance.toString()<<"\n";
+                                }
+                                // We've found taches, we dig into to find all the taches
+                                if(xml.name() == "taches"){
+                                    Projet* projet = PM.ajouterProjet(id_projet, titre_projet,description_projet,disponibilite_projet,echeance_projet);
+                                    // We loop on all the taches of the <taches> element
+                                    while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "taches")){
+                                        if(xml.name() == "tache"){
+                                            //il faudra prendre en compte si la tache est programmée ou non
+                                            QString id_tache;
+                                            QString titre_tache;
+                                            QDate disponibilite_tache;
+                                            QDate echeance_tache;
+                                            Duree duree_tache;
+                                            bool preemptive;
+                                            bool composite;
+                                            bool unitaire;
+
+                                            QXmlStreamAttributes attributes = xml.attributes();
+                                            if(attributes.hasAttribute("preemptive")) {
+                                                QString val =attributes.value("preemptive").toString();
+                                                preemptive=(val == "true" ? true : false);
+                                            }
+                                            if(attributes.hasAttribute("composite")) {
+                                                QString val =attributes.value("composite").toString();
+                                                composite=(val == "true" ? true : false);
+                                            }
+                                            if(attributes.hasAttribute("unitaire")) {
+                                                QString val =attributes.value("unitaire").toString();
+                                                unitaire=(val == "true" ? true : false);
+                                            }
+                                            xml.readNext();
+                                            // We loop on all the elements of the <tache> element
+                                            while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "tache")){
+                                                if(xml.tokenType() == QXmlStreamReader::StartElement) {
+                                                    // We've found identificteur.
+                                                    if(xml.name() == "identificateur") {
+                                                        xml.readNext(); id_tache=xml.text().toString();
+                                                        //qDebug()<<"id="<<identificateur<<"\n";
+                                                    }
+
+                                                    // We've found titre.
+                                                    if(xml.name() == "titre") {
+                                                        xml.readNext(); titre_tache=xml.text().toString();
+                                                        //qDebug()<<"titre="<<titre<<"\n";
+                                                    }
+                                                    // We've found disponibilite
+                                                    if(xml.name() == "disponibilite") {
+                                                        xml.readNext();
+                                                        disponibilite_tache=QDate::fromString(xml.text().toString(),Qt::ISODate);
+                                                        //qDebug()<<"disp="<<disponibilite.toString()<<"\n";
+                                                    }
+                                                    // We've found echeance
+                                                    if(xml.name() == "echeance") {
+                                                        xml.readNext();
+                                                        echeance_tache=QDate::fromString(xml.text().toString(),Qt::ISODate);
+                                                        //qDebug()<<"echeance="<<echeance.toString()<<"\n";
+                                                    }
+                                                    // We've found duree
+                                                    if(xml.name() == "duree") {
+                                                        xml.readNext();
+                                                        duree_tache.setDuree(xml.text().toString().toUInt());
+                                                        //qDebug()<<"duree="<<duree.getDureeEnMinutes()<<"\n";
+                                                    }
+                                                }
+                                                xml.readNext();
+                                            }
+                                            if (composite){
+                                                projet->ajouterTacheComposite(id_tache,titre_tache,disponibilite_tache,echeance_tache);
+                                            }
+                                        }
+                                    }
+                                }
+                        }
+                    }
+                }
+            }
+            // If it's named projet, we'll dig the information from there.
+            if(xml.name() == "projet"){
+                qDebug()<<"new projet\n";
+                QString identificateur;
+                QString titre;
+                QString description;
+                QDate disponibilite;
+                QDate echeance;
+                vector<Tache*> taches;
+
+                xml.readNext();
+                //We're going to loop over the things because the order might change.
+                //We'll continue the loop until we hit an EndElement named projet.
+                while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "projet")) {
+                    if(xml.tokenType() == QXmlStreamReader::StartElement) {
+                        // We've found identificteur.
+                        if(xml.name() == "identificateur") {
+                            xml.readNext(); identificateur=xml.text().toString();
+                            //qDebug()<<"id="<<identificateur<<"\n";
+                        }
+
+                        // We've found titre.
+                        if(xml.name() == "titre") {
+                            xml.readNext(); titre=xml.text().toString();
+                            //qDebug()<<"titre="<<titre<<"\n";
+                        }
+                        // We've found disponibilite
+                        if(xml.name() == "disponibilite") {
+                            xml.readNext();
+                            disponibilite=QDate::fromString(xml.text().toString(),Qt::ISODate);
+                            //qDebug()<<"disp="<<disponibilite.toString()<<"\n";
+                        }
+                        // We've found echeance
+                        if(xml.name() == "echeance") {
+                            xml.readNext();
+                            echeance=QDate::fromString(xml.text().toString(),Qt::ISODate);
+                            //qDebug()<<"echeance="<<echeance.toString()<<"\n";
+                        }
+                        // We've found taches, we go to the next (it should be a <tache>)
+                        if(xml.name() == "taches") continue;
+                        // We've found a tache, we dig its information to add it to the vector taches
+                        if(xml.name() == "tache") {
+                            xml.readNext();
+                            duree.setDuree(xml.text().toString().toUInt());
+                            //qDebug()<<"duree="<<duree.getDureeEnMinutes()<<"\n";
+                        }
+                    }
+                    // ...and next...
+                    xml.readNext();
+                }
+
+            }
             // If it's named tache, we'll dig the information from there.
             if(xml.name() == "tache") {
                 qDebug()<<"new tache\n";
@@ -33,7 +200,6 @@
                 bool preemptive;
 
                 QXmlStreamAttributes attributes = xml.attributes();
-                Let's check that Task has attribute.
                 // Let's check that Task has attribute.
                 if(attributes.hasAttribute("preemptive")) {
                     QString val =attributes.value("preemptive").toString();
