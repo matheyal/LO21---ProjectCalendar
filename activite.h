@@ -14,6 +14,7 @@ using namespace std;
 #include <vector>
 #include <sstream>
 #include <iostream>
+#include <typeinfo>
 
 /*! \class Activite
    * \brief classe representant une Activite traditionnelle
@@ -27,6 +28,7 @@ protected:
     Duree duree;/*!< Duree de l'evenement*/
     QString lieu;/*!< Lieu de l'evenement*/
 public:
+<<<<<<< HEAD
     /*!
          *  \brief Constructeur
          *
@@ -47,6 +49,9 @@ public:
          *
          *  Accesseur en lecture de la duree de l'activite
          */
+=======
+    Activite(const QString& ident, const QString& t, const Date& d,const Date& ech,const Duree& du,const QString& li,bool b=false): Evenement(ident,t,d,ech,b), duree(du),lieu(li){}
+>>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
     const Duree& getDuree()const{return duree;}
 
     /*!
@@ -113,6 +118,7 @@ class Reunion : public Activite {
 private:
     vector<QString> participants;/*!< Liste des participants à la reunion*/
 public:
+<<<<<<< HEAD
     /*!
          *  \brief Constructeur
          *
@@ -133,6 +139,9 @@ public:
          *
          *  Methode qui retourne le type "Reunion"
          */
+=======
+    Reunion(const QString& ident, const QString& t, const Date& d,const Date& ech,const Duree& du,const QString& li,bool b=false):Activite(ident,t,d,ech,du,li,b){}
+>>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
     QString Type() const {return typeid(*this).name();}
 
     /*!
@@ -177,7 +186,7 @@ public:
     void afficher(std::ostream& f) const {
          Activite::afficher(f);
          for (size_t i=0;i<participants.size();++i)
-             f<<"Participants: "<<qPrintable(participants[i])<<" ";
+             f<<"Participants: "<<qPrintable(participants[i]);
     }
 
     /*!
@@ -205,6 +214,7 @@ public:
          *  Methode qui retourne le type "Rendez-vous"
          */
     QString Type() const {return typeid(*this).name();}
+<<<<<<< HEAD
 
     /*!
          *  \brief Constructeur
@@ -226,6 +236,9 @@ public:
          *
          *  Accesseur en lecture sur l'interlocuteur
          */
+=======
+    Rdv(const QString& ident, const QString& t, const Date& d,const Date& ech,const Duree& du, const QString& pers, const QString& li,bool b=false):Activite(ident,t,d,ech,du,li,b),personne(pers){}
+>>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
     const QString& getInterlocuteur() const { return personne; }
 
     /*!
@@ -246,7 +259,7 @@ public:
          */
     void afficher(std::ostream& f) const {
          Activite::afficher(f);
-         f<<" Interlocuteur="<<personne.toStdString()<<"\n";
+         f<<"Interlocuteur="<<personne.toStdString();
     }
 
     /*!

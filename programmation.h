@@ -18,6 +18,7 @@ using namespace TIME;
    */
 class Programmation {
 private:
+<<<<<<< HEAD
     Date date;/*!< Date de la programmation*/
     Horaire heure;/*!< Horaire de la programmation */
     const Evenement* event;/*!< Pointeur constant sur l'évenement à programmer */
@@ -38,6 +39,12 @@ private:
          *
          *  Destructeur de la classe Programmation
          */
+=======
+    Date date;
+    Horaire heure;
+    Evenement* event;
+    Programmation(const Date& d, const Horaire& h, Evenement* e):date(d),heure(h),event(e){}
+>>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
     ~Programmation();
 
     friend class Agenda; /*!< Classe Agenda amie de Programmation : seul Agenda pourra construire des programmations*/
@@ -55,6 +62,7 @@ public:
          *  Accesseur en lecture sur l'horaire de la programmation
          */
     Horaire getHoraire() const {return heure;}
+<<<<<<< HEAD
 
     /*!
          *  \brief getEvenement
@@ -63,6 +71,10 @@ public:
          */
     const Evenement& getEvenement() const {return *event;}
 
+=======
+    Evenement* getEvenement() const {return event;}
+    void afficher(std::ostream& f) const;
+>>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
 };
 
 #endif // PROGRAMMATION

@@ -22,6 +22,7 @@ private:
     bool enCours; /*!< Booleen permettant de savoir si une tache est en cours d'éxécution ou non */
     Duree reste; /*!< Duree d'éxécution qu'il reste de la tache préemptable */
 public:
+<<<<<<< HEAD
 
     /*!
          *  \brief TachePreemptable
@@ -47,6 +48,9 @@ public:
         *  Mentionne que la tache est désormais en cours (appel de setEnCours)
         *
         */
+=======
+    TachePreemptable(const QString& ident, const QString& t, const Date& d,const Date& ech,const Duree& du, bool b=false):TacheUnitaire(ident,t,d,ech, du,b), enCours(false), reste(getDuree()){std::cout<<" qui est preemptable\n";}
+>>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
     void commencer();
 
     /*!

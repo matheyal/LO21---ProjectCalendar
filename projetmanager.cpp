@@ -29,6 +29,7 @@ Projet* ProjetManager::ajouterProjet(const QString& id, const QString &ti, const
     if(trouverProjet(id))
         throw ProjetManagerException("Projet deja existant");
     else projets.push_back(newP);
+    return newP;
 }
 
 void ProjetManager::supprimerProjet(const QString& id)

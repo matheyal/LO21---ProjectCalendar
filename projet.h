@@ -93,6 +93,7 @@ private:
 
 public:
 
+<<<<<<< HEAD
      /*!
           *  \brief ajouterTacheUnitaire
           *
@@ -151,6 +152,11 @@ public:
           *
           *  \param ident : Identifiant de la tache à supprimer
           */
+=======
+     TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur, bool b=false);
+     TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur, bool b=false);
+     TacheComposite& ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline, bool b=false);
+>>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
      void supprimerTache(const QString& ident);
 
 

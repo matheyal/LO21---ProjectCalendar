@@ -16,9 +16,9 @@ Tache* TacheComposite::trouverTache(const QString& id)const{
     return 0;
 }
 
-TacheUnitaire& TacheComposite::ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur){
+/*TacheUnitaire& TacheComposite::ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur,bool b){
     if (trouverTache(id)) throw CompositeException("erreur, tache deja existante dans la tache composite");
-    TacheUnitaire* newt=new TacheUnitaire(id,t,dispo,deadline, dur);
+    TacheUnitaire* newt=new TacheUnitaire(id,t,dispo,deadline, dur, b);
     //Ajouter les taches precedentes
     for(std::size_t i=0; i<soustaches.size(); ++i)
     {
@@ -33,9 +33,9 @@ TacheUnitaire& TacheComposite::ajouterTacheUnitaire(const QString& id, const QSt
     return *newt;
 }
 
-TachePreemptable& TacheComposite::ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur){
+TachePreemptable& TacheComposite::ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur,bool b){
     if (trouverTache(id)) throw CompositeException("erreur, tache deja existante dans la tache composite");
-    TachePreemptable* newt=new TachePreemptable(id,t,dispo,deadline, dur);
+    TachePreemptable* newt=new TachePreemptable(id,t,dispo,deadline, dur, b);
     //Ajouter les taches precedentes
     for(std::size_t i=0; i<soustaches.size(); ++i)
     {
@@ -50,9 +50,9 @@ TachePreemptable& TacheComposite::ajouterTachePreemptable(const QString& id, con
 }
 
 
-TacheComposite& TacheComposite::ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline){
+TacheComposite& TacheComposite::ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline, bool b){
     if (trouverTache(id)) throw CompositeException("erreur, tache deja existante dans la atche composite");
-    TacheComposite* newt=new TacheComposite(id,t,dispo,deadline);
+    TacheComposite* newt=new TacheComposite(id,t,dispo,deadline, b);
     //Ajouter les taches precedentes
     for(std::size_t i=0; i<soustaches.size(); ++i)
     {
@@ -65,13 +65,13 @@ TacheComposite& TacheComposite::ajouterTacheComposite(const QString& id, const Q
     }
     addItem(newt);
     return *newt;
-}
+}*/
 
-void TacheComposite::afficherSousTaches() const {
+void TacheComposite::afficherSousTache() const {
     for(std::size_t i=0;i<soustaches.size();++i) {
-        std::cout<<"Sous-Tache "<<i<<": "<<std::endl;
+        std::cout<<"\nSous-Tache "<<i<<": "<<std::endl;
         soustaches[i]->afficher(std::cout);
-        std::cout<<"\n\n";
+        std::cout<<"\n";
     }
 }
 

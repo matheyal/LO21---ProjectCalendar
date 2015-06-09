@@ -54,6 +54,7 @@ private:
     vector<Tache*> soustaches; /*!< Tableau de taches représentant les sous taches d'une tache composite */
 
 public:
+<<<<<<< HEAD
 
     /*!
          *  \brief Constructeur
@@ -162,6 +163,16 @@ public:
          *
          *
          */
+=======
+    TacheComposite(const QString& ident, const QString& t, const Date& d,const Date& ech, bool b=false):Tache(ident,t,d,ech,b), soustaches(0){std::cout<<"\ncreation d'une tache composite\n";}
+    //TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur, bool b=false);
+    //TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur, bool b=false);
+    //TacheComposite& ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline,bool b=false);
+    void ajouterSousTache(Tache * t){soustaches.push_back(t);}
+    void supprimerSousTache(const QString& ident);
+    void afficherSousTache() const ;
+    void afficher(std::ostream& f)const {Evenement::afficher(f);}
+>>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
     Duree getDuree() const{return 0;}
 
     /*!

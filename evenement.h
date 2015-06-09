@@ -21,6 +21,7 @@ using namespace TIME;
 
 class Evenement {
 protected:
+<<<<<<< HEAD
     QString id;/*!< Identifiant de l'evenement*/
     QString titre;/*!< Titre de l'evenement*/
     Date dispo;/*!< Date de disponibilite de l'evenement*/
@@ -45,6 +46,15 @@ public:
          *
          *  Accesseur en lecture de l'identifiant de l'evenement
          */
+=======
+    QString id;
+    QString titre;
+    Date dispo;
+    Date echeance;
+    bool estProg;
+public:
+    Evenement(const QString& ident, const QString& t, const Date& d,const Date& ech, bool b=false):id(ident),titre(t),dispo(d),echeance(ech), estProg(b){std::cout<<"\ncreation d'un evenement";}
+>>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
     QString getId() const{return id;}
 
     /*!
@@ -101,6 +111,7 @@ public:
          *  \param ech : date avec laquelle on veut initialiser la date d'echeance de l'evenement
          */
     void setEcheance(const Date& ech) {echeance = ech;}
+<<<<<<< HEAD
 
     /*!
          *  \brief setEffectue
@@ -116,6 +127,9 @@ public:
          *
          *  Destructeur de la classe Evenement
          */
+=======
+    void setEffectue(bool effect){estProg=effect;}
+>>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
     virtual ~Evenement() {}
 
     /*!
@@ -134,7 +148,9 @@ public:
          *  \param f : Flux sur lequel on écrit
          */
     virtual void afficher(std::ostream& f) const{
-        f<<"\nID : "<<qPrintable(id)<<"\nTitre : "<<qPrintable(titre)<<"\nDispo : "<<dispo<<"\nEcheance : "<<echeance<< " \nEst programmé:"<<estProg;
+        f<<"\n\nID : "<<qPrintable(id)<<"\nTitre : "<<qPrintable(titre)<<"\nDispo : "<<dispo<<"\nEcheance : "<<echeance<< " \nEst programme:";
+        if (estProg) f<<"vrai";
+        else f<<"faux";
     }
 
     /*!
@@ -148,7 +164,10 @@ public:
     {
         return dispo<e.dispo && echeance<e.echeance;
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
 };
 
 /*!

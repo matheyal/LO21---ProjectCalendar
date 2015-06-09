@@ -124,6 +124,7 @@ private:
 
 public:
 
+<<<<<<< HEAD
    /*!
         *  \brief trouverProgrammation
         *
@@ -142,6 +143,9 @@ public:
         * => Application du design pattern singleton
         *
         */
+=======
+   Programmation* trouverProgrammation(Evenement* e) const;
+>>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
    static Agenda& getInstance();
 
    /*!
@@ -152,6 +156,7 @@ public:
         *
         */
    static void libererInstance();
+<<<<<<< HEAD
 
    /*!
         *  \brief ajouterProg
@@ -180,6 +185,10 @@ public:
         *  Affiche l'ensemble des programmations de l'agenda
         *
         */
+=======
+   Programmation& ajouterProg(Evenement* e, const Date& d, const Horaire& h);
+   void supprimerProg(Evenement* e);
+>>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
    void afficherProg();
 
 };
