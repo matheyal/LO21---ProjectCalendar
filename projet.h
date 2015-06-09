@@ -89,11 +89,10 @@ private:
           *  Destructeur privé de la classe Projet
           */
      ~Projet();
+
      friend class ProjetManager; /*!< Classe ProjetManager amie de Projet : seul ProjetManager pourra construire des programmations*/
 
 public:
-
-<<<<<<< HEAD
      /*!
           *  \brief ajouterTacheUnitaire
           *
@@ -106,10 +105,10 @@ public:
           *   \param dispo : Date de disponibilite de la tache unitaire à ajouter
           *   \param deadline : Date d'echeance de la tache unitaire à ajouter
           *   \param dur : Duree de la tache unitaire à ajouter
-          *   \param t2 : Pointeur sur une tache qui représente un lien de précédence entre la tache que l'on ajoute et une autre tache
+          *   \param b: Booleen représentant l'état de la tache unitaire à ajouter (par défaut non programmée)
           *
           */
-     TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur, Tache *t2);
+     TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur, bool b=false);
 
      /*!
           *  \brief ajouterTachePreemptable
@@ -123,10 +122,10 @@ public:
           *   \param dispo : Date de disponibilite de la tache preemptable à ajouter
           *   \param deadline : Date d'echeance de la tache preemptable à ajouter
           *   \param dur : Duree de la tache preemptable à ajouter
-          *   \param t2 : Pointeur sur une tache qui représente un lien de précédence entre la tache que l'on ajoute et une autre tache
+          *   \param b: Booleen représentant l'état de la tache unitaire à ajouter (par défaut non programmée)
           *
           */
-     TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur,  Tache *t2);
+     TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur, bool b=false);
 
      /*!
           *  \brief ajouterTacheComposite
@@ -139,10 +138,10 @@ public:
           *   \param t : Titre de la tache composite à ajouter
           *   \param dispo : Date de disponibilite de la tache composite à ajouter
           *   \param deadline : Date d'echeance de la tache composite à ajouter
-          *   \param t2 : Pointeur sur une tache qui représente un lien de précédence entre la tache que l'on ajoute et une autre tache
+          *   \param b: Booleen représentant l'état de la tache unitaire à ajouter (par défaut non programmée)
           *
           */
-     TacheComposite& ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline,  Tache *t2);
+      TacheComposite& ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline, bool b=false);
 
 
      /*!
@@ -152,11 +151,7 @@ public:
           *
           *  \param ident : Identifiant de la tache à supprimer
           */
-=======
-     TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur, bool b=false);
-     TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur, bool b=false);
-     TacheComposite& ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline, bool b=false);
->>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
+
      void supprimerTache(const QString& ident);
 
 

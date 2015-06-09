@@ -18,10 +18,9 @@ using namespace TIME;
    */
 class Programmation {
 private:
-<<<<<<< HEAD
     Date date;/*!< Date de la programmation*/
     Horaire heure;/*!< Horaire de la programmation */
-    const Evenement* event;/*!< Pointeur constant sur l'évenement à programmer */
+    Evenement* event;/*!< Pointeur constant sur l'évenement à programmer */
 
     /*!
          *  \brief Constructeur
@@ -32,19 +31,13 @@ private:
          *  \param h : Horaire de la programmation
          *  \param e : Evenement à programmer
          */
-    Programmation(const Date& d, const Horaire& h, const Evenement& e):date(d),heure(h),event(&e){}
+    Programmation(const Date& d, const Horaire& h, Evenement* e):date(d),heure(h),event(e){}
 
     /*!
          *  \brief Destructeur
          *
          *  Destructeur de la classe Programmation
          */
-=======
-    Date date;
-    Horaire heure;
-    Evenement* event;
-    Programmation(const Date& d, const Horaire& h, Evenement* e):date(d),heure(h),event(e){}
->>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
     ~Programmation();
 
     friend class Agenda; /*!< Classe Agenda amie de Programmation : seul Agenda pourra construire des programmations*/
@@ -62,19 +55,23 @@ public:
          *  Accesseur en lecture sur l'horaire de la programmation
          */
     Horaire getHoraire() const {return heure;}
-<<<<<<< HEAD
 
     /*!
          *  \brief getEvenement
          *
          *  Accesseur en lecture sur l'évenement à programmer
          */
-    const Evenement& getEvenement() const {return *event;}
+     Evenement* getEvenement() const {return event;}
 
-=======
-    Evenement* getEvenement() const {return event;}
-    void afficher(std::ostream& f) const;
->>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
+
+     /*!
+          *  \brief afficher
+          *
+          *  Permet d'afficher une programmation avec tous ces parametres
+          *
+          *  \param f : Flux sur lequel on écrit
+          */
+     void afficher(std::ostream& f) const;
 };
 
 #endif // PROGRAMMATION

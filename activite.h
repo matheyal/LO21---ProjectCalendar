@@ -28,7 +28,6 @@ protected:
     Duree duree;/*!< Duree de l'evenement*/
     QString lieu;/*!< Lieu de l'evenement*/
 public:
-<<<<<<< HEAD
     /*!
          *  \brief Constructeur
          *
@@ -40,18 +39,16 @@ public:
          *  \param ech : Date d'echeance de l'activite
          *  \param du : Duree de l'activite
          *  \param li : Lieu de l'activite
-         *  \param estProg : Etat de programmation de l'evenement
+         *  \param b : Etat de programmation de l'evenement
          */
-    Activite(const QString& ident, const QString& t, const Date& d,const Date& ech,const Duree& du,const QString& li,bool estProg=false): Evenement(ident,t,d,ech), duree(du),lieu(li){}
+    Activite(const QString& ident, const QString& t, const Date& d,const Date& ech,const Duree& du,const QString& li,bool b=false): Evenement(ident,t,d,ech,b), duree(du),lieu(li){}
 
     /*!
          *  \brief getDuree
          *
          *  Accesseur en lecture de la duree de l'activite
          */
-=======
-    Activite(const QString& ident, const QString& t, const Date& d,const Date& ech,const Duree& du,const QString& li,bool b=false): Evenement(ident,t,d,ech,b), duree(du),lieu(li){}
->>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
+
     const Duree& getDuree()const{return duree;}
 
     /*!
@@ -118,7 +115,6 @@ class Reunion : public Activite {
 private:
     vector<QString> participants;/*!< Liste des participants à la reunion*/
 public:
-<<<<<<< HEAD
     /*!
          *  \brief Constructeur
          *
@@ -130,18 +126,16 @@ public:
          *  \param ech : Date d'echeance de l'activite
          *  \param du : Duree de l'activite
          *  \param li : Lieu de l'activite
-         *  \param estProg : Etat de programmation de l'evenement
+         *  \param b : Etat de programmation de l'evenement
          */
-    Reunion(const QString& ident, const QString& t, const Date& d,const Date& ech,const Duree& du,const QString& li,bool estProg=false):Activite(ident,t,d,ech,du,li){}
+     Reunion(const QString& ident, const QString& t, const Date& d,const Date& ech,const Duree& du,const QString& li,bool b=false):Activite(ident,t,d,ech,du,li,b){}
 
     /*!
          *  \brief Type
          *
          *  Methode qui retourne le type "Reunion"
          */
-=======
-    Reunion(const QString& ident, const QString& t, const Date& d,const Date& ech,const Duree& du,const QString& li,bool b=false):Activite(ident,t,d,ech,du,li,b){}
->>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
+
     QString Type() const {return typeid(*this).name();}
 
     /*!
@@ -214,7 +208,6 @@ public:
          *  Methode qui retourne le type "Rendez-vous"
          */
     QString Type() const {return typeid(*this).name();}
-<<<<<<< HEAD
 
     /*!
          *  \brief Constructeur
@@ -227,18 +220,16 @@ public:
          *  \param ech : Date d'echeance de l'activite
          *  \param du : Duree de l'activite
          *  \param li : Lieu de l'activite
-         *  \param estProg : Etat de programmation de l'evenement
+         *  \param b : Etat de programmation de l'evenement
          */
-    Rdv(const QString& ident, const QString& t, const Date& d,const Date& ech,const Duree& du, const QString& pers, const QString& li,bool estProg=false):Activite(ident,t,d,ech,du,li),personne(pers){}
+    Rdv(const QString& ident, const QString& t, const Date& d,const Date& ech,const Duree& du, const QString& pers, const QString& li,bool b=false):Activite(ident,t,d,ech,du,li,b),personne(pers){}
 
     /*!
          *  \brief getInterlocuteur
          *
          *  Accesseur en lecture sur l'interlocuteur
          */
-=======
-    Rdv(const QString& ident, const QString& t, const Date& d,const Date& ech,const Duree& du, const QString& pers, const QString& li,bool b=false):Activite(ident,t,d,ech,du,li,b),personne(pers){}
->>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
+
     const QString& getInterlocuteur() const { return personne; }
 
     /*!

@@ -54,7 +54,6 @@ private:
     vector<Tache*> soustaches; /*!< Tableau de taches représentant les sous taches d'une tache composite */
 
 public:
-<<<<<<< HEAD
 
     /*!
          *  \brief Constructeur
@@ -67,8 +66,9 @@ public:
          * \param ech : date d'écheance de la tache composite
          *
          */
-    TacheComposite(const QString& ident, const QString& t, const Date& d,const Date& ech):Tache(ident,t,d,ech), soustaches(0){std::cout<<"creation d'une tache composite\n";}
+    TacheComposite(const QString& ident, const QString& t, const Date& d,const Date& ech, bool b=false):Tache(ident,t,d,ech,b), soustaches(0){std::cout<<"\ncreation d'une tache composite\n";}
 
+    /*
     /*!
          *  \brief ajouterTacheUnitaire
          *
@@ -80,8 +80,9 @@ public:
          * \param ech : date d'écheance de la tache unitaire à ajouter
          *
          */
-    TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur);
+    //TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur);
 
+    /*
     /*!
          *  \brief ajouterTachePreemptable
          *
@@ -94,8 +95,9 @@ public:
          * \param dur : duree de la tache préemptable à ajouter
          *
          */
-    TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur);
+    //TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur);
 
+    /*
     /*!
          *  \brief ajouterTacheComposite
          *
@@ -107,7 +109,17 @@ public:
          * \param ech : date d'écheance de la tache composite à ajouter
          *
          */
-    TacheComposite& ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline);
+    //TacheComposite& ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline);
+
+    /*!
+         *  \brief ajouterSousTache
+         *
+         *  Permet d'ajouter une sous tache au tableau des sous taches d'une tache composite
+         *
+         * \param t : pointeur sur la tache à ajouter
+         *
+         */
+    void ajouterSousTache(Tache * t){soustaches.push_back(t);}
 
     /*!
          *  \brief supprimerSousTache
@@ -126,6 +138,7 @@ public:
          *
          *
          */
+
     void afficherSousTaches() const ;
 
     /*!
@@ -138,23 +151,6 @@ public:
          */
     void afficher(std::ostream& f)const {Evenement::afficher(f);}
 
-    /*!
-         *  \brief begun
-         *
-         *  Methode qui ne fait rien mais qui permet de rendre la classe tachecomposite concrète
-         *
-         *
-         */
-    bool begun(){};
-
-    /*!
-         *  \brief terminated
-         *
-         *  Methode qui ne fait rien mais qui permet de rendre la classe tachecomposite concrète
-         *
-         *
-         */
-    bool terminated(){};
 
     /*!
          *  \brief getDuree
@@ -163,17 +159,9 @@ public:
          *
          *
          */
-=======
-    TacheComposite(const QString& ident, const QString& t, const Date& d,const Date& ech, bool b=false):Tache(ident,t,d,ech,b), soustaches(0){std::cout<<"\ncreation d'une tache composite\n";}
-    //TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur, bool b=false);
-    //TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur, bool b=false);
-    //TacheComposite& ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline,bool b=false);
-    void ajouterSousTache(Tache * t){soustaches.push_back(t);}
-    void supprimerSousTache(const QString& ident);
-    void afficherSousTache() const ;
-    void afficher(std::ostream& f)const {Evenement::afficher(f);}
->>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
     Duree getDuree() const{return 0;}
+
+
 
     /*!
          *  \brief trouverTache

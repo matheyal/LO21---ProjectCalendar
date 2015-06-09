@@ -174,7 +174,7 @@ public:
          *  Renvoie le nombre de projets contenus dans le tableau de projets du ProjetManager
          *
          */
-    unsigned int size() const {return projets.size();};
+    unsigned int size() const {return projets.size();}
 
     /*!
          *  \brief getProjets

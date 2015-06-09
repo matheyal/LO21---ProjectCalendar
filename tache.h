@@ -33,7 +33,6 @@ public:
          *  Methode qui retourne le type "Tache"
          */
     QString Type() const {return typeid(*this).name();}
-<<<<<<< HEAD
 
     /*!
          *  \brief Constructeur
@@ -44,29 +43,10 @@ public:
          * \param t : titre de la tache
          * \param d : date de disponibilite de la tache
          * \param ech : date d'écheance de la tache
+         * \param b: Booleen représentant l'état de la tache à ajouter (par défaut non programmée)
          *
          */
-    Tache(const QString& ident, const QString& t, const Date& d,const Date& ech): Evenement(ident,t,d,ech), tachesPrecedentes(0), debut(QDateTime::currentDateTime()), fin(QDateTime::currentDateTime()){std::cout<<"creation d'une tache\n";}
-
-    /*!
-         *  \brief begun
-         *
-         *
-         * Methode virtuelle pure (classe Tache abstraite)
-         * Permettra de savoir si une tache est commencée
-         *
-         */
-    virtual bool begun()=0;
-
-    /*!
-         *  \brief terminated
-         *
-         *
-         * Methode virtuelle pure (classe Tache abstraite)
-         * Permettra de savoir si une tache est terminée
-         *
-         */
-    virtual bool terminated()=0;
+    Tache(const QString& ident, const QString& t, const Date& d,const Date& ech, bool b=false): Evenement(ident,t,d,ech,b), tachesPrecedentes(0), debut(QDateTime::currentDateTime()), fin(QDateTime::currentDateTime()){std::cout<<"\ncreation d'une tache";}
 
     /*!
          *  \brief afficher
@@ -94,9 +74,7 @@ public:
         *
         *  \param t : la tache à ajouter au projet
         */
-=======
-    Tache(const QString& ident, const QString& t, const Date& d,const Date& ech, bool b=false): Evenement(ident,t,d,ech,b), tachesPrecedentes(0), debut(QDateTime::currentDateTime()), fin(QDateTime::currentDateTime()){std::cout<<"\ncreation d'une tache";}
->>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
+
     void afficherPrecedence();
 
     /*!
@@ -138,7 +116,6 @@ public:
         *  Accesseur en lecture sur la date de fin (format date+horaire) d'une tache
         */
     QDateTime getFin() const{return fin;}
-<<<<<<< HEAD
 
     /*!
         *  \brief getDuree
@@ -146,14 +123,23 @@ public:
         *  Méthode virtuelle pure pour permettre l'appel de getDuree() sur un pointeur de Tache
         *
         */
-=======
-    //méthode virtuelle pour permettre l'appel de afficherSousTache() sur une Tache
-    virtual void afficherSousTache()const =0;
-    //méthode virtuelle pour permettre l'appel de ajouterSousTache() sur une Tache
-    virtual void ajouterSousTache(Tache*)=0;
-    //méthode virtuelle pour permettre l'appel de getDuree() sur un pointeur de Tache
->>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
     virtual Duree getDuree() const =0;
+
+    /*!
+        *  \brief afficherSousTaches()
+        *
+        *  Méthode virtuelle pure pour permettre l'appel de afficherSousTache() sur une Tache
+        *
+        */
+    virtual void afficherSousTaches()const =0;
+
+    /*!
+        *  \brief ajouterSousTache()
+        *
+        *  Méthode virtuelle pure pour permettre l'appel de ajouterSousTache() sur une Tache
+        *
+        */
+    virtual void ajouterSousTache(Tache*)=0;
 
     /*!
         *  \brief getSousTaches
@@ -170,7 +156,14 @@ public:
         *
         */
     const vector<Tache*>* getTachesPrecedentes() const{return &tachesPrecedentes;}
-    void addItem(Tache* t);
+
+    /*!
+        *  \brief addPrecedence
+        *
+        *  Méthode permettant d'ajouter une précédence à une tache
+        *
+        *  \param t : pointeur sur la tache à ajouter en précédence
+        */
     void addPrecedence(Tache* t){addItem(t);}
 };
 

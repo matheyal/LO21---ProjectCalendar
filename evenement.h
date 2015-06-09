@@ -21,7 +21,6 @@ using namespace TIME;
 
 class Evenement {
 protected:
-<<<<<<< HEAD
     QString id;/*!< Identifiant de l'evenement*/
     QString titre;/*!< Titre de l'evenement*/
     Date dispo;/*!< Date de disponibilite de l'evenement*/
@@ -37,24 +36,15 @@ public:
          *  \param t : Titre de l'evenement
          *  \param d : Date de disponibilite de l'evenement
          *  \param ech : Date d'echeance de l'evenement
-         *  \param estProg : Etat de programmation de l'evenement
+         *  \param b : Etat de programmation de l'evenement
          */
-    Evenement(const QString& ident, const QString& t, const Date& d,const Date& ech, bool estProg=false):id(ident),titre(t),dispo(d),echeance(ech){std::cout<<"creation d'un evenement";}
+    Evenement(const QString& ident, const QString& t, const Date& d,const Date& ech, bool b=false):id(ident),titre(t),dispo(d),echeance(ech), estProg(b){std::cout<<"\ncreation d'un evenement";}
 
     /*!
          *  \brief getId
          *
          *  Accesseur en lecture de l'identifiant de l'evenement
          */
-=======
-    QString id;
-    QString titre;
-    Date dispo;
-    Date echeance;
-    bool estProg;
-public:
-    Evenement(const QString& ident, const QString& t, const Date& d,const Date& ech, bool b=false):id(ident),titre(t),dispo(d),echeance(ech), estProg(b){std::cout<<"\ncreation d'un evenement";}
->>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
     QString getId() const{return id;}
 
     /*!
@@ -111,7 +101,6 @@ public:
          *  \param ech : date avec laquelle on veut initialiser la date d'echeance de l'evenement
          */
     void setEcheance(const Date& ech) {echeance = ech;}
-<<<<<<< HEAD
 
     /*!
          *  \brief setEffectue
@@ -120,16 +109,13 @@ public:
          *
          *  \param effect : valeur avec laquelle on veut changer le status de l'evenement (vrai ou faux)
          */
-    virtual void setEffectue(bool effect) {estProg=effect;}
+     void setEffectue(bool effect){estProg=effect;}
 
     /*!
          *  \brief Destructeur
          *
          *  Destructeur de la classe Evenement
          */
-=======
-    void setEffectue(bool effect){estProg=effect;}
->>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
     virtual ~Evenement() {}
 
     /*!
@@ -164,10 +150,7 @@ public:
     {
         return dispo<e.dispo && echeance<e.echeance;
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
 };
 
 /*!

@@ -124,7 +124,6 @@ private:
 
 public:
 
-<<<<<<< HEAD
    /*!
         *  \brief trouverProgrammation
         *
@@ -133,7 +132,7 @@ public:
         *
         *  \param e : Evenement dont la programmation est recherchée
         */
-   Programmation* trouverProgrammation(const Evenement& e) const;
+   Programmation* trouverProgrammation(Evenement* e) const;
 
    /*!
         *  \brief getInstance
@@ -143,9 +142,6 @@ public:
         * => Application du design pattern singleton
         *
         */
-=======
-   Programmation* trouverProgrammation(Evenement* e) const;
->>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
    static Agenda& getInstance();
 
    /*!
@@ -156,7 +152,6 @@ public:
         *
         */
    static void libererInstance();
-<<<<<<< HEAD
 
    /*!
         *  \brief ajouterProg
@@ -168,7 +163,7 @@ public:
         *  \param d : Date à laquelle on veut ajouter la programmation dans l'agenda
         *  \param e : Horaire auquel on veut ajouter la programmation dans l'agenda
         */
-   Programmation& ajouterProg(const Evenement& e, const Date& d, const Horaire& h);
+   Programmation& ajouterProg(Evenement* e, const Date& d, const Horaire& h);
 
    /*!
         *  \brief supprimerProg
@@ -177,7 +172,7 @@ public:
         *
         *  \param e : Evenement dont la programmation souhaite être supprimée
         */
-   void supprimerProg(const Evenement& e);
+   void supprimerProg(Evenement* e);
 
    /*!
         *  \brief afficherProg
@@ -185,10 +180,7 @@ public:
         *  Affiche l'ensemble des programmations de l'agenda
         *
         */
-=======
-   Programmation& ajouterProg(Evenement* e, const Date& d, const Horaire& h);
-   void supprimerProg(Evenement* e);
->>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
+
    void afficherProg();
 
 };

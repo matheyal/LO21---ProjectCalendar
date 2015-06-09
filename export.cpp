@@ -99,7 +99,4 @@ void ExportXML::save(const QString& f){
     stream.writeEndDocument();
     newfile.close();
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 2437e5e898810d94ad7b99fb0b5888bb8c0eadc6
