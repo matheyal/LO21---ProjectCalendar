@@ -1,4 +1,4 @@
-/*#include "import.h"
+#include "import.h"
 
 void ImportXML::load(const QString& f){
     //qDebug()<<"debut load\n";
@@ -43,7 +43,7 @@ void ImportXML::load(const QString& f){
                                 if(xml.tokenType() == QXmlStreamReader::StartElement) {
                                     // We've found identificteur.
                                     if(xml.name() == "identificateur") {
-                                        xml.readNext(); id_projet<identificateur<<"\n";
+                                        xml.readNext(); id_projet=xml.text().toString();
                                     }
 
                                     // We've found titre.
@@ -123,7 +123,7 @@ void ImportXML::load(const QString& f){
                                                             // We've found duree
                                                             if(xml.name() == "duree") {
                                                                 xml.readNext();
-                                                                duree_tache.setDuree(xml.text().toString().toUInt());
+                                                                duree_tache.setDuree(xml.text().toString().toInt());
                                                                 //qDebug()<<"duree="<<duree.getDureeEnMinutes()<<"\n";
                                                             }
                                                         }
@@ -165,7 +165,15 @@ void ImportXML::load(const QString& f){
                                 id_projet =attributes.value("id_tache").toString();
                             }
                             Tache* tache = PM.trouverProjet(id_projet)->trouverTache(id_tache);
-
+                            xml.readNext();
+                            while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "precedence")) {
+                                if (xml.name() == "id_precedence"){
+                                    xml.readNext();
+                                    Tache* preced = PM.trouverProjet(id_projet)->trouverTache(xml.name().toString());
+                                    tache->addPrecedence(preced);
+                                }
+                                xml.readNext();
+                            } //Fin while precedence
                         }// Fin if precedence
                     }
                     xml.readNext();
@@ -185,4 +193,3 @@ void ImportXML::load(const QString& f){
     //qDebug()<<"fin load\n";
 }
 
-*/
