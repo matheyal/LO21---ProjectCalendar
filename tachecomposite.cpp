@@ -67,7 +67,7 @@ TacheComposite& TacheComposite::ajouterTacheComposite(const QString& id, const Q
     return *newt;
 }*/
 
-void TacheComposite::afficherSousTache() const {
+void TacheComposite::afficherSousTaches() const {
     for(std::size_t i=0;i<soustaches.size();++i) {
         std::cout<<"\nSous-Tache "<<i<<": "<<std::endl;
         soustaches[i]->afficher(std::cout);

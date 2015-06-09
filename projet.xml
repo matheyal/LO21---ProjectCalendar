@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectcalendar>
+    <projets>
+        <projet>
+            <identificateur>1</identificateur>
+            <titre>projet1</titre>
+            <description>projet de test 1</description>
+            <disponibilite>01/06/2015</disponibilite>
+            <echeance>20/06/2015</echeance>
+            <taches>
+                <tache preemptive="false" composite="false">
+                    <identificateur>1</identificateur>
+                    <titre>coucou</titre>
+                    <disponibilite>01/06/2015</disponibilite>
+                    <echeance>10/06/2015</echeance>
+                </tache>
+                <tache preemptive="true" composite="false">
+                    <identificateur>2</identificateur>
+                    <titre>blabla</titre>
+                    <disponibilite>15/06/2015</disponibilite>
+                    <echeance>30/06/2015</echeance>
+                </tache>
+                <tache preemptive="false" composite="false">
+                    <identificateur>3</identificateur>
+                    <titre>reunion</titre>
+                    <disponibilite>25/07/2015</disponibilite>
+                    <echeance>10/08/2015</echeance>
+                </tache>
+            </taches>
+        </projet>
+        <projet>
+            <identificateur>2</identificateur>
+            <titre>projet2</titre>
+            <description>projet de test 2</description>
+            <disponibilite>01/04/2015</disponibilite>
+            <echeance>01/09/2015</echeance>
+            <taches>
+                <tache preemptive="false" composite="false">
+                    <identificateur>4</identificateur>
+                    <titre>brainstorm</titre>
+                    <disponibilite>01/04/2015</disponibilite>
+                    <echeance>10/06/2015</echeance>
+                </tache>
+                <tache preemptive="false" composite="true">
+                    <identificateur>5</identificateur>
+                    <titre>open the pic</titre>
+                    <disponibilite>01/05/2015</disponibilite>
+                    <echeance>10/08/2015</echeance>
+                </tache>
+            </taches>
+        </projet>
+    </projets>
+    <precedences>
+        <precedence id="3">
+            <id_precedence>1</id_precedence>
+            <id_precedence>2</id_precedence>
+        </precedence>
+    </precedences>
+    <composites>
+        <composite id="5"/>
+    </composites>
+</projectcalendar>

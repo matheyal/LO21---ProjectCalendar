@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     pm.trouverProjet("1")->getTache("1").ajouterSousTache(pm.trouverProjet("1")->trouverTache("2"));
     pm.trouverProjet("1")->getTache("1").ajouterSousTache(pm.trouverProjet("1")->trouverTache("3"));
     pm.trouverProjet("1")->getTache("3").afficherPrecedence();
-    pm.trouverProjet("1")->getTache("1").afficherSousTache();
+    pm.trouverProjet("1")->getTache("1").afficherSousTaches();
     /*Rdv *rdv = new Rdv("1","coco", Date(12,10,2000), Date(20,12,2015), Duree(2,0), "marie", "bf");
     rdv->afficher(std::cout);
     a.ajouterProg(rdv, Date(12,12,2012), Horaire(15,30));

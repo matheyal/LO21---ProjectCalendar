@@ -99,3 +99,4 @@ void ExportXML::save(const QString& f){
     stream.writeEndDocument();
     newfile.close();
 }
+
