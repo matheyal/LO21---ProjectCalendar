@@ -34,8 +34,12 @@ SOURCES += main.cpp \
     import.cpp \
     mainwindow.cpp \
     fenetreprojet.cpp \
+<<<<<<< HEAD
+    fenetresupmodprojet.cpp
+=======
     fenetreunitaire.cpp \
     fenetrecomposite.cpp
+>>>>>>> 4d895204d940735f38141d3c6a6842c58dd139f7
 
 HEADERS += \
     agenda.h \
@@ -56,5 +60,9 @@ HEADERS += \
     import.h \
     mainwindow.h \
     fenetreprojet.h \
+<<<<<<< HEAD
+    fenetresupmodprojet.h
+=======
     fenetreunitaire.h \
     fenetrecomposite.h
+>>>>>>> 4d895204d940735f38141d3c6a6842c58dd139f7
