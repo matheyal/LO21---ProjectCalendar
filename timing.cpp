@@ -96,6 +96,12 @@ bool Horaire::operator<(const Horaire& h) const{
 	return true;
 }
 
+QString Horaire::toString() const{
+    std::stringstream s;
+    s<<std::setfill('0')<<std::setw(2)<<heure<<"H"<<std::setfill('0')<<std::setw(2)<<minute<<std::setfill(' ');
+    return QString::fromStdString(s.str());
+}
+
 Periode::Periode(unsigned int j, unsigned int m, unsigned int a): 
 		   nb_jours(j), nb_mois(m), nb_annees(a) {
 	if (j>364) throw TimeException("erreur: initialisation periode invalide");
