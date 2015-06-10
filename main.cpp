@@ -41,11 +41,16 @@ int main(int argc, char *argv[])
     a.afficherProg();
 
 
+<<<<<<< HEAD
  ----- Test export -----
 
 /* ----- Test export ----- */
 
+/* ----- Test export ----- */
+/*
+>>>>>>> 1ebedcefffca87fcec3bb699e9fa3d37247f2716
     ProjetManager& pm= ProjetManager::getInstance();
+    Agenda& a = Agenda::getInstance();
     pm.ajouterProjet("1","cool","c'est top", QDate(1984,10,12), QDate(2000,10,12));
     pm.trouverProjet("1")->ajouterTacheComposite("1","compo",QDate(1994,10,12), QDate(2000,10,12));
     pm.trouverProjet("1")->ajouterTacheUnitaire("2","unit2",QDate(1999,10,12), QDate(2002,10,12),Duree(3,50));
@@ -56,18 +61,20 @@ int main(int argc, char *argv[])
     pm.trouverProjet("1")->getTache("1").ajouterSousTache(pm.trouverProjet("1")->trouverTache("2"));
     pm.trouverProjet("1")->getTache("1").ajouterSousTache(pm.trouverProjet("1")->trouverTache("3"));
 
+    a.ajouterProg(&(pm.trouverProjet("1")->getTache("2")),QDate(2000,10,12), Horaire(10,15));
     //t1 = &(pm.trouverProjet("2")->getTache("4"));
     //pm.trouverProjet("2")->getTache("5").ajouterTacheUnitaire(t1);
+
 
     try{
         ExportXML strategy;
         strategy.save("/home/matheyal/Documents/LO21/Projet/projet.xml");
     }
     catch(CalendarException& e){std::cout<<e.getInfo().toStdString()<<std::endl;}
-
+*/
 
 /* ------ Test Import -------*/
-/*
+
     ProjetManager& pm = ProjetManager::getInstance();
     try{
         ImportXML import;
@@ -80,7 +87,7 @@ int main(int argc, char *argv[])
     catch (ProjetException& e){
         std::cout<<e.getInfo().toStdString()<<std::endl;
     }
-*/
+
 
   // return a.exec();
     QApplication app(argc, argv);
