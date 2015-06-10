@@ -155,6 +155,7 @@ void ImportXML::load(const QString& f){
                     xml.readNext();
                 } // Fin while projets
             } // Fin if projets
+
             if(xml.name() == "precedences") {
                 while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "precedences")) {
                     if(xml.tokenType() == QXmlStreamReader::StartElement) {
@@ -166,15 +167,17 @@ void ImportXML::load(const QString& f){
                                 id_projet =attributes.value("id_projet").toString();
                             }
                             if(attributes.hasAttribute("id_tache")) {
-                                id_projet =attributes.value("id_tache").toString();
+                                id_tache =attributes.value("id_tache").toString();
                             }
                             Tache* tache = PM.trouverProjet(id_projet)->trouverTache(id_tache);
                             xml.readNext();
                             while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "precedence")) {
-                                if (xml.name() == "id_precedence"){
-                                    xml.readNext();
-                                    Tache* preced = PM.trouverProjet(id_projet)->trouverTache(xml.name().toString());
-                                    tache->addPrecedence(preced);
+                                if(xml.tokenType() == QXmlStreamReader::StartElement) {
+                                    if (xml.name() == "id_precedence"){
+                                        xml.readNext();
+                                        Tache* preced = PM.trouverProjet(id_projet)->trouverTache(xml.text().toString());
+                                        tache->addPrecedence(preced);
+                                    } // Fin if precedence
                                 }
                                 xml.readNext();
                             } //Fin while precedence
@@ -186,6 +189,7 @@ void ImportXML::load(const QString& f){
             if(xml.name() == "composites"){
 
             } // Fin if composites
+
         }
     } // Fin lecture document
     // Error handling.

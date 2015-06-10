@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
     ProjetManager& pm= ProjetManager::getInstance();
     pm.ajouterProjet("1","cool","c'est top", QDate(1984,10,12), QDate(2000,10,12));
     pm.trouverProjet("1")->ajouterTacheComposite("1","compo",QDate(1994,10,12), QDate(2000,10,12));
-    pm.trouverProjet("1")->ajouterTacheUnitaire("2","compo2",QDate(1999,10,12), QDate(2002,10,12),Duree(3,50));
+    pm.trouverProjet("1")->ajouterTacheUnitaire("2","unit2",QDate(1999,10,12), QDate(2002,10,12),Duree(3,50));
     pm.trouverProjet("1")->ajouterTacheComposite("3","compo3",QDate(2004,10,12), QDate(2008,10,12));
 
     pm.trouverProjet("1")->getTache("3").addPrecedence(pm.trouverProjet("1")->trouverTache("2"));
@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 */
 
 /* ------ Test Import -------*/
-/*
+
     ProjetManager& pm = ProjetManager::getInstance();
     try{
         ImportXML import;
@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
     catch (ProjetException& e){
         std::cout<<e.getInfo().toStdString()<<std::endl;
     }
-*/
+
 
   // return a.exec();
    return 0;
