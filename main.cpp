@@ -91,6 +91,7 @@ int main(int argc, char *argv[])
 
 
   // return a.exec();
+
     QApplication app(argc, argv);
     MainWindow fenetre;
     fenetre.show();

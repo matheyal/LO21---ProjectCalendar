@@ -34,11 +34,11 @@ void ProjetManager::supprimerProjet(const QString& id)
 {
     for(std::size_t i=0; i< projets.size(); ++i)
     {
-        if(trouverProjet(id)) projets.erase(projets.begin()+i);
-        return;
+        if(projets[i]->getId()==id){
+            projets.erase(projets.begin()+i);
+            return;
+        }
     }
-    throw ProjetManagerException("Projet inexistant");
-
 }
 
 void ProjetManager::afficherProjets() const {

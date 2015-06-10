@@ -18,7 +18,7 @@ private slots:
     void load();
 
 private:
-    QLineEdit *idProjet;
+    QComboBox *idProjet;
     QLineEdit *titreProjet;
 
     QTextEdit* descriptionProjet;
