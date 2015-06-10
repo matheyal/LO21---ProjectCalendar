@@ -66,9 +66,8 @@ public:
          * \param ech : date d'écheance de la tache composite
          *
          */
-    TacheComposite(const QString& ident, const QString& t, const Date& d,const Date& ech, bool b=false):Tache(ident,t,d,ech,b), soustaches(0){std::cout<<"\ncreation d'une tache composite\n";}
+    TacheComposite(const QString& ident, const QString& t, const QDate& d,const QDate& ech, bool b=false):Tache(ident,t,d,ech,b), soustaches(0){std::cout<<"\ncreation d'une tache composite\n";}
 
-    /*
     /*!
          *  \brief ajouterTacheUnitaire
          *
@@ -80,9 +79,8 @@ public:
          * \param ech : date d'écheance de la tache unitaire à ajouter
          *
          */
-    //TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur);
+    //TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const QDate& dispo, const QDate& deadline, const Duree& dur);
 
-    /*
     /*!
          *  \brief ajouterTachePreemptable
          *
@@ -95,9 +93,8 @@ public:
          * \param dur : duree de la tache préemptable à ajouter
          *
          */
-    //TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const Date& dispo, const Date& deadline, const Duree& dur);
+    //TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const QDate& dispo, const QDate& deadline, const Duree& dur);
 
-    /*
     /*!
          *  \brief ajouterTacheComposite
          *
@@ -109,7 +106,7 @@ public:
          * \param ech : date d'écheance de la tache composite à ajouter
          *
          */
-    //TacheComposite& ajouterTacheComposite(const QString& id, const QString& t, const Date& dispo, const Date& deadline);
+    //TacheComposite& ajouterTacheComposite(const QString& id, const QString& t, const QDate& dispo, const QDate& deadline);
 
     /*!
          *  \brief ajouterSousTache

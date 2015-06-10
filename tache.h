@@ -46,7 +46,7 @@ public:
          * \param b: Booleen représentant l'état de la tache à ajouter (par défaut non programmée)
          *
          */
-    Tache(const QString& ident, const QString& t, const Date& d,const Date& ech, bool b=false): Evenement(ident,t,d,ech,b), tachesPrecedentes(0), debut(QDateTime::currentDateTime()), fin(QDateTime::currentDateTime()){std::cout<<"\ncreation d'une tache";}
+    Tache(const QString& ident, const QString& t, const QDate& d,const QDate& ech, bool b=false): Evenement(ident,t,d,ech,b), tachesPrecedentes(0), debut(QDateTime::currentDateTime()), fin(QDateTime::currentDateTime()){std::cout<<"\ncreation d'une tache";}
 
     /*!
          *  \brief afficher

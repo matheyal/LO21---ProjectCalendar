@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectcalendar>
+    <projets>
+        <projet>
+            <identificateur>1</identificateur>
+            <titre>cool</titre>
+            <description>c'est top</description>
+            <disponibilite>1984-10-12</disponibilite>
+            <echeance>2000-10-12</echeance>
+            <taches>
+                <tache preemptive="false" composite="true" unitaire="false">
+                    <identificateur>1</identificateur>
+                    <titre>compo</titre>
+                    <disponibilite>1994-10-12</disponibilite>
+                    <echeance>2000-10-12</echeance>
+                </tache>
+                <tache preemptive="false" composite="false" unitaire="true">
+                    <identificateur>2</identificateur>
+                    <titre>compo2</titre>
+                    <disponibilite>1999-10-12</disponibilite>
+                    <echeance>2002-10-12</echeance>
+                    <duree>230</duree>
+                </tache>
+                <tache preemptive="false" composite="true" unitaire="false">
+                    <identificateur>3</identificateur>
+                    <titre>compo3</titre>
+                    <disponibilite>2004-10-12</disponibilite>
+                    <echeance>2008-10-12</echeance>
+                </tache>
+            </taches>
+        </projet>
+    </projets>
+    <precedences>
+        <precedence id_projet="1" id_tache="3">
+            <id_precedence>2</id_precedence>
+            <id_precedence>1</id_precedence>
+        </precedence>
+    </precedences>
+    <composites>
+        <composite id_projet="1" id_tache="1">
+            <id_composant>2</id_composant>
+            <id_composant>3</id_composant>
+        </composite>
+        <composite id_projet="1" id_tache="3"/>
+    </composites>
+</projectcalendar>

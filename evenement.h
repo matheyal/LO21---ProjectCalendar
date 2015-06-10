@@ -23,8 +23,8 @@ class Evenement {
 protected:
     QString id;/*!< Identifiant de l'evenement*/
     QString titre;/*!< Titre de l'evenement*/
-    Date dispo;/*!< Date de disponibilite de l'evenement*/
-    Date echeance;/*!< Date d'echeance de l'evenement*/
+    QDate dispo;/*!< Date de disponibilite de l'evenement*/
+    QDate echeance;/*!< Date d'echeance de l'evenement*/
     bool estProg;/*!< Booleen permettant de savoir si un evenement est programmé*/
 public: 
     /*!
@@ -38,7 +38,7 @@ public:
          *  \param ech : Date d'echeance de l'evenement
          *  \param b : Etat de programmation de l'evenement
          */
-    Evenement(const QString& ident, const QString& t, const Date& d,const Date& ech, bool b=false):id(ident),titre(t),dispo(d),echeance(ech), estProg(b){std::cout<<"\ncreation d'un evenement";}
+    Evenement(const QString& ident, const QString& t, const QDate& d,const QDate& ech, bool b=false):id(ident),titre(t),dispo(d),echeance(ech), estProg(b){std::cout<<"\ncreation d'un evenement";}
 
     /*!
          *  \brief getId
@@ -66,14 +66,14 @@ public:
          *
          *  Accesseur en lecture de la date de disponibilite de l'evenement
          */
-    Date getDate() const{return dispo;}
+    QDate getDate() const{return dispo;}
 
     /*!
          *  \brief getEcheance
          *
          *  Accesseur en lecture de la date d'écheance de l'evenement
          */
-    Date getEcheance() const{return echeance;}
+    QDate getEcheance() const{return echeance;}
 
     /*!
          *  \brief setTitre
@@ -91,7 +91,7 @@ public:
          *
          *  \param d : date avec laquelle on veut initialiser la date de disponibilite de l'evenement
          */
-    void setDateDisponibilite(const Date& d) {dispo = d;}
+    void setDateDisponibilite(const QDate& d) {dispo = d;}
 
     /*!
          *  \brief setEcheance
@@ -100,7 +100,7 @@ public:
          *
          *  \param ech : date avec laquelle on veut initialiser la date d'echeance de l'evenement
          */
-    void setEcheance(const Date& ech) {echeance = ech;}
+    void setEcheance(const QDate& ech) {echeance = ech;}
 
     /*!
          *  \brief setEffectue
@@ -134,7 +134,7 @@ public:
          *  \param f : Flux sur lequel on écrit
          */
     virtual void afficher(std::ostream& f) const{
-        f<<"\n\nID : "<<qPrintable(id)<<"\nTitre : "<<qPrintable(titre)<<"\nDispo : "<<dispo<<"\nEcheance : "<<echeance<< " \nEst programme:";
+        f<<"\n\nID : "<<qPrintable(id)<<"\nTitre : "<<qPrintable(titre)<<"\nDispo : "<<qPrintable(dispo.toString(Qt::ISODate))<<"\nEcheance : "<<qPrintable(echeance.toString(Qt::ISODate))<< " \nEst programme:";
         if (estProg) f<<"vrai";
         else f<<"faux";
     }

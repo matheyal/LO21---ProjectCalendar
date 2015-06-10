@@ -21,8 +21,8 @@ void ExportXML::save(const QString& f){
         stream.writeTextElement("identificateur",(*it1)->getId());
         stream.writeTextElement("titre",(*it1)->getTitre());
         stream.writeTextElement("description",(*it1)->getDesc());
-        stream.writeTextElement("disponibilite",(*it1)->getDispo().toString());
-        stream.writeTextElement("echeance",(*it1)->getEcheance().toString());
+        stream.writeTextElement("disponibilite",(*it1)->getDispo().toString(Qt::ISODate));
+        stream.writeTextElement("echeance",(*it1)->getEcheance().toString(Qt::ISODate));
         //Liste des taches du projet dans une balise <taches>
         stream.writeStartElement("taches");
         const vector<Tache*>* taches = (*it1)->getTaches();
@@ -40,15 +40,15 @@ void ExportXML::save(const QString& f){
             else
                 stream.writeAttribute("composite", "false");
             //Met l'attribut unitaire à true si tache unitaire, false sinon
-            if (typeid(**it2) == typeid(TacheComposite))
+            if (typeid(**it2) == typeid(TacheUnitaire))
                 stream.writeAttribute("unitaire", "true");
             else
                 stream.writeAttribute("unitaire", "false");
 
             stream.writeTextElement("identificateur",(*it2)->getId());
             stream.writeTextElement("titre",(*it2)->getTitre());
-            stream.writeTextElement("disponibilite",(*it2)->getDate().toString());
-            stream.writeTextElement("echeance",(*it2)->getEcheance().toString());
+            stream.writeTextElement("disponibilite",(*it2)->getDate().toString(Qt::ISODate));
+            stream.writeTextElement("echeance",(*it2)->getEcheance().toString(Qt::ISODate));
             //Durée uniquement si tache unitaire
             if ((typeid(**it2) ==  typeid(TacheUnitaire)) || (typeid(**it2) == typeid(TachePreemptable))){
                 QString str;
@@ -70,7 +70,8 @@ void ExportXML::save(const QString& f){
             const vector<Tache*>* tachesPrecedentes = (*it2)->getTachesPrecedentes();
             if (!tachesPrecedentes->empty()){ //La tache a des contraintes de precedence
                 stream.writeStartElement("precedence");
-                stream.writeAttribute("id", (*it2)->getId());
+                stream.writeAttribute("id_projet", (*it1)->getId());
+                stream.writeAttribute("id_tache", (*it2)->getId());
                 for (vector<Tache*>::const_iterator it3 = tachesPrecedentes->begin() ; it3 != tachesPrecedentes->end() ; ++it3) //Pour chaque tache, itération sur les taches précédentes
                     stream.writeTextElement("id_precedence", (*it3)->getId());
                 stream.writeEndElement(); // Fin <precedence>
@@ -86,7 +87,8 @@ void ExportXML::save(const QString& f){
         for (vector<Tache*>::const_iterator it2 = taches->begin() ; it2 != taches->end() ; ++it2){ //Itération sur les taches du projet
             if (typeid(**it2) == typeid(TacheComposite)){
                 stream.writeStartElement("composite");
-                stream.writeAttribute("id", (*it2)->getId());
+                stream.writeAttribute("id_projet", (*it1)->getId());
+                stream.writeAttribute("id_tache", (*it2)->getId());
                 const vector<Tache*>* sousTaches = (*it2)->getSousTaches();
                 for (vector<Tache*>::const_iterator it3 = sousTaches->begin() ; it3 != sousTaches->end() ; ++it3) //Pour chaque tache, itération sur les sous taches
                     stream.writeTextElement("id_composant", (*it3)->getId());

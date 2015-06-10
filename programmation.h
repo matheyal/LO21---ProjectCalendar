@@ -18,7 +18,7 @@ using namespace TIME;
    */
 class Programmation {
 private:
-    Date date;/*!< Date de la programmation*/
+    QDate date;/*!< Date de la programmation*/
     Horaire heure;/*!< Horaire de la programmation */
     Evenement* event;/*!< Pointeur constant sur l'évenement à programmer */
 
@@ -31,7 +31,7 @@ private:
          *  \param h : Horaire de la programmation
          *  \param e : Evenement à programmer
          */
-    Programmation(const Date& d, const Horaire& h, Evenement* e):date(d),heure(h),event(e){}
+    Programmation(const QDate& d, const Horaire& h, Evenement* e):date(d),heure(h),event(e){}
 
     /*!
          *  \brief Destructeur
@@ -47,7 +47,7 @@ public:
          *
          *  Accesseur en lecture sur la date de la programmation
          */
-    Date getDate() const {return date;}
+    QDate getDate() const {return date;}
 
     /*!
          *  \brief getHoraire

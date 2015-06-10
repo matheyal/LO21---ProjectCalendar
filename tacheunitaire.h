@@ -36,7 +36,7 @@ public:
          * \param du : duree d'execution de la tache unitaire
          *
          */
-    TacheUnitaire(const QString& ident, const QString& t, const Date& d,const Date& ech,const Duree& du,bool b=false):Tache(ident,t,d,ech,b),duree(du){std::cout<<"\ncreation d'une tache unitaire\n";}
+    TacheUnitaire(const QString& ident, const QString& t, const QDate& d,const QDate& ech,const Duree& du,bool b=false):Tache(ident,t,d,ech,b),duree(du){std::cout<<"\ncreation d'une tache unitaire\n";}
 
     /*!
          *  \brief getDuree

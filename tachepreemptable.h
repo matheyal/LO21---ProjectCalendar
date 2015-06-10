@@ -35,7 +35,7 @@ public:
          * \param du : duree d'execution qu'il reste de la tache préemptable
          *
          */
-    TachePreemptable(const QString& ident, const QString& t, const Date& d,const Date& ech,const Duree& du, bool b=false):TacheUnitaire(ident,t,d,ech, du,b), enCours(false), reste(getDuree()){std::cout<<" qui est preemptable\n";}
+    TachePreemptable(const QString& ident, const QString& t, const QDate& d,const QDate& ech,const Duree& du, bool b=false):TacheUnitaire(ident,t,d,ech, du,b), enCours(false), reste(getDuree()){std::cout<<" qui est preemptable\n";}
 
     //Duree getDuree() const{return getDuree();}
 
