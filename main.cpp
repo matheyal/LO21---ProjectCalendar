@@ -95,6 +95,5 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     MainWindow fenetre;
     fenetre.show();
-    ProjetManager& pm1= ProjetManager::getInstance();
     return app.exec();
 }
