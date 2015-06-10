@@ -1,6 +1,7 @@
 #include "qt.h"
 #include <iostream>
 #include "activite.h"
+#include "activitemanager.h"
 #include "agenda.h"
 #include "evenement.h"
 #include "programmation.h"
@@ -33,17 +34,24 @@ int main(int argc, char *argv[])
     pm.trouverProjet("1")->getTache("1").ajouterSousTache(pm.trouverProjet("1")->trouverTache("3"));
     pm.trouverProjet("1")->getTache("3").afficherPrecedence();
     pm.trouverProjet("1")->getTache("1").afficherSousTaches();
-    /*Rdv *rdv = new Rdv("1","coco", QDate(2000,10,12), QDate(2015,12,20), Duree(2,0), "marie", "bf");
+    Rdv *rdv = new Rdv("1","coco", QDate(2000,10,12), QDate(2015,12,20), Duree(2,0), "marie", "bf");
     rdv->afficher(std::cout);
     a.ajouterProg(rdv, QDate(2012,12,12), Horaire(15,30));
     a.ajouterProg(pm.trouverProjet("1")->trouverTache("1"),QDate(1999,10,15), Horaire(14,30));
     a.supprimerProg(rdv);
     a.afficherProg();
-*/
+
+
+<<<<<<< HEAD
+ ----- Test export -----
+
+/* ----- Test export ----- */
 
 /* ----- Test export ----- */
 /*
+>>>>>>> 1ebedcefffca87fcec3bb699e9fa3d37247f2716
     ProjetManager& pm= ProjetManager::getInstance();
+    Agenda& a = Agenda::getInstance();
     pm.ajouterProjet("1","cool","c'est top", QDate(1984,10,12), QDate(2000,10,12));
     pm.trouverProjet("1")->ajouterTacheComposite("1","compo",QDate(1994,10,12), QDate(2000,10,12));
     pm.trouverProjet("1")->ajouterTacheUnitaire("2","unit2",QDate(1999,10,12), QDate(2002,10,12),Duree(3,50));
@@ -54,8 +62,10 @@ int main(int argc, char *argv[])
     pm.trouverProjet("1")->getTache("1").ajouterSousTache(pm.trouverProjet("1")->trouverTache("2"));
     pm.trouverProjet("1")->getTache("1").ajouterSousTache(pm.trouverProjet("1")->trouverTache("3"));
 
+    a.ajouterProg(&(pm.trouverProjet("1")->getTache("2")),QDate(2000,10,12), Horaire(10,15));
     //t1 = &(pm.trouverProjet("2")->getTache("4"));
     //pm.trouverProjet("2")->getTache("5").ajouterTacheUnitaire(t1);
+
 
     try{
         ExportXML strategy;
@@ -81,6 +91,7 @@ int main(int argc, char *argv[])
 
 
   // return a.exec();
+
     QApplication app(argc, argv);
     MainWindow fenetre;
     fenetre.show();

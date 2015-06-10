@@ -5,7 +5,7 @@
  * \file projetmanager.h
  * \brief Fichier permettant l'instanciation de projets et leur gestion
  */
-
+#include "qt.h"
 #include "projet.h"
 #include "export.h"
 

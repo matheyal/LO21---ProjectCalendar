@@ -2,9 +2,10 @@
 #define MAINWINDOW_H
 
 #include<QtWidgets>
-#include "Calendar.h"
+#include "calendar.h"
 #include "timing.h"
 #include "fenetreprojet.h"
+#include "fenetresupmodprojet.h"
 /*#include "tacheunitaire.h"
 #include "tachecomposite.h"
 #include "tacheunitairepreemptee.h"
@@ -21,15 +22,14 @@ public :
 public slots:
     void chargerProjet();
     void sauvegarderProjet();
+    void supmodProjet();
     void enregistrerTache();
     void ajouterProjet();
     void ajouterTacheUnitaire();
     void ajouterTacheComposite();
-    void ajouterTacheUnitairePreemptee();
     void ajoutEvenement();
     void ajoutProjetCalendrier();
     void ajoutTacheCalendrier();
-
 
 protected:
     QWidget *mainWindow;
@@ -55,6 +55,7 @@ protected:
 
     QPushButton* nouveau;
     QPushButton* charger;
+    QPushButton* supmod;
     QPushButton* unitaire;
     QPushButton* unitairePreemptee;
     QPushButton* composite;

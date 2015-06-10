@@ -26,9 +26,7 @@ Projet* ProjetManager::trouverProjet(const QString &id) const
 Projet* ProjetManager::ajouterProjet(const QString& id, const QString &ti, const QString &desc, const QDate &d, const QDate &ech)
 {
     Projet* newP = new Projet(id, ti, desc, d, ech);
-    if(trouverProjet(id))
-        throw ProjetManagerException("Projet deja existant");
-    else projets.push_back(newP);
+    projets.push_back(newP);
     return newP;
 }
 
@@ -36,11 +34,11 @@ void ProjetManager::supprimerProjet(const QString& id)
 {
     for(std::size_t i=0; i< projets.size(); ++i)
     {
-        if(trouverProjet(id)) projets.erase(projets.begin()+i);
-        return;
+        if(projets[i]->getId()==id){
+            projets.erase(projets.begin()+i);
+            return;
+        }
     }
-    throw ProjetManagerException("Projet inexistant");
-
 }
 
 void ProjetManager::afficherProjets() const {

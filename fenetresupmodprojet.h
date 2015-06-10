@@ -1,23 +1,23 @@
-#ifndef FENETREPROJET_H
-#define FENETREPROJET_H
+#ifndef FENETRESUPPRIMERPROJET
+#define FENETRESUPPRIMERPROJET
 
 #include<QtWidgets>
 #include"mainwindow.h"
-#include "projetmanager.h"
 
-class FenetreProjet : public QMainWindow
+class FenetreSupModProjet : public QMainWindow
 {
     Q_OBJECT
 public:
-    FenetreProjet(QWidget *parent=0);
+    FenetreSupModProjet(QWidget *parent=0);
 
 private slots:
-    void saveProjet();
-    void cancel();
+    void modifier();
     void checkDate(const QDate& d);
+    void supprimer();
+    void load();
 
 private:
-    QLineEdit *idProjet;
+    QComboBox *idProjet;
     QLineEdit *titreProjet;
 
     QTextEdit* descriptionProjet;
@@ -25,8 +25,9 @@ private:
     QDateEdit *dispoProjet;
     QDateEdit *echeanceProjet;
 
-    QPushButton *enregistrerProjet;
-    QPushButton* annuler;
+    QPushButton *supp;
+    QPushButton* ann;
+    QPushButton* mod;
 
     QGroupBox* groupeNouveauProjet;
 
@@ -38,5 +39,5 @@ private:
     QWidget *fenetreProjet;
 };
 
-#endif // FENETREPROJET_H
+#endif // FENETRESUPPRIMERPROJET
 

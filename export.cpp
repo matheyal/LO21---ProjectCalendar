@@ -1,18 +1,20 @@
 #include "projetmanager.h"
+#include "agenda.h"
 #include "export.h"
 #include <typeinfo>
 
 void ExportXML::save(const QString& f){
     //file=f;
     ProjetManager& PM = ProjetManager::getInstance();
+    Agenda& A = Agenda::getInstance();
     QFile newfile(f);
     if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
         throw CalendarException(QString("erreur sauvegarde tâches : ouverture fichier xml"));
     QXmlStreamWriter stream(&newfile);
     stream.setAutoFormatting(true);
     stream.writeStartDocument();
-    //Écriture de tous les projets dans une balise <projets>
     stream.writeStartElement("projectcalendar");
+    //Liste des projets dans la balise <projets>
     stream.writeStartElement("projets");
     const vector<Projet*>* projets = PM.getProjets();
     for(vector<Projet*>::const_iterator it1 = projets->begin(); it1 != projets->end(); ++it1){
@@ -55,6 +57,18 @@ void ExportXML::save(const QString& f){
                 str.setNum((*it2)->getDuree().getDureeEnMinutes());
                 stream.writeTextElement("duree",str);
             }
+
+            //Programmation si la tâche est programmée
+            if ((*it2)->getStatus()){ // La Tache est programmée nous écrivons ici sa programmation
+                Programmation* prog = A.trouverProgrammation(*it2);
+                if (prog){
+                    stream.writeStartElement("programmation");
+                    stream.writeTextElement("date",prog->getDate().toString(Qt::ISODate));
+                    stream.writeTextElement("heure", prog->getHoraire().toString());
+                    stream.writeEndElement(); // Fin <programmation>
+                }
+            }
+
             stream.writeEndElement();// Fin <tache>
         }
         stream.writeEndElement(); // Fin <taches>
@@ -86,13 +100,15 @@ void ExportXML::save(const QString& f){
         const vector<Tache*>* taches = (*it1)->getTaches();
         for (vector<Tache*>::const_iterator it2 = taches->begin() ; it2 != taches->end() ; ++it2){ //Itération sur les taches du projet
             if (typeid(**it2) == typeid(TacheComposite)){
-                stream.writeStartElement("composite");
-                stream.writeAttribute("id_projet", (*it1)->getId());
-                stream.writeAttribute("id_tache", (*it2)->getId());
                 const vector<Tache*>* sousTaches = (*it2)->getSousTaches();
-                for (vector<Tache*>::const_iterator it3 = sousTaches->begin() ; it3 != sousTaches->end() ; ++it3) //Pour chaque tache, itération sur les sous taches
-                    stream.writeTextElement("id_composant", (*it3)->getId());
-                stream.writeEndElement(); // Fin <composite>
+                if (!sousTaches->empty()){
+                    stream.writeStartElement("composite");
+                    stream.writeAttribute("id_projet", (*it1)->getId());
+                    stream.writeAttribute("id_tache", (*it2)->getId());
+                    for (vector<Tache*>::const_iterator it3 = sousTaches->begin() ; it3 != sousTaches->end() ; ++it3) //Pour chaque tache, itération sur les sous taches
+                        stream.writeTextElement("id_composant", (*it3)->getId());
+                    stream.writeEndElement(); // Fin <composite>
+                }
             }
         }
     }

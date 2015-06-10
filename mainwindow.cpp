@@ -8,8 +8,8 @@
 #include "projet.h"
 #include "projetmanager.h"
 #include "tache.h"
-#include "tachecomposite.h"
-#include "tacheunitaire.h"
+#include "fenetrecomposite.h"
+#include "fenetreunitaire.h"
 #include "timing.h"
 #include <vector>
 #include <unistd.h>
@@ -60,6 +60,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             label1 = new QLabel("Selectonner projet");
             nouveau = new QPushButton("Nouveau Projet");
             charger=new QPushButton("Charger Projet");
+            supmod=new QPushButton("Supprimer ou modifier Projet");
             titreProjet = new QLineEdit;
             titreProjet->setDisabled(true);
             description = new QTextEdit;
@@ -72,6 +73,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             layoutBoutonProjet = new QHBoxLayout;
             layoutBoutonProjet->addWidget(nouveau);
             layoutBoutonProjet->addWidget(charger);
+            layoutBoutonProjet->addWidget(supmod);
 
             layoutTitreDescription = new QFormLayout;
             layoutTitreDescription->addRow("Titre", titreProjet);
@@ -97,6 +99,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
             QObject::connect(nouveau, SIGNAL(clicked()), this, SLOT(ajouterProjet()));
             QObject::connect(charger, SIGNAL(clicked()), this, SLOT(chargerProjet()));
+            QObject::connect(supmod, SIGNAL(clicked()), this, SLOT(supmodProjet()));
+
 
             //Nouvelle Tache
 
@@ -104,20 +108,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             unitaire->setDisabled(false);
             composite = new QPushButton("Composite");
             composite->setDisabled(false);
-            unitairePreemptee = new QPushButton("Unitaire Preemptee");
-            unitairePreemptee->setDisabled(false);
 
             layoutTache = new QHBoxLayout;
             layoutTache->addWidget(unitaire);
             layoutTache->addWidget(composite);
-            layoutTache->addWidget(unitairePreemptee);
 
             groupeTache = new QGroupBox("Nouvelle Tache", onglet2);
             groupeTache->setLayout(layoutTache);
 
             QObject::connect(unitaire, SIGNAL(clicked()), this, SLOT(ajouterTacheUnitaire()));
             QObject::connect(composite, SIGNAL(clicked()), this, SLOT(ajouterTacheComposite()));
-            QObject::connect(unitairePreemptee, SIGNAL(clicked()), this, SLOT(ajouterTacheUnitairePreemptee()));
 
             // Ajouter au calendrier
 
@@ -232,6 +232,11 @@ void MainWindow::chargerProjet()
     QString dossier = QFileDialog::getExistingDirectory(this);
 }
 
+void MainWindow::supmodProjet(){
+    FenetreSupModProjet *p=new FenetreSupModProjet;
+    p->show();
+}
+
 void MainWindow::sauvegarderProjet()
 {
 
@@ -258,21 +263,16 @@ void MainWindow::ajouterProjet()
 
 void MainWindow::ajouterTacheUnitaire()
 {
-    /*TacheUnitaire *t = new TacheUnitaire;
-    t->show();*/
+    FenetreUnitaire *t = new FenetreUnitaire;
+    t->show();
 }
 
 void MainWindow::ajouterTacheComposite()
 {
-    /*TacheComposite *t = new TacheComposite;
-    t->show();*/
+    FenetreComposite *t = new FenetreComposite;
+    t->show();
 }
 
-void MainWindow::ajouterTacheUnitairePreemptee()
-{
-    /*TacheUnitairePreemptee *t=new TacheUnitairePreemptee;
-    t->show();*/
-}
 
 void MainWindow::ajoutEvenement()
 {
@@ -288,8 +288,10 @@ void MainWindow::ajoutProjetCalendrier()
     QMessageBox::information(this, "information", "Projet ajoute");
 }
 
+
 void MainWindow::ajoutTacheCalendrier()
 {
     /*AjoutTacheCalendrier *t = new AjoutTacheCalendrier;
-    t->show();*/
+    t->sh
+ow();*/
 }
