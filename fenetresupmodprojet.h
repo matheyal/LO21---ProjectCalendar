@@ -12,7 +12,6 @@ public:
 
 private slots:
     void modifier();
-    void cancel();
     void checkDate(const QDate& d);
     void supprimer();
     void load();
