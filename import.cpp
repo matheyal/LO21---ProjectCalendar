@@ -5,6 +5,7 @@ void ImportXML::load(const QString& f){
     //this->~TacheManager();
     //file=f;
     ProjetManager& PM = ProjetManager::getInstance();
+    Agenda& A = Agenda::getInstance();
     QFile fin(f);
     // If we can't open it, let's show an error message.
     if (!fin.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -80,6 +81,9 @@ void ImportXML::load(const QString& f){
                                                     bool preemptive;
                                                     bool composite;
                                                     bool unitaire;
+                                                    bool programmed = false;
+                                                    QDate date_prog;
+                                                    Horaire heure_prog(1,1);
 
                                                     QXmlStreamAttributes attributes = xml.attributes();
                                                     if(attributes.hasAttribute("preemptive")) {
@@ -101,32 +105,50 @@ void ImportXML::load(const QString& f){
                                                             // We've found identificteur.
                                                             if(xml.name() == "identificateur") {
                                                                 xml.readNext(); id_tache=xml.text().toString();
-                                                                qDebug()<<"id="<<id_tache<<"\n";
+                                                                //qDebug()<<"id="<<id_tache<<"\n";
                                                             }
 
                                                             // We've found titre.
                                                             if(xml.name() == "titre") {
                                                                 xml.readNext(); titre_tache=xml.text().toString();
-                                                                qDebug()<<"titre="<<titre_tache<<"\n";
+                                                                //qDebug()<<"titre="<<titre_tache<<"\n";
                                                             }
                                                             // We've found disponibilite
                                                             if(xml.name() == "disponibilite") {
                                                                 xml.readNext();
                                                                 disponibilite_tache=QDate::fromString(xml.text().toString(),Qt::ISODate);
-                                                                qDebug()<<"disp="<<disponibilite_tache.toString(Qt::ISODate)<<"\n";
+                                                                //qDebug()<<"disp="<<disponibilite_tache.toString(Qt::ISODate)<<"\n";
                                                             }
                                                             // We've found echeance
                                                             if(xml.name() == "echeance") {
                                                                 xml.readNext();
                                                                 echeance_tache=QDate::fromString(xml.text().toString(),Qt::ISODate);
-                                                                qDebug()<<"echeance="<<echeance_tache.toString(Qt::ISODate)<<"\n";
+                                                                //qDebug()<<"echeance="<<echeance_tache.toString(Qt::ISODate)<<"\n";
                                                             }
                                                             // We've found duree
                                                             if(xml.name() == "duree") {
                                                                 xml.readNext();
                                                                 duree_tache.setDuree(xml.text().toString().toInt());
-                                                                qDebug()<<"duree="<<duree_tache.getDureeEnMinutes()<<"\n";
+                                                                //qDebug()<<"duree="<<duree_tache.getDureeEnMinutes()<<"\n";
                                                             }
+                                                            // We've found programmation
+                                                            if(xml.name() == "programmation") {
+                                                                xml.readNext();
+                                                                programmed = true;
+                                                                while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "programmation")){
+                                                                    if(xml.tokenType() == QXmlStreamReader::StartElement) {
+                                                                        if(xml.name() == "date"){
+                                                                            xml.readNext();
+                                                                            date_prog = QDate::fromString(xml.text().toString(), Qt::ISODate);
+                                                                        }
+                                                                        if(xml.name() == "heure"){
+                                                                            xml.readNext();
+                                                                            heure_prog.setFromString(xml.text().toString());
+                                                                        }
+                                                                    }
+                                                                    xml.readNext();
+                                                                }//Fin while programmation
+                                                            }//Fin if programmation
                                                         }
                                                         xml.readNext();
                                                     } // Fin while tache
@@ -141,6 +163,9 @@ void ImportXML::load(const QString& f){
                                                     if (unitaire){
                                                         //qDebug()<<"load tache unitaire : "<<qPrintable(id_tache)<<" "<<qPrintable(titre_tache)<<std::endl;
                                                         projet->ajouterTacheUnitaire(id_tache,titre_tache,disponibilite_tache,echeance_tache,duree_tache);
+                                                    }
+                                                    if (programmed){
+                                                        A.ajouterProg(projet->trouverTache(id_tache), date_prog, heure_prog);
                                                     }
                                                 } // Fin if tache
                                             }
