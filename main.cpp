@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
 */
 
 /* ----- Test export ----- */
-/*
+
     ProjetManager& pm= ProjetManager::getInstance();
     pm.ajouterProjet("1","cool","c'est top", QDate(1984,10,12), QDate(2000,10,12));
     pm.trouverProjet("1")->ajouterTacheComposite("1","compo",QDate(1994,10,12), QDate(2000,10,12));
@@ -62,10 +62,10 @@ int main(int argc, char *argv[])
         strategy.save("/home/matheyal/Documents/LO21/Projet/projet.xml");
     }
     catch(CalendarException& e){std::cout<<e.getInfo().toStdString()<<std::endl;}
-*/
+
 
 /* ------ Test Import -------*/
-
+/*
     ProjetManager& pm = ProjetManager::getInstance();
     try{
         ImportXML import;
@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
     catch (ProjetException& e){
         std::cout<<e.getInfo().toStdString()<<std::endl;
     }
-
+*/
 
   // return a.exec();
     QApplication app(argc, argv);
