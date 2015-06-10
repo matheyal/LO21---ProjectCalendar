@@ -1,7 +1,7 @@
 #include "fenetreprojet.h"
 #include "projetmanager.h"
 
-FenetreProjet::FenetreProjet(QWidget *parent)
+FenetreProjet::FenetreProjet(QMainWindow *parent) : QMainWindow(parent)
 {
     fenetreProjet = new QWidget;
 
@@ -51,8 +51,6 @@ void FenetreProjet::saveProjet()
     ProjetManager& pm= ProjetManager::getInstance();
     if(pm.trouverProjet(idProjet->text()))
         QMessageBox::warning(this, "erreur","sauvegarde impossible, id deja utilise");
-    else if (dispoProjet->date()<QDate::currentDate())
-        QMessageBox::warning(this, "erreur","sauvegarde impossible, date de disponibilité antérieur à la date du jour");
     else pm.ajouterProjet(idProjet->text(), titreProjet->text(), descriptionProjet->toPlainText(), dispoProjet->date(), echeanceProjet->date());
 }
 
@@ -66,6 +64,8 @@ void FenetreProjet::cancel(){
 
 
 void FenetreProjet::checkDate(const QDate& d){
+    if(d==dispoProjet->date() && d<QDate::currentDate())
+        dispoProjet->setDate(QDate::currentDate());
     if(d==dispoProjet->date() && echeanceProjet->date()<dispoProjet->date())
         echeanceProjet->setDate(dispoProjet->date());
     else if (d==echeanceProjet->date() && echeanceProjet->date()<dispoProjet->date())

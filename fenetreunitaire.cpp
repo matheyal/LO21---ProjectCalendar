@@ -2,7 +2,7 @@
 #include"projetmanager.h"
 #include<QDebug>
 
-FenetreUnitaire::FenetreUnitaire(QWidget* parent)
+FenetreUnitaire::FenetreUnitaire(QMainWindow* parent) : QMainWindow(parent)
 {
     fenetreUnitaire = new QWidget;
 

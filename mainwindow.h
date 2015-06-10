@@ -30,6 +30,7 @@ public slots:
     void ajoutEvenement();
     void ajoutProjetCalendrier();
     void ajoutTacheCalendrier();
+    void saveAndQuit();
 
 protected:
     QWidget *mainWindow;

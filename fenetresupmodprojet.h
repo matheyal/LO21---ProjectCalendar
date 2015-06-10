@@ -8,7 +8,7 @@ class FenetreSupModProjet : public QMainWindow
 {
     Q_OBJECT
 public:
-    FenetreSupModProjet(QWidget *parent=0);
+    FenetreSupModProjet(QMainWindow *parent=0);
 
 private slots:
     void modifier();
@@ -17,7 +17,7 @@ private slots:
     void load();
 
 private:
-    QLineEdit *idProjet;
+    QComboBox *idProjet;
     QLineEdit *titreProjet;
 
     QTextEdit* descriptionProjet;

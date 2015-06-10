@@ -14,10 +14,15 @@
 #include <vector>
 #include <unistd.h>
 #include "export.h"
+#include "fenetresave.h"
+#include "fenetreload.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     mainWindow = new QWidget;
+
+    //Chargement d'un fichier XML
+    new FenetreSave;
 
     //Cr�ation d'une barre d'outil MENU
 
@@ -219,7 +224,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         layoutHorizontal->addWidget(quitter);
 
         // Connection pour le bouton quitter
-        QObject::connect(quitter, SIGNAL(clicked()), qApp, SLOT(quit()));
+        QObject::connect(quitter, SIGNAL(clicked()), this, SLOT(saveAndQuit()));
 
     //Attachement de ces onglets � la barre d'onglet
 
@@ -302,6 +307,11 @@ void MainWindow::ajoutProjetCalendrier()
 void MainWindow::ajoutTacheCalendrier()
 {
     /*AjoutTacheCalendrier *t = new AjoutTacheCalendrier;
-    t->sh
-ow();*/
+    t->show();*/
+}
+
+void MainWindow::saveAndQuit(){
+    FenetreLoad* fl = new FenetreLoad();
+    //il faut réussir à faire quitter l'appli lorsqu'on on valide le choix de fichier
+    QObject::connect(fl, SIGNAL(accepted()), qApp, SLOT(quit()));
 }
