@@ -5,6 +5,7 @@
 #include "Calendar.h"
 #include "timing.h"
 #include "fenetreprojet.h"
+#include "fenetreSupModprojet.h"
 /*#include "tacheunitaire.h"
 #include "tachecomposite.h"
 #include "tacheunitairepreemptee.h"
@@ -21,6 +22,7 @@ public :
 public slots:
     void chargerProjet();
     void sauvegarderProjet();
+    void supmodProjet();
     void enregistrerTache();
     void ajouterProjet();
     void ajouterTacheUnitaire();
@@ -55,6 +57,7 @@ protected:
 
     QPushButton* nouveau;
     QPushButton* charger;
+    QPushButton* supmod;
     QPushButton* unitaire;
     QPushButton* unitairePreemptee;
     QPushButton* composite;

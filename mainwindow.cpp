@@ -60,6 +60,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             label1 = new QLabel("Selectonner projet");
             nouveau = new QPushButton("Nouveau Projet");
             charger=new QPushButton("Charger Projet");
+            supmod=new QPushButton("Supprimer ou modifier Projet");
             titreProjet = new QLineEdit;
             titreProjet->setDisabled(true);
             description = new QTextEdit;
@@ -72,6 +73,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             layoutBoutonProjet = new QHBoxLayout;
             layoutBoutonProjet->addWidget(nouveau);
             layoutBoutonProjet->addWidget(charger);
+            layoutBoutonProjet->addWidget(supmod);
 
             layoutTitreDescription = new QFormLayout;
             layoutTitreDescription->addRow("Titre", titreProjet);
@@ -97,6 +99,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
             QObject::connect(nouveau, SIGNAL(clicked()), this, SLOT(ajouterProjet()));
             QObject::connect(charger, SIGNAL(clicked()), this, SLOT(chargerProjet()));
+            QObject::connect(supmod, SIGNAL(clicked()), this, SLOT(supmodProjet()));
+
 
             //Nouvelle Tache
 
@@ -230,6 +234,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 void MainWindow::chargerProjet()
 {
     QString dossier = QFileDialog::getExistingDirectory(this);
+}
+
+void MainWindow::supmodProjet(){
+    FenetreSupModProjet *p=new FenetreSupModProjet;
+    p->show();
 }
 
 void MainWindow::sauvegarderProjet()

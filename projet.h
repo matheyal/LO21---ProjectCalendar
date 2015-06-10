@@ -239,6 +239,16 @@ public:
      void setTitre(const QString& nom){titre = nom;}
 
      /*!
+          *  \brief setDesc
+          *
+          *  Accesseur en écriture de la description du projet
+          *
+          *  \param d : description avec laquelle on veut initialiser la description du projet
+          */
+
+     void setDesc(const QString& d){description = d;}
+
+     /*!
           *  \brief setDispo
           *
           *  Accesseur en écriture de la date de disponibilite du projet

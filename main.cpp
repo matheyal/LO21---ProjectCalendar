@@ -33,16 +33,16 @@ int main(int argc, char *argv[])
     pm.trouverProjet("1")->getTache("1").ajouterSousTache(pm.trouverProjet("1")->trouverTache("3"));
     pm.trouverProjet("1")->getTache("3").afficherPrecedence();
     pm.trouverProjet("1")->getTache("1").afficherSousTaches();
-    /*Rdv *rdv = new Rdv("1","coco", QDate(2000,10,12), QDate(2015,12,20), Duree(2,0), "marie", "bf");
+    Rdv *rdv = new Rdv("1","coco", QDate(2000,10,12), QDate(2015,12,20), Duree(2,0), "marie", "bf");
     rdv->afficher(std::cout);
     a.ajouterProg(rdv, QDate(2012,12,12), Horaire(15,30));
     a.ajouterProg(pm.trouverProjet("1")->trouverTache("1"),QDate(1999,10,15), Horaire(14,30));
     a.supprimerProg(rdv);
     a.afficherProg();
-*/
 
-/* ----- Test export ----- */
-/*
+
+ ----- Test export -----
+
     ProjetManager& pm= ProjetManager::getInstance();
     pm.ajouterProjet("1","cool","c'est top", QDate(1984,10,12), QDate(2000,10,12));
     pm.trouverProjet("1")->ajouterTacheComposite("1","compo",QDate(1994,10,12), QDate(2000,10,12));
@@ -84,5 +84,6 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     MainWindow fenetre;
     fenetre.show();
+    ProjetManager& pm1= ProjetManager::getInstance();
     return app.exec();
 }
