@@ -40,12 +40,10 @@ int main(int argc, char *argv[])
     a.supprimerProg(rdv);
     a.afficherProg();
 
-<<<<<<< HEAD
 
  ----- Test export -----
-=======
+
 /* ----- Test export ----- */
->>>>>>> 4d895204d940735f38141d3c6a6842c58dd139f7
 
     ProjetManager& pm= ProjetManager::getInstance();
     pm.ajouterProjet("1","cool","c'est top", QDate(1984,10,12), QDate(2000,10,12));

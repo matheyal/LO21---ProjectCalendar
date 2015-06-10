@@ -48,7 +48,6 @@ FenetreProjet::FenetreProjet(QWidget *parent)
 
 void FenetreProjet::saveProjet()
 {
-<<<<<<< HEAD
     ProjetManager& pm= ProjetManager::getInstance();
     if(pm.trouverProjet(idProjet->text()))
         QMessageBox::warning(this, "erreur","sauvegarde impossible, id deja utilise");
@@ -64,10 +63,7 @@ void FenetreProjet::cancel(){
     dispoProjet->setDate(QDate::currentDate());
     echeanceProjet->setDate(QDate::currentDate());
 }
-=======
-    ProjetManager& pm = ProjetManager::getInstance();
-    //pm.ajouterProjet("1", titreProjet->text(), descriptionProjet->toPlainText(),  )
->>>>>>> 4d895204d940735f38141d3c6a6842c58dd139f7
+
 
 void FenetreProjet::checkDate(const QDate& d){
     if(d==dispoProjet->date() && echeanceProjet->date()<dispoProjet->date())
