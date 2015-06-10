@@ -20,7 +20,6 @@
 int main(int argc, char *argv[])
 {
 /*
-    //QCoreApplication a(argc, argv);
     Agenda& a = Agenda::getInstance();
     ProjetManager& pm= ProjetManager::getInstance();
     pm.ajouterProjet("1","cool","c'est top", QDate(1984,10,12), QDate(2000,10,12));
@@ -83,7 +82,7 @@ int main(int argc, char *argv[])
     catch (ProjetException& e){
         std::cout<<e.getInfo().toStdString()<<std::endl;
     }
-
+*/
 
   // return a.exec();
 
@@ -92,10 +91,10 @@ int main(int argc, char *argv[])
     fenetre.show();
     return app.exec();
 
-    */
-
+    /*
     ActiviteManager& am= ActiviteManager::getInstance();
     am.ajouterRdv("1","cool",QDate(1984,10,12), QDate(2000,10,12),Duree(3,4),"marie","paris");
     am.ajouterRdv("1","cocorico",QDate(1904,10,12), QDate(2080,10,12),Duree(3,4),"rototo","paris");
     am.afficherActivites();
+    */
 }

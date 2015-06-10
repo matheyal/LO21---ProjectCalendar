@@ -7,7 +7,7 @@ class FenetreUnitaire : public QMainWindow
 {
     Q_OBJECT
 public :
-    FenetreUnitaire(QWidget* parent=0);
+    FenetreUnitaire(QMainWindow* parent=0);
 
 private slots:
     void enregistrerTacheUnitaire();

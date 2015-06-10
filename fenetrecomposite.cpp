@@ -2,7 +2,7 @@
 #include "projetmanager.h"
 #include<QDebug>
 
-FenetreComposite::FenetreComposite(QWidget *parent)
+FenetreComposite::FenetreComposite(QMainWindow *parent) : QMainWindow(parent)
 {
     tacheComposite = new QWidget;
 

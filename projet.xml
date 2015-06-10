@@ -4,8 +4,8 @@
         <projet>
             <identificateur>1</identificateur>
             <titre>cool</titre>
-            <description>c'est top</description>
-            <disponibilite>1984-10-12</disponibilite>
+            <description>c'est cool</description>
+            <disponibilite></disponibilite>
             <echeance>2000-10-12</echeance>
             <taches>
                 <tache preemptive="false" composite="true" unitaire="false">
@@ -29,6 +29,22 @@
                 </tache>
             </taches>
         </projet>
+        <projet>
+            <identificateur>2</identificateur>
+            <titre>projet2</titre>
+            <description>test</description>
+            <disponibilite></disponibilite>
+            <echeance>2015-06-10</echeance>
+            <taches/>
+        </projet>
+        <projet>
+            <identificateur>3</identificateur>
+            <titre>projet3</titre>
+            <description>top mega cool</description>
+            <disponibilite></disponibilite>
+            <echeance>2015-06-10</echeance>
+            <taches/>
+        </projet>
     </projets>
     <precedences>
         <precedence id_projet="1" id_tache="3">
@@ -42,5 +58,4 @@
             <id_composant>3</id_composant>
         </composite>
     </composites>
-    <programmations/>
 </projectcalendar>
