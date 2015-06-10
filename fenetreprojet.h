@@ -3,6 +3,7 @@
 
 #include<QtWidgets>
 #include"mainwindow.h"
+#include "projetmanager.h"
 
 class FenetreProjet : public QMainWindow
 {

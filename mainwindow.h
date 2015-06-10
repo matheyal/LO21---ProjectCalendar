@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include<QtWidgets>
-#include "Calendar.h"
+#include "calendar.h"
 #include "timing.h"
 #include "fenetreprojet.h"
 /*#include "tacheunitaire.h"
@@ -25,11 +25,9 @@ public slots:
     void ajouterProjet();
     void ajouterTacheUnitaire();
     void ajouterTacheComposite();
-    void ajouterTacheUnitairePreemptee();
     void ajoutEvenement();
     void ajoutProjetCalendrier();
     void ajoutTacheCalendrier();
-
 
 protected:
     QWidget *mainWindow;

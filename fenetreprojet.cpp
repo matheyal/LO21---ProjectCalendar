@@ -44,5 +44,7 @@ FenetreProjet::FenetreProjet(QWidget *parent)
 
 void FenetreProjet::saveProjet()
 {
+    ProjetManager& pm = ProjetManager::getInstance();
+    //pm.ajouterProjet("1", titreProjet->text(), descriptionProjet->toPlainText(),  )
 
 }
