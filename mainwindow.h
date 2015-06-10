@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include<QtWidgets>
-#include "Calendar.h"
+#include "calendar.h"
 #include "timing.h"
 #include "fenetreprojet.h"
 /*#include "tacheunitaire.h"
