@@ -77,8 +77,8 @@ std::ostream& operator<<(std::ostream& f, const Projet& p){
     f<<p.getId().toStdString()<<"\n";
     f<<p.getTitre().toStdString()<<"\n";
     f<<p.getDesc().toStdString()<<"\n";
-    f<<qPrintable(p.getDispo().toString(Qt::TextDate))<<"\n";
-    f<<qPrintable(p.getEcheance().toString(Qt::TextDate))<<"\n";
+    f<<qPrintable(p.getDispo().toString(Qt::ISODate))<<"\n";
+    f<<qPrintable(p.getEcheance().toString(Qt::ISODate))<<"\n";
     f<<"\n";
     return f;
 }
