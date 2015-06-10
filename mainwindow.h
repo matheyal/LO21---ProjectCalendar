@@ -5,7 +5,7 @@
 #include "calendar.h"
 #include "timing.h"
 #include "fenetreprojet.h"
-#include "fenetreSupModprojet.h"
+#include "fenetresupmodprojet.h"
 /*#include "tacheunitaire.h"
 #include "tachecomposite.h"
 #include "tacheunitairepreemptee.h"
