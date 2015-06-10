@@ -111,7 +111,6 @@ void ExportXML::save(const QString& f){
                 }
             }
         }
-        //delete[] taches;
     }
     stream.writeEndElement(); // Fin <composites>
     stream.writeEndElement(); // Fin <projectcalendar>
