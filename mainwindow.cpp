@@ -302,5 +302,6 @@ void MainWindow::ajoutTacheCalendrier()
 
 void MainWindow::saveAndQuit(){
     FenetreLoad* fl = new FenetreLoad();
+    //il faut réussir à faire quitter l'appli lorsqu'on on valide le choix de fichier
     QObject::connect(fl, SIGNAL(accepted()), qApp, SLOT(quit()));
 }
