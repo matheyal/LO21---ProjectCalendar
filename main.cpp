@@ -41,15 +41,10 @@ int main(int argc, char *argv[])
     a.supprimerProg(rdv);
     a.afficherProg();
 
-
-<<<<<<< HEAD
- ----- Test export -----
-
 /* ----- Test export ----- */
 
 /* ----- Test export ----- */
 /*
->>>>>>> 1ebedcefffca87fcec3bb699e9fa3d37247f2716
     ProjetManager& pm= ProjetManager::getInstance();
     Agenda& a = Agenda::getInstance();
     pm.ajouterProjet("1","cool","c'est top", QDate(1984,10,12), QDate(2000,10,12));
@@ -76,7 +71,7 @@ int main(int argc, char *argv[])
 
 /* ------ Test Import -------*/
 
-    ProjetManager& pm = ProjetManager::getInstance();
+ /*   ProjetManager& pm = ProjetManager::getInstance();
     try{
         ImportXML import;
         import.load("/home/matheyal/Documents/LO21/Projet/projet.xml");
@@ -96,4 +91,11 @@ int main(int argc, char *argv[])
     MainWindow fenetre;
     fenetre.show();
     return app.exec();
+
+    */
+
+    ActiviteManager& am= ActiviteManager::getInstance();
+    am.ajouterRdv("1","cool",QDate(1984,10,12), QDate(2000,10,12),Duree(3,4),"marie","paris");
+    am.ajouterRdv("1","cocorico",QDate(1904,10,12), QDate(2080,10,12),Duree(3,4),"rototo","paris");
+    am.afficherActivites();
 }
