@@ -138,6 +138,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
             tree =  new QTreeWidget;
 
+            QTreeWidgetItem* item1 = new QTreeWidgetItem(tree);
+            item1->setText(0, "test");
+            tree->addTopLevelItem(item1);
+            QTreeWidgetItem* item11 = new QTreeWidgetItem(tree);
+            item11->setText(0, "test11");
+            item1->addChild(item11);
+            QTreeWidgetItem* item111 = new QTreeWidgetItem(tree);
+            item111->setText(0, "test111");
+            item11->addChild(item111);
+
             layoutTree = new QHBoxLayout;
             layoutTree->addWidget(tree);
 
