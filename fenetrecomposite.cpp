@@ -7,17 +7,21 @@ FenetreComposite::FenetreComposite(QMainWindow *parent) : QMainWindow(parent)
     tacheComposite = new QWidget;
 
     titreComposite = new QLineEdit;
-    projetComposite = new QLineEdit;
     dispoComposite = new QDateEdit(QDate::currentDate());
     echeanceComposite = new QDateEdit(QDate::currentDate());
     idComposite = new QLineEdit;
+    idProjet = new QComboBox(this);
+    ProjetManager& pm=ProjetManager::getInstance();
+    for(vector<Projet*>::const_iterator it = (*pm.getProjets()).begin(); it != (*pm.getProjets()).end(); ++it){
+        idProjet->addItem((*it)->getId());
+    }
     enregistrerComposite = new QPushButton("Enregistrer");
     quitterComposite = new QPushButton("Quitter");
 
     layoutTitreProjetDispoEcheanceDuree = new QFormLayout;
     layoutTitreProjetDispoEcheanceDuree->addRow("ID", idComposite);
     layoutTitreProjetDispoEcheanceDuree->addRow("Titre", titreComposite);
-    layoutTitreProjetDispoEcheanceDuree->addRow("Projet", projetComposite);
+    layoutTitreProjetDispoEcheanceDuree->addRow("Projet", idProjet);
     layoutTitreProjetDispoEcheanceDuree->addRow("Dispo", dispoComposite);
     layoutTitreProjetDispoEcheanceDuree->addRow("Echeance", echeanceComposite);
 
@@ -48,20 +52,20 @@ FenetreComposite::FenetreComposite(QMainWindow *parent) : QMainWindow(parent)
 void FenetreComposite::enregistrerTacheComposite()
 {
     ProjetManager& pm = ProjetManager::getInstance();
-    if(projetComposite->text().isEmpty())
+    if(idProjet->currentText().isEmpty())
     {
         QMessageBox::warning(this, "erreur","Rentrer un projet");
         idComposite->setText("");
-        projetComposite->setText("");
+        idProjet->setCurrentText("");
         titreComposite->setText("");
         dispoComposite->setDate(QDate::currentDate());
         echeanceComposite->setDate(QDate::currentDate());
     }
-    else if(!(pm.trouverProjet(projetComposite->text())))
+    else if(!(pm.trouverProjet(idProjet->currentText())))
     {
         QMessageBox::warning(this, "erreur","sauvegarde impossible, projet inexistant");
         idComposite->setText("");
-        projetComposite->setText("");
+        idProjet->setCurrentText("");
         titreComposite->setText("");
         dispoComposite->setDate(QDate::currentDate());
         echeanceComposite->setDate(QDate::currentDate());
@@ -70,7 +74,7 @@ void FenetreComposite::enregistrerTacheComposite()
     {
         QMessageBox::warning(this, "erreur","sauvegarde impossible, date du jour supérieure");
         idComposite->setText("");
-        projetComposite->setText("");
+        idProjet->setCurrentText("");
         titreComposite->setText("");
         dispoComposite->setDate(QDate::currentDate());
         echeanceComposite->setDate(QDate::currentDate());
@@ -79,43 +83,43 @@ void FenetreComposite::enregistrerTacheComposite()
     {
         QMessageBox::warning(this, "erreur","Rentrer un titre pour la tache");
         idComposite->setText("");
-        projetComposite->setText("");
+        idProjet->setCurrentText("");
         titreComposite->setText("");
         dispoComposite->setDate(QDate::currentDate());
         echeanceComposite->setDate(QDate::currentDate());
     }
-    else if(pm.trouverProjet(projetComposite->text())->trouverTache(idComposite->text()))
+    else if(pm.trouverProjet(idProjet->currentText())->trouverTache(idComposite->text()))
     {
         QMessageBox::warning(this, "erreur","sauvegarde impossible, tache deja existante");
         idComposite->setText("");
-        projetComposite->setText("");
+        idProjet->setCurrentText("");
         titreComposite->setText("");
         dispoComposite->setDate(QDate::currentDate());
         echeanceComposite->setDate(QDate::currentDate());
     }
-    else if(pm.trouverProjet(projetComposite->text())->getDispo()>dispoComposite->date())
+    else if(pm.trouverProjet(idProjet->currentText())->getDispo()>dispoComposite->date())
     {
         QMessageBox::warning(this, "erreur","sauvegarde impossible, date de dispo de la tache inferieure a la date de dispo du projet");
         idComposite->setText("");
-        projetComposite->setText("");
+        idProjet->setCurrentText("");
         titreComposite->setText("");
         dispoComposite->setDate(QDate::currentDate());
         echeanceComposite->setDate(QDate::currentDate());
     }
-    else if(pm.trouverProjet(projetComposite->text())->getEcheance()<echeanceComposite->date())
+    else if(pm.trouverProjet(idProjet->currentText())->getEcheance()<echeanceComposite->date())
     {
         QMessageBox::warning(this, "erreur","sauvegarde impossible, date d'echeance de la tache superieure a la date d'echeance du projet");
         idComposite->setText("");
-        projetComposite->setText("");
+        idProjet->setCurrentText("");
         titreComposite->setText("");
         dispoComposite->setDate(QDate::currentDate());
         echeanceComposite->setDate(QDate::currentDate());
     }
     else
     {
-        pm.trouverProjet(projetComposite->text())->ajouterTacheComposite(idComposite->text(),titreComposite->text(),dispoComposite->date(), echeanceComposite->date());
+        pm.trouverProjet(idProjet->currentText())->ajouterTacheComposite(idComposite->text(),titreComposite->text(),dispoComposite->date(), echeanceComposite->date());
         idComposite->setText("");
-        projetComposite->setText("");
+        idProjet->setCurrentText("");
         titreComposite->setText("");
         dispoComposite->setDate(QDate::currentDate());
         echeanceComposite->setDate(QDate::currentDate());

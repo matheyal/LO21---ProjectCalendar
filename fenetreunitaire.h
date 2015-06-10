@@ -18,7 +18,7 @@ private:
 
     QLineEdit* idUnitaire;
     QLineEdit* titreUnitaire;
-    QLineEdit *projetUnitaire;
+    QComboBox* idProjet;
 
     QDateEdit *dispoUnitaire;
     QDateEdit *echeanceUnitaire;

@@ -17,7 +17,7 @@ private:
     QWidget *tacheComposite;
 
     QLineEdit* titreComposite;
-    QLineEdit *projetComposite;
+    QComboBox* idProjet;
     QLineEdit* idComposite;
 
     QDateEdit *dispoComposite;

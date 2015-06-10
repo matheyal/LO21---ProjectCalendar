@@ -31,6 +31,7 @@ public slots:
     void ajoutProjetCalendrier();
     void ajoutTacheCalendrier();
     void saveAndQuit();
+    void ajouterPrecedence();
 
 protected:
     QWidget *mainWindow;
@@ -58,7 +59,7 @@ protected:
     QPushButton* charger;
     QPushButton* supmod;
     QPushButton* unitaire;
-    QPushButton* unitairePreemptee;
+    QPushButton* precedence;
     QPushButton* composite;
     QPushButton* ajoutProjet;
     QPushButton* ajoutTache;

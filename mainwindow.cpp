@@ -16,6 +16,7 @@
 #include "export.h"
 #include "fenetresave.h"
 #include "fenetreload.h"
+#include "fenetreprecedence.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
@@ -113,16 +114,20 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             unitaire->setDisabled(false);
             composite = new QPushButton("Composite");
             composite->setDisabled(false);
+            precedence = new QPushButton("Precedence");
+            precedence->setDisabled(false);
 
             layoutTache = new QHBoxLayout;
             layoutTache->addWidget(unitaire);
             layoutTache->addWidget(composite);
+            layoutTache->addWidget(precedence);
 
             groupeTache = new QGroupBox("Nouvelle Tache", onglet2);
             groupeTache->setLayout(layoutTache);
 
             QObject::connect(unitaire, SIGNAL(clicked()), this, SLOT(ajouterTacheUnitaire()));
             QObject::connect(composite, SIGNAL(clicked()), this, SLOT(ajouterTacheComposite()));
+            QObject::connect(precedence, SIGNAL(clicked()), this, SLOT(ajouterPrecedence()));
 
             // Ajouter au calendrier
 
@@ -142,6 +147,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             // Tree view
 
             tree =  new QTreeWidget;
+
+            ProjetManager& pm = ProjetManager::getInstance();
 
             QTreeWidgetItem* item1 = new QTreeWidgetItem(tree);
             item1->setText(0, "test");
@@ -314,4 +321,9 @@ void MainWindow::saveAndQuit(){
     FenetreLoad* fl = new FenetreLoad();
     //il faut réussir à faire quitter l'appli lorsqu'on on valide le choix de fichier
     QObject::connect(fl, SIGNAL(accepted()), qApp, SLOT(quit()));
+}
+
+void MainWindow::ajouterPrecedence(){
+    FenetrePrecedence* pr = new FenetrePrecedence();
+    pr->show();
 }

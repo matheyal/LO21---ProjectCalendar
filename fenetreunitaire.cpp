@@ -8,7 +8,11 @@ FenetreUnitaire::FenetreUnitaire(QMainWindow* parent) : QMainWindow(parent)
 
     idUnitaire = new QLineEdit;
     titreUnitaire = new QLineEdit;
-    projetUnitaire = new QLineEdit;
+    idProjet = new QComboBox(this);
+    ProjetManager& pm=ProjetManager::getInstance();
+    for(vector<Projet*>::const_iterator it = (*pm.getProjets()).begin(); it != (*pm.getProjets()).end(); ++it){
+        idProjet->addItem((*it)->getId());
+    }
     dispoUnitaire = new QDateEdit(QDate::currentDate());
     echeanceUnitaire = new QDateEdit(QDate::currentDate());
     dureeUnitaire = new QSpinBox;
@@ -20,7 +24,7 @@ FenetreUnitaire::FenetreUnitaire(QMainWindow* parent) : QMainWindow(parent)
     layoutTitreProjetDispoEcheanceDuree = new QFormLayout;
     layoutTitreProjetDispoEcheanceDuree->addRow("ID", idUnitaire);
     layoutTitreProjetDispoEcheanceDuree->addRow("Titre", titreUnitaire);
-    layoutTitreProjetDispoEcheanceDuree->addRow("Projet", projetUnitaire);
+    layoutTitreProjetDispoEcheanceDuree->addRow("Projet", idProjet);
     layoutTitreProjetDispoEcheanceDuree->addRow("Dispo", dispoUnitaire);
     layoutTitreProjetDispoEcheanceDuree->addRow("Echeance", echeanceUnitaire);
     layoutTitreProjetDispoEcheanceDuree->addRow("Duree", dureeUnitaire);
@@ -52,21 +56,21 @@ FenetreUnitaire::FenetreUnitaire(QMainWindow* parent) : QMainWindow(parent)
 void FenetreUnitaire::enregistrerTacheUnitaire()
 {
     ProjetManager& pm = ProjetManager::getInstance();
-    if(projetUnitaire->text().isEmpty())
+    if(idProjet->currentText().isEmpty())
     {
         QMessageBox::warning(this, "erreur","Rentrer un projet");
         idUnitaire->setText("");
-        projetUnitaire->setText("");
+        idProjet->setCurrentText("");
         titreUnitaire->setText("");
         dispoUnitaire->setDate(QDate::currentDate());
         echeanceUnitaire->setDate(QDate::currentDate());
         dureeUnitaire->cleanText();
     }
-    else if(!(pm.trouverProjet(projetUnitaire->text())))
+    else if(!(pm.trouverProjet(idProjet->currentText())))
     {
         QMessageBox::warning(this, "erreur","sauvegarde impossible, projet inexistant");
         idUnitaire->setText("");
-        projetUnitaire->setText("");
+        idProjet->setCurrentText("");
         titreUnitaire->setText("");
         dispoUnitaire->setDate(QDate::currentDate());
         echeanceUnitaire->setDate(QDate::currentDate());
@@ -76,7 +80,7 @@ void FenetreUnitaire::enregistrerTacheUnitaire()
     {
         QMessageBox::warning(this, "erreur","sauvegarde impossible, date du jour supérieure");
         idUnitaire->setText("");
-        projetUnitaire->setText("");
+        idProjet->setCurrentText("");
         titreUnitaire->setText("");
         dispoUnitaire->setDate(QDate::currentDate());
         echeanceUnitaire->setDate(QDate::currentDate());
@@ -86,37 +90,37 @@ void FenetreUnitaire::enregistrerTacheUnitaire()
     {
         QMessageBox::warning(this, "erreur","Rentrer un titre pour la tache");
         idUnitaire->setText("");
-        projetUnitaire->setText("");
+        idProjet->setCurrentText("");
         titreUnitaire->setText("");
         dispoUnitaire->setDate(QDate::currentDate());
         echeanceUnitaire->setDate(QDate::currentDate());
         dureeUnitaire->cleanText();
     }
-    else if(pm.trouverProjet(projetUnitaire->text())->trouverTache(idUnitaire->text()))
+    else if(pm.trouverProjet(idProjet->currentText())->trouverTache(idUnitaire->text()))
     {
         QMessageBox::warning(this, "erreur","sauvegarde impossible, tache deja existante");
         idUnitaire->setText("");
-        projetUnitaire->setText("");
+        idProjet->setCurrentText("");
         titreUnitaire->setText("");
         dispoUnitaire->setDate(QDate::currentDate());
         echeanceUnitaire->setDate(QDate::currentDate());
         dureeUnitaire->cleanText();
     }
-    else if(pm.trouverProjet(projetUnitaire->text())->getDispo()>dispoUnitaire->date())
+    else if(pm.trouverProjet(idProjet->currentText())->getDispo()>dispoUnitaire->date())
     {
         QMessageBox::warning(this, "erreur","sauvegarde impossible, date de dispo de la tache inferieure a la date de dispo du projet");
         idUnitaire->setText("");
-        projetUnitaire->setText("");
+        idProjet->setCurrentText("");
         titreUnitaire->setText("");
         dispoUnitaire->setDate(QDate::currentDate());
         echeanceUnitaire->setDate(QDate::currentDate());
         dureeUnitaire->cleanText();
     }
-    else if(pm.trouverProjet(projetUnitaire->text())->getEcheance()<echeanceUnitaire->date())
+    else if(pm.trouverProjet(idProjet->currentText())->getEcheance()<echeanceUnitaire->date())
     {
         QMessageBox::warning(this, "erreur","sauvegarde impossible, date d'echeance de la tache superieure a la date d'echeance du projet");
         idUnitaire->setText("");
-        projetUnitaire->setText("");
+        idProjet->setCurrentText("");
         titreUnitaire->setText("");
         dispoUnitaire->setDate(QDate::currentDate());
         echeanceUnitaire->setDate(QDate::currentDate());
@@ -126,7 +130,7 @@ void FenetreUnitaire::enregistrerTacheUnitaire()
     {
         QMessageBox::warning(this, "erreur","sauvegarde impossible, duree trop longue");
         idUnitaire->setText("");
-        projetUnitaire->setText("");
+        idProjet->setCurrentText("");
         titreUnitaire->setText("");
         dispoUnitaire->setDate(QDate::currentDate());
         echeanceUnitaire->setDate(QDate::currentDate());
@@ -134,9 +138,9 @@ void FenetreUnitaire::enregistrerTacheUnitaire()
     }
     else if(preemptive->isChecked())
     {
-        pm.trouverProjet(projetUnitaire->text())->ajouterTachePreemptable(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->date(), echeanceUnitaire->date(), dureeUnitaire->value());
+        pm.trouverProjet(idProjet->currentText())->ajouterTachePreemptable(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->date(), echeanceUnitaire->date(), dureeUnitaire->value());
         idUnitaire->setText("");
-        projetUnitaire->setText("");
+        idProjet->setCurrentText("");
         titreUnitaire->setText("");
         dispoUnitaire->setDate(QDate::currentDate());
         echeanceUnitaire->setDate(QDate::currentDate());
@@ -144,9 +148,9 @@ void FenetreUnitaire::enregistrerTacheUnitaire()
     }
         else
     {
-        pm.trouverProjet(projetUnitaire->text())->ajouterTacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->date(), echeanceUnitaire->date(), dureeUnitaire->value());
+        pm.trouverProjet(idProjet->currentText())->ajouterTacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->date(), echeanceUnitaire->date(), dureeUnitaire->value());
         idUnitaire->setText("");
-        projetUnitaire->setText("");
+        idProjet->setCurrentText("");
         titreUnitaire->setText("");
         dispoUnitaire->setDate(QDate::currentDate());
         echeanceUnitaire->setDate(QDate::currentDate());
