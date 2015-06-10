@@ -9,6 +9,7 @@
 
 #include "projetmanager.h"
 #include "calendar.h"
+#include "agenda.h"
 #include "qt.h"
 
 /*! \class ImportStrategy

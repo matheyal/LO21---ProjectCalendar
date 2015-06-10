@@ -8,8 +8,8 @@
 #include "projet.h"
 #include "projetmanager.h"
 #include "tache.h"
-#include "tachecomposite.h"
-#include "tacheunitaire.h"
+#include "fenetrecomposite.h"
+#include "fenetreunitaire.h"
 #include "timing.h"
 #include <vector>
 #include <unistd.h>
@@ -108,20 +108,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             unitaire->setDisabled(false);
             composite = new QPushButton("Composite");
             composite->setDisabled(false);
-            unitairePreemptee = new QPushButton("Unitaire Preemptee");
-            unitairePreemptee->setDisabled(false);
 
             layoutTache = new QHBoxLayout;
             layoutTache->addWidget(unitaire);
             layoutTache->addWidget(composite);
-            layoutTache->addWidget(unitairePreemptee);
 
             groupeTache = new QGroupBox("Nouvelle Tache", onglet2);
             groupeTache->setLayout(layoutTache);
 
             QObject::connect(unitaire, SIGNAL(clicked()), this, SLOT(ajouterTacheUnitaire()));
             QObject::connect(composite, SIGNAL(clicked()), this, SLOT(ajouterTacheComposite()));
-            QObject::connect(unitairePreemptee, SIGNAL(clicked()), this, SLOT(ajouterTacheUnitairePreemptee()));
 
             // Ajouter au calendrier
 
@@ -267,21 +263,16 @@ void MainWindow::ajouterProjet()
 
 void MainWindow::ajouterTacheUnitaire()
 {
-    /*TacheUnitaire *t = new TacheUnitaire;
-    t->show();*/
+    FenetreUnitaire *t = new FenetreUnitaire;
+    t->show();
 }
 
 void MainWindow::ajouterTacheComposite()
 {
-    /*TacheComposite *t = new TacheComposite;
-    t->show();*/
+    FenetreComposite *t = new FenetreComposite;
+    t->show();
 }
 
-void MainWindow::ajouterTacheUnitairePreemptee()
-{
-    /*TacheUnitairePreemptee *t=new TacheUnitairePreemptee;
-    t->show();*/
-}
 
 void MainWindow::ajoutEvenement()
 {
@@ -297,8 +288,10 @@ void MainWindow::ajoutProjetCalendrier()
     QMessageBox::information(this, "information", "Projet ajoute");
 }
 
+
 void MainWindow::ajoutTacheCalendrier()
 {
     /*AjoutTacheCalendrier *t = new AjoutTacheCalendrier;
-    t->show();*/
+    t->sh
+ow();*/
 }
