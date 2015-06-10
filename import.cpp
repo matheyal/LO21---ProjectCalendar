@@ -177,7 +177,7 @@ void ImportXML::load(const QString& f){
                                         xml.readNext();
                                         Tache* preced = PM.trouverProjet(id_projet)->trouverTache(xml.text().toString());
                                         tache->addPrecedence(preced);
-                                    } // Fin if precedence
+                                    } // Fin if id_precedence
                                 }
                                 xml.readNext();
                             } //Fin while precedence
@@ -187,9 +187,35 @@ void ImportXML::load(const QString& f){
                 } // Fin while precedences
             } // Fin if precedences
             if(xml.name() == "composites"){
-
+                while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "composites")) {
+                    if(xml.tokenType() == QXmlStreamReader::StartElement) {
+                        if(xml.name() == "composite") {
+                            QString id_projet;
+                            QString id_tache;
+                            QXmlStreamAttributes attributes = xml.attributes();
+                            if(attributes.hasAttribute("id_projet")) {
+                                id_projet =attributes.value("id_projet").toString();
+                            }
+                            if(attributes.hasAttribute("id_tache")) {
+                                id_tache =attributes.value("id_tache").toString();
+                            }
+                            Tache* tache = PM.trouverProjet(id_projet)->trouverTache(id_tache);
+                            xml.readNext();
+                            while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "composite")) {
+                                if(xml.tokenType() == QXmlStreamReader::StartElement) {
+                                    if (xml.name() == "id_composant"){
+                                        xml.readNext();
+                                        Tache* composant = PM.trouverProjet(id_projet)->trouverTache(xml.text().toString());
+                                        tache->ajouterSousTache(composant);
+                                    } // Fin if precedence
+                                }
+                                xml.readNext();
+                            } //Fin while composite
+                        }// Fin if composite
+                    }
+                    xml.readNext();
+                } // Fin while composites
             } // Fin if composites
-
         }
     } // Fin lecture document
     // Error handling.
