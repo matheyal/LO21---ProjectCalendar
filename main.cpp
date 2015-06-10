@@ -1,6 +1,7 @@
 #include "qt.h"
 #include <iostream>
 #include "activite.h"
+#include "activitemanager.h"
 #include "agenda.h"
 #include "evenement.h"
 #include "programmation.h"

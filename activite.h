@@ -220,6 +220,7 @@ public:
          *  \param ech : Date d'echeance de l'activite
          *  \param du : Duree de l'activite
          *  \param li : Lieu de l'activite
+         *  \param pers : interlocuteur du rendez-vous
          *  \param b : Etat de programmation de l'evenement
          */
     Rdv(const QString& ident, const QString& t, const QDate& d,const QDate& ech,const Duree& du, const QString& pers, const QString& li,bool b=false):Activite(ident,t,d,ech,du,li,b),personne(pers){}
