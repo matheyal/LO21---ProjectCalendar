@@ -183,6 +183,14 @@ public:
 
    void afficherProg();
 
+   /*!
+        *  \brief getProgrammations
+        *
+        *  Retourne un vector de l'ensemble des programmations de l'agenda
+        *
+        */
+   const vector<Programmation*>* getPrgrammations() const{return &progs;}
+
 };
 
 #endif // AGENDA
