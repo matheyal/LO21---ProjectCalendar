@@ -31,7 +31,9 @@ SOURCES += main.cpp \
     projetmanager.cpp \
     tachepreemptable.cpp \
     export.cpp \
-    import.cpp
+    import.cpp \
+    mainwindow.cpp \
+    fenetreprojet.cpp
 
 HEADERS += \
     agenda.h \
@@ -49,4 +51,6 @@ HEADERS += \
     tachepreemptable.h \
     qt.h \
     export.h \
-    import.h
+    import.h \
+    mainwindow.h \
+    fenetreprojet.h

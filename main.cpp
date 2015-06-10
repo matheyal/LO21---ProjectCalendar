@@ -13,6 +13,7 @@
 #include <vector>
 #include <unistd.h>
 #include "export.h"
+#include"mainwindow.h"
 
 int main(int argc, char *argv[])
 {
@@ -37,5 +38,8 @@ int main(int argc, char *argv[])
     a.supprimerProg(rdv);
     a.afficherProg();*/
   // return a.exec();
-   return 0;
+    QApplication app(argc, argv);
+    MainWindow fenetre;
+    fenetre.show();
+    return app.exec();
 }
