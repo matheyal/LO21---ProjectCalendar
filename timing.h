@@ -97,6 +97,7 @@ namespace TIME {
 		unsigned short int getMinute() const { return minute; } //<!Retourne les minutes de l'horaire
 		bool operator<(const Horaire& h) const; //<! h1<h2 retourne true si h1 est avant h2 dans le temps
         QString toString() const;
+        void setFromString(QString s);
 	private:
 		unsigned short int  heure;
 		unsigned short int  minute;

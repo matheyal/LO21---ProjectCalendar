@@ -102,6 +102,14 @@ QString Horaire::toString() const{
     return QString::fromStdString(s.str());
 }
 
+void Horaire::setFromString(QString s){
+    QStringList list = s.split("H");
+    unsigned short int h = list[0].toInt();
+    unsigned short int m = list[1].toInt();
+    heure = h;
+    minute = m;
+}
+
 Periode::Periode(unsigned int j, unsigned int m, unsigned int a): 
 		   nb_jours(j), nb_mois(m), nb_annees(a) {
 	if (j>364) throw TimeException("erreur: initialisation periode invalide");
