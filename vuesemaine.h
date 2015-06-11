@@ -11,6 +11,7 @@ private:
     QStringList ListeJours, ListeHeures;
     QTableView* vueSemaine;
     QCalendarWidget* calendrier;
+    QDateEdit* choixSemaine;
     QStandardItemModel* model;
     QHBoxLayout *Hlayout1, *Hlayout2;
     QVBoxLayout* Vlayout;
