@@ -18,6 +18,8 @@ class MainWindow: public QMainWindow
 
 public :
     MainWindow(QWidget *parent=0);
+    //Méthode permettant de redéfinir l'action effectuée en sortie de l'application (ici demander si sauvegarde ou non)
+    void closeEvent(QCloseEvent *event);
 
 public slots:
     void chargerProjet();
@@ -30,10 +32,11 @@ public slots:
     void ajoutEvenement();
     void ajoutProjetCalendrier();
     void ajoutTacheCalendrier();
-    void saveAndQuit();
     void ajouterPrecedence();
 
 protected:
+    void chargerFichier();
+
     QWidget *mainWindow;
     QTabWidget *barreOnglet;
     QWidget *onglet1;
