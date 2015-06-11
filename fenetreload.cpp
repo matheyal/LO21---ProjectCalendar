@@ -1,6 +1,9 @@
 #include "fenetreload.h"
 
-FenetreLoad::FenetreLoad(QMainWindow* parent) : QMainWindow(parent){
+FenetreLoad::FenetreLoad(){
+    QString filename = getOpenFileName(this, tr("Load project"), "..", tr("XML Files (*.xml)"));
+    ProjetManager::getInstance().load(new ImportXML, filename);
+    /*
     fenetreLoad = new QWidget;
 
     text = new QLabel("Souhaitez vous charger un calendrier ?");
@@ -22,10 +25,5 @@ FenetreLoad::FenetreLoad(QMainWindow* parent) : QMainWindow(parent){
 
     QObject::connect(oui, SIGNAL(clicked()), this, SLOT(loadProjet()));
     QObject::connect(non, SIGNAL(clicked()), this, SLOT(close()));
-}
-
-void FenetreLoad::loadProjet(){
-    QString filename = QFileDialog::getOpenFileName(this, tr("Load project"), ".", tr("XML Files (*.xml)"));
-    ProjetManager::getInstance().load(new ImportXML, filename);
-    this->close();
+    */
 }

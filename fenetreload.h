@@ -4,10 +4,11 @@
 #include "qt.h"
 #include "mainwindow.h"
 
-class FenetreLoad : public QMainWindow{
+class FenetreLoad : public QFileDialog{
     Q_OBJECT
 public:
-    FenetreLoad(QMainWindow* parent);
+    FenetreLoad();
+/*
 public slots:
     void loadProjet();
 
@@ -21,6 +22,7 @@ private:
     QVBoxLayout* layout;
 
     QWidget* fenetreLoad;
+*/
 };
 
 #endif // FENETRELOAD_H

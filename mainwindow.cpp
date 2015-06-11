@@ -23,8 +23,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     mainWindow = new QWidget;
 
     //Chargement d'un fichier XML
-    FenetreLoad* fl = new FenetreLoad(this);
-    fl->show();
+    //FenetreLoad* fl = new FenetreLoad(this);
+    //fl->show();
+    chargerFichier();
 
     //Cr�ation d'une barre d'outil MENU
 
@@ -326,7 +327,7 @@ void MainWindow::ajouterPrecedence(){
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     QMessageBox::StandardButton ret;
-    ret = QMessageBox::warning(this, tr("Application"), tr("Voulez-vous sauvegarder votre calendrier ?"),
+    ret = QMessageBox::warning(this, tr("Project Calendar"), tr("Voulez-vous sauvegarder votre calendrier ?"),
                 QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
     if (ret == QMessageBox::Save){
        new FenetreSave();
@@ -336,4 +337,13 @@ void MainWindow::closeEvent(QCloseEvent *event)
        event->ignore();
     else if (ret == QMessageBox::Discard)
        event->accept();
+}
+
+void MainWindow::chargerFichier(){
+    QMessageBox::StandardButton ret;
+    ret = QMessageBox::question(this, tr("Project Calendar"), tr("Voulez-vous charger un calendrier ?"),
+                QMessageBox::Yes | QMessageBox::No);
+    if (ret == QMessageBox::Yes){
+       new FenetreLoad();
+    }
 }

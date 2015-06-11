@@ -45,6 +45,14 @@
             <echeance>2015-06-10</echeance>
             <taches/>
         </projet>
+        <projet>
+            <identificateur>4</identificateur>
+            <titre>projet4</titre>
+            <description>Test de la mort qui tue</description>
+            <disponibilite>2015-06-11</disponibilite>
+            <echeance>2015-06-11</echeance>
+            <taches/>
+        </projet>
     </projets>
     <precedences>
         <precedence id_projet="1" id_tache="3">
