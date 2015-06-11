@@ -6,10 +6,26 @@
 #include "timing.h"
 #include "fenetreprojet.h"
 #include "fenetresupmodprojet.h"
-/*#include "tacheunitaire.h"
-#include "tachecomposite.h"
-#include "tacheunitairepreemptee.h"
-#include "ajouttachecalendrier.h"*/
+#include <iostream>
+#include "activite.h"
+#include "agenda.h"
+#include "evenement.h"
+#include "programmation.h"
+#include "projet.h"
+#include "projetmanager.h"
+#include "tache.h"
+#include "fenetrecomposite.h"
+#include "fenetreunitaire.h"
+#include <vector>
+#include <unistd.h>
+#include "export.h"
+#include "fenetresupmodactivite.h"
+#include "fenetresave.h"
+#include "fenetreload.h"
+#include "fenetreprecedence.h"
+#include "fenetreactivite.h"
+#include "vuesemaine.h"
+
 
 class MainWindow: public QMainWindow
 {

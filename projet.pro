@@ -14,6 +14,7 @@ QT       -= gui
 TARGET = projet
 CONFIG   += console
 CONFIG   -= app_bundle
+CONFIG +=qt
 
 TEMPLATE = app
 
