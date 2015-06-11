@@ -7,10 +7,24 @@
 class FenetreSave : public QFileDialog{
     Q_OBJECT
 public:
-    FenetreSave(QFileDialog *parent=0) : QFileDialog(parent){
-        QString fileName = getOpenFileName(parent, tr("Open project"), "", tr("XML Files(*.xml)"));
-        ProjetManager::getInstance().load(new ImportXML, fileName);
-    }
+    FenetreSave();
+/*
+public slots:
+    void saveProjet();
+
+private:
+    QLabel* text;
+    QPushButton* oui;
+    QPushButton* non;
+
+    QHBoxLayout* layout1;
+    QHBoxLayout* layout2;
+    QVBoxLayout* layout;
+
+    QFileDialog* dialog;
+
+    QWidget* fenetreSave;
+*/
 };
 
 

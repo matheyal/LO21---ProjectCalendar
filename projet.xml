@@ -4,7 +4,7 @@
         <projet>
             <identificateur>1</identificateur>
             <titre>cool</titre>
-            <description>c'est cool</description>
+            <description>c'est cool !</description>
             <disponibilite></disponibilite>
             <echeance>2000-10-12</echeance>
             <taches>
@@ -32,7 +32,7 @@
         <projet>
             <identificateur>2</identificateur>
             <titre>projet2</titre>
-            <description>test</description>
+            <description>test2.2</description>
             <disponibilite></disponibilite>
             <echeance>2015-06-10</echeance>
             <taches/>

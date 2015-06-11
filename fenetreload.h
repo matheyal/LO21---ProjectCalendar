@@ -4,13 +4,23 @@
 #include "qt.h"
 #include "mainwindow.h"
 
-class FenetreLoad : public QFileDialog{
+class FenetreLoad : public QMainWindow{
     Q_OBJECT
 public:
-    FenetreLoad(){
-        QString filename = getSaveFileName(this, tr("Save project"), ".", tr("XML Files (*.xml)"));
-        ProjetManager::getInstance().save(new ExportXML, filename);
-    }
+    FenetreLoad(QMainWindow* parent);
+public slots:
+    void loadProjet();
+
+private:
+    QLabel* text;
+    QPushButton* oui;
+    QPushButton* non;
+
+    QHBoxLayout* layout1;
+    QHBoxLayout* layout2;
+    QVBoxLayout* layout;
+
+    QWidget* fenetreLoad;
 };
 
 #endif // FENETRELOAD_H

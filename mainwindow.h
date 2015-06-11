@@ -18,6 +18,7 @@ class MainWindow: public QMainWindow
 
 public :
     MainWindow(QWidget *parent=0);
+    void closeEvent(QCloseEvent *event);
 
 public slots:
     void chargerProjet();
@@ -30,7 +31,6 @@ public slots:
     void ajoutEvenement();
     void ajoutProjetCalendrier();
     void ajoutTacheCalendrier();
-    void saveAndQuit();
     void ajouterPrecedence();
 
 protected:
