@@ -19,9 +19,9 @@ FenetreComposite::FenetreComposite(QMainWindow *parent) : QMainWindow(parent)
     quitterComposite = new QPushButton("Quitter");
 
     layoutTitreProjetDispoEcheanceDuree = new QFormLayout;
+    layoutTitreProjetDispoEcheanceDuree->addRow("Projet", idProjet);
     layoutTitreProjetDispoEcheanceDuree->addRow("ID", idComposite);
     layoutTitreProjetDispoEcheanceDuree->addRow("Titre", titreComposite);
-    layoutTitreProjetDispoEcheanceDuree->addRow("Projet", idProjet);
     layoutTitreProjetDispoEcheanceDuree->addRow("Dispo", dispoComposite);
     layoutTitreProjetDispoEcheanceDuree->addRow("Echeance", echeanceComposite);
 
@@ -55,63 +55,42 @@ void FenetreComposite::enregistrerTacheComposite()
     if(idProjet->currentText().isEmpty())
     {
         QMessageBox::warning(this, "erreur","Rentrer un projet");
-        idComposite->setText("");
-        idProjet->setCurrentText("");
-        titreComposite->setText("");
         dispoComposite->setDate(QDate::currentDate());
         echeanceComposite->setDate(QDate::currentDate());
     }
     else if(!(pm.trouverProjet(idProjet->currentText())))
     {
         QMessageBox::warning(this, "erreur","sauvegarde impossible, projet inexistant");
-        idComposite->setText("");
-        idProjet->setCurrentText("");
-        titreComposite->setText("");
         dispoComposite->setDate(QDate::currentDate());
         echeanceComposite->setDate(QDate::currentDate());
     }
     else if(dispoComposite->date()<QDate::currentDate())
     {
         QMessageBox::warning(this, "erreur","sauvegarde impossible, date du jour supérieure");
-        idComposite->setText("");
-        idProjet->setCurrentText("");
-        titreComposite->setText("");
         dispoComposite->setDate(QDate::currentDate());
         echeanceComposite->setDate(QDate::currentDate());
     }
     else if(titreComposite->text().isEmpty())
     {
         QMessageBox::warning(this, "erreur","Rentrer un titre pour la tache");
-        idComposite->setText("");
-        idProjet->setCurrentText("");
-        titreComposite->setText("");
         dispoComposite->setDate(QDate::currentDate());
         echeanceComposite->setDate(QDate::currentDate());
     }
     else if(pm.trouverProjet(idProjet->currentText())->trouverTache(idComposite->text()))
     {
         QMessageBox::warning(this, "erreur","sauvegarde impossible, tache deja existante");
-        idComposite->setText("");
-        idProjet->setCurrentText("");
-        titreComposite->setText("");
         dispoComposite->setDate(QDate::currentDate());
         echeanceComposite->setDate(QDate::currentDate());
     }
     else if(pm.trouverProjet(idProjet->currentText())->getDispo()>dispoComposite->date())
     {
         QMessageBox::warning(this, "erreur","sauvegarde impossible, date de dispo de la tache inferieure a la date de dispo du projet");
-        idComposite->setText("");
-        idProjet->setCurrentText("");
-        titreComposite->setText("");
         dispoComposite->setDate(QDate::currentDate());
         echeanceComposite->setDate(QDate::currentDate());
     }
     else if(pm.trouverProjet(idProjet->currentText())->getEcheance()<echeanceComposite->date())
     {
         QMessageBox::warning(this, "erreur","sauvegarde impossible, date d'echeance de la tache superieure a la date d'echeance du projet");
-        idComposite->setText("");
-        idProjet->setCurrentText("");
-        titreComposite->setText("");
         dispoComposite->setDate(QDate::currentDate());
         echeanceComposite->setDate(QDate::currentDate());
     }
@@ -119,7 +98,7 @@ void FenetreComposite::enregistrerTacheComposite()
     {
         pm.trouverProjet(idProjet->currentText())->ajouterTacheComposite(idComposite->text(),titreComposite->text(),dispoComposite->date(), echeanceComposite->date());
         idComposite->setText("");
-        idProjet->setCurrentText("");
+        idProjet->setCurrentIndex(0);
         titreComposite->setText("");
         dispoComposite->setDate(QDate::currentDate());
         echeanceComposite->setDate(QDate::currentDate());

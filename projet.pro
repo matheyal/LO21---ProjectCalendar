@@ -29,7 +29,6 @@ SOURCES += main.cpp \
     tachecomposite.cpp \
     projet.cpp \
     projetmanager.cpp \
-    tachepreemptable.cpp \
     export.cpp \
     import.cpp \
     mainwindow.cpp \
@@ -41,7 +40,9 @@ SOURCES += main.cpp \
     fenetresave.cpp \
     fenetreload.cpp \
     fenetreprecedence.cpp \
-    fenetreactivite.cpp
+    fenetreactivite.cpp \
+    tachepreemptable.cpp \
+    fenetresupmodactivite.cpp
 
 HEADERS += \
     agenda.h \
@@ -69,4 +70,5 @@ HEADERS += \
     fenetresave.h \
     fenetreload.h \
     fenetreprecedence.h \
-    fenetreactivite.h
+    fenetreactivite.h \
+    fenetresupmodactivite.h

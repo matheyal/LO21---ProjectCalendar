@@ -1,7 +1,7 @@
 #ifndef FENETREUNITAIRE
 #define FENETREUNITAIRE
 
-#include<QtWidgets>
+#include "qt.h"
 
 class FenetreUnitaire : public QMainWindow
 {

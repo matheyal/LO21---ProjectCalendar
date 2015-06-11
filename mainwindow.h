@@ -18,6 +18,9 @@ class MainWindow: public QMainWindow
 
 public :
     MainWindow(QWidget *parent=0);
+    //Méthode permettant de redéfinir l'action effectuée en sortie de l'application (ici demander si sauvegarde ou non)
+    void closeEvent(QCloseEvent *event);
+
 
 public slots:
     void chargerProjet();
@@ -28,16 +31,16 @@ public slots:
     void ajouterTacheUnitaire();
     void ajouterTacheComposite();
     void nouvelleActivite();
-    void modifier();
-    void checkDate(const QDate& d);
-    void supprimer();
-    void load();
+    void supModActivite();
     void ajoutProjetCalendrier();
     void ajoutTacheCalendrier();
-    void saveAndQuit();
     void ajouterPrecedence();
+    void afficherCaracteristiques();
+    void ajoutActiviteCalendrier();
 
 protected:
+    void chargerFichier();
+
     QWidget *mainWindow;
     QTabWidget *barreOnglet;
     QWidget *onglet1;
@@ -58,16 +61,17 @@ protected:
     QLabel* label3;
     QLabel* label4;
 
+    QComboBox* choixProjet;
     QLineEdit* titreProjet;
 
     QPushButton* nouveau;
-    QPushButton* charger;
     QPushButton* supmod;
     QPushButton* unitaire;
     QPushButton* precedence;
     QPushButton* composite;
     QPushButton* ajoutProjet;
     QPushButton* ajoutTache;
+    QPushButton* ajoutActivite;
 
     QTextEdit* description;
 
@@ -100,37 +104,18 @@ protected:
 
     //onglet 3
 
-    QGroupBox* groupeNouvelleActivite;
-    QGroupBox *groupeActivite;
+    QGroupBox* groupeActivite;
     QVBoxLayout *layoutOnglet3;
 
     QPushButton* nouvact;
+    QPushButton* supmodact;
     QHBoxLayout * layoutBoutonActivite;
     QHBoxLayout *modifierActivite;
 
     QPushButton* quitter;
 
 
-    QComboBox *idActivite;
-    QLineEdit *titreActivite;
 
-    QTextEdit* descriptionActivite;
-
-    QDateEdit *dispoActivite;
-    QDateEdit *echeanceActivite;
-
-    QSpinBox *dureeActivite;
-    QLineEdit *lieuActivite;
-
-    QPushButton *supp;
-    QPushButton* ann;
-    QPushButton* mod;
-
-    QHBoxLayout *horizontal;
-    QFormLayout *layout21Form;
-    QVBoxLayout *layoutActivite;
-    QVBoxLayout* layoutNouvelleActivite;
-    QHBoxLayout* layoutfinal;
 
 };
 

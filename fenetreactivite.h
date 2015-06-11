@@ -18,9 +18,6 @@ private slots:
 private:
     QLineEdit *idActivite;
     QLineEdit *titreActivite;
-
-    QTextEdit* descriptionActivite;
-
     QDateEdit *dispoActivite;
     QDateEdit *echeanceActivite;
     QSpinBox *dureeActivite;

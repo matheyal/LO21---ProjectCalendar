@@ -156,7 +156,7 @@ public:
          *
          *
          */
-    Duree getDuree() const{return 0;}
+    int getDuree() const{return 0;}
 
 
 

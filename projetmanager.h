@@ -155,7 +155,7 @@ public:
          *  \brief trouverProjet
          *
          *  Permet de rechercher si un projet se trouve dans le tableau des projets
-         *  Retourne 0 si le projet passée en argument n'est pas présente
+         *  Retourne 0 si le projet passée en argument n'est pas présent
          *
          *  \param id : identifiant du projet qui souhaite être recherché
          */
