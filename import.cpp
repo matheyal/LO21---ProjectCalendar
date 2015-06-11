@@ -3,7 +3,7 @@
 #include "import.h"
 
 void ImportXML::load(const QString& f){
-    qDebug()<<"debut load\n";
+    //qDebug()<<"debut load\n";
     //this->~TacheManager();
     //file=f;
     ProjetManager& PM = ProjetManager::getInstance();
@@ -15,7 +15,7 @@ void ImportXML::load(const QString& f){
     }
     // QXmlStreamReader takes any QIODevice.
     QXmlStreamReader xml(&fin);
-    qDebug()<<"debut fichier\n";
+    //qDebug()<<"debut fichier\n";
     // We'll parse the XML until we reach end of it.
     while(!xml.atEnd() && !xml.hasError()) {
         // Read next element.
