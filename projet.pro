@@ -14,6 +14,7 @@ QT       -= gui
 TARGET = projet
 CONFIG   += console
 CONFIG   -= app_bundle
+CONFIG +=qt
 
 TEMPLATE = app
 
@@ -43,12 +44,10 @@ SOURCES += main.cpp \
     fenetreactivite.cpp \
     tachepreemptable.cpp \
     fenetresupmodactivite.cpp \
-    tachepreemptable.cpp \
     vuesemaine.cpp
 
 HEADERS += \
     agenda.h \
-    ../../Projet 2015/FINAL/timing-2.h \
     timing.h \
     programmation.h \
     evenement.h \

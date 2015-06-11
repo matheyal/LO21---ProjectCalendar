@@ -1,23 +1,5 @@
 #include "mainwindow.h"
-#include <iostream>
-#include "activite.h"
-#include "agenda.h"
-#include "evenement.h"
-#include "programmation.h"
-#include "projet.h"
-#include "projetmanager.h"
-#include "tache.h"
-#include "fenetrecomposite.h"
-#include "fenetreunitaire.h"
-#include <vector>
-#include <unistd.h>
-#include "export.h"
-#include "fenetresupmodactivite.h"
-#include "fenetresave.h"
-#include "fenetreload.h"
-#include "fenetreprecedence.h"
-#include "fenetreactivite.h"
-#include "vuesemaine.h"
+
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {

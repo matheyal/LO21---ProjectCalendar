@@ -116,7 +116,7 @@ public:
          *
          *  Destructeur de la classe Evenement
          */
-    virtual ~Evenement() {}
+     virtual ~Evenement() {}
 
     /*!
          *  \brief Type

@@ -40,7 +40,7 @@ public:
     //Duree getDuree() const{return getDuree();}
 
     //void afficher(std::ostream& f)const {Evenement::afficher(f);std::cout<<"\nDuree : "<<getDuree();}
-
+    ~TachePreemptable(){}
     /*!
         *  \brief commencer
         *
