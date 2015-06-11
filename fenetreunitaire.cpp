@@ -22,9 +22,9 @@ FenetreUnitaire::FenetreUnitaire(QMainWindow* parent) : QMainWindow(parent)
     quitterUnitaire = new QPushButton("Quitter");
 
     layoutTitreProjetDispoEcheanceDuree = new QFormLayout;
+    layoutTitreProjetDispoEcheanceDuree->addRow("Projet", idProjet);
     layoutTitreProjetDispoEcheanceDuree->addRow("ID", idUnitaire);
     layoutTitreProjetDispoEcheanceDuree->addRow("Titre", titreUnitaire);
-    layoutTitreProjetDispoEcheanceDuree->addRow("Projet", idProjet);
     layoutTitreProjetDispoEcheanceDuree->addRow("Dispo", dispoUnitaire);
     layoutTitreProjetDispoEcheanceDuree->addRow("Echeance", echeanceUnitaire);
     layoutTitreProjetDispoEcheanceDuree->addRow("Duree", dureeUnitaire);

@@ -19,9 +19,9 @@ FenetreComposite::FenetreComposite(QMainWindow *parent) : QMainWindow(parent)
     quitterComposite = new QPushButton("Quitter");
 
     layoutTitreProjetDispoEcheanceDuree = new QFormLayout;
+    layoutTitreProjetDispoEcheanceDuree->addRow("Projet", idProjet);
     layoutTitreProjetDispoEcheanceDuree->addRow("ID", idComposite);
     layoutTitreProjetDispoEcheanceDuree->addRow("Titre", titreComposite);
-    layoutTitreProjetDispoEcheanceDuree->addRow("Projet", idProjet);
     layoutTitreProjetDispoEcheanceDuree->addRow("Dispo", dispoComposite);
     layoutTitreProjetDispoEcheanceDuree->addRow("Echeance", echeanceComposite);
 
