@@ -24,21 +24,21 @@ Activite* ActiviteManager::trouverActivite(const QString &id) const
 
 Activite* ActiviteManager::ajouterActivite(const QString& ident, const QString& t, const QDate& d,const QDate& ech,const Duree& du,const QString& li,bool b)
 {
-    Activite* newActiv = new Activite(ident,t,d,ech,du,li);
+    Activite* newActiv = new Activite(ident,t,d,ech,du,li,b);
     activites.push_back(newActiv);
     return newActiv;
 }
 
 Reunion* ActiviteManager::ajouterReunion(const QString& ident, const QString& t, const QDate& d,const QDate& ech,const Duree& du,const QString& li,bool b)
 {
-    Reunion* newReu = new Reunion(ident,t,d,ech,du,li);
+    Reunion* newReu = new Reunion(ident,t,d,ech,du,li,b);
     activites.push_back(newReu);
     return newReu;
 }
 
 Rdv* ActiviteManager::ajouterRdv(const QString& ident, const QString& t, const QDate& d,const QDate& ech,const Duree& du, const QString& pers, const QString& li,bool b)
 {
-    Rdv* newRdv = new Rdv(ident,t,d,ech,du,pers,li);
+    Rdv* newRdv = new Rdv(ident,t,d,ech,du,pers,li,b);
     activites.push_back(newRdv);
     return newRdv;
 }
