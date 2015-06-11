@@ -63,19 +63,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             layoutBoutonProjet->addWidget(nouveau);
             layoutBoutonProjet->addWidget(supmod);
 
-
-            groupeProjet = new QGroupBox("Projet", onglet2);
-            groupeProjet->setLayout(layoutBoutonProjet);
-
-            layoutProjet = new QVBoxLayout;
+            /*layoutProjet = new QVBoxLayout;
             layoutProjet->addLayout(layoutBoutonProjet);
             layoutProjet->addLayout(layoutTitreDescription);
             layoutProjet->addLayout(layoutDispoEcheance);
-
-            groupeProjet = new QGroupBox("Selecitonner projet", onglet2);
-            groupeProjet->setLayout(layoutProjet);
-
-
+*/
+            groupeProjet = new QGroupBox("Selectionner projet", onglet2);
+            groupeProjet->setLayout(layoutBoutonProjet);
 
             QObject::connect(nouveau, SIGNAL(clicked()), this, SLOT(ajouterProjet()));
             QObject::connect(supmod, SIGNAL(clicked()), this, SLOT(supmodProjet()));
@@ -178,8 +172,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
 
         //Cr�ation d'un layout horizontal pour le bouton "quitter"
-        QHBoxLayout *layoutHorizontal = new QHBoxLayout;
-        layoutHorizontal->addWidget(quitter);
+        layoutHorizontal2 = new QHBoxLayout;
+        layoutHorizontal2->addWidget(quitter);
 
         // Connection pour le bouton quitter
         QObject::connect(quitter, SIGNAL(clicked()), this, SLOT(close()));
@@ -189,10 +183,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     barreOnglet->addTab(onglet1, "Calendrier");
     barreOnglet->addTab(onglet2, "Evenement");
 
-    QVBoxLayout* layout = new QVBoxLayout;
+    layout = new QVBoxLayout;
     layout->addLayout(layoutMenu);
     layout->addWidget(barreOnglet);
-    layout->addLayout(layoutHorizontal);
+    layout->addLayout(layoutHorizontal2);
 
     mainWindow->setLayout(layout);
 

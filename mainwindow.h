@@ -130,9 +130,8 @@ protected:
     QHBoxLayout *modifierActivite;
 
     QPushButton* quitter;
-
-
-
+    QHBoxLayout *layoutHorizontal2;
+    QVBoxLayout* layout;
 
 };
 
