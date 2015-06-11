@@ -84,7 +84,7 @@ void ImportXML::load(const QString& f){
                                                     QString titre_tache;
                                                     QDate disponibilite_tache;
                                                     QDate echeance_tache;
-                                                    Duree duree_tache;
+                                                    int duree_tache;
                                                     bool preemptive;
                                                     bool composite;
                                                     bool unitaire;
@@ -135,7 +135,7 @@ void ImportXML::load(const QString& f){
                                                             // We've found duree
                                                             if(xml.name() == "duree") {
                                                                 xml.readNext();
-                                                                duree_tache.setDuree(xml.text().toString().toInt());
+                                                                duree_tache=xml.text().toString().toInt();
                                                                 //qDebug()<<"duree="<<duree_tache.getDureeEnMinutes()<<"\n";
                                                             }
                                                             // We've found programmation

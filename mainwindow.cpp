@@ -69,6 +69,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             nouveau = new QPushButton("Nouveau Projet");
             charger=new QPushButton("Charger Projet");
             supmod=new QPushButton("Supprimer ou modifier Projet");
+            idProjet = new QLineEdit;
+            idProjet->setDisabled(true);
             titreProjet = new QLineEdit;
             titreProjet->setDisabled(true);
             description = new QTextEdit;
@@ -84,14 +86,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             layoutBoutonProjet->addWidget(supmod);
 
             layoutTitreDescription = new QFormLayout;
-            layoutTitreDescription->addRow("Titre", titreProjet);
-            layoutTitreDescription->addRow("Description", description);
+            layoutTitreDescription->addRow("ID : ", idProjet);
+            layoutTitreDescription->addRow("Titre : ", titreProjet);
+            layoutTitreDescription->addRow("Description : ", description);
 
             layoutDispoProjet = new QFormLayout;
-            layoutDispoProjet->addRow("Disponnibilite", dispoProjet);
+            layoutDispoProjet->addRow("Disponnibilite : ", dispoProjet);
 
             layoutEcheanceProjet = new QFormLayout;
-            layoutEcheanceProjet->addRow("Echeance", echeanceProjet);
+            layoutEcheanceProjet->addRow("Echeance : ", echeanceProjet);
 
             layoutDispoEcheance = new QHBoxLayout;
             layoutDispoEcheance->addLayout(layoutDispoProjet);

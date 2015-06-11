@@ -56,6 +56,7 @@ protected:
     QLabel* label3;
     QLabel* label4;
 
+    QLineEdit* idProjet;
     QLineEdit* titreProjet;
 
     QPushButton* nouveau;
