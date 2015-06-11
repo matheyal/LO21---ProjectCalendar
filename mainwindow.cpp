@@ -55,7 +55,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
             //Selectionner projet
 
-            label1 = new QLabel("Selectonner projet");
+            label1 = new QLabel("Projet");
             nouveau = new QPushButton("Nouveau Projet");
             supmod=new QPushButton("Supprimer ou modifier Projet");
 
@@ -66,15 +66,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
             groupeProjet = new QGroupBox("Projet", onglet2);
             groupeProjet->setLayout(layoutBoutonProjet);
-
-            layoutProjet = new QVBoxLayout;
-            layoutProjet->addLayout(layoutBoutonProjet);
-            layoutProjet->addLayout(layoutTitreDescription);
-            layoutProjet->addLayout(layoutDispoEcheance);
-
-            groupeProjet = new QGroupBox("Selecitonner projet", onglet2);
-            groupeProjet->setLayout(layoutProjet);
-
 
 
             QObject::connect(nouveau, SIGNAL(clicked()), this, SLOT(ajouterProjet()));

@@ -6,8 +6,8 @@ FenetreActivite::FenetreActivite(QMainWindow *parent) : QMainWindow(parent)
     fenetreActivite = new QWidget;
 
     idActivite = new QLineEdit;
-    Reunion = new QCheckBox;
-    Rdv = new QCheckBox;
+    reunion = new QCheckBox;
+    rdv = new QCheckBox;
     titreActivite = new QLineEdit;
     dispoActivite = new QDateEdit(QDate::currentDate());
     echeanceActivite = new QDateEdit(QDate::currentDate());
@@ -18,12 +18,11 @@ FenetreActivite::FenetreActivite(QMainWindow *parent) : QMainWindow(parent)
     enregistrerActivite = new QPushButton("Enregister");
     annuler = new QPushButton("annuler");
 
-    hor= new QHBoxLayout;
-    hor->addWidget(idActivite);
-    hor->addWidget(Reunion);
-    hor->addWidget(Rdv);
 
     layout21Form = new QFormLayout;
+    layout21Form->addRow("Id", idActivite);
+    layout21Form->addRow("Réunion", reunion);
+    layout21Form->addRow("Rendez-vous", rdv);
     layout21Form->addRow("Titre", titreActivite);
     layout21Form->addRow("Date de disponnibilite", dispoActivite);
     layout21Form->addRow("Date d'echeance", echeanceActivite);
@@ -35,7 +34,7 @@ FenetreActivite::FenetreActivite(QMainWindow *parent) : QMainWindow(parent)
     horizontal->addWidget(annuler);
 
     layoutNouvelleActivite = new QVBoxLayout;
-    layoutNouvelleActivite->addLayout(hor);
+ //   layoutNouvelleActivite->addLayout(hor);
     layoutNouvelleActivite->addLayout(layout21Form);
     layoutNouvelleActivite->addLayout(horizontal);
 
