@@ -108,7 +108,7 @@ public:
           *   \param b: Booleen représentant l'état de la tache unitaire à ajouter (par défaut non programmée)
           *
           */
-     TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const QDate& dispo, const QDate& deadline, const Duree& dur, bool b=false);
+     TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const QDate& dispo, const QDate& deadline, const int& dur, bool b=false);
 
      /*!
           *  \brief ajouterTachePreemptable
@@ -125,7 +125,7 @@ public:
           *   \param b: Booleen représentant l'état de la tache unitaire à ajouter (par défaut non programmée)
           *
           */
-     TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const QDate& dispo, const QDate& deadline, const Duree& dur, bool b=false);
+     TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const QDate& dispo, const QDate& deadline, const int& dur, bool b=false);
 
      /*!
           *  \brief ajouterTacheComposite

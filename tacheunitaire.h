@@ -20,7 +20,7 @@
 class TacheUnitaire : public Tache {
 private:
     static const int DUREE_MAX = 12; /*!< Variable statique pour implémentée la contrainte de durée maximum d'une tacheu- unitaire : 12h */
-    Duree duree; /*!< Duree de la tache Unitaire */
+    int duree; /*!< Duree de la tache Unitaire */
 
 public:
 
@@ -36,14 +36,14 @@ public:
          * \param du : duree d'execution de la tache unitaire
          *
          */
-    TacheUnitaire(const QString& ident, const QString& t, const QDate& d,const QDate& ech,const Duree& du,bool b=false):Tache(ident,t,d,ech,b),duree(du){std::cout<<"\ncreation d'une tache unitaire\n";}
+    TacheUnitaire(const QString& ident, const QString& t, const QDate& d,const QDate& ech,const int& du,bool b=false):Tache(ident,t,d,ech,b),duree(du){std::cout<<"\ncreation d'une tache unitaire\n";}
 
     /*!
          *  \brief getDuree
          *
          *  Accesseur en lecture de la duree de la tache unitaire
          */
-    Duree getDuree() const{return duree;}
+    int getDuree() const{return duree;}
 
 
     /*!
@@ -71,7 +71,7 @@ public:
         *  Accesseur en écriture qui initialise la durée de la tache unitaire en question
         *
         */
-    void setDuree(Duree d){duree=d;}
+    void setDuree(int d){duree=d;}
 
     /*!
         *  \brief getSousTaches
