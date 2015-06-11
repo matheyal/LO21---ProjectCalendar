@@ -67,10 +67,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
             label1 = new QLabel("Selectonner projet");
             nouveau = new QPushButton("Nouveau Projet");
-            charger=new QPushButton("Charger Projet");
             supmod=new QPushButton("Supprimer ou modifier Projet");
-            idProjet = new QLineEdit;
-            idProjet->setDisabled(true);
+            choixProjet = new QComboBox;
+            choixProjet->addItem("");
+            ProjetManager& pm=ProjetManager::getInstance();
+            for(vector<Projet*>::const_iterator it = (*pm.getProjets()).begin(); it != (*pm.getProjets()).end(); ++it){
+                choixProjet->addItem((*it)->getId());
+            }
+
             titreProjet = new QLineEdit;
             titreProjet->setDisabled(true);
             description = new QTextEdit;
@@ -82,11 +86,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
             layoutBoutonProjet = new QHBoxLayout;
             layoutBoutonProjet->addWidget(nouveau);
-            layoutBoutonProjet->addWidget(charger);
             layoutBoutonProjet->addWidget(supmod);
 
             layoutTitreDescription = new QFormLayout;
-            layoutTitreDescription->addRow("ID : ", idProjet);
+            layoutTitreDescription->addRow("Projet : ", choixProjet);
             layoutTitreDescription->addRow("Titre : ", titreProjet);
             layoutTitreDescription->addRow("Description : ", description);
 
@@ -108,8 +111,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             groupeProjet = new QGroupBox("Selecitonner projet", onglet2);
             groupeProjet->setLayout(layoutProjet);
 
+            QObject::connect(choixProjet, SIGNAL(currentIndexChanged(int)), this, SLOT(afficherCaracteristiques()));
             QObject::connect(nouveau, SIGNAL(clicked()), this, SLOT(ajouterProjet()));
-            QObject::connect(charger, SIGNAL(clicked()), this, SLOT(chargerProjet()));
             QObject::connect(supmod, SIGNAL(clicked()), this, SLOT(supmodProjet()));
 
 
@@ -349,4 +352,16 @@ void MainWindow::chargerFichier(){
     if (ret == QMessageBox::Yes){
        new FenetreLoad();
     }
+}
+
+void MainWindow::afficherCaracteristiques()
+{
+    ProjetManager& pm = ProjetManager::getInstance();
+    titreProjet->setText(pm.trouverProjet(choixProjet->currentText())->getTitre());
+    titreProjet->setEnabled(true);
+    description->setText(pm.trouverProjet(choixProjet->currentText())->getDesc());
+    description->setEnabled(true);
+    dispoProjet->setDate(pm.trouverProjet(choixProjet->currentText())->getDispo());
+    dispoProjet->setEnabled(true);
+    echeanceProjet->setDate(pm.trouverProjet(choixProjet->currentText())->getEcheance());
 }

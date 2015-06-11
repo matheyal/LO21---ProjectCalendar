@@ -33,6 +33,7 @@ public slots:
     void ajoutProjetCalendrier();
     void ajoutTacheCalendrier();
     void ajouterPrecedence();
+    void afficherCaracteristiques();
 
 protected:
     void chargerFichier();
@@ -56,11 +57,11 @@ protected:
     QLabel* label3;
     QLabel* label4;
 
-    QLineEdit* idProjet;
+    QComboBox* choixProjet;
+
     QLineEdit* titreProjet;
 
     QPushButton* nouveau;
-    QPushButton* charger;
     QPushButton* supmod;
     QPushButton* unitaire;
     QPushButton* precedence;
