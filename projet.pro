@@ -42,7 +42,9 @@ SOURCES += main.cpp \
     fenetreprecedence.cpp \
     fenetreactivite.cpp \
     tachepreemptable.cpp \
-    fenetresupmodactivite.cpp
+    fenetresupmodactivite.cpp \
+    tachepreemptable.cpp \
+    vuesemaine.cpp
 
 HEADERS += \
     agenda.h \
@@ -71,4 +73,5 @@ HEADERS += \
     fenetreload.h \
     fenetreprecedence.h \
     fenetreactivite.h \
-    fenetresupmodactivite.h
+    fenetresupmodactivite.h \
+    vuesemaine.h

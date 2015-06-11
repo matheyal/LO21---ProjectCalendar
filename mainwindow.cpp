@@ -19,10 +19,12 @@
 #include "fenetreload.h"
 #include "fenetreprecedence.h"
 #include "fenetreactivite.h"
+#include "vuesemaine.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     mainWindow = new QWidget;
+    setWindowTitle("Project Calendar");
 
     //Chargement d'un fichier XML
     //new FenetreSave;
@@ -48,19 +50,24 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     onglet2 = new QWidget;
     onglet3 = new QWidget;
 
-        //Onglet numero 1
-        QTableWidget* tableau= new QTableWidget(10,7);
+    //Onglet numero 1
+    VueSemaine* Semaine = new VueSemaine(this);
+    QVBoxLayout* layout1 = new QVBoxLayout;
+    layout1->addWidget(Semaine);
+/*
+    QTableWidget* tableau= new QTableWidget(10,7);
 
-        QVBoxLayout *layout1 = new QVBoxLayout;
-        layout1->addWidget(tableau);
+    QVBoxLayout *layout1 = new QVBoxLayout;
+    layout1->addWidget(tableau);
 
-        //Premiere case du tableau
-        QDate *today = new QDate(QDate::currentDate());
-        for(int i=0;i<7; i++)
-        {
-            QTableWidgetItem* a = new QTableWidgetItem((today->addDays(i)).toString());
-            tableau->setHorizontalHeaderItem(i,a);
-        }
+    //Premiere case du tableau
+    QDate *today = new QDate(QDate::currentDate());
+    for(int i=0;i<7; i++)
+    {
+        QTableWidgetItem* a = new QTableWidgetItem((today->addDays(i)).toString());
+        tableau->setHorizontalHeaderItem(i,a);
+    }
+*/
 
         onglet1->setLayout(layout1);
 

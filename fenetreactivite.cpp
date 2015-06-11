@@ -7,7 +7,6 @@ FenetreActivite::FenetreActivite(QMainWindow *parent) : QMainWindow(parent)
 
     idActivite = new QLineEdit;
     titreActivite = new QLineEdit;
-    descriptionActivite = new QTextEdit;
     dispoActivite = new QDateEdit(QDate::currentDate());
     echeanceActivite = new QDateEdit(QDate::currentDate());
     dureeActivite = new QSpinBox;
@@ -20,7 +19,6 @@ FenetreActivite::FenetreActivite(QMainWindow *parent) : QMainWindow(parent)
     layout21Form = new QFormLayout;
     layout21Form->addRow("Id", idActivite);
     layout21Form->addRow("Titre", titreActivite);
-    layout21Form->addRow("Descritpion", descriptionActivite);
     layout21Form->addRow("Date de disponnibilite", dispoActivite);
     layout21Form->addRow("Date d'echeance", echeanceActivite);
     layout21Form->addRow("Durée", dureeActivite);
@@ -63,7 +61,6 @@ void FenetreActivite::saveActivite()
 void FenetreActivite::cancel(){
     idActivite->clear();
     titreActivite->clear();
-    descriptionActivite->clear();
     dispoActivite->setDate(QDate::currentDate());
     echeanceActivite->setDate(QDate::currentDate());
     dureeActivite->clear();
