@@ -1,6 +1,6 @@
 #include"fenetreprecedence.h"
 
-FenetrePrecedence::FenetrePrecedence(QMainWindow* parent)
+FenetrePrecedence::FenetrePrecedence(QMainWindow* parent):QMainWindow(parent)
 {
     fenetrePrecedence = new QWidget;
 
