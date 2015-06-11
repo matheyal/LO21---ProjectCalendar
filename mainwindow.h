@@ -27,9 +27,15 @@ public slots:
     void ajouterProjet();
     void ajouterTacheUnitaire();
     void ajouterTacheComposite();
-    void ajoutEvenement();
+    void nouvelleActivite();
+    void modifier();
+    void checkDate(const QDate& d);
+    void supprimer();
+    void load();
     void ajoutProjetCalendrier();
     void ajoutTacheCalendrier();
+    void saveAndQuit();
+    void ajouterPrecedence();
 
 protected:
     QWidget *mainWindow;
@@ -40,6 +46,7 @@ protected:
 
     QVBoxLayout* layout21;
     QHBoxLayout* layoutMenu;
+
 
     QMenu *menuFichier;
     QMenuBar* barreMenu;
@@ -57,7 +64,7 @@ protected:
     QPushButton* charger;
     QPushButton* supmod;
     QPushButton* unitaire;
-    QPushButton* unitairePreemptee;
+    QPushButton* precedence;
     QPushButton* composite;
     QPushButton* ajoutProjet;
     QPushButton* ajoutTache;
@@ -93,31 +100,38 @@ protected:
 
     //onglet 3
 
-    QGroupBox* groupeEvenement;
+    QGroupBox* groupeNouvelleActivite;
+    QGroupBox *groupeActivite;
+    QVBoxLayout *layoutOnglet3;
 
-    QLineEdit* titreEvenement;
-
-    QTextEdit* descriptionEvenement;
-
-    QDateTimeEdit* debutEvenement;
-    QDateTime* dateActuelle;
-    QDateTimeEdit* finEvenement;
-
-    QPushButton* ajouterEvenement;
-
-    QHBoxLayout* layoutOnglet3;
-    QHBoxLayout* layoutDebutFin;
-    QFormLayout* layoutDebutEvenement;
-    QFormLayout* layoutFinEvenement;
-    QFormLayout* layoutTitreDescriptionEvenement;
-    QVBoxLayout* layoutEvenement;
-    QHBoxLayout* layoutAjouterEvenement;
+    QPushButton* nouvact;
+    QHBoxLayout * layoutBoutonActivite;
+    QHBoxLayout *modifierActivite;
 
     QPushButton* quitter;
 
-    QPushButton *chargerTache;
-    QLineEdit *titreTache;
-    QLineEdit *dureeTache;
+
+    QComboBox *idActivite;
+    QLineEdit *titreActivite;
+
+    QTextEdit* descriptionActivite;
+
+    QDateEdit *dispoActivite;
+    QDateEdit *echeanceActivite;
+
+    QSpinBox *dureeActivite;
+    QLineEdit *lieuActivite;
+
+    QPushButton *supp;
+    QPushButton* ann;
+    QPushButton* mod;
+
+    QHBoxLayout *horizontal;
+    QFormLayout *layout21Form;
+    QVBoxLayout *layoutActivite;
+    QVBoxLayout* layoutNouvelleActivite;
+    QHBoxLayout* layoutfinal;
+
 };
 
 #endif // MAINWINDOW_H

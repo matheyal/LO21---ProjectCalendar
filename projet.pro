@@ -37,7 +37,11 @@ SOURCES += main.cpp \
     fenetresupmodprojet.cpp \
     fenetreunitaire.cpp \
     fenetrecomposite.cpp \
-    activitemanager.cpp
+    activitemanager.cpp \
+    fenetresave.cpp \
+    fenetreload.cpp \
+    fenetreprecedence.cpp \
+    fenetreactivite.cpp
 
 HEADERS += \
     agenda.h \
@@ -61,4 +65,8 @@ HEADERS += \
     fenetresupmodprojet.h \
     fenetreunitaire.h \
     fenetrecomposite.h \
-    activitemanager.h
+    activitemanager.h \
+    fenetresave.h \
+    fenetreload.h \
+    fenetreprecedence.h \
+    fenetreactivite.h

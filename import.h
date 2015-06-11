@@ -7,9 +7,6 @@
  * \brief Fichier gerant l'import de données à partir d'un fichier au format XML
  */
 
-#include "projetmanager.h"
-#include "calendar.h"
-#include "agenda.h"
 #include "qt.h"
 
 /*! \class ImportStrategy

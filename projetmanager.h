@@ -8,6 +8,7 @@
 #include "qt.h"
 #include "projet.h"
 #include "export.h"
+#include "import.h"
 
 /*! \class ProjetManagerException
    * \brief classe permettant de gérer les exceptions liées au projetManager
@@ -187,10 +188,14 @@ public:
     /*!
          *  \brief save
          *
-         *  Methode permettant de sauvegarder l'ensemble des projets dans un fichier XML
+         *  Methode permettant de sauvegarder l'ensemble des projets selon une méthode spécifiée par le paramètre strategy. (Design pattern strategy)
          *
+         * \param strategy : le type de ce paramètre permet de spécifier la méthode de sauvegarde
+         * \param f : emplacement de sauvegarde
          */
     void save(ExportStrategy *strategy ,const QString& f){strategy->save(f);}
+
+    void load(ImportStrategy* strategy, const QString& f){strategy->load(f);}
 };
 
 #endif // PROJETMANAGER

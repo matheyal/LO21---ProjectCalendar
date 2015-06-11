@@ -14,6 +14,7 @@
 #include <QTextCodec>
 #include <QtXml>
 #include <QMessageBox>
+#include<QtWidgets>
 
 #endif // QT_H
 
