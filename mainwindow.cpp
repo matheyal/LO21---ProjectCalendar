@@ -111,7 +111,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             groupeProjet = new QGroupBox("Selecitonner projet", onglet2);
             groupeProjet->setLayout(layoutProjet);
 
-            QObject::connect(choixProjet, SIGNAL(currentIndexChanged(int)), this, SLOT(afficherCaracteristiques()));
+
             QObject::connect(nouveau, SIGNAL(clicked()), this, SLOT(ajouterProjet()));
             QObject::connect(supmod, SIGNAL(clicked()), this, SLOT(supmodProjet()));
 
@@ -151,22 +151,18 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
             QObject::connect(ajoutProjet, SIGNAL(clicked()), this, SLOT(ajoutProjetCalendrier()));
             QObject::connect(ajoutTache, SIGNAL(clicked()), this, SLOT(ajoutTacheCalendrier()));
+            QObject::connect(choixProjet, SIGNAL(currentIndexChanged(int)), this, SLOT(afficherCaracteristiques()));
+            QObject::connect(choixProjet, SIGNAL(currentIndexChanged(int)), this, SLOT(miseAJourTreeView()));
 
             // Tree view
 
             tree =  new QTreeWidget;
-
-            //ProjetManager& pm = ProjetManager::getInstance();
-
-            QTreeWidgetItem* item1 = new QTreeWidgetItem(tree);
-            item1->setText(0, "test");
-            tree->addTopLevelItem(item1);
-            QTreeWidgetItem* item11 = new QTreeWidgetItem(tree);
+            /*QTreeWidgetItem* item11 = new QTreeWidgetItem(tree);
             item11->setText(0, "test11");
             item1->addChild(item11);
             QTreeWidgetItem* item111 = new QTreeWidgetItem(tree);
             item111->setText(0, "test111");
-            item11->addChild(item111);
+            item11->addChild(item111);*/
 
             layoutTree = new QHBoxLayout;
             layoutTree->addWidget(tree);
@@ -364,4 +360,14 @@ void MainWindow::afficherCaracteristiques()
     dispoProjet->setDate(pm.trouverProjet(choixProjet->currentText())->getDispo());
     dispoProjet->setEnabled(true);
     echeanceProjet->setDate(pm.trouverProjet(choixProjet->currentText())->getEcheance());
+}
+
+void MainWindow::miseAJourTreeView()
+{
+    tree->clear();
+    ProjetManager& pm = ProjetManager::getInstance();
+    QTreeWidgetItem* titre = new QTreeWidgetItem(tree);
+    titre->setText(0, pm.trouverProjet(choixProjet->currentText())->getTitre());
+    tree->addTopLevelItem(titre);
+
 }

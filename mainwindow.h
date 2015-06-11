@@ -34,6 +34,7 @@ public slots:
     void ajoutTacheCalendrier();
     void ajouterPrecedence();
     void afficherCaracteristiques();
+    void miseAJourTreeView();
 
 protected:
     void chargerFichier();
