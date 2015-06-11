@@ -17,6 +17,8 @@ private slots:
 
 private:
     QLineEdit *idActivite;
+    QCheckBox *reunion;
+    QCheckBox *rdv;
     QLineEdit *titreActivite;
     QDateEdit *dispoActivite;
     QDateEdit *echeanceActivite;
@@ -27,7 +29,6 @@ private:
     QPushButton* annuler;
 
     QGroupBox* groupeNouvelleActivite;
-
     QHBoxLayout*horizontal;
     QFormLayout *layout21Form;
     QVBoxLayout* layoutNouvelleActivite;

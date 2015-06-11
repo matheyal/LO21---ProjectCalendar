@@ -34,3 +34,4 @@ void TachePreemptable::reprise()
     setEnCours(true);
     setFin(QDate::currentDate().addDays(getReste()));
 }
+

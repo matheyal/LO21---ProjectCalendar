@@ -7,7 +7,8 @@ VueSemaine::VueSemaine(QWidget* parent):QWidget(parent){
     vueSemaine = new QTableView(this);
     semainePrecedente = new QPushButton("<<<");
     semaineSuivante = new QPushButton(">>>");
-    semaineCourante = new QLabel("08 Juin - 14 Juin");
+    semaineCourante = new QLabel("08 Juin - 14 Juin",this);
+    //choixSemaine = new QDateEdit(QDate::currentDate());
 
     for (unsigned int i = 0; i < 48 ; ++i){
         int heure = i/2;
@@ -56,6 +57,6 @@ VueSemaine::VueSemaine(QWidget* parent):QWidget(parent){
 
     this->setLayout(Vlayout);
 
-    //QObject::connect()
+    //QObject::connect(semainePrecedente, SIGNAL(clicked()), calendrier, SLOT(setSelectedDate(QDate)));
 
 }

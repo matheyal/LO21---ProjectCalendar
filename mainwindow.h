@@ -51,12 +51,15 @@ public slots:
     void ajoutProjetCalendrier();
     void ajoutTacheCalendrier();
     void ajouterPrecedence();
-    void afficherCaracteristiques();
-    void miseAJourTreeView();
     void ajoutActiviteCalendrier();
 
 protected:
     void chargerFichier();
+    void addTreeProjet(QString titre);
+    void addTreeTaches(QString titre, int k);
+
+    QList<QTreeWidgetItem*>  treeProjets;
+    QList<QList<QTreeWidgetItem*> > treeTaches;
 
     QWidget *mainWindow;
     QTabWidget *barreOnglet;

@@ -55,7 +55,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
             //Selectionner projet
 
-            label1 = new QLabel("Selectonner projet");
+            label1 = new QLabel("Projet");
             nouveau = new QPushButton("Nouveau Projet");
             supmod=new QPushButton("Supprimer ou modifier Projet");
 
@@ -63,13 +63,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             layoutBoutonProjet->addWidget(nouveau);
             layoutBoutonProjet->addWidget(supmod);
 
-            /*layoutProjet = new QVBoxLayout;
-            layoutProjet->addLayout(layoutBoutonProjet);
-            layoutProjet->addLayout(layoutTitreDescription);
-            layoutProjet->addLayout(layoutDispoEcheance);
-*/
-            groupeProjet = new QGroupBox("Selectionner projet", onglet2);
+
+            groupeProjet = new QGroupBox("Projet", onglet2);
             groupeProjet->setLayout(layoutBoutonProjet);
+
 
             QObject::connect(nouveau, SIGNAL(clicked()), this, SLOT(ajouterProjet()));
             QObject::connect(supmod, SIGNAL(clicked()), this, SLOT(supmodProjet()));
@@ -129,20 +126,25 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
             QObject::connect(ajoutProjet, SIGNAL(clicked()), this, SLOT(ajoutProjetCalendrier()));
             QObject::connect(ajoutTache, SIGNAL(clicked()), this, SLOT(ajoutTacheCalendrier()));
-            QObject::connect(choixProjet, SIGNAL(currentIndexChanged(int)), this, SLOT(afficherCaracteristiques()));
-            QObject::connect(choixProjet, SIGNAL(currentIndexChanged(int)), this, SLOT(miseAJourTreeView()));
             QObject::connect(ajoutActivite, SIGNAL(clicked()), this, SLOT(ajoutActiviteCalendrier()));
 
 
             // Tree view
 
             tree =  new QTreeWidget;
-            /*QTreeWidgetItem* item11 = new QTreeWidgetItem(tree);
-            item11->setText(0, "test11");
-            item1->addChild(item11);
-            QTreeWidgetItem* item111 = new QTreeWidgetItem(tree);
-            item111->setText(0, "test111");
-            item11->addChild(item111);*/
+
+            ProjetManager& pm = ProjetManager::getInstance();
+            vector<Projet*> pro = *pm.getProjets();
+            for(size_t i=0;i<pro.size();i++)
+            {
+                addTreeProjet(pro[i]->getTitre());
+                vector<Tache*> tac= *pm.trouverProjet(pro[i]->getId())->getTaches();
+                for(size_t k =0;k<tac.size();k++)
+                {
+                    addTreeTaches(tac[k]->getTitre(), i);
+                }
+            }
+            tree->addTopLevelItems(treeProjets);
 
             layoutTree = new QHBoxLayout;
             layoutTree->addWidget(tree);
@@ -300,24 +302,19 @@ void MainWindow::chargerFichier(){
     }
 }
 
-void MainWindow::afficherCaracteristiques()
+
+void MainWindow::addTreeProjet(QString titre)
 {
-    ProjetManager& pm = ProjetManager::getInstance();
-    titreProjet->setText(pm.trouverProjet(choixProjet->currentText())->getTitre());
-    titreProjet->setEnabled(true);
-    description->setText(pm.trouverProjet(choixProjet->currentText())->getDesc());
-    description->setEnabled(true);
-    dispoProjet->setDate(pm.trouverProjet(choixProjet->currentText())->getDispo());
-    dispoProjet->setEnabled(true);
-    echeanceProjet->setDate(pm.trouverProjet(choixProjet->currentText())->getEcheance());
+    QTreeWidgetItem* projeti = new QTreeWidgetItem;
+    projeti->setText(0, titre);
+    treeProjets.push_back(projeti);
 }
 
-void MainWindow::miseAJourTreeView()
+void MainWindow::addTreeTaches(QString titre, int k)
 {
-    tree->clear();
-    ProjetManager& pm = ProjetManager::getInstance();
-    QTreeWidgetItem* titre = new QTreeWidgetItem(tree);
-    titre->setText(0, pm.trouverProjet(choixProjet->currentText())->getTitre());
-    tree->addTopLevelItem(titre);
+    QTreeWidgetItem* tachei = new QTreeWidgetItem;
+    tachei->setText(0, titre);
+    //tachei->setBackground(0, QBrush(QColor::fromRgbF(0, 1, 0, 1)));
+    treeProjets[k]->addChild(tachei);
 }
 
