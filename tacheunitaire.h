@@ -63,7 +63,7 @@ public:
         *  Initialise le début et la fin de la tache
         *
         */
-    void commencer();
+    virtual void commencer();
 
     /*!
         *  \brief setDuree

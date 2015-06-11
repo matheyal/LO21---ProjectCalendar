@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include "qt.h"
 #include <iostream>
 #include "activite.h"
 #include "agenda.h"
@@ -10,19 +9,23 @@
 #include "tache.h"
 #include "fenetrecomposite.h"
 #include "fenetreunitaire.h"
-#include "timing.h"
 #include <vector>
 #include <unistd.h>
 #include "export.h"
+#include "fenetresupmodactivite.h"
 #include "fenetresave.h"
 #include "fenetreload.h"
 #include "fenetreprecedence.h"
+#include "fenetreactivite.h"
+#include "vuesemaine.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     mainWindow = new QWidget;
+    setWindowTitle("Project Calendar");
 
     //Chargement d'un fichier XML
+    //new FenetreSave;
     //FenetreLoad* fl = new FenetreLoad(this);
     //fl->show();
     chargerFichier();
@@ -45,19 +48,24 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     onglet2 = new QWidget;
     onglet3 = new QWidget;
 
-        //Onglet numero 1
-        QTableWidget* tableau= new QTableWidget(10,7);
+    //Onglet numero 1
+    VueSemaine* Semaine = new VueSemaine(this);
+    QVBoxLayout* layout1 = new QVBoxLayout;
+    layout1->addWidget(Semaine);
+/*
+    QTableWidget* tableau= new QTableWidget(10,7);
 
-        QVBoxLayout *layout1 = new QVBoxLayout;
-        layout1->addWidget(tableau);
+    QVBoxLayout *layout1 = new QVBoxLayout;
+    layout1->addWidget(tableau);
 
-        //Premiere case du tableau
-        QDate *today = new QDate(QDate::currentDate());
-        for(int i=0;i<7; i++)
-        {
-            QTableWidgetItem* a = new QTableWidgetItem((today->addDays(i)).toString());
-            tableau->setHorizontalHeaderItem(i,a);
-        }
+    //Premiere case du tableau
+    QDate *today = new QDate(QDate::currentDate());
+    for(int i=0;i<7; i++)
+    {
+        QTableWidgetItem* a = new QTableWidgetItem((today->addDays(i)).toString());
+        tableau->setHorizontalHeaderItem(i,a);
+    }
+*/
 
         onglet1->setLayout(layout1);
 
@@ -68,40 +76,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             label1 = new QLabel("Selectonner projet");
             nouveau = new QPushButton("Nouveau Projet");
             supmod=new QPushButton("Supprimer ou modifier Projet");
-            choixProjet = new QComboBox;
-            choixProjet->addItem("");
-            ProjetManager& pm=ProjetManager::getInstance();
-            for(vector<Projet*>::const_iterator it = (*pm.getProjets()).begin(); it != (*pm.getProjets()).end(); ++it){
-                choixProjet->addItem((*it)->getId());
-            }
-
-            titreProjet = new QLineEdit;
-            titreProjet->setDisabled(true);
-            description = new QTextEdit;
-            description->setDisabled(true);
-            dispoProjet = new QDateTimeEdit;
-            dispoProjet->setDisabled(true);
-            echeanceProjet = new QDateTimeEdit;
-            echeanceProjet->setDisabled(true);
 
             layoutBoutonProjet = new QHBoxLayout;
             layoutBoutonProjet->addWidget(nouveau);
             layoutBoutonProjet->addWidget(supmod);
 
-            layoutTitreDescription = new QFormLayout;
-            layoutTitreDescription->addRow("Projet : ", choixProjet);
-            layoutTitreDescription->addRow("Titre : ", titreProjet);
-            layoutTitreDescription->addRow("Description : ", description);
 
-            layoutDispoProjet = new QFormLayout;
-            layoutDispoProjet->addRow("Disponnibilite : ", dispoProjet);
-
-            layoutEcheanceProjet = new QFormLayout;
-            layoutEcheanceProjet->addRow("Echeance : ", echeanceProjet);
-
-            layoutDispoEcheance = new QHBoxLayout;
-            layoutDispoEcheance->addLayout(layoutDispoProjet);
-            layoutDispoEcheance->addLayout(layoutEcheanceProjet);
+            groupeProjet = new QGroupBox("Projet", onglet2);
+            groupeProjet->setLayout(layoutBoutonProjet);
 
             layoutProjet = new QVBoxLayout;
             layoutProjet->addLayout(layoutBoutonProjet);
@@ -110,6 +92,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
             groupeProjet = new QGroupBox("Selecitonner projet", onglet2);
             groupeProjet->setLayout(layoutProjet);
+
 
 
             QObject::connect(nouveau, SIGNAL(clicked()), this, SLOT(ajouterProjet()));
@@ -130,29 +113,50 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             layoutTache->addWidget(composite);
             layoutTache->addWidget(precedence);
 
-            groupeTache = new QGroupBox("Nouvelle Tache", onglet2);
+            groupeTache = new QGroupBox("Tache", onglet2);
             groupeTache->setLayout(layoutTache);
 
             QObject::connect(unitaire, SIGNAL(clicked()), this, SLOT(ajouterTacheUnitaire()));
             QObject::connect(composite, SIGNAL(clicked()), this, SLOT(ajouterTacheComposite()));
             QObject::connect(precedence, SIGNAL(clicked()), this, SLOT(ajouterPrecedence()));
 
+            //Activité
+
+
+            nouvact= new QPushButton("nouvelle activité");
+            supmodact = new QPushButton("supprimer ou modifier une activité"),
+
+            layoutBoutonActivite = new QHBoxLayout;
+            layoutBoutonActivite->addWidget(nouvact);
+            layoutBoutonActivite->addWidget(supmodact);
+
+            groupeActivite = new QGroupBox("Activite", this);
+            groupeActivite->setLayout(layoutBoutonActivite);
+
+            QObject::connect(nouvact,SIGNAL(clicked()), this, SLOT(nouvelleActivite()));
+            QObject::connect(supmodact,SIGNAL(clicked()), this, SLOT(supModActivite()));
+
             // Ajouter au calendrier
 
             ajoutProjet = new QPushButton("Projet");
             ajoutTache = new QPushButton("Tache");
+            ajoutActivite= new QPushButton("Activite");
+
 
             layoutAjout  =new QHBoxLayout;
             layoutAjout->addWidget(ajoutProjet);
             layoutAjout->addWidget(ajoutTache);
+            layoutAjout->addWidget(ajoutActivite);
 
-            groupeAjout = new QGroupBox("Ajouter au calendrier", onglet2);
+            groupeAjout = new QGroupBox("Programmer", onglet2);
             groupeAjout->setLayout(layoutAjout);
 
             QObject::connect(ajoutProjet, SIGNAL(clicked()), this, SLOT(ajoutProjetCalendrier()));
             QObject::connect(ajoutTache, SIGNAL(clicked()), this, SLOT(ajoutTacheCalendrier()));
             QObject::connect(choixProjet, SIGNAL(currentIndexChanged(int)), this, SLOT(afficherCaracteristiques()));
             QObject::connect(choixProjet, SIGNAL(currentIndexChanged(int)), this, SLOT(miseAJourTreeView()));
+            QObject::connect(ajoutActivite, SIGNAL(clicked()), this, SLOT(ajoutActiviteCalendrier()));
+
 
             // Tree view
 
@@ -175,6 +179,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         layoutOnglet2 = new QHBoxLayout;
         layoutDemiOnglet2->addWidget(groupeProjet);
         layoutDemiOnglet2->addWidget(groupeTache);
+        layoutDemiOnglet2->addWidget(groupeActivite);
         layoutDemiOnglet2->addWidget(groupeAjout);
         layoutOnglet2->addLayout(layoutDemiOnglet2);
         layoutOnglet2->addWidget(groupeTree);
@@ -183,46 +188,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
 
 
-
-        //Onglet numero3
-
-        titreEvenement= new QLineEdit;
-        descriptionEvenement = new QTextEdit;
-        dateActuelle = new QDateTime;
-        debutEvenement = new QDateTimeEdit(dateActuelle->currentDateTime());
-        finEvenement = new QDateTimeEdit(dateActuelle->currentDateTime());
-        ajouterEvenement = new QPushButton("Ajouter");
-        ajouterEvenement->setMaximumWidth(120);
-
-        layoutTitreDescriptionEvenement = new QFormLayout;
-        layoutTitreDescriptionEvenement->addRow("Titre", titreEvenement);
-        layoutTitreDescriptionEvenement->addRow("Description", descriptionEvenement);
-
-        layoutDebutEvenement = new QFormLayout;
-        layoutDebutEvenement->addRow("Debut", debutEvenement);
-        layoutFinEvenement = new QFormLayout;
-        layoutFinEvenement->addRow("Fin", finEvenement);
-        layoutDebutFin = new QHBoxLayout;
-        layoutDebutFin->addLayout(layoutDebutEvenement);
-        layoutDebutFin->addLayout(layoutFinEvenement);
-
-        layoutAjouterEvenement = new QHBoxLayout;
-        layoutAjouterEvenement->addWidget(ajouterEvenement);
-
-        layoutEvenement = new QVBoxLayout;
-        layoutEvenement->addLayout(layoutTitreDescriptionEvenement);
-        layoutEvenement->addLayout(layoutDebutFin);
-        layoutEvenement->addLayout(layoutAjouterEvenement);
-
-        groupeEvenement = new QGroupBox("Nouvel evenement", onglet3);
-        groupeEvenement->setLayout(layoutEvenement);
-
-        layoutOnglet3 = new QHBoxLayout;
-        layoutOnglet3->addWidget(groupeEvenement);
-
-        onglet3->setLayout(layoutOnglet3);
-
-        QObject::connect(ajouterEvenement,SIGNAL(clicked()), this, SLOT(ajoutEvenement()));
 
     //Cr�ation du bouton quitter
 
@@ -240,8 +205,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //Attachement de ces onglets � la barre d'onglet
 
     barreOnglet->addTab(onglet1, "Calendrier");
-    barreOnglet->addTab(onglet2, "Projet");
-    barreOnglet->addTab(onglet3, "Evenement");
+    barreOnglet->addTab(onglet2, "Evenement");
 
     QVBoxLayout* layout = new QVBoxLayout;
     layout->addLayout(layoutMenu);
@@ -300,14 +264,18 @@ void MainWindow::ajouterTacheComposite()
 }
 
 
-void MainWindow::ajoutEvenement()
+void MainWindow::nouvelleActivite()
 {
-    titreEvenement->setText("");
-    descriptionEvenement->setText("");
-    debutEvenement->setDateTime(dateActuelle->currentDateTime());
-    finEvenement->setDateTime(dateActuelle->currentDateTime());
-    QMessageBox::information(this,"Evenement ajoute", "Evenement ajoute");
+    FenetreActivite *p=new FenetreActivite;
+    p->show();
 }
+
+void MainWindow::supModActivite()
+{
+    FenetreSupModActivite *p=new FenetreSupModActivite;
+    p->show();
+}
+
 
 void MainWindow::ajoutProjetCalendrier()
 {
@@ -318,6 +286,12 @@ void MainWindow::ajoutProjetCalendrier()
 void MainWindow::ajoutTacheCalendrier()
 {
     /*AjoutTacheCalendrier *t = new AjoutTacheCalendrier;
+    t->show();*/
+}
+
+void MainWindow::ajoutActiviteCalendrier()
+{
+    /*AjoutActiviteCalendrier *t = new AjoutActiviteCalendrier;
     t->show();*/
 }
 
@@ -369,5 +343,5 @@ void MainWindow::miseAJourTreeView()
     QTreeWidgetItem* titre = new QTreeWidgetItem(tree);
     titre->setText(0, pm.trouverProjet(choixProjet->currentText())->getTitre());
     tree->addTopLevelItem(titre);
-
 }
+

@@ -8,6 +8,7 @@
 class FenetreProjet : public QMainWindow
 {
     Q_OBJECT
+
 public:
     FenetreProjet(QMainWindow *parent=0);
 

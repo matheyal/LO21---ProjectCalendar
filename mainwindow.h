@@ -21,6 +21,7 @@ public :
     //Méthode permettant de redéfinir l'action effectuée en sortie de l'application (ici demander si sauvegarde ou non)
     void closeEvent(QCloseEvent *event);
 
+
 public slots:
     void chargerProjet();
     void sauvegarderProjet();
@@ -29,12 +30,14 @@ public slots:
     void ajouterProjet();
     void ajouterTacheUnitaire();
     void ajouterTacheComposite();
-    void ajoutEvenement();
+    void nouvelleActivite();
+    void supModActivite();
     void ajoutProjetCalendrier();
     void ajoutTacheCalendrier();
     void ajouterPrecedence();
     void afficherCaracteristiques();
     void miseAJourTreeView();
+    void ajoutActiviteCalendrier();
 
 protected:
     void chargerFichier();
@@ -48,6 +51,7 @@ protected:
     QVBoxLayout* layout21;
     QHBoxLayout* layoutMenu;
 
+
     QMenu *menuFichier;
     QMenuBar* barreMenu;
 
@@ -59,7 +63,6 @@ protected:
     QLabel* label4;
 
     QComboBox* choixProjet;
-
     QLineEdit* titreProjet;
 
     QPushButton* nouveau;
@@ -69,6 +72,7 @@ protected:
     QPushButton* composite;
     QPushButton* ajoutProjet;
     QPushButton* ajoutTache;
+    QPushButton* ajoutActivite;
 
     QTextEdit* description;
 
@@ -101,31 +105,19 @@ protected:
 
     //onglet 3
 
-    QGroupBox* groupeEvenement;
+    QGroupBox* groupeActivite;
+    QVBoxLayout *layoutOnglet3;
 
-    QLineEdit* titreEvenement;
-
-    QTextEdit* descriptionEvenement;
-
-    QDateTimeEdit* debutEvenement;
-    QDateTime* dateActuelle;
-    QDateTimeEdit* finEvenement;
-
-    QPushButton* ajouterEvenement;
-
-    QHBoxLayout* layoutOnglet3;
-    QHBoxLayout* layoutDebutFin;
-    QFormLayout* layoutDebutEvenement;
-    QFormLayout* layoutFinEvenement;
-    QFormLayout* layoutTitreDescriptionEvenement;
-    QVBoxLayout* layoutEvenement;
-    QHBoxLayout* layoutAjouterEvenement;
+    QPushButton* nouvact;
+    QPushButton* supmodact;
+    QHBoxLayout * layoutBoutonActivite;
+    QHBoxLayout *modifierActivite;
 
     QPushButton* quitter;
 
-    QPushButton *chargerTache;
-    QLineEdit *titreTache;
-    QLineEdit *dureeTache;
+
+
+
 };
 
 #endif // MAINWINDOW_H
