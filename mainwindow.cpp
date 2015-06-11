@@ -23,7 +23,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     mainWindow = new QWidget;
 
     //Chargement d'un fichier XML
-    new FenetreSave;
+    //FenetreLoad* fl = new FenetreLoad(this);
+    //fl->show();
+    chargerFichier();
 
     //Cr�ation d'une barre d'outil MENU
 
@@ -148,7 +150,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
             tree =  new QTreeWidget;
 
-            ProjetManager& pm = ProjetManager::getInstance();
+            //ProjetManager& pm = ProjetManager::getInstance();
 
             QTreeWidgetItem* item1 = new QTreeWidgetItem(tree);
             item1->setText(0, "test");
@@ -231,7 +233,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         layoutHorizontal->addWidget(quitter);
 
         // Connection pour le bouton quitter
-        QObject::connect(quitter, SIGNAL(clicked()), this, SLOT(saveAndQuit()));
+        QObject::connect(quitter, SIGNAL(clicked()), this, SLOT(close()));
 
     //Attachement de ces onglets � la barre d'onglet
 
@@ -317,13 +319,31 @@ void MainWindow::ajoutTacheCalendrier()
     t->show();*/
 }
 
-void MainWindow::saveAndQuit(){
-    FenetreLoad* fl = new FenetreLoad();
-    //il faut réussir à faire quitter l'appli lorsqu'on on valide le choix de fichier
-    QObject::connect(fl, SIGNAL(accepted()), qApp, SLOT(quit()));
-}
-
 void MainWindow::ajouterPrecedence(){
     FenetrePrecedence* pr = new FenetrePrecedence();
     pr->show();
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    QMessageBox::StandardButton ret;
+    ret = QMessageBox::warning(this, tr("Project Calendar"), tr("Voulez-vous sauvegarder votre calendrier ?"),
+                QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+    if (ret == QMessageBox::Save){
+       new FenetreSave();
+        event->accept();
+    }
+    else if (ret == QMessageBox::Cancel)
+       event->ignore();
+    else if (ret == QMessageBox::Discard)
+       event->accept();
+}
+
+void MainWindow::chargerFichier(){
+    QMessageBox::StandardButton ret;
+    ret = QMessageBox::question(this, tr("Project Calendar"), tr("Voulez-vous charger un calendrier ?"),
+                QMessageBox::Yes | QMessageBox::No);
+    if (ret == QMessageBox::Yes){
+       new FenetreLoad();
+    }
 }
