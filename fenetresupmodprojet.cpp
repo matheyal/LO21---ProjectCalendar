@@ -1,7 +1,7 @@
 #include "fenetresupmodprojet.h"
 #include "projetmanager.h"
 
-FenetreSupModProjet::FenetreSupModProjet(QWidget *parent)
+FenetreSupModProjet::FenetreSupModProjet(QMainWindow *parent) : QMainWindow(parent)
 {
     fenetreProjet = new QWidget;
 

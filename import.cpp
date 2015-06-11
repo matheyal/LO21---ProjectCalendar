@@ -1,3 +1,5 @@
+#include "projetmanager.h"
+#include "agenda.h"
 #include "import.h"
 
 void ImportXML::load(const QString& f){
@@ -29,7 +31,7 @@ void ImportXML::load(const QString& f){
                 while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "projets")) {
                     if(xml.tokenType() == QXmlStreamReader::StartElement) {
                         if(xml.name() == "projet"){
-                            qDebug()<<"new projet\n";
+                            //qDebug()<<"new projet\n";
                             QString id_projet;
                             QString titre_projet;
                             QString description_projet;
@@ -45,25 +47,30 @@ void ImportXML::load(const QString& f){
                                     // We've found identificteur.
                                     if(xml.name() == "identificateur") {
                                         xml.readNext(); id_projet=xml.text().toString();
-                                        qDebug()<<"titre_projet="<<titre_projet<<"\n";
+                                        //qDebug()<<"titre_projet="<<titre_projet<<"\n";
                                     }
 
                                     // We've found titre.
                                     if(xml.name() == "titre") {
                                         xml.readNext(); titre_projet=xml.text().toString();
-                                        qDebug()<<"titre_projet="<<titre_projet<<"\n";
+                                        //qDebug()<<"titre_projet="<<titre_projet<<"\n";
+                                    }
+                                    // We've found description.
+                                    if(xml.name() == "description") {
+                                        xml.readNext(); description_projet=xml.text().toString();
+                                        //qDebug()<<"description_projet="<<description_projet<<"\n";
                                     }
                                     // We've found disponibilite
                                     if(xml.name() == "disponibilite_projet") {
                                         xml.readNext();
                                         disponibilite_projet=QDate::fromString(xml.text().toString(),Qt::ISODate);
-                                        qDebug()<<"disp_projet="<<disponibilite_projet.toString()<<"\n";
+                                        //qDebug()<<"disp_projet="<<disponibilite_projet.toString()<<"\n";
                                     }
                                     // We've found echeance
                                     if(xml.name() == "echeance") {
                                         xml.readNext();
                                         echeance_projet=QDate::fromString(xml.text().toString(),Qt::ISODate);
-                                        qDebug()<<"echeanc_projete="<<echeance_projet.toString()<<"\n";
+                                        //qDebug()<<"echeanc_projete="<<echeance_projet.toString()<<"\n";
                                     }
                                     // We've found taches, we dig into to find all the taches
                                     if(xml.name() == "taches"){
@@ -244,7 +251,7 @@ void ImportXML::load(const QString& f){
         }
     } // Fin lecture document
     // Error handling.
-    qDebug()<<"fin load\n";
+    //qDebug()<<"fin load\n";
     if(xml.hasError()) {
         throw CalendarException("Erreur lecteur fichier taches, parser xml");
     }

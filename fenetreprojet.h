@@ -9,7 +9,7 @@ class FenetreProjet : public QMainWindow
 {
     Q_OBJECT
 public:
-    FenetreProjet(QWidget *parent=0);
+    FenetreProjet(QMainWindow *parent=0);
 
 private slots:
     void saveProjet();

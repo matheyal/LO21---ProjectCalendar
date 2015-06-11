@@ -14,10 +14,16 @@
 #include <vector>
 #include <unistd.h>
 #include "export.h"
+#include "fenetresave.h"
+#include "fenetreload.h"
+#include "fenetreprecedence.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     mainWindow = new QWidget;
+
+    //Chargement d'un fichier XML
+    new FenetreSave;
 
     //Cr�ation d'une barre d'outil MENU
 
@@ -108,16 +114,20 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             unitaire->setDisabled(false);
             composite = new QPushButton("Composite");
             composite->setDisabled(false);
+            precedence = new QPushButton("Precedence");
+            precedence->setDisabled(false);
 
             layoutTache = new QHBoxLayout;
             layoutTache->addWidget(unitaire);
             layoutTache->addWidget(composite);
+            layoutTache->addWidget(precedence);
 
             groupeTache = new QGroupBox("Nouvelle Tache", onglet2);
             groupeTache->setLayout(layoutTache);
 
             QObject::connect(unitaire, SIGNAL(clicked()), this, SLOT(ajouterTacheUnitaire()));
             QObject::connect(composite, SIGNAL(clicked()), this, SLOT(ajouterTacheComposite()));
+            QObject::connect(precedence, SIGNAL(clicked()), this, SLOT(ajouterPrecedence()));
 
             // Ajouter au calendrier
 
@@ -137,6 +147,18 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             // Tree view
 
             tree =  new QTreeWidget;
+
+            ProjetManager& pm = ProjetManager::getInstance();
+
+            QTreeWidgetItem* item1 = new QTreeWidgetItem(tree);
+            item1->setText(0, "test");
+            tree->addTopLevelItem(item1);
+            QTreeWidgetItem* item11 = new QTreeWidgetItem(tree);
+            item11->setText(0, "test11");
+            item1->addChild(item11);
+            QTreeWidgetItem* item111 = new QTreeWidgetItem(tree);
+            item111->setText(0, "test111");
+            item11->addChild(item111);
 
             layoutTree = new QHBoxLayout;
             layoutTree->addWidget(tree);
@@ -209,7 +231,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         layoutHorizontal->addWidget(quitter);
 
         // Connection pour le bouton quitter
-        QObject::connect(quitter, SIGNAL(clicked()), qApp, SLOT(quit()));
+        QObject::connect(quitter, SIGNAL(clicked()), this, SLOT(saveAndQuit()));
 
     //Attachement de ces onglets � la barre d'onglet
 
@@ -292,6 +314,16 @@ void MainWindow::ajoutProjetCalendrier()
 void MainWindow::ajoutTacheCalendrier()
 {
     /*AjoutTacheCalendrier *t = new AjoutTacheCalendrier;
-    t->sh
-ow();*/
+    t->show();*/
+}
+
+void MainWindow::saveAndQuit(){
+    FenetreLoad* fl = new FenetreLoad();
+    //il faut réussir à faire quitter l'appli lorsqu'on on valide le choix de fichier
+    QObject::connect(fl, SIGNAL(accepted()), qApp, SLOT(quit()));
+}
+
+void MainWindow::ajouterPrecedence(){
+    FenetrePrecedence* pr = new FenetrePrecedence();
+    pr->show();
 }

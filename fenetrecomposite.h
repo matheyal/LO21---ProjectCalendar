@@ -7,7 +7,7 @@ class FenetreComposite : public QMainWindow
 {
     Q_OBJECT
 public :
-    FenetreComposite(QWidget* parent=0);
+    FenetreComposite(QMainWindow *parent=0);
 
 private slots:
     void enregistrerTacheComposite();
@@ -17,7 +17,7 @@ private:
     QWidget *tacheComposite;
 
     QLineEdit* titreComposite;
-    QLineEdit *projetComposite;
+    QComboBox* idProjet;
     QLineEdit* idComposite;
 
     QDateEdit *dispoComposite;

@@ -1,7 +1,7 @@
 #include "fenetreprojet.h"
 #include "projetmanager.h"
 
-FenetreProjet::FenetreProjet(QWidget *parent)
+FenetreProjet::FenetreProjet(QMainWindow *parent) : QMainWindow(parent)
 {
     fenetreProjet = new QWidget;
 
