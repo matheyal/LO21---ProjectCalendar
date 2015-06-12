@@ -183,6 +183,8 @@ public:
 
    void afficherProg();
 
+   const vector<Programmation*>* getProgramamtions() const{return &progs;}
+
 };
 
 #endif // AGENDA
