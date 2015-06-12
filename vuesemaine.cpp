@@ -5,18 +5,15 @@ VueSemaine::VueSemaine(QWidget* parent):QWidget(parent){
     calendrier = new QCalendarWidget(this);
     calendrier->hide();
     vueSemaine = new QTableView(this);
-    vueSemaine->setMinimumWidth(765);
+    vueSemaine->setMinimumWidth(800);
     vueSemaine->setMinimumHeight(700);
     semainePrecedente = new QPushButton("<<<");
     semainePrecedente->setMaximumWidth(200);
     semaineSuivante = new QPushButton(">>>");
     semaineSuivante->setMaximumWidth(400);
-    //semaineCourante = new QLabel("08 Juin - 14 Juin",this);
     choixSemaine = new ChoixSemaine(QDate::currentDate());
     choixSemaine->setCalendarPopup(true);
     choixSemaine->setMinimumWidth(150);
-
-    //ListeJours<<"Lundi"<<"Mardi"<<"Mercredi"<<"Jeudi"<<"Vendredi"<<"Samedi"<<"Dimanche";
 
     for (unsigned int i = 0; i < 48 ; ++i){
         int heure = i/2;
@@ -24,6 +21,7 @@ VueSemaine::VueSemaine(QWidget* parent):QWidget(parent){
         else ListeHeures << QString();
     }
 
+    //Mise en place du modèle pour les headers
     model = new QStandardItemModel(this);
     model->setHorizontalHeaderLabels(ListeJours);
     model->setVerticalHeaderLabels(ListeHeures);
@@ -35,34 +33,26 @@ VueSemaine::VueSemaine(QWidget* parent):QWidget(parent){
             model->setItem(demieHeure, jour, item);
             model->item(demieHeure, jour)->setEditable(false);
             item->setData(Qt::AlignCenter, Qt::TextAlignmentRole);
-            //item->setFont(QFont());
         }
     }
 
-    //QHeaderView* vHeader = weekView->verticalHeader();
-    //vHeader->setSectionResizeMode(QHeaderView::Fixed);
-    //vHeader->setDefaultSectionSize(20);
+    //Largeur des colonnes dynamique
+    QHeaderView* vHeader = vueSemaine->horizontalHeader();
+    vHeader->setSectionResizeMode(QHeaderView::Stretch);
 
     vueSemaine->setModel(model);
 
+    //Première mise à jour de la vue
     updateVueSemaine();
 
-/*
-    QStandardItem* item;
-    item = model->item(2,3);
-    item->setText("test");
-    vueSemaine->setSpan(item->row(), item->column(), 3, 1);
-    item->setBackground(QBrush(QColor(255, 200, 190)));
-*/
-
-
+    //Construction des layouts
     Hlayout1 = new QHBoxLayout;
     Hlayout1->addWidget(semainePrecedente, 0, Qt::AlignRight);
     Hlayout1->addWidget(choixSemaine,0, Qt::AlignCenter);
     Hlayout1->addWidget(semaineSuivante,0, Qt::AlignLeft);
 
     Hlayout2 = new QHBoxLayout;
-    Hlayout2->addWidget(vueSemaine,0,Qt::AlignHCenter);
+    Hlayout2->addWidget(vueSemaine);//,0,Qt::AlignHCenter);
 
     Vlayout = new QVBoxLayout;
     Vlayout->addLayout(Hlayout1);
@@ -70,6 +60,7 @@ VueSemaine::VueSemaine(QWidget* parent):QWidget(parent){
 
     this->setLayout(Vlayout);
 
+    //Connexion des widgets
     QObject::connect(semainePrecedente, SIGNAL(clicked()), choixSemaine, SLOT(semainePrecedente()));
     QObject::connect(semaineSuivante, SIGNAL(clicked()), choixSemaine, SLOT(semaineSuivante()));
     QObject::connect(choixSemaine, SIGNAL(dateChanged(QDate)),this, SLOT(updateVueSemaine()));
@@ -112,7 +103,7 @@ void VueSemaine::updateVueSemaine(){
             unsigned int row = (heure*2 + minutes/30);
             item = model->item(row,column);
             item->setText((*it)->getEvenement()->getTitre());
-            item->setBackground(QBrush(QColor(190, 200, 255)));
+            item->setBackground(QBrush(QColor(255, 114, 0)));
 
         }
     }
