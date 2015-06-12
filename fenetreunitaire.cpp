@@ -138,6 +138,7 @@ void FenetreUnitaire::enregistrerTacheUnitaire()
             echeanceUnitaire->setDateTime(QDateTime::currentDateTime());
             dureeUnitaire->clear();
             QMessageBox::about(this, "ajout", "Tache preemptable dans composite ajoutée");}
+
         }
         else
         {
@@ -188,6 +189,7 @@ void FenetreUnitaire::enregistrerTacheUnitaire()
         dureeUnitaire->clear();
         QMessageBox::about(this, "ajout", "Tache ajoutée");
     }
+
 }
 void FenetreUnitaire::checkDate(const QDateTime& d)
 {

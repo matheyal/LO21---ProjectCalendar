@@ -2,6 +2,7 @@
 #define FENETREUNITAIRE
 
 #include "qt.h"
+#include"mainwindow.h"
 
 class FenetreUnitaire : public QMainWindow
 {
