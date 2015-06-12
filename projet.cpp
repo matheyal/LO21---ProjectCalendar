@@ -28,7 +28,7 @@ TacheUnitaire& Projet::ajouterTacheUnitaire(const QString& id, const QString& t,
 
 TachePreemptable& Projet::ajouterTachePreemptable(const QString& id, const QString& t, const QDateTime& dispo, const QDateTime& deadline, const Duree& dur, bool b){
     if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet");
-    if (dispo<deadline && dur<Duree(12,0)){
+    if (dispo<deadline){
         TachePreemptable* newt=new TachePreemptable(id,t,dispo,deadline, dur, b);
         addItem(newt);
         return *newt;
