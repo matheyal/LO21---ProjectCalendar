@@ -12,6 +12,7 @@ public :
 private slots:
     void enregistrerTacheUnitaire();
     void checkDate(const QDate& d);
+    void load();
 
 private:
     QWidget *fenetreUnitaire;
@@ -19,6 +20,7 @@ private:
     QLineEdit* idUnitaire;
     QLineEdit* titreUnitaire;
     QComboBox* idProjet;
+    QComboBox* idComposite;
 
     QDateEdit *dispoUnitaire;
     QDateEdit *echeanceUnitaire;

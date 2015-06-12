@@ -13,6 +13,9 @@ FenetreUnitaire::FenetreUnitaire(QMainWindow* parent) : QMainWindow(parent)
     for(vector<Projet*>::const_iterator it = (*pm.getProjets()).begin(); it != (*pm.getProjets()).end(); ++it){
         idProjet->addItem((*it)->getId());
     }
+    idComposite = new QComboBox;
+    idComposite->addItem("");
+    idComposite->setDisabled(true);
     dispoUnitaire = new QDateEdit(QDate::currentDate());
     echeanceUnitaire = new QDateEdit(QDate::currentDate());
     dureeUnitaire = new QSpinBox;
@@ -21,8 +24,10 @@ FenetreUnitaire::FenetreUnitaire(QMainWindow* parent) : QMainWindow(parent)
     enregistrerUnitaire = new QPushButton("Enregistrer");
     quitterUnitaire = new QPushButton("Quitter");
 
+
     layoutTitreProjetDispoEcheanceDuree = new QFormLayout;
     layoutTitreProjetDispoEcheanceDuree->addRow("Projet", idProjet);
+    layoutTitreProjetDispoEcheanceDuree->addRow("Composite : ", idComposite);
     layoutTitreProjetDispoEcheanceDuree->addRow("ID", idUnitaire);
     layoutTitreProjetDispoEcheanceDuree->addRow("Titre", titreUnitaire);
     layoutTitreProjetDispoEcheanceDuree->addRow("Dispo", dispoUnitaire);
@@ -48,6 +53,7 @@ FenetreUnitaire::FenetreUnitaire(QMainWindow* parent) : QMainWindow(parent)
 
     setCentralWidget(fenetreUnitaire);
 
+    QObject::connect(idProjet, SIGNAL(currentIndexChanged(int)), this, SLOT(load()));
     QObject::connect(enregistrerUnitaire, SIGNAL(clicked()), this, SLOT(enregistrerTacheUnitaire()));
     QObject::connect(dispoUnitaire, SIGNAL(dateChanged(const QDate)), this, SLOT(checkDate(const QDate&)));
     QObject::connect(echeanceUnitaire, SIGNAL(dateChanged(const QDate&)), this, SLOT(checkDate(const QDate&)));
@@ -106,15 +112,43 @@ void FenetreUnitaire::enregistrerTacheUnitaire()
     }
     else if(preemptive->isChecked())
     {
-        pm.trouverProjet(idProjet->currentText())->ajouterTachePreemptable(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->date(), echeanceUnitaire->date(), dureeUnitaire->value());
+        if(idComposite->currentText()!="")
+        {
+            pm.trouverProjet(idProjet->currentText())->getTache(idComposite->currentText()).addItem(new TachePreemptable(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->date(), echeanceUnitaire->date(), dureeUnitaire->value()));
+            idUnitaire->setText("");
+            idComposite->setCurrentIndex(0);
+            idProjet->setCurrentIndex(0);
+            titreUnitaire->setText("");
+            dispoUnitaire->setDate(QDate::currentDate());
+            echeanceUnitaire->setDate(QDate::currentDate());
+            dureeUnitaire->cleanText();
+            QMessageBox::about(this, "ajout", "Tache preemptable dans composite ajoutée");
+        }
+        else
+        {
+            pm.trouverProjet(idProjet->currentText())->ajouterTachePreemptable(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->date(), echeanceUnitaire->date(), dureeUnitaire->value());
+            idUnitaire->setText("");
+            idProjet->setCurrentIndex(0);
+            titreUnitaire->setText("");
+            dispoUnitaire->setDate(QDate::currentDate());
+            echeanceUnitaire->setDate(QDate::currentDate());
+            dureeUnitaire->cleanText();
+        }
+
+    }
+        else if(idComposite->currentText()!="")
+    {
+        pm.trouverProjet(idProjet->currentText())->getTache(idComposite->currentText()).addItem(new TacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->date(), echeanceUnitaire->date(), dureeUnitaire->value()));
         idUnitaire->setText("");
+        idComposite->setCurrentIndex(0);
         idProjet->setCurrentIndex(0);
         titreUnitaire->setText("");
         dispoUnitaire->setDate(QDate::currentDate());
         echeanceUnitaire->setDate(QDate::currentDate());
         dureeUnitaire->cleanText();
+        QMessageBox::about(this, "ajout", "Tache unitaire dans composite ajoutée");
     }
-        else
+    else
     {
         pm.trouverProjet(idProjet->currentText())->ajouterTacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->date(), echeanceUnitaire->date(), dureeUnitaire->value());
         idUnitaire->setText("");
@@ -132,4 +166,21 @@ void FenetreUnitaire::checkDate(const QDate& d)
         echeanceUnitaire->setDate(dispoUnitaire->date());
     else if (d==echeanceUnitaire->date() && echeanceUnitaire->date()<dispoUnitaire->date())
             dispoUnitaire->setDate(echeanceUnitaire->date());
+}
+
+void FenetreUnitaire::load()
+{
+    idComposite->setEnabled(true);
+    ProjetManager& pm= ProjetManager::getInstance();
+    if(pm.trouverProjet(idProjet->currentText()))
+    {
+        vector<Tache*> tac= *pm.trouverProjet(idProjet->currentText())->getTaches();
+        for(size_t i=0; i<tac.size();i++)
+        {
+            if(tac[i]->Type()=="14TacheComposite")
+            {
+                idComposite->addItem(tac[i]->getId());
+            }
+        }
+    }
 }

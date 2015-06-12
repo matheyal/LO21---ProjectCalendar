@@ -49,15 +49,33 @@
             <identificateur>4</identificateur>
             <titre>projet4</titre>
             <description>Test de la mort qui tue</description>
-            <disponibilite>2015-06-11</disponibilite>
+            <disponibilite></disponibilite>
             <echeance>2015-06-11</echeance>
             <taches/>
+        </projet>
+        <projet>
+            <identificateur>compositions</identificateur>
+            <titre>compositions</titre>
+            <description>tests des compositions</description>
+            <disponibilite></disponibilite>
+            <echeance>2019-06-12</echeance>
+            <taches>
+                <tache preemptive="false" composite="true" unitaire="false">
+                    <identificateur>compo1</identificateur>
+                    <titre>compo1</titre>
+                    <disponibilite>2015-06-13</disponibilite>
+                    <echeance>2015-06-18</echeance>
+                </tache>
+            </taches>
         </projet>
     </projets>
     <precedences>
         <precedence id_projet="1" id_tache="3">
             <id_precedence>2</id_precedence>
             <id_precedence>1</id_precedence>
+        </precedence>
+        <precedence id_projet="compositions" id_tache="compo1">
+            <id_precedence>id1</id_precedence>
         </precedence>
     </precedences>
     <composites>

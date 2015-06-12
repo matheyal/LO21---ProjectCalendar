@@ -141,7 +141,49 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
                 vector<Tache*> tac= *pm.trouverProjet(pro[i]->getId())->getTaches();
                 for(size_t k =0;k<tac.size();k++)
                 {
-                    addTreeTaches(tac[k]->getTitre(), i);
+                    QTreeWidgetItem* tachei = new QTreeWidgetItem;
+                    tachei->setText(0, tac[k]->getTitre());
+                    if(tac[k]->Type()=="14TacheComposite")
+                    {
+                        vector<Tache*> taccomp=*tac[k]->getSousTaches();
+                        for(size_t h=0;h<taccomp.size();h++)
+                        {
+                            QTreeWidgetItem* sousTache1 = new QTreeWidgetItem;
+                            sousTache1->setText(0, taccomp[h]->getTitre());
+                            if(taccomp[h]->Type()=="14TacheComposite")
+                            {
+                                if(tac[h]->getSousTaches())
+                                {
+                                    vector<Tache*> taccomp1=*tac[h]->getSousTaches();
+                                    for(size_t j=0;j<taccomp1.size();j++)
+                                    {
+                                        QTreeWidgetItem* sousTache2 = new QTreeWidgetItem;
+                                        sousTache2->setText(0, taccomp1[j]->getTitre());
+                                        if(taccomp1[j]->Type()=="14TacheComposite")
+                                        {
+                                            if(taccomp1[j]->getSousTaches())
+                                            {
+
+                                                vector<Tache*> taccomp2=*tac[j]->getSousTaches();
+                                                for(size_t z=0;z<taccomp2.size();z++)
+                                                {
+                                                    QTreeWidgetItem* sousTache3 = new QTreeWidgetItem;
+                                                    sousTache3->setText(0, taccomp2[z]->getTitre());
+                                                    sousTache2->addChild(sousTache3);
+                                                }
+                                            }
+                                         }
+
+
+                                    sousTache1->addChild(sousTache2);
+                                    }
+                                }
+                            }
+                            tachei->addChild(sousTache1);
+                        }
+                    }
+                    treeProjets[i]->addChild(tachei);
+                    //addTreeTaches(tac[k]->getTitre(), i);
                 }
             }
             tree->addTopLevelItems(treeProjets);
@@ -315,6 +357,7 @@ void MainWindow::addTreeTaches(QString titre, int k)
     QTreeWidgetItem* tachei = new QTreeWidgetItem;
     tachei->setText(0, titre);
     //tachei->setBackground(0, QBrush(QColor::fromRgbF(0, 1, 0, 1)));
+
     treeProjets[k]->addChild(tachei);
 }
 
