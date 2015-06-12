@@ -11,7 +11,7 @@
 class FenetreAjoutProgTache : public QMainWindow{
     Q_OBJECT
 public:
-    FenetreAjoutProgTache(QMainWindow* parent);
+    FenetreAjoutProgTache(QMainWindow* parent=0);
 private:
     QWidget *fenetreAjoutProgTache;
 
@@ -37,7 +37,7 @@ public slots:
 class FenetreAjoutProgActivite : public QMainWindow{
     Q_OBJECT
 public:
-    FenetreAjoutProgActivite(QMainWindow* parent);
+    FenetreAjoutProgActivite(QMainWindow* parent=0);
 private:
     QWidget *fenetreAjoutProgActivite;
 

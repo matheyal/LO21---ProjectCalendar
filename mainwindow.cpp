@@ -337,13 +337,13 @@ void MainWindow::chargerFichier(){
 }
 
 void MainWindow::ajoutTacheCalendrier(){
-    FenetreAjoutProgTache* f = new FenetreAjoutProgTache(this);
+    FenetreAjoutProgTache* f = new FenetreAjoutProgTache();
     f->show();
 }
 
 void MainWindow::ajoutActiviteCalendrier()
 {
-    FenetreAjoutProgActivite* f = new FenetreAjoutProgActivite(this);
+    FenetreAjoutProgActivite* f = new FenetreAjoutProgActivite();
     f->show();
 }
 
