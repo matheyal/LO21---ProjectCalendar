@@ -101,6 +101,53 @@ public:
          *  Destructeur de la classe Activite
          */
     ~Activite() {}
+    /*!
+         *  \brief getInterlocuteur
+         *
+         *  Accesseur en lecture sur l'interlocuteur
+         */
+
+    virtual const QString& getInterlocuteur() const { return 0; }
+
+    /*!
+         *  \brief setInterlocuteur
+         *
+         *  Accesseur en écriture sur l'interlocuteur
+         *
+         * \param interl : initialise notre interlocuteur avec ce nom
+         */
+    virtual void setInterlocuteur(const QString& ) {}
+    /*!
+         *  \brief getNbParticipants
+         *
+         *  Methode retournant le nombre de participants inscrit à la réunion
+         */
+    virtual int getNbParticipants() const {return 0;}
+
+    /*!
+         *  \brief getParticipants
+         *
+         *  Accesseur en lecture des participants de la réunion
+         */
+    virtual const vector<QString>& getParticipants() const {vector<QString> v; return v;}
+
+    /*!
+         *  \brief ajouterParticipant
+         *
+         *  Permet d'ajouter un participant à la réunion
+         *
+         *  \param parti : nom du participant que l'on veut rajouter à la réunion
+         */
+    virtual void ajouterParticipant(const QString &){};
+
+    /*!
+         *  \brief supprimmerParticipant
+         *
+         *  Permet de supprimer un participant de la réunion
+         *
+         *  \param parti : nom du participant que l'on veut supprimer de la réunion
+         */
+    virtual void supprimmerParticipant(const QString & ){};
 
 };
 

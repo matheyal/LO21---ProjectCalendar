@@ -27,7 +27,9 @@ private:
 
     QSpinBox *dureeActivite;
     QLineEdit *lieuActivite;
+    QLineEdit *personne;
 
+    QPushButton *participant;
     QPushButton *supp;
     QPushButton* ann;
     QPushButton* mod;
