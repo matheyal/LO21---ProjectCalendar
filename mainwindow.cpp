@@ -7,7 +7,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     setWindowTitle("Project Calendar");
 
     //Chargement d'un fichier XML
-    //new FenetreSave;
     //FenetreLoad* fl = new FenetreLoad(this);
     //fl->show();
     chargerFichier();
@@ -183,7 +182,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
                         }
                     }
                     treeProjets[i]->addChild(tachei);
-                    //addTreeTaches(tac[k]->getTitre(), i);
                 }
             }
             tree->addTopLevelItems(treeProjets);
@@ -344,7 +342,6 @@ void MainWindow::chargerFichier(){
     }
 }
 
-
 void MainWindow::addTreeProjet(QString titre)
 {
     QTreeWidgetItem* projeti = new QTreeWidgetItem;
@@ -360,4 +357,3 @@ void MainWindow::addTreeTaches(QString titre, int k)
 
     treeProjets[k]->addChild(tachei);
 }
-

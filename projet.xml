@@ -6,7 +6,7 @@
             <titre>cool</titre>
             <description>c'est cool !</description>
             <disponibilite></disponibilite>
-            <echeance>2000-10-12</echeance>
+            <echeance>2016-10-12</echeance>
             <taches>
                 <tache preemptive="false" composite="true" unitaire="false">
                     <identificateur>1</identificateur>
@@ -18,8 +18,12 @@
                     <identificateur>2</identificateur>
                     <titre>unit2</titre>
                     <disponibilite>1999-10-12</disponibilite>
-                    <echeance>2002-10-12</echeance>
+                    <echeance>2016-06-12</echeance>
                     <duree>230</duree>
+                    <programmation>
+                        <date>2015-06-12</date>
+                        <heure>10H30</heure>
+                    </programmation>
                 </tache>
                 <tache preemptive="false" composite="true" unitaire="false">
                     <identificateur>3</identificateur>
@@ -73,9 +77,6 @@
         <precedence id_projet="1" id_tache="3">
             <id_precedence>2</id_precedence>
             <id_precedence>1</id_precedence>
-        </precedence>
-        <precedence id_projet="compositions" id_tache="compo1">
-            <id_precedence>id1</id_precedence>
         </precedence>
     </precedences>
     <composites>

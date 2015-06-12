@@ -37,7 +37,6 @@ public :
     //Méthode permettant de redéfinir l'action effectuée en sortie de l'application (ici demander si sauvegarde ou non)
     void closeEvent(QCloseEvent *event);
 
-
 public slots:
     void chargerProjet();
     void sauvegarderProjet();
