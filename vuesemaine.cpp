@@ -5,8 +5,9 @@ VueSemaine::VueSemaine(QWidget* parent):QWidget(parent){
     calendrier = new QCalendarWidget(this);
     calendrier->hide();
     vueSemaine = new QTableView(this);
+    vueSemaine->setMinimumWidth(760);
     semainePrecedente = new QPushButton("<<<");
-    semainePrecedente->setMaximumWidth(400);
+    semainePrecedente->setMaximumWidth(200);
     semaineSuivante = new QPushButton(">>>");
     semaineSuivante->setMaximumWidth(400);
     //semaineCourante = new QLabel("08 Juin - 14 Juin",this);
@@ -55,12 +56,12 @@ VueSemaine::VueSemaine(QWidget* parent):QWidget(parent){
 
 
     Hlayout1 = new QHBoxLayout;
-    Hlayout1->addWidget(semainePrecedente);
+    Hlayout1->addWidget(semainePrecedente, 0, Qt::AlignRight);
     Hlayout1->addWidget(choixSemaine,0, Qt::AlignCenter);
-    Hlayout1->addWidget(semaineSuivante);
+    Hlayout1->addWidget(semaineSuivante,0, Qt::AlignLeft);
 
     Hlayout2 = new QHBoxLayout;
-    Hlayout2->addWidget(vueSemaine);
+    Hlayout2->addWidget(vueSemaine,0,Qt::AlignHCenter);
 
     Vlayout = new QVBoxLayout;
     Vlayout->addLayout(Hlayout1);
@@ -107,10 +108,9 @@ void VueSemaine::updateVueSemaine(){
 }
 
 void ChoixSemaine::semainePrecedente(){
-    //QDate* old_date = date();
-
+    setDate(date().addDays(-7));
 }
 
 void ChoixSemaine::semaineSuivante(){
-
+    setDate(date().addDays(7));
 }
