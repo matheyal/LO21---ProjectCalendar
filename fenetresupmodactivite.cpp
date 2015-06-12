@@ -24,6 +24,10 @@ FenetreSupModActivite::FenetreSupModActivite(QMainWindow *parent) : QMainWindow(
     dureeActivite->setDisabled(true);
     lieuActivite = new QLineEdit;
     lieuActivite->setDisabled(true);
+    personne = new QLineEdit;
+    personne->setDisabled(true);
+    participant = new QPushButton("Ajouter un participant");
+    participant->setDisabled(true);
     mod = new QPushButton("Modifier");
     mod->setDisabled(true);
     ann = new QPushButton("Réinitialiser");
@@ -38,8 +42,10 @@ FenetreSupModActivite::FenetreSupModActivite(QMainWindow *parent) : QMainWindow(
     layout21Form->addRow("Date d'echeance", echeanceActivite);
     layout21Form->addRow("Duree", dureeActivite);
     layout21Form->addRow("Lieu", lieuActivite);
+    layout21Form->addRow("Interlocuteur", personne);
 
     horizontal=new QHBoxLayout;
+    horizontal->addWidget(participant);
     horizontal->addWidget(supp);
     horizontal->addWidget(mod);
     horizontal->addWidget(ann);
@@ -72,6 +78,8 @@ FenetreSupModActivite::FenetreSupModActivite(QMainWindow *parent) : QMainWindow(
 void FenetreSupModActivite::load(){
         ActiviteManager& am= ActiviteManager::getInstance();
         if(am.trouverActivite(idActivite->currentText())){
+            participant->setDisabled(true);
+            personne->setDisabled(true);
             mod->setEnabled(true);
             ann->setEnabled(true);
             supp->setEnabled(true);
@@ -85,6 +93,15 @@ void FenetreSupModActivite::load(){
             echeanceActivite->setDate(am.trouverActivite(idActivite->currentText())->getEcheance());
             dureeActivite->setValue(am.trouverActivite(idActivite->currentText())->getDuree().getDureeEnHeures());
             lieuActivite->setText(am.trouverActivite(idActivite->currentText())->getLieu());
+            if (typeid(*(am.trouverActivite(idActivite->currentText())))==typeid(Reunion)){
+                participant->setEnabled(true);
+                personne->setDisabled(true);
+            }
+            if (typeid(*(am.trouverActivite(idActivite->currentText())))==typeid(Rdv)){
+                participant->setDisabled(true);
+                personne->setEnabled(true);
+                personne->setText(am.trouverActivite(idActivite->currentText())->getInterlocuteur());
+            }
         }else{
             titreActivite->clear();
             titreActivite->setDisabled(true);

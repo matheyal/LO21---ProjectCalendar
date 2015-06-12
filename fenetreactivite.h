@@ -14,6 +14,7 @@ private slots:
     void saveActivite();
     void cancel();
     void checkDate(const QDate& d);
+    void checkType();
 
 private:
     QLineEdit *idActivite;
@@ -24,6 +25,7 @@ private:
     QDateEdit *echeanceActivite;
     QSpinBox *dureeActivite;
     QLineEdit *lieuActivite;
+    QLineEdit *personne;
 
     QPushButton *enregistrerActivite;
     QPushButton* annuler;
