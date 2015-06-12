@@ -7,10 +7,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     setWindowTitle("Project Calendar");
 
     //Chargement d'un fichier XML
-<<<<<<< HEAD
-=======
     //new FenetreSave;
->>>>>>> 4471386f2ffcd5f0a02456e02bf79ef5af8eb6a0
     //FenetreLoad* fl = new FenetreLoad(this);
     //fl->show();
     chargerFichier();
@@ -136,19 +133,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
             tree =  new QTreeWidget;
 
-<<<<<<< HEAD
-            //ProjetManager& pm = ProjetManager::getInstance();
 
-            QTreeWidgetItem* item1 = new QTreeWidgetItem(tree);
-            item1->setText(0, "test");
-            tree->addTopLevelItem(item1);
-            QTreeWidgetItem* item11 = new QTreeWidgetItem(tree);
-            item11->setText(0, "test11");
-            item1->addChild(item11);
-            QTreeWidgetItem* item111 = new QTreeWidgetItem(tree);
-            item111->setText(0, "test111");
-            item11->addChild(item111);
-=======
             ProjetManager& pm = ProjetManager::getInstance();
             vector<Projet*> pro = *pm.getProjets();
             for(size_t i=0;i<pro.size();i++)
@@ -161,7 +146,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
                 }
             }
             tree->addTopLevelItems(treeProjets);
->>>>>>> 4471386f2ffcd5f0a02456e02bf79ef5af8eb6a0
 
             layoutTree = new QHBoxLayout;
             layoutTree->addWidget(tree);
@@ -284,15 +268,12 @@ void MainWindow::ajoutTacheCalendrier()
     t->show();*/
 }
 
-<<<<<<< HEAD
-=======
 void MainWindow::ajoutActiviteCalendrier()
 {
     /*AjoutActiviteCalendrier *t = new AjoutActiviteCalendrier;
     t->show();*/
 }
 
->>>>>>> 4471386f2ffcd5f0a02456e02bf79ef5af8eb6a0
 void MainWindow::ajouterPrecedence(){
     FenetrePrecedence* pr = new FenetrePrecedence();
     pr->show();
@@ -321,8 +302,6 @@ void MainWindow::chargerFichier(){
        new FenetreLoad();
     }
 }
-<<<<<<< HEAD
-=======
 
 
 void MainWindow::addTreeProjet(QString titre)
@@ -339,5 +318,3 @@ void MainWindow::addTreeTaches(QString titre, int k)
     //tachei->setBackground(0, QBrush(QColor::fromRgbF(0, 1, 0, 1)));
     treeProjets[k]->addChild(tachei);
 }
-
->>>>>>> 4471386f2ffcd5f0a02456e02bf79ef5af8eb6a0
