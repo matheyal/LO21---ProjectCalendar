@@ -100,6 +100,9 @@
             <id_precedence>2</id_precedence>
             <id_precedence>1</id_precedence>
         </precedence>
+        <precedence id_projet="composition" id_tache="tacheDurée">
+            <id_precedence>compo</id_precedence>
+        </precedence>
     </precedences>
     <composites>
         <composite id_projet="1" id_tache="1">
@@ -110,4 +113,18 @@
             <id_composant>compocm</id_composant>
         </composite>
     </composites>
+    <activites>
+        <activite reunion="false" rdv="false">
+            <identificateur>Activite2</identificateur>
+            <titre>Activité de ouf</titre>
+            <disponibilite>2015-06-12T21:14:18</disponibilite>
+            <echeance>2017-06-12T21:14:18</echeance>
+            <duree>120</duree>
+            <lieu>UTC</lieu>
+            <programmation>
+                <date>2015-06-12T21:15:51</date>
+                <heure>21H15</heure>
+            </programmation>
+        </activite>
+    </activites>
 </projectcalendar>

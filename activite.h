@@ -133,10 +133,11 @@ public:
          *  \param parti : nom du participant que l'on veut rajouter à la réunion
          */
 
+    virtual void ajouterParticipant(const QString &){};
+
     virtual QString toString() const{ return "";}
 
-
-    virtual void ajouterParticipant(const QString &){};
+    virtual const QString getParticipant(int i) const {i++;return 0;}
 
     /*!
          *  \brief supprimmerParticipant
@@ -197,6 +198,8 @@ public:
          */
     const vector<QString>& getParticipants() const {return participants;}
 
+    const QString getParticipant(int i) const {return participants[i];}
+
     QString toString() const{
         std::stringstream s;
         for (size_t i=0;i<participants.size();++i)
@@ -220,12 +223,6 @@ public:
          *  \param parti : nom du participant que l'on veut supprimer de la réunion
          */
     void supprimmerParticipant(const QString & parti);
-
-    QString& afficherParticipants(std::ostream &f) const {
-        for (size_t i=0;i<participants.size();++i)
-            f<<qPrintable(participants[i])<<" ";
-    }
-
 
     /*!
          *  \brief afficher
