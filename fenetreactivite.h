@@ -13,7 +13,7 @@ public:
 private slots:
     void saveActivite();
     void cancel();
-    void checkDate(const QDate& d);
+    void checkDate(const QDateTime &d);
     void checkType();
 
 private:
@@ -21,8 +21,8 @@ private:
     QCheckBox *reunion;
     QCheckBox *rdv;
     QLineEdit *titreActivite;
-    QDateEdit *dispoActivite;
-    QDateEdit *echeanceActivite;
+    QDateTimeEdit *dispoActivite;
+    QDateTimeEdit *echeanceActivite;
     QSpinBox *dureeActivite;
     QLineEdit *lieuActivite;
     QLineEdit *personne;

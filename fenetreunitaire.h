@@ -11,7 +11,7 @@ public :
 
 private slots:
     void enregistrerTacheUnitaire();
-    void checkDate(const QDate& d);
+    void checkDate(const QDateTime &d);
     void load();
 
 private:
@@ -22,8 +22,8 @@ private:
     QComboBox* idProjet;
     QComboBox* idComposite;
 
-    QDateEdit *dispoUnitaire;
-    QDateEdit *echeanceUnitaire;
+    QDateTimeEdit *dispoUnitaire;
+    QDateTimeEdit *echeanceUnitaire;
     QSpinBox* dureeUnitaire;
     QCheckBox* preemptive;
 

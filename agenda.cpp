@@ -16,7 +16,7 @@ void Agenda::libererInstance(){
     handler.instance=0;
 }
 
-Programmation& Agenda::ajouterProg(Evenement* e, const QDate& d, const Horaire& h){
+Programmation& Agenda::ajouterProg(Evenement* e, const QDateTime& d, const Horaire& h){
     if (trouverProgrammation(e)) throw AgendaException("erreur, tache deja existante dans le projet");
     if (e->getDate()<d && d<e->getEcheance()){
         if(e->getStatus()==false){

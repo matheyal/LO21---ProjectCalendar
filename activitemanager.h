@@ -136,7 +136,7 @@ public:
          * \param li : Lieu de l'activite
          * \param b : Etat de programmation de l'evenement
          */
-    Activite* ajouterActivite(const QString& ident, const QString& t, const QDate& d,const QDate& ech,const Duree& du,const QString& li,bool b=false);
+    Activite* ajouterActivite(const QString& ident, const QString& t, const QDateTime &d, const QDateTime ech, const Duree& du, const QString& li, bool b=false);
 
     /*!
          *  \brief ajouterReunion
@@ -151,7 +151,7 @@ public:
          *  \param li : Lieu de l'activite
          *  \param b : Etat de programmation de l'evenement
          */
-    Reunion* ajouterReunion(const QString& ident, const QString& t, const QDate& d,const QDate& ech,const Duree& du,const QString& li,bool b=false);
+    Reunion* ajouterReunion(const QString& ident, const QString& t, const QDateTime &d, const QDateTime &ech, const Duree& du, const QString& li, bool b=false);
 
     /*!
          *  \brief ajouterRdv
@@ -167,7 +167,7 @@ public:
          *  \param li : Lieu de l'activite
          *  \param b : Etat de programmation de l'evenement
          */
-    Rdv* ajouterRdv(const QString& ident, const QString& t, const QDate& d,const QDate& ech,const Duree& du, const QString& pers, const QString& li,bool b=false);
+    Rdv* ajouterRdv(const QString& ident, const QString& t, const QDateTime &d, const QDateTime &ech, const Duree& du, const QString& pers, const QString& li, bool b=false);
 
     /*!
          *  \brief supprimerActivite

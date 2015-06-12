@@ -41,7 +41,7 @@ public:
          *  \param li : Lieu de l'activite
          *  \param b : Etat de programmation de l'evenement
          */
-    Activite(const QString& ident, const QString& t, const QDate& d,const QDate& ech,const Duree& du,const QString& li,bool b=false): Evenement(ident,t,d,ech,b), duree(du),lieu(li){}
+    Activite(const QString& ident, const QString& t, const QDateTime& d,const QDateTime& ech,const Duree& du,const QString& li,bool b=false): Evenement(ident,t,d,ech,b), duree(du),lieu(li){}
 
     /*!
          *  \brief getDuree
@@ -175,7 +175,7 @@ public:
          *  \param li : Lieu de l'activite
          *  \param b : Etat de programmation de l'evenement
          */
-     Reunion(const QString& ident, const QString& t, const QDate& d,const QDate& ech,const Duree& du,const QString& li,bool b=false):Activite(ident,t,d,ech,du,li,b){}
+     Reunion(const QString& ident, const QString& t, const QDateTime& d,const QDateTime& ech,const Duree& du,const QString& li,bool b=false):Activite(ident,t,d,ech,du,li,b){}
 
     /*!
          *  \brief Type
@@ -270,7 +270,7 @@ public:
          *  \param pers : interlocuteur du rendez-vous
          *  \param b : Etat de programmation de l'evenement
          */
-    Rdv(const QString& ident, const QString& t, const QDate& d,const QDate& ech,const Duree& du, const QString& pers, const QString& li,bool b=false):Activite(ident,t,d,ech,du,li,b),personne(pers){}
+    Rdv(const QString& ident, const QString& t, const QDateTime& d,const QDateTime& ech,const Duree& du, const QString& pers, const QString& li,bool b=false):Activite(ident,t,d,ech,du,li,b),personne(pers){}
 
     /*!
          *  \brief getInterlocuteur

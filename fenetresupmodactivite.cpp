@@ -14,9 +14,9 @@ FenetreSupModActivite::FenetreSupModActivite(QMainWindow *parent) : QMainWindow(
 
     titreActivite = new QLineEdit;
     titreActivite->setDisabled(true);
-    dispoActivite = new QDateEdit;
+    dispoActivite = new QDateTimeEdit;
     dispoActivite->setDisabled(true);
-    echeanceActivite = new QDateEdit;
+    echeanceActivite = new QDateTimeEdit;
     echeanceActivite->setDisabled(true);
     dureeActivite = new QSpinBox;
     dureeActivite->setMinimum(0);
@@ -70,8 +70,8 @@ FenetreSupModActivite::FenetreSupModActivite(QMainWindow *parent) : QMainWindow(
     QObject::connect(ann, SIGNAL(clicked()), this, SLOT(load()));
     QObject::connect(supp, SIGNAL(clicked()), this, SLOT(supprimer()));
     QObject::connect(supp, SIGNAL(clicked()), this, SLOT(close()));
-    QObject::connect(dispoActivite, SIGNAL(dateChanged(const QDate)), this, SLOT(checkDate(const QDate&)));
-    QObject::connect(echeanceActivite, SIGNAL(dateChanged(const QDate&)), this, SLOT(checkDate(const QDate&)));
+    QObject::connect(dispoActivite, SIGNAL(dateChanged(const QDateTime)), this, SLOT(checkDate(const QDateTime&)));
+    QObject::connect(echeanceActivite, SIGNAL(dateChanged(const QDateTime&)), this, SLOT(checkDate(const QDateTime&)));
 
 }
 
@@ -89,8 +89,8 @@ void FenetreSupModActivite::load(){
             dureeActivite->setEnabled(true);
             lieuActivite->setEnabled(true);
             titreActivite->setText(am.trouverActivite(idActivite->currentText())->getTitre());
-            dispoActivite->setDate(am.trouverActivite(idActivite->currentText())->getDate());
-            echeanceActivite->setDate(am.trouverActivite(idActivite->currentText())->getEcheance());
+            dispoActivite->setDateTime(am.trouverActivite(idActivite->currentText())->getDate());
+            echeanceActivite->setDateTime(am.trouverActivite(idActivite->currentText())->getEcheance());
             dureeActivite->setValue(am.trouverActivite(idActivite->currentText())->getDuree().getDureeEnHeures());
             lieuActivite->setText(am.trouverActivite(idActivite->currentText())->getLieu());
             if (typeid(*(am.trouverActivite(idActivite->currentText())))==typeid(Reunion)){
@@ -118,17 +118,17 @@ void FenetreSupModActivite::load(){
     void FenetreSupModActivite::modifier(){
         ActiviteManager& am= ActiviteManager::getInstance();
         am.trouverActivite(idActivite->currentText())->setTitre(titreActivite->text());
-        am.trouverActivite(idActivite->currentText())->setDateDisponibilite(dispoActivite->date());
-        am.trouverActivite(idActivite->currentText())->setEcheance(echeanceActivite->date());
+        am.trouverActivite(idActivite->currentText())->setDateDisponibilite(dispoActivite->dateTime());
+        am.trouverActivite(idActivite->currentText())->setEcheance(echeanceActivite->dateTime());
     }
 
-    void FenetreSupModActivite::checkDate(const QDate& d){
-        if(d==dispoActivite->date() && d<QDate::currentDate())
-            dispoActivite->setDate(QDate::currentDate());
-        if(d==dispoActivite->date() && echeanceActivite->date()<dispoActivite->date())
-            echeanceActivite->setDate(dispoActivite->date());
-        else if (d==echeanceActivite->date() && echeanceActivite->date()<dispoActivite->date())
-                dispoActivite->setDate(echeanceActivite->date());
+    void FenetreSupModActivite::checkDate(const QDateTime& d){
+        if(d==dispoActivite->dateTime() && d<QDateTime::currentDateTime())
+            dispoActivite->setDateTime(QDateTime::currentDateTime());
+        if(d==dispoActivite->dateTime() && echeanceActivite->dateTime()<dispoActivite->dateTime())
+            echeanceActivite->setDateTime(dispoActivite->dateTime());
+        else if (d==echeanceActivite->dateTime() && echeanceActivite->dateTime()<dispoActivite->dateTime())
+                dispoActivite->setDateTime(echeanceActivite->dateTime());
     }
 
     void FenetreSupModActivite::supprimer(){

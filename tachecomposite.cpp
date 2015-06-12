@@ -87,6 +87,6 @@ void TacheComposite::supprimerSousTache(const QString& ident){
 
 void TacheComposite::commencer()
 {
-    setDebut(QDate::currentDate());
+    setDebut(QDateTime::currentDateTime());
 }
 
