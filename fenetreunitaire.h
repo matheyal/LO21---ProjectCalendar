@@ -24,7 +24,7 @@ private:
 
     QDateTimeEdit *dispoUnitaire;
     QDateTimeEdit *echeanceUnitaire;
-    QSpinBox* dureeUnitaire;
+    QTimeEdit* dureeUnitaire;
     QCheckBox* preemptive;
 
     QPushButton *enregistrerUnitaire;

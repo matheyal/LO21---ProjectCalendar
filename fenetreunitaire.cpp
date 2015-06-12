@@ -18,9 +18,8 @@ FenetreUnitaire::FenetreUnitaire(QMainWindow* parent) : QMainWindow(parent)
     idComposite->setDisabled(true);
     dispoUnitaire = new QDateTimeEdit(QDateTime::currentDateTime());
     echeanceUnitaire = new QDateTimeEdit(QDateTime::currentDateTime());
-    dureeUnitaire = new QSpinBox;
+    dureeUnitaire = new QTimeEdit;
     preemptive = new QCheckBox;
-    dureeUnitaire->setRange(1, 10000);
     enregistrerUnitaire = new QPushButton("Enregistrer");
     quitterUnitaire = new QPushButton("Quitter");
 
@@ -61,6 +60,7 @@ FenetreUnitaire::FenetreUnitaire(QMainWindow* parent) : QMainWindow(parent)
 }
 void FenetreUnitaire::enregistrerTacheUnitaire()
 {
+    Duree du(dureeUnitaire->time().hour(), dureeUnitaire->time().minute());
     ProjetManager& pm = ProjetManager::getInstance();
     if(idProjet->currentText().isEmpty())
     {
@@ -104,7 +104,7 @@ void FenetreUnitaire::enregistrerTacheUnitaire()
         dispoUnitaire->setDateTime(QDateTime::currentDateTime());
         echeanceUnitaire->setDateTime(QDateTime::currentDateTime());
     }
-    else if(dureeUnitaire->value()>dispoUnitaire->dateTime().daysTo(echeanceUnitaire->dateTime()))
+    else if((du.getDureeEnMinutes()*60)>dispoUnitaire->dateTime().secsTo(echeanceUnitaire->dateTime()))
     {
         QMessageBox::warning(this, "erreur","sauvegarde impossible, duree trop longue");
         dispoUnitaire->setDateTime(QDateTime::currentDateTime());
@@ -114,51 +114,51 @@ void FenetreUnitaire::enregistrerTacheUnitaire()
     {
         if(idComposite->currentText()!="")
         {
-            pm.trouverProjet(idProjet->currentText())->ajouterTacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), dureeUnitaire->value());
-            pm.trouverProjet(idProjet->currentText())->getTache(idComposite->currentText()).ajouterSousTache(new TachePreemptable(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), dureeUnitaire->value()));
+            pm.trouverProjet(idProjet->currentText())->ajouterTacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), du);
+            pm.trouverProjet(idProjet->currentText())->getTache(idComposite->currentText()).ajouterSousTache(new TachePreemptable(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), du));
             idUnitaire->setText("");
             idComposite->setCurrentIndex(0);
             idProjet->setCurrentIndex(0);
             titreUnitaire->setText("");
             dispoUnitaire->setDateTime(QDateTime::currentDateTime());
             echeanceUnitaire->setDateTime(QDateTime::currentDateTime());
-            dureeUnitaire->cleanText();
+            dureeUnitaire->clear();
             QMessageBox::about(this, "ajout", "Tache preemptable dans composite ajoutée");
         }
         else
         {
-            pm.trouverProjet(idProjet->currentText())->ajouterTachePreemptable(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), dureeUnitaire->value());
+            pm.trouverProjet(idProjet->currentText())->ajouterTachePreemptable(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), du);
             idUnitaire->setText("");
             idProjet->setCurrentIndex(0);
             titreUnitaire->setText("");
             dispoUnitaire->setDateTime(QDateTime::currentDateTime());
             echeanceUnitaire->setDateTime(QDateTime::currentDateTime());
-            dureeUnitaire->cleanText();
+            dureeUnitaire->clear();
         }
 
     }
         else if(idComposite->currentText()!="")
     {
-        pm.trouverProjet(idProjet->currentText())->ajouterTacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), dureeUnitaire->value());
-        pm.trouverProjet(idProjet->currentText())->getTache(idComposite->currentText()).ajouterSousTache(new TacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), dureeUnitaire->value()));
+        pm.trouverProjet(idProjet->currentText())->ajouterTacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), du);
+        pm.trouverProjet(idProjet->currentText())->getTache(idComposite->currentText()).ajouterSousTache(new TacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), du));
         idUnitaire->setText("");
         idComposite->setCurrentIndex(0);
         idProjet->setCurrentIndex(0);
         titreUnitaire->setText("");
         dispoUnitaire->setDateTime(QDateTime::currentDateTime());
         echeanceUnitaire->setDateTime(QDateTime::currentDateTime());
-        dureeUnitaire->cleanText();
+        dureeUnitaire->clear();
         QMessageBox::about(this, "ajout", "Tache unitaire dans composite ajoutée");
     }
     else
     {
-        pm.trouverProjet(idProjet->currentText())->ajouterTacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), dureeUnitaire->value());
+        pm.trouverProjet(idProjet->currentText())->ajouterTacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), du);
         idUnitaire->setText("");
         idProjet->setCurrentIndex(0);
         titreUnitaire->setText("");
         dispoUnitaire->setDateTime(QDateTime::currentDateTime());
         echeanceUnitaire->setDateTime(QDateTime::currentDateTime());
-        dureeUnitaire->cleanText();
+        dureeUnitaire->clear();
         QMessageBox::about(this, "ajout", "Tache ajoutée");
     }
 }
