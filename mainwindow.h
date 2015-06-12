@@ -25,6 +25,7 @@
 #include "fenetreprecedence.h"
 #include "fenetreactivite.h"
 #include "vuesemaine.h"
+#include "fenetresupmodtache.h"
 #include "fenetreajoutprogrammation.h"
 
 
@@ -46,6 +47,7 @@ public slots:
     void ajouterProjet();
     void ajouterTacheUnitaire();
     void ajouterTacheComposite();
+    void supModTache();
     void nouvelleActivite();
     void supModActivite();
     void ajoutTacheCalendrier();
@@ -87,9 +89,10 @@ protected:
     QPushButton* unitaire;
     QPushButton* precedence;
     QPushButton* composite;
+    QPushButton *supmodtache;
     QPushButton* ajoutProjet;
-    QPushButton* ajoutTache;
     QPushButton* ajoutActivite;
+    QPushButton *ajoutTache;
 
     QTextEdit* description;
 

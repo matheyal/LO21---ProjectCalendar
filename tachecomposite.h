@@ -41,6 +41,7 @@ public:
         *
         */
     QString& getInfo() { return info; }
+
 };
 
 /*! \class TacheComposite
@@ -147,6 +148,7 @@ public:
          *
          */
     void afficher(std::ostream& f)const {Evenement::afficher(f);}
+
 
 
     /*!
