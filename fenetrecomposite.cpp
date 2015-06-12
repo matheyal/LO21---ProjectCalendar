@@ -15,11 +15,15 @@ FenetreComposite::FenetreComposite(QMainWindow *parent) : QMainWindow(parent)
     for(vector<Projet*>::const_iterator it = (*pm.getProjets()).begin(); it != (*pm.getProjets()).end(); ++it){
         idProjet->addItem((*it)->getId());
     }
+    idSousCompo = new QComboBox;
+    idSousCompo->addItem("");
+    idSousCompo->setDisabled("true");
     enregistrerComposite = new QPushButton("Enregistrer");
     quitterComposite = new QPushButton("Quitter");
 
     layoutTitreProjetDispoEcheanceDuree = new QFormLayout;
     layoutTitreProjetDispoEcheanceDuree->addRow("Projet", idProjet);
+    layoutTitreProjetDispoEcheanceDuree->addRow("Sous Tache : ", idSousCompo);
     layoutTitreProjetDispoEcheanceDuree->addRow("ID", idComposite);
     layoutTitreProjetDispoEcheanceDuree->addRow("Titre", titreComposite);
     layoutTitreProjetDispoEcheanceDuree->addRow("Dispo", dispoComposite);
@@ -43,6 +47,7 @@ FenetreComposite::FenetreComposite(QMainWindow *parent) : QMainWindow(parent)
 
     setCentralWidget(tacheComposite);
 
+    QObject::connect(idProjet, SIGNAL(currentIndexChanged(int)), this, SLOT(load()));
     QObject::connect(enregistrerComposite, SIGNAL(clicked()), this, SLOT(enregistrerTacheComposite()));
     QObject::connect(dispoComposite, SIGNAL(dateChanged(const QDate)), this, SLOT(checkDate(const QDate&)));
     QObject::connect(echeanceComposite, SIGNAL(dateChanged(const QDate&)), this, SLOT(checkDate(const QDate&)));
@@ -94,8 +99,17 @@ void FenetreComposite::enregistrerTacheComposite()
         dispoComposite->setDate(QDate::currentDate());
         echeanceComposite->setDate(QDate::currentDate());
     }
-    else
+    else if(idSousCompo->currentText()!="")
     {
+        pm.trouverProjet(idProjet->currentText())->ajouterTacheComposite(idComposite->text(),titreComposite->text(),dispoComposite->date(), echeanceComposite->date());
+        pm.trouverProjet(idProjet->currentText())->getTache(idSousCompo->currentText()).ajouterSousTache(new TacheComposite(idComposite->text(),titreComposite->text(),dispoComposite->date(), echeanceComposite->date()));
+        idComposite->setText("");
+        idProjet->setCurrentIndex(0);
+        titreComposite->setText("");
+        dispoComposite->setDate(QDate::currentDate());
+        echeanceComposite->setDate(QDate::currentDate());
+    }
+    else {
         pm.trouverProjet(idProjet->currentText())->ajouterTacheComposite(idComposite->text(),titreComposite->text(),dispoComposite->date(), echeanceComposite->date());
         idComposite->setText("");
         idProjet->setCurrentIndex(0);
@@ -110,4 +124,23 @@ void FenetreComposite::checkDate(const QDate& d)
         echeanceComposite->setDate(dispoComposite->date());
     else if (d==echeanceComposite->date() && echeanceComposite->date()<dispoComposite->date())
             dispoComposite->setDate(echeanceComposite->date());
+}
+
+void FenetreComposite::load()
+{
+    idSousCompo->setEnabled(true);
+    idSousCompo->clear();
+    idSousCompo->addItem("");
+    ProjetManager& pm= ProjetManager::getInstance();
+    if(pm.trouverProjet(idProjet->currentText()))
+    {
+        vector<Tache*> tac= *pm.trouverProjet(idProjet->currentText())->getTaches();
+        for(size_t i=0; i<tac.size();i++)
+        {
+            if(tac[i]->Type()=="14TacheComposite")
+            {
+                idSousCompo->addItem(tac[i]->getId());
+            }
+        }
+    }
 }

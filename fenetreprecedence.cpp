@@ -45,6 +45,10 @@ void FenetrePrecedence::load()
 {
     taches->setEnabled(true);
     precedente->setEnabled(true);
+    precedente->clear();
+    taches->clear();
+    taches->addItem("");
+    precedente->addItem("");
     ProjetManager& pm= ProjetManager::getInstance();
     if(pm.trouverProjet(projets->currentText()))
     {

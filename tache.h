@@ -26,6 +26,7 @@ private:
     vector<Tache*> tachesPrecedentes; /*!< Tableau de pointeurs de taches représentant les taches précédentes */
     QDate debut; /*!< Date avec horaire représentant le début d'une tache */
     QDate fin; /*!< Date avec horaire représentant la fin d'une tache  */
+    bool inTree;
 public:
     /*!
          *  \brief Type
@@ -33,6 +34,10 @@ public:
          *  Methode qui retourne le type "Tache"
          */
     QString Type() const {return typeid(*this).name();}
+
+    bool getInTree(){return inTree;}
+
+    void setInTree(bool b){inTree=b;}
 
     /*!
          *  \brief Constructeur

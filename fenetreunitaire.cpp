@@ -114,7 +114,8 @@ void FenetreUnitaire::enregistrerTacheUnitaire()
     {
         if(idComposite->currentText()!="")
         {
-            pm.trouverProjet(idProjet->currentText())->getTache(idComposite->currentText()).addItem(new TachePreemptable(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->date(), echeanceUnitaire->date(), dureeUnitaire->value()));
+            pm.trouverProjet(idProjet->currentText())->ajouterTacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->date(), echeanceUnitaire->date(), dureeUnitaire->value());
+            pm.trouverProjet(idProjet->currentText())->getTache(idComposite->currentText()).ajouterSousTache(new TachePreemptable(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->date(), echeanceUnitaire->date(), dureeUnitaire->value()));
             idUnitaire->setText("");
             idComposite->setCurrentIndex(0);
             idProjet->setCurrentIndex(0);
@@ -138,7 +139,8 @@ void FenetreUnitaire::enregistrerTacheUnitaire()
     }
         else if(idComposite->currentText()!="")
     {
-        pm.trouverProjet(idProjet->currentText())->getTache(idComposite->currentText()).addItem(new TacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->date(), echeanceUnitaire->date(), dureeUnitaire->value()));
+        pm.trouverProjet(idProjet->currentText())->ajouterTacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->date(), echeanceUnitaire->date(), dureeUnitaire->value());
+        pm.trouverProjet(idProjet->currentText())->getTache(idComposite->currentText()).ajouterSousTache(new TacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->date(), echeanceUnitaire->date(), dureeUnitaire->value()));
         idUnitaire->setText("");
         idComposite->setCurrentIndex(0);
         idProjet->setCurrentIndex(0);
@@ -171,6 +173,8 @@ void FenetreUnitaire::checkDate(const QDate& d)
 void FenetreUnitaire::load()
 {
     idComposite->setEnabled(true);
+    idComposite->clear();
+    idComposite->addItem("");
     ProjetManager& pm= ProjetManager::getInstance();
     if(pm.trouverProjet(idProjet->currentText()))
     {
