@@ -150,12 +150,6 @@ public:
     void afficher(std::ostream& f)const {Evenement::afficher(f);}
 
 
-    QString toStringSousTaches() const{
-        std::stringstream s;
-        for (size_t i=0;i<soustaches.size();++i)
-            s<<qPrintable(soustaches[i]->getTitre())<<" ";
-        return QString::fromStdString(s.str());
-    }
 
     /*!
          *  \brief getDuree
@@ -164,7 +158,7 @@ public:
          *
          *
          */
-    Duree getDuree() const{return 0;}
+    const Duree getDuree() const{return Duree(0,0);}
 
 
 

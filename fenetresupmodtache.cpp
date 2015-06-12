@@ -23,8 +23,6 @@ FenetreSupModTache::FenetreSupModTache(QMainWindow *parent) : QMainWindow(parent
     echeanceTache->setDisabled(true);
     dureeTache = new QTimeEdit;
     dureeTache->setDisabled(true);
-    precedentes = new QLineEdit;
-    precedentes->setDisabled(true);
     supprimerPrecedence=new QComboBox;
     supprimerPrecedence->setDisabled(true);
     supprimerSousTache = new QComboBox;
@@ -43,7 +41,6 @@ FenetreSupModTache::FenetreSupModTache(QMainWindow *parent) : QMainWindow(parent
     layout21Form->addRow("Date de disponnibilite", dispoTache);
     layout21Form->addRow("Date d'echeance", echeanceTache);
     layout21Form->addRow("Duree", dureeTache);
-    layout21Form->addRow("Taches précédentes au projet", precedentes);
     layout21Form->addRow("Supprimer une sous tache", supprimerSousTache);
     layout21Form->addRow("Supprimer une relation de précédence", supprimerPrecedence);
 
@@ -108,9 +105,8 @@ void FenetreSupModTache::load(){
         titreTache->setText(pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())->getTitre());
         dispoTache->setDateTime(pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())->getDate());
         echeanceTache->setDateTime(pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())->getEcheance());
-        precedentes->setText(pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())->toString());
-        for(vector<Tache*>::const_iterator it = (*pm.trouverProjet(idProjet->currentText())->trouverTache(idProjet->currentText())->getTachesPrecedentes()).begin(); it != (*pm.trouverProjet(idProjet->currentText())->trouverTache(idProjet->currentText())->getTachesPrecedentes()).end(); ++it){
-            supprimerPrecedence->addItem((*it)->getTitre());
+        for(vector<Tache*>::const_iterator it = (*pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())->getTachesPrecedentes()).begin(); it != (*pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())->getTachesPrecedentes()).end(); ++it){
+            supprimerPrecedence->addItem((*it)->getId());
         }
         if (typeid(*(pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())))==typeid(TacheUnitaire)){
             QTime time(pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())->getDuree().getDureeEnHeures(), pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())->getDuree().getDureeEnMinutes());
@@ -122,8 +118,8 @@ void FenetreSupModTache::load(){
             dureeTache->clear();
             dureeTache->setDisabled(true);
             supprimerSousTache->setEnabled(true);
-            for(vector<Tache*>::const_iterator it = (*pm.trouverProjet(idProjet->currentText())->trouverTache(idProjet->currentText())->getSousTaches()).begin(); it != (*pm.trouverProjet(idProjet->currentText())->trouverTache(idProjet->currentText())->getSousTaches()).end(); ++it){
-                supprimerSousTache->addItem((*it)->getTitre());
+            for(vector<Tache*>::const_iterator it = (*pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())->getSousTaches()).begin(); it != (*pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())->getSousTaches()).end(); ++it){
+                supprimerSousTache->addItem((*it)->getId());
             }
         }
     }else{
@@ -148,9 +144,10 @@ void FenetreSupModTache::load(){
         pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())->setTitre(titreTache->text());
         pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())->setDateDisponibilite(dispoTache->dateTime());
         pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())->setEcheance(echeanceTache->dateTime());
+        pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())->setDuree(du);
+        pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())->supprimerPrecedence(supprimerPrecedence->currentText());
         if (typeid(*((pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText()))))==typeid(TacheComposite)){
-            //am.trouverTache(idTache->currentText())->ajouterParticipant(ajoutParticipant->text());
-            //am.trouverTache(idTache->currentText())->supprimmerParticipant(supprimerParticipant->text());
+            pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())->supprimerSousTache(supprimerSousTache->currentText());
         }
         if (typeid(*(pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())))==typeid(TacheUnitaire)){
             pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())->setDuree(du);

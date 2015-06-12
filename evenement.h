@@ -80,7 +80,7 @@ public:
          *
          *  Méthode virtuelle pure. Permet d'accéder à la durée d'une classe fille en passant par un pointeur d'Evenement
          */
-    //virtual const Duree& getDuree() const = 0;
+    virtual const Duree getDuree() const = 0;
 
     /*!
          *  \brief setTitre

@@ -7,10 +7,15 @@ FenetreComposite::FenetreComposite(QMainWindow *parent) : QMainWindow(parent)
     tacheComposite = new QWidget;
 
     titreComposite = new QLineEdit;
+    titreComposite->setDisabled(true);
     dispoComposite = new QDateTimeEdit(QDateTime::currentDateTime());
+    dispoComposite->setDisabled(true);
     echeanceComposite = new QDateTimeEdit(QDateTime::currentDateTime());
+    echeanceComposite->setDisabled(true);
     idComposite = new QLineEdit;
+    idComposite->setDisabled(true);
     idProjet = new QComboBox(this);
+    idProjet->addItem("");
     ProjetManager& pm=ProjetManager::getInstance();
     for(vector<Projet*>::const_iterator it = (*pm.getProjets()).begin(); it != (*pm.getProjets()).end(); ++it){
         idProjet->addItem((*it)->getId());
@@ -99,15 +104,28 @@ void FenetreComposite::enregistrerTacheComposite()
         dispoComposite->setDateTime(QDateTime::currentDateTime());
         echeanceComposite->setDateTime(QDateTime::currentDateTime());
     }
+    else if(dispoComposite->dateTime()>echeanceComposite->dateTime())
+    {
+        QMessageBox::warning(this, "erreur", "date dispo anterieure a date echeance");
+    }
     else if(idSousCompo->currentText()!="")
     {
+        if(pm.trouverProjet(idProjet->currentText())->getTache(idSousCompo->currentText()).getEcheance()<echeanceComposite->dateTime())
+        {
+            QMessageBox::warning(this, "erreur", "date echeance de la composite inferieure a l'echeance de la tache que vous ajoutez");
+        }
+        else if(pm.trouverProjet(idProjet->currentText())->getTache(idSousCompo->currentText()).getDate()>dispoComposite->dateTime())
+        {
+            QMessageBox::warning(this, "erreur", "date dispo de la composite superierue a la dispo que la date que vous ajoutez");
+        }
+        else {
         pm.trouverProjet(idProjet->currentText())->ajouterTacheComposite(idComposite->text(),titreComposite->text(),dispoComposite->dateTime(), echeanceComposite->dateTime());
         pm.trouverProjet(idProjet->currentText())->getTache(idSousCompo->currentText()).ajouterSousTache(new TacheComposite(idComposite->text(),titreComposite->text(),dispoComposite->dateTime(), echeanceComposite->dateTime()));
         idComposite->setText("");
         idProjet->setCurrentIndex(0);
         titreComposite->setText("");
         dispoComposite->setDateTime(QDateTime::currentDateTime());
-        echeanceComposite->setDateTime(QDateTime::currentDateTime());
+        echeanceComposite->setDateTime(QDateTime::currentDateTime());}
     }
     else {
         pm.trouverProjet(idProjet->currentText())->ajouterTacheComposite(idComposite->text(),titreComposite->text(),dispoComposite->dateTime(), echeanceComposite->dateTime());
@@ -129,6 +147,10 @@ void FenetreComposite::checkDate(const QDateTime& d)
 void FenetreComposite::load()
 {
     idSousCompo->setEnabled(true);
+    titreComposite->setEnabled(true);
+    echeanceComposite->setEnabled(true);
+    dispoComposite->setEnabled(true);
+    idComposite->setEnabled(true);
     idSousCompo->clear();
     idSousCompo->addItem("");
     ProjetManager& pm= ProjetManager::getInstance();

@@ -1,5 +1,6 @@
 #include "projetmanager.h"
 #include "agenda.h"
+#include "activitemanager.h"
 #include "export.h"
 #include <typeinfo>
 
@@ -25,7 +26,7 @@ void ExportXML::save(const QString& f){
         stream.writeTextElement("description",(*it1)->getDesc());
         stream.writeTextElement("disponibilite",(*it1)->getDispo().toString(Qt::ISODate));
         stream.writeTextElement("echeance",(*it1)->getEcheance().toString(Qt::ISODate));
-        //Liste des taches du projet dans une balise <taches>
+        //Liste des taches du projet et de leurs programmations dans une balise <taches>
         stream.writeStartElement("taches");
         const vector<Tache*>* taches = (*it1)->getTaches();
         for (vector<Tache*>::const_iterator it2 = taches->begin() ; it2 != taches->end() ; ++it2){
@@ -113,6 +114,54 @@ void ExportXML::save(const QString& f){
         }
     }
     stream.writeEndElement(); // Fin <composites>
+
+    //Liste des activités et de leurs programmations
+    stream.writeStartElement("activites");
+    ActiviteManager& AM = ActiviteManager::getInstance();
+    const vector<Activite*>* activites = AM.getActivites();
+    for(vector<Activite*>::const_iterator it1 = activites->begin(); it1 != activites->end(); ++it1){
+        stream.writeStartElement("activite");
+        //Met l'attribut reunion à true si c'est une reunion, false sinon
+        if (typeid(**it1) == typeid(Reunion))
+            stream.writeAttribute("reunion", "true");
+        else
+            stream.writeAttribute("reunion", "false");
+        //Met l'attribut rdv à true si c'est un rdv, false sinon
+        if (typeid(**it1) == typeid(Rdv))
+            stream.writeAttribute("rdv", "true");
+        else
+            stream.writeAttribute("rdv", "false");
+        stream.writeTextElement("identificateur",(*it1)->getId());
+        stream.writeTextElement("titre",(*it1)->getTitre());
+        stream.writeTextElement("disponibilite",(*it1)->getDate().toString(Qt::ISODate));
+        stream.writeTextElement("echeance",(*it1)->getEcheance().toString(Qt::ISODate));
+        QString str;
+        str.setNum((*it1)->getDuree().getDureeEnMinutes());
+        stream.writeTextElement("duree",str);
+        stream.writeTextElement("lieu",(*it1)->getLieu());
+        if (typeid(**it1) == typeid(Reunion)){ // C'est un réunion, on ajoute la liste des participants
+            stream.writeStartElement("participants");
+            for(int i = 0 ; i < (*it1)->getNbParticipants() ; i++){
+                stream.writeTextElement("participant",(*it1)->getParticipant(i));
+            }
+            stream.writeEndElement();// Fin <participants
+        }
+        if (typeid(**it1) == typeid(Rdv)){ //C'est un rdv, on ajoute l'interlocuteur du rdv
+            stream.writeTextElement("interlocuteur", (*it1)->getInterlocuteur());
+        }
+        //Programmation si l'activité est programmée
+        if ((*it1)->getStatus()){ // L'a Tache 'activité est programmée nous écrivons ici sa programmation
+            Programmation* prog = A.trouverProgrammation(*it1);
+            if (prog){
+                stream.writeStartElement("programmation");
+                stream.writeTextElement("date",prog->getDate().toString(Qt::ISODate));
+                stream.writeTextElement("heure", prog->getHoraire().toString());
+                stream.writeEndElement(); // Fin <programmation>
+            }
+        }
+        stream.writeEndElement(); // Fin <activite>
+    }
+    stream.writeEndElement(); // Fin <activites>
     stream.writeEndElement(); // Fin <projectcalendar>
     stream.writeEndDocument();
     newfile.close();

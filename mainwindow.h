@@ -26,7 +26,7 @@
 #include "fenetreactivite.h"
 #include "vuesemaine.h"
 #include "fenetresupmodtache.h"
-
+#include "fenetreajoutprogrammation.h"
 
 
 class MainWindow: public QMainWindow
@@ -50,16 +50,16 @@ public slots:
     void supModTache();
     void nouvelleActivite();
     void supModActivite();
-    void ajoutProjetCalendrier();
     void ajoutTacheCalendrier();
-    void ajouterPrecedence();
     void ajoutActiviteCalendrier();
+    void ajouterPrecedence();
 
 protected:
     void chargerFichier();
 
 
     QList<QTreeWidgetItem*>  treeProjets;
+    QList<QTreeWidgetItem*> tachei;
 
     QWidget *mainWindow;
     QTabWidget *barreOnglet;

@@ -114,20 +114,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
             // Ajouter au calendrier
 
-            ajoutProjet = new QPushButton("Projet");
             ajoutTache = new QPushButton("Tache");
             ajoutActivite= new QPushButton("Activite");
 
-
             layoutAjout  =new QHBoxLayout;
-            layoutAjout->addWidget(ajoutProjet);
             layoutAjout->addWidget(ajoutTache);
             layoutAjout->addWidget(ajoutActivite);
 
             groupeAjout = new QGroupBox("Programmer", onglet2);
             groupeAjout->setLayout(layoutAjout);
 
-            QObject::connect(ajoutProjet, SIGNAL(clicked()), this, SLOT(ajoutProjetCalendrier()));
             QObject::connect(ajoutTache, SIGNAL(clicked()), this, SLOT(ajoutTacheCalendrier()));
             QObject::connect(ajoutActivite, SIGNAL(clicked()), this, SLOT(ajoutActiviteCalendrier()));
 
@@ -142,36 +138,44 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             {
                 QTreeWidgetItem* projeti = new QTreeWidgetItem;
                 projeti->setText(0, pro[i]->getTitre());
-                treeProjets.push_back(projeti);
+                tree->addTopLevelItem(projeti);
                 vector<Tache*> tac= *pm.trouverProjet(pro[i]->getId())->getTaches();
-                for(size_t k =0;k<tac.size();k++)
+                size_t siz=tac.size();
+                for(size_t k =0;k<siz;k++)
                 {
                     QTreeWidgetItem* tachei = new QTreeWidgetItem;
                     tachei->setText(0, tac[k]->getTitre());
+                    projeti->addChild(tachei);
                     if(tac[k]->Type()=="14TacheComposite")
                     {
                         vector<Tache*> taccomp=*tac[k]->getSousTaches();
                         for(size_t h=0;h<taccomp.size();h++)
                         {
+                            siz--;
                             QTreeWidgetItem* sousTache1 = new QTreeWidgetItem;
                             sousTache1->setText(0, taccomp[h]->getTitre());
+                            tachei->addChild(sousTache1);
                             if(taccomp[h]->Type()=="14TacheComposite")
                             {
-
+                                siz--;
                                 if(taccomp[h]->getSousTaches())
                                 {
                                     vector<Tache*> taccomp1=*taccomp[h]->getSousTaches();
                                     for(size_t j=0;j<taccomp1.size();j++)
                                     {
+                                        siz--;
                                         QTreeWidgetItem* sousTache2 = new QTreeWidgetItem;
                                         sousTache2->setText(0, taccomp1[j]->getTitre());
+                                        sousTache1->addChild(sousTache2);
                                         if(taccomp1[j]->Type()=="14TacheComposite")
                                         {
+                                            siz--;
                                             if(taccomp1[j]->getSousTaches())
                                             {
                                                 vector<Tache*> taccomp2=*tac[j]->getSousTaches();
                                                 for(size_t z=0;z<taccomp2.size();z++)
                                                 {
+                                                    siz--;
                                                     QTreeWidgetItem* sousTache3 = new QTreeWidgetItem;
                                                     sousTache3->setText(0, taccomp2[z]->getTitre());
                                                     if(!taccomp2[z]->getInTree())
@@ -181,35 +185,20 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
                                                     }
                                                 }
                                             }
-                                         }
-
-                                        if(taccomp1[j]->getInTree()!=true)
-                                        {
-                                            sousTache1->addChild(sousTache2);
-                                            taccomp1[j]->setInTree(true);
                                         }
                                     }
                                 }
                             }
-                            if(taccomp[h]->getInTree()!=true)
-                            {
-                                tachei->addChild(sousTache1);
-                                taccomp[h]->setInTree(true);
-                            }
                         }
                     }
-                    treeProjets[i]->addChild(tachei);
-
                 }
             }
-            tree->addTopLevelItems(treeProjets);
 
             layoutTree = new QHBoxLayout;
             layoutTree->addWidget(tree);
 
             groupeTree = new QGroupBox("Tree-View", onglet2);
             groupeTree->setLayout(layoutTree);
-
 
         layoutDemiOnglet2 = new QVBoxLayout;
         layoutOnglet2 = new QHBoxLayout;
@@ -318,25 +307,6 @@ void MainWindow::supModActivite()
     p->show();
 }
 
-
-void MainWindow::ajoutProjetCalendrier()
-{
-    QMessageBox::information(this, "information", "Projet ajoute");
-}
-
-
-void MainWindow::ajoutTacheCalendrier()
-{
-    /*AjoutTacheCalendrier *t = new AjoutTacheCalendrier;
-    t->show();*/
-}
-
-void MainWindow::ajoutActiviteCalendrier()
-{
-    /*AjoutActiviteCalendrier *t = new AjoutActiviteCalendrier;
-    t->show();*/
-}
-
 void MainWindow::ajouterPrecedence(){
     FenetrePrecedence* pr = new FenetrePrecedence();
     pr->show();
@@ -366,4 +336,14 @@ void MainWindow::chargerFichier(){
     }
 }
 
+void MainWindow::ajoutTacheCalendrier(){
+    FenetreAjoutProgTache* f = new FenetreAjoutProgTache(this);
+    f->show();
+}
+
+void MainWindow::ajoutActiviteCalendrier()
+{
+    FenetreAjoutProgActivite* f = new FenetreAjoutProgActivite(this);
+    f->show();
+}
 

@@ -49,7 +49,7 @@ public:
          *  Accesseur en lecture de la duree de l'activite
          */
 
-    const Duree& getDuree()const{return duree;}
+    const Duree getDuree()const{return duree;}
 
     /*!
          *  \brief getLieu
@@ -101,13 +101,14 @@ public:
          *  Destructeur de la classe Activite
          */
     ~Activite() {}
+
     /*!
          *  \brief getInterlocuteur
          *
          *  Accesseur en lecture sur l'interlocuteur
          */
 
-    virtual const QString& getInterlocuteur() const { return 0; }
+    virtual const QString getInterlocuteur() const { return 0; }
 
     /*!
          *  \brief setInterlocuteur
@@ -125,13 +126,6 @@ public:
     virtual int getNbParticipants() const {return 0;}
 
     /*!
-         *  \brief getParticipants
-         *
-         *  Accesseur en lecture des participants de la réunion
-         */
-    virtual const vector<QString>& getParticipants() const {vector<QString> v; return v;}
-
-    /*!
          *  \brief ajouterParticipant
          *
          *  Permet d'ajouter un participant à la réunion
@@ -139,10 +133,11 @@ public:
          *  \param parti : nom du participant que l'on veut rajouter à la réunion
          */
 
+    virtual void ajouterParticipant(const QString &){};
+
     virtual QString toString() const{ return "";}
 
-
-    virtual void ajouterParticipant(const QString &){};
+    virtual const QString getParticipant(int i) const {i++;return 0;}
 
     /*!
          *  \brief supprimmerParticipant
@@ -203,6 +198,8 @@ public:
          */
     const vector<QString>& getParticipants() const {return participants;}
 
+    const QString getParticipant(int i) const {return participants[i];}
+
     QString toString() const{
         std::stringstream s;
         for (size_t i=0;i<participants.size();++i)
@@ -226,12 +223,6 @@ public:
          *  \param parti : nom du participant que l'on veut supprimer de la réunion
          */
     void supprimmerParticipant(const QString & parti);
-
-    QString& afficherParticipants(std::ostream &f) const {
-        for (size_t i=0;i<participants.size();++i)
-            f<<qPrintable(participants[i])<<" ";
-    }
-
 
     /*!
          *  \brief afficher
@@ -295,7 +286,7 @@ public:
          *  Accesseur en lecture sur l'interlocuteur
          */
 
-    const QString& getInterlocuteur() const { return personne; }
+    const QString getInterlocuteur() const { return personne; }
 
     /*!
          *  \brief setInterlocuteur

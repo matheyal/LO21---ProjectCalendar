@@ -102,6 +102,11 @@ void VueSemaine::updateVueSemaine(){
             unsigned short int minutes = (*it)->getHoraire().getMinute();
             unsigned int row = (heure*2 + minutes/30);
             item = model->item(row,column);
+
+            int dureeMinutes = (*it)->getEvenement()->getDuree().getDureeEnMinutes();
+            int nbDemieHeures = dureeMinutes/30;
+            if (!dureeMinutes%30) nbDemieHeures++;
+            if (nbDemieHeures > 1) vueSemaine->setSpan(item->row(), item->column(), nbDemieHeures, 1);
             item->setText((*it)->getEvenement()->getTitre());
             item->setBackground(QBrush(QColor(255, 114, 0)));
 

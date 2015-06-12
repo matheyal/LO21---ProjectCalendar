@@ -39,14 +39,6 @@ public:
 
     void setInTree(bool b){inTree=b;}
 
-    QString toString() const{
-        std::stringstream s;
-        for (size_t i=0;i<tachesPrecedentes.size();++i)
-            s<<qPrintable(tachesPrecedentes[i]->getTitre())<<" ";
-        return QString::fromStdString(s.str());
-    }
-    virtual QString toStringSousTaches() const {return "";}
-
     /*!
          *  \brief Constructeur
          *
@@ -61,6 +53,7 @@ public:
          */
     Tache(const QString& ident, const QString& t, const QDateTime& d,const QDateTime& ech, bool b=false): Evenement(ident,t,d,ech,b), tachesPrecedentes(0), debut(QDateTime::currentDateTime()), fin(QDateTime::currentDateTime()){}
 
+    virtual void supprimerSousTache(const QString& ){};
     /*!
          *  \brief afficher
          *
@@ -136,7 +129,7 @@ public:
         *  Méthode virtuelle pure pour permettre l'appel de getDuree() sur un pointeur de Tache
         *
         */
-    virtual Duree getDuree() const =0;
+    const Duree getDuree() const = 0;
 
     /*!
         *  \brief afficherSousTaches()
@@ -179,6 +172,11 @@ public:
         *  \param t : pointeur sur la tache à ajouter en précédence
         */
     void addPrecedence(Tache* t){addItem(t);}
+
+    void supprimerPrecedence(const QString& id){
+        for (size_t i=0;i<tachesPrecedentes.size();++i)
+            tachesPrecedentes.erase(tachesPrecedentes.begin()+i);
+    }
 };
 
 /*!

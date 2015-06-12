@@ -43,7 +43,7 @@ public:
          *
          *  Accesseur en lecture de la duree de la tache unitaire
          */
-    Duree getDuree() const{return duree;}
+    const Duree getDuree() const{return duree;}
 
 
     /*!
