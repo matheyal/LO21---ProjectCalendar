@@ -20,7 +20,6 @@ FenetreSupModActivite::FenetreSupModActivite(QMainWindow *parent) : QMainWindow(
     echeanceActivite->setDisabled(true);
     dureeActivite = new QTimeEdit;
     dureeActivite->setDisabled(true);
-    dureeActivite->stepBy(30);
     lieuActivite = new QLineEdit;
     lieuActivite->setDisabled(true);
     personne = new QLineEdit;

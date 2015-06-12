@@ -41,6 +41,7 @@ public:
         *
         */
     QString& getInfo() { return info; }
+
 };
 
 /*! \class TacheComposite
@@ -148,6 +149,13 @@ public:
          */
     void afficher(std::ostream& f)const {Evenement::afficher(f);}
 
+
+    QString toStringSousTaches() const{
+        std::stringstream s;
+        for (size_t i=0;i<soustaches.size();++i)
+            s<<qPrintable(soustaches[i]->getTitre())<<" ";
+        return QString::fromStdString(s.str());
+    }
 
     /*!
          *  \brief getDuree

@@ -76,16 +76,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             //Nouvelle Tache
 
             unitaire = new QPushButton("Unitaire");
-            unitaire->setDisabled(false);
             composite = new QPushButton("Composite");
-            composite->setDisabled(false);
             precedence = new QPushButton("Precedence");
-            precedence->setDisabled(false);
+            supmodtache =new QPushButton("Modifier ou supprimer une tache");
+
 
             layoutTache = new QHBoxLayout;
             layoutTache->addWidget(unitaire);
             layoutTache->addWidget(composite);
             layoutTache->addWidget(precedence);
+            layoutTache->addWidget(supmodtache);
 
             groupeTache = new QGroupBox("Tache", onglet2);
             groupeTache->setLayout(layoutTache);
@@ -93,6 +93,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             QObject::connect(unitaire, SIGNAL(clicked()), this, SLOT(ajouterTacheUnitaire()));
             QObject::connect(composite, SIGNAL(clicked()), this, SLOT(ajouterTacheComposite()));
             QObject::connect(precedence, SIGNAL(clicked()), this, SLOT(ajouterPrecedence()));
+            QObject::connect(supmodtache, SIGNAL(clicked()), this, SLOT(supModTache()));
+
 
             //Activité
 
@@ -296,6 +298,12 @@ void MainWindow::ajouterTacheComposite()
     FenetreComposite *t = new FenetreComposite;
     t->show();
 }
+
+void MainWindow::supModTache(){
+    FenetreSupModTache *p=new FenetreSupModTache;
+    p->show();
+}
+
 
 
 void MainWindow::nouvelleActivite()

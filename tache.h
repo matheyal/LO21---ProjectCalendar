@@ -39,6 +39,14 @@ public:
 
     void setInTree(bool b){inTree=b;}
 
+    QString toString() const{
+        std::stringstream s;
+        for (size_t i=0;i<tachesPrecedentes.size();++i)
+            s<<qPrintable(tachesPrecedentes[i]->getTitre())<<" ";
+        return QString::fromStdString(s.str());
+    }
+    virtual QString toStringSousTaches() const {return "";}
+
     /*!
          *  \brief Constructeur
          *
@@ -136,6 +144,7 @@ public:
         *  Méthode virtuelle pure pour permettre l'appel de afficherSousTache() sur une Tache
         *
         */
+    virtual void setDuree(Duree ) {}
     virtual void afficherSousTaches()const =0;
 
     /*!

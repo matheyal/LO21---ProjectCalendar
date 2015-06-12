@@ -71,7 +71,7 @@ public:
         *  Accesseur en écriture qui initialise la durée de la tache unitaire en question
         *
         */
-    void setDuree(int d){duree=d;}
+    void setDuree(Duree d){duree=d;}
 
     /*!
         *  \brief getSousTaches

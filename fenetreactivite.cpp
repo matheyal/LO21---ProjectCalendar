@@ -12,7 +12,6 @@ FenetreActivite::FenetreActivite(QMainWindow *parent) : QMainWindow(parent)
     dispoActivite = new QDateTimeEdit(QDateTime::currentDateTime());
     echeanceActivite = new QDateTimeEdit(QDateTime::currentDateTime());
     dureeActivite = new QTimeEdit;
-    dureeActivite->stepBy(30);
     lieuActivite= new QLineEdit;
     personne = new QLineEdit;
     personne->setDisabled(true);
