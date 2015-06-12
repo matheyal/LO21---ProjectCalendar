@@ -36,10 +36,6 @@ public :
     MainWindow(QWidget *parent=0);
     //Méthode permettant de redéfinir l'action effectuée en sortie de l'application (ici demander si sauvegarde ou non)
     void closeEvent(QCloseEvent *event);
-<<<<<<< HEAD
-=======
-
->>>>>>> 4471386f2ffcd5f0a02456e02bf79ef5af8eb6a0
 
 public slots:
     void chargerProjet();
@@ -58,14 +54,11 @@ public slots:
 
 protected:
     void chargerFichier();
-<<<<<<< HEAD
-=======
     void addTreeProjet(QString titre);
     void addTreeTaches(QString titre, int k);
 
     QList<QTreeWidgetItem*>  treeProjets;
     QList<QList<QTreeWidgetItem*> > treeTaches;
->>>>>>> 4471386f2ffcd5f0a02456e02bf79ef5af8eb6a0
 
     QWidget *mainWindow;
     QTabWidget *barreOnglet;
