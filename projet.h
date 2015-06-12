@@ -55,8 +55,8 @@ private:
      QString id;/*!< Identifiant du projet */
      QString titre;/*!< Titre du projet */
      QString description;/*!< Description du projet */
-     QDate dispo;/*!< Date de disponibilite du projet */
-     QDate echeance;/*!< Date d'echeance du projet */
+     QDateTime dispo;/*!< Date de disponibilite du projet */
+     QDateTime echeance;/*!< Date d'echeance du projet */
      vector<Tache*> taches;/*!< Tableau de taches reliées au projet */
 
      /*!
@@ -81,7 +81,7 @@ private:
           * \param ech : date d'écheance du projet
           *
           */
-     Projet(const QString& i, const QString& ti, const QString& desc, const QDate& d,const QDate& ech):id(i), titre(ti),description(desc),dispo(d),echeance(ech),taches(0){}
+     Projet(const QString& i, const QString& ti, const QString& desc, const QDateTime& d,const QDateTime& ech):id(i), titre(ti),description(desc),dispo(d),echeance(ech),taches(0){}
 
      /*!
           *  \brief Destructeur
@@ -108,7 +108,7 @@ public:
           *   \param b: Booleen représentant l'état de la tache unitaire à ajouter (par défaut non programmée)
           *
           */
-     TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const QDate& dispo, const QDate& deadline, const int& dur, bool b=false);
+     TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const QDateTime& dispo, const QDateTime& deadline, const Duree& dur, bool b=false);
 
      /*!
           *  \brief ajouterTachePreemptable
@@ -125,7 +125,7 @@ public:
           *   \param b: Booleen représentant l'état de la tache unitaire à ajouter (par défaut non programmée)
           *
           */
-     TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const QDate& dispo, const QDate& deadline, const int& dur, bool b=false);
+     TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const QDateTime &dispo, const QDateTime &deadline, const Duree &dur, bool b=false);
 
      /*!
           *  \brief ajouterTacheComposite
@@ -141,7 +141,7 @@ public:
           *   \param b: Booleen représentant l'état de la tache unitaire à ajouter (par défaut non programmée)
           *
           */
-      TacheComposite& ajouterTacheComposite(const QString& id, const QString& t, const QDate& dispo, const QDate& deadline, bool b=false);
+      TacheComposite& ajouterTacheComposite(const QString& id, const QString& t, const QDateTime& dispo, const QDateTime& deadline, bool b=false);
 
 
      /*!
@@ -220,14 +220,14 @@ public:
           *
           *  Accesseur en lecture de la date de disponibilite du projet
           */
-     QDate getDispo()const {return dispo;}
+     QDateTime getDispo()const {return dispo;}
 
      /*!
           *  \brief getEcheance
           *
           *  Accesseur en lecture de la date d'échéance du projet
           */
-     QDate getEcheance() const {return echeance;}
+     QDateTime getEcheance() const {return echeance;}
 
      /*!
           *  \brief setTitre
@@ -255,7 +255,7 @@ public:
           *
           *  \param dateDispo : date avec laquelle on veut initialiser la date de disponibilite du projet
           */
-     void setDispo(const QDate& dateDispo){dispo  = dateDispo;}
+     void setDispo(const QDateTime& dateDispo){dispo  = dateDispo;}
 
      /*!
           *  \brief setEcheance
@@ -264,7 +264,7 @@ public:
           *
           *  \param ech : date avec laquelle on veut initialiser la date d'echeance du projet
           */
-     void setEcheance(const QDate& ech){echeance  = ech;}
+     void setEcheance(const QDateTime& ech){echeance  = ech;}
 
      /*!
           *  \brief getTaches

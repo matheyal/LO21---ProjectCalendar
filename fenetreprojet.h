@@ -15,7 +15,7 @@ public:
 private slots:
     void saveProjet();
     void cancel();
-    void checkDate(const QDate& d);
+    void checkDate(const QDateTime &d);
 
 private:
     QLineEdit *idProjet;
@@ -23,8 +23,8 @@ private:
 
     QTextEdit* descriptionProjet;
 
-    QDateEdit *dispoProjet;
-    QDateEdit *echeanceProjet;
+    QDateTimeEdit *dispoProjet;
+    QDateTimeEdit *echeanceProjet;
 
     QPushButton *enregistrerProjet;
     QPushButton* annuler;

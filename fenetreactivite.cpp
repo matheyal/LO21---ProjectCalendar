@@ -9,11 +9,10 @@ FenetreActivite::FenetreActivite(QMainWindow *parent) : QMainWindow(parent)
     reunion = new QCheckBox;
     rdv = new QCheckBox;
     titreActivite = new QLineEdit;
-    dispoActivite = new QDateEdit(QDate::currentDate());
-    echeanceActivite = new QDateEdit(QDate::currentDate());
-    dureeActivite = new QSpinBox;
-    dureeActivite->setMinimum(0);
-    dureeActivite->setMaximum(12);
+    dispoActivite = new QDateTimeEdit(QDateTime::currentDateTime());
+    echeanceActivite = new QDateTimeEdit(QDateTime::currentDateTime());
+    dureeActivite = new QTimeEdit;
+    dureeActivite->stepBy(30);
     lieuActivite= new QLineEdit;
     personne = new QLineEdit;
     personne->setDisabled(true);
@@ -37,15 +36,14 @@ FenetreActivite::FenetreActivite(QMainWindow *parent) : QMainWindow(parent)
     horizontal->addWidget(annuler);
 
     layoutNouvelleActivite = new QVBoxLayout;
- //   layoutNouvelleActivite->addLayout(hor);
     layoutNouvelleActivite->addLayout(layout21Form);
     layoutNouvelleActivite->addLayout(horizontal);
 
     QObject::connect(enregistrerActivite, SIGNAL(clicked()), this, SLOT(saveActivite()));
     QObject::connect(enregistrerActivite, SIGNAL(clicked()), this, SLOT(close()));
     QObject::connect(annuler, SIGNAL(clicked()), this, SLOT(cancel()));
-    QObject::connect(dispoActivite, SIGNAL(dateChanged(const QDate)), this, SLOT(checkDate(const QDate&)));
-    QObject::connect(echeanceActivite, SIGNAL(dateChanged(const QDate&)), this, SLOT(checkDate(const QDate&)));
+    QObject::connect(dispoActivite, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkDate(const QDateTime&)));
+    QObject::connect(echeanceActivite, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkDate(const QDateTime&)));
     QObject::connect(reunion, SIGNAL(stateChanged(int)), this, SLOT(checkType()));
     QObject::connect(rdv, SIGNAL(stateChanged(int)), this, SLOT(checkType()));
 
@@ -64,21 +62,22 @@ FenetreActivite::FenetreActivite(QMainWindow *parent) : QMainWindow(parent)
 void FenetreActivite::saveActivite()
 {
     ActiviteManager& am= ActiviteManager::getInstance();
+    Duree du(dureeActivite->time().hour(), dureeActivite->time().minute());
     if(am.trouverActivite(idActivite->text()))
         QMessageBox::warning(this, "erreur","sauvegarde impossible, id deja utilise");
     else if(reunion->isChecked())
-        am.ajouterReunion(idActivite->text(), titreActivite->text(), dispoActivite->date(), echeanceActivite->date(), Duree(dureeActivite->value()), lieuActivite->text());
+        am.ajouterReunion(idActivite->text(), titreActivite->text(), dispoActivite->dateTime(), echeanceActivite->dateTime(), du, lieuActivite->text());
     else if (rdv->isChecked())
-        am.ajouterRdv(idActivite->text(), titreActivite->text(), dispoActivite->date(), echeanceActivite->date(), Duree(dureeActivite->value()), personne->text(), lieuActivite->text());
-    else am.ajouterActivite(idActivite->text(), titreActivite->text(), dispoActivite->date(), echeanceActivite->date(), Duree(dureeActivite->value()), lieuActivite->text());
+        am.ajouterRdv(idActivite->text(), titreActivite->text(), dispoActivite->dateTime(), echeanceActivite->dateTime(), du, personne->text(), lieuActivite->text());
+    else am.ajouterActivite(idActivite->text(), titreActivite->text(), dispoActivite->dateTime(), echeanceActivite->dateTime(), du, lieuActivite->text());
 
 }
 
 void FenetreActivite::cancel(){
     idActivite->clear();
     titreActivite->clear();
-    dispoActivite->setDate(QDate::currentDate());
-    echeanceActivite->setDate(QDate::currentDate());
+    dispoActivite->setDateTime(QDateTime::currentDateTime());
+    echeanceActivite->setDateTime(QDateTime::currentDateTime());
     dureeActivite->clear();
     lieuActivite->clear();
     reunion->setChecked(false);
@@ -86,13 +85,13 @@ void FenetreActivite::cancel(){
 }
 
 
-void FenetreActivite::checkDate(const QDate& d){
-    if(d==dispoActivite->date() && d<QDate::currentDate())
-        dispoActivite->setDate(QDate::currentDate());
-    if(d==dispoActivite->date() && echeanceActivite->date()<dispoActivite->date())
-        echeanceActivite->setDate(dispoActivite->date());
-    else if (d==echeanceActivite->date() && echeanceActivite->date()<dispoActivite->date())
-            dispoActivite->setDate(echeanceActivite->date());
+void FenetreActivite::checkDate(const QDateTime& d){
+    if(d==dispoActivite->dateTime() && d<QDateTime::currentDateTime())
+        dispoActivite->setDateTime(QDateTime::currentDateTime());
+    if(d==dispoActivite->dateTime() && echeanceActivite->dateTime()<dispoActivite->dateTime())
+        echeanceActivite->setDateTime(dispoActivite->dateTime());
+    else if (d==echeanceActivite->dateTime() && echeanceActivite->dateTime()<dispoActivite->dateTime())
+            dispoActivite->setDateTime(echeanceActivite->dateTime());
 }
 
 void FenetreActivite::checkType(){

@@ -12,7 +12,7 @@ public:
 
 private slots:
     void modifier();
-    void checkDate(const QDate& d);
+    void checkDate(const QDateTime &d);
     void supprimer();
     void load();
 
@@ -22,8 +22,8 @@ private:
 
     QTextEdit* descriptionProjet;
 
-    QDateEdit *dispoProjet;
-    QDateEdit *echeanceProjet;
+    QDateTimeEdit *dispoProjet;
+    QDateTimeEdit *echeanceProjet;
 
     QPushButton *supp;
     QPushButton* ann;

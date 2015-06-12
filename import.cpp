@@ -35,8 +35,8 @@ void ImportXML::load(const QString& f){
                             QString id_projet;
                             QString titre_projet;
                             QString description_projet;
-                            QDate disponibilite_projet;
-                            QDate echeance_projet;
+                            QDateTime disponibilite_projet;
+                            QDateTime echeance_projet;
                             vector<Tache*> taches_projet;
 
                             xml.readNext();
@@ -63,13 +63,13 @@ void ImportXML::load(const QString& f){
                                     // We've found disponibilite
                                     if(xml.name() == "disponibilite_projet") {
                                         xml.readNext();
-                                        disponibilite_projet=QDate::fromString(xml.text().toString(),Qt::ISODate);
+                                        disponibilite_projet=QDateTime::fromString(xml.text().toString(),Qt::ISODate);
                                         //qDebug()<<"disp_projet="<<disponibilite_projet.toString()<<"\n";
                                     }
                                     // We've found echeance
                                     if(xml.name() == "echeance") {
                                         xml.readNext();
-                                        echeance_projet=QDate::fromString(xml.text().toString(),Qt::ISODate);
+                                        echeance_projet=QDateTime::fromString(xml.text().toString(),Qt::ISODate);
                                         //qDebug()<<"echeanc_projete="<<echeance_projet.toString()<<"\n";
                                     }
                                     // We've found taches, we dig into to find all the taches
@@ -82,14 +82,14 @@ void ImportXML::load(const QString& f){
                                                     //! il faudra prendre en compte si la tache est programmée ou non
                                                     QString id_tache;
                                                     QString titre_tache;
-                                                    QDate disponibilite_tache;
-                                                    QDate echeance_tache;
-                                                    int duree_tache;
+                                                    QDateTime disponibilite_tache;
+                                                    QDateTime echeance_tache;
+                                                    Duree duree_tache;
                                                     bool preemptive;
                                                     bool composite;
                                                     bool unitaire;
                                                     bool programmed = false;
-                                                    QDate date_prog;
+                                                    QDateTime date_prog;
                                                     Horaire heure_prog(1,1);
 
                                                     QXmlStreamAttributes attributes = xml.attributes();
@@ -123,13 +123,13 @@ void ImportXML::load(const QString& f){
                                                             // We've found disponibilite
                                                             if(xml.name() == "disponibilite") {
                                                                 xml.readNext();
-                                                                disponibilite_tache=QDate::fromString(xml.text().toString(),Qt::ISODate);
+                                                                disponibilite_tache=QDateTime::fromString(xml.text().toString(),Qt::ISODate);
                                                                 //qDebug()<<"disp="<<disponibilite_tache.toString(Qt::ISODate)<<"\n";
                                                             }
                                                             // We've found echeance
                                                             if(xml.name() == "echeance") {
                                                                 xml.readNext();
-                                                                echeance_tache=QDate::fromString(xml.text().toString(),Qt::ISODate);
+                                                                echeance_tache=QDateTime::fromString(xml.text().toString(),Qt::ISODate);
                                                                 //qDebug()<<"echeance="<<echeance_tache.toString(Qt::ISODate)<<"\n";
                                                             }
                                                             // We've found duree
@@ -146,7 +146,7 @@ void ImportXML::load(const QString& f){
                                                                     if(xml.tokenType() == QXmlStreamReader::StartElement) {
                                                                         if(xml.name() == "date"){
                                                                             xml.readNext();
-                                                                            date_prog = QDate::fromString(xml.text().toString(), Qt::ISODate);
+                                                                            date_prog = QDateTime::fromString(xml.text().toString(), Qt::ISODate);
                                                                         }
                                                                         if(xml.name() == "heure"){
                                                                             xml.readNext();

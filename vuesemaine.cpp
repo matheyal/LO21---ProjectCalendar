@@ -94,10 +94,10 @@ void VueSemaine::updateVueSemaine(){
     Agenda& agenda = Agenda::getInstance();
     const vector<Programmation*>* progs = agenda.getProgramamtions();
     for(vector<Programmation*>::const_iterator it = progs->begin(); it != progs->end(); ++it){
-        if ((*it)->getDate() >= date.addDays(-date.dayOfWeek()+1) && (*it)->getDate() <= date.addDays(-date.dayOfWeek()+7)){
+        if ((*it)->getDate2() >= date.addDays(-date.dayOfWeek()+1) && (*it)->getDate2() <= date.addDays(-date.dayOfWeek()+7)){
             //Vérifie si la date de la programmation en cours est dans la semaine séléctionnée
             QStandardItem *item = new QStandardItem();
-            int column = (*it)->getDate().dayOfWeek()-1;
+            int column = (*it)->getDate2().dayOfWeek()-1;
             unsigned short int heure = (*it)->getHoraire().getHeure();
             unsigned short int minutes = (*it)->getHoraire().getMinute();
             unsigned int row = (heure*2 + minutes/30);

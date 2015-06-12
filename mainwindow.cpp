@@ -7,6 +7,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     setWindowTitle("Project Calendar");
 
     //Chargement d'un fichier XML
+    //new FenetreSave;
+
     //FenetreLoad* fl = new FenetreLoad(this);
     //fl->show();
     chargerFichier();
@@ -136,7 +138,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             vector<Projet*> pro = *pm.getProjets();
             for(size_t i=0;i<pro.size();i++)
             {
-                addTreeProjet(pro[i]->getTitre());
+                QTreeWidgetItem* projeti = new QTreeWidgetItem;
+                projeti->setText(0, pro[i]->getTitre());
+                treeProjets.push_back(projeti);
                 vector<Tache*> tac= *pm.trouverProjet(pro[i]->getId())->getTaches();
                 for(size_t k =0;k<tac.size();k++)
                 {
@@ -151,9 +155,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
                             sousTache1->setText(0, taccomp[h]->getTitre());
                             if(taccomp[h]->Type()=="14TacheComposite")
                             {
-                                if(tac[h]->getSousTaches())
+
+                                if(taccomp[h]->getSousTaches())
                                 {
-                                    vector<Tache*> taccomp1=*tac[h]->getSousTaches();
+                                    vector<Tache*> taccomp1=*taccomp[h]->getSousTaches();
                                     for(size_t j=0;j<taccomp1.size();j++)
                                     {
                                         QTreeWidgetItem* sousTache2 = new QTreeWidgetItem;
@@ -162,26 +167,37 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
                                         {
                                             if(taccomp1[j]->getSousTaches())
                                             {
-
                                                 vector<Tache*> taccomp2=*tac[j]->getSousTaches();
                                                 for(size_t z=0;z<taccomp2.size();z++)
                                                 {
                                                     QTreeWidgetItem* sousTache3 = new QTreeWidgetItem;
                                                     sousTache3->setText(0, taccomp2[z]->getTitre());
-                                                    sousTache2->addChild(sousTache3);
+                                                    if(!taccomp2[z]->getInTree())
+                                                    {
+                                                        sousTache2->addChild(sousTache3);
+                                                        taccomp2[z]->setInTree(true);
+                                                    }
                                                 }
                                             }
                                          }
 
-
-                                    sousTache1->addChild(sousTache2);
+                                        if(taccomp1[j]->getInTree()!=true)
+                                        {
+                                            sousTache1->addChild(sousTache2);
+                                            taccomp1[j]->setInTree(true);
+                                        }
                                     }
                                 }
                             }
-                            tachei->addChild(sousTache1);
+                            if(taccomp[h]->getInTree()!=true)
+                            {
+                                tachei->addChild(sousTache1);
+                                taccomp[h]->setInTree(true);
+                            }
                         }
                     }
                     treeProjets[i]->addChild(tachei);
+
                 }
             }
             tree->addTopLevelItems(treeProjets);
@@ -342,18 +358,4 @@ void MainWindow::chargerFichier(){
     }
 }
 
-void MainWindow::addTreeProjet(QString titre)
-{
-    QTreeWidgetItem* projeti = new QTreeWidgetItem;
-    projeti->setText(0, titre);
-    treeProjets.push_back(projeti);
-}
 
-void MainWindow::addTreeTaches(QString titre, int k)
-{
-    QTreeWidgetItem* tachei = new QTreeWidgetItem;
-    tachei->setText(0, titre);
-    //tachei->setBackground(0, QBrush(QColor::fromRgbF(0, 1, 0, 1)));
-
-    treeProjets[k]->addChild(tachei);
-}

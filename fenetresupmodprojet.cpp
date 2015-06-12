@@ -16,9 +16,9 @@ FenetreSupModProjet::FenetreSupModProjet(QMainWindow *parent) : QMainWindow(pare
     titreProjet->setDisabled(true);
     descriptionProjet = new QTextEdit;
     descriptionProjet->setDisabled(true);
-    dispoProjet = new QDateEdit;
+    dispoProjet = new QDateTimeEdit;
     dispoProjet->setDisabled(true);
-    echeanceProjet = new QDateEdit;
+    echeanceProjet = new QDateTimeEdit;
     echeanceProjet->setDisabled(true);
     mod = new QPushButton("Modifier");
     mod->setDisabled(true);
@@ -49,8 +49,8 @@ FenetreSupModProjet::FenetreSupModProjet(QMainWindow *parent) : QMainWindow(pare
     QObject::connect(ann, SIGNAL(clicked()), this, SLOT(load()));
     QObject::connect(supp, SIGNAL(clicked()), this, SLOT(supprimer()));
     QObject::connect(supp, SIGNAL(clicked()), this, SLOT(close()));
-    QObject::connect(dispoProjet, SIGNAL(dateChanged(const QDate)), this, SLOT(checkDate(const QDate&)));
-    QObject::connect(echeanceProjet, SIGNAL(dateChanged(const QDate&)), this, SLOT(checkDate(const QDate&)));
+    QObject::connect(dispoProjet, SIGNAL(dateChanged(const QDateTime)), this, SLOT(checkDate(const QDateTime&)));
+    QObject::connect(echeanceProjet, SIGNAL(dateChanged(const QDateTime&)), this, SLOT(checkDate(const QDateTime&)));
 
     groupeNouveauProjet = new QGroupBox("Rentrer un nouveau projet dans la base de donnee", this);
     groupeNouveauProjet->setLayout(layoutNouveauProjet);
@@ -75,8 +75,8 @@ void FenetreSupModProjet::load(){
         echeanceProjet->setEnabled(true);
         titreProjet->setText(pm.trouverProjet(idProjet->currentText())->getTitre());
         descriptionProjet->setText(pm.trouverProjet(idProjet->currentText())->getDesc());
-        dispoProjet->setDate(pm.trouverProjet(idProjet->currentText())->getDispo());
-        echeanceProjet->setDate(pm.trouverProjet(idProjet->currentText())->getEcheance());
+        dispoProjet->setDateTime(pm.trouverProjet(idProjet->currentText())->getDispo());
+        echeanceProjet->setDateTime(pm.trouverProjet(idProjet->currentText())->getEcheance());
     }else {
         titreProjet->clear();
         titreProjet->setDisabled(true);
@@ -95,17 +95,17 @@ void FenetreSupModProjet::modifier(){
     ProjetManager& pm= ProjetManager::getInstance();
     pm.trouverProjet(idProjet->currentText())->setTitre(titreProjet->text());
     pm.trouverProjet(idProjet->currentText())->setDesc(descriptionProjet->toPlainText());
-    pm.trouverProjet(idProjet->currentText())->setDispo(dispoProjet->date());
-    pm.trouverProjet(idProjet->currentText())->setEcheance(echeanceProjet->date());
+    pm.trouverProjet(idProjet->currentText())->setDispo(dispoProjet->dateTime());
+    pm.trouverProjet(idProjet->currentText())->setEcheance(echeanceProjet->dateTime());
 }
 
-void FenetreSupModProjet::checkDate(const QDate& d){
-    if(d==dispoProjet->date() && d<QDate::currentDate())
-        dispoProjet->setDate(QDate::currentDate());
-    if(d==dispoProjet->date() && echeanceProjet->date()<dispoProjet->date())
-        echeanceProjet->setDate(dispoProjet->date());
-    else if (d==echeanceProjet->date() && echeanceProjet->date()<dispoProjet->date())
-            dispoProjet->setDate(echeanceProjet->date());
+void FenetreSupModProjet::checkDate(const QDateTime& d){
+    if(d==dispoProjet->dateTime() && d<QDateTime::currentDateTime())
+        dispoProjet->setDateTime(QDateTime::currentDateTime());
+    if(d==dispoProjet->dateTime() && echeanceProjet->dateTime()<dispoProjet->dateTime())
+        echeanceProjet->setDateTime(dispoProjet->dateTime());
+    else if (d==echeanceProjet->dateTime() && echeanceProjet->dateTime()<dispoProjet->dateTime())
+            dispoProjet->setDateTime(echeanceProjet->dateTime());
 }
 
 void FenetreSupModProjet::supprimer(){

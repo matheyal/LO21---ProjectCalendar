@@ -45,6 +45,10 @@ void FenetrePrecedence::load()
 {
     taches->setEnabled(true);
     precedente->setEnabled(true);
+    precedente->clear();
+    taches->clear();
+    taches->addItem("");
+    precedente->addItem("");
     ProjetManager& pm= ProjetManager::getInstance();
     if(pm.trouverProjet(projets->currentText()))
     {
@@ -60,7 +64,7 @@ void FenetrePrecedence::load()
 void FenetrePrecedence::ajouterPrecedence()
 {
     ProjetManager& pm = ProjetManager::getInstance();
-    QDate d = pm.trouverProjet(projets->currentText())->getTache(precedente->currentText()).getDebut().addDays((pm.trouverProjet(projets->currentText())->getTache(precedente->currentText()).getDuree()));
+    QDateTime d = pm.trouverProjet(projets->currentText())->getTache(precedente->currentText()).getDebut().addSecs((pm.trouverProjet(projets->currentText())->getTache(precedente->currentText()).getDuree().getDureeEnMinutes()*60));
     if(pm.trouverProjet(projets->currentText())->getTache(taches->currentText()).getEcheance()<d)
     {
             QMessageBox::warning(this, "erreur","impossible de finir cette tache a temps");
