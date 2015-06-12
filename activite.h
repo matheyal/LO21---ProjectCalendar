@@ -132,6 +132,10 @@ public:
          *
          *  \param parti : nom du participant que l'on veut rajouter à la réunion
          */
+
+    virtual QString toString() const{ return "";}
+
+
     virtual void ajouterParticipant(const QString &){};
 
     /*!
@@ -193,6 +197,12 @@ public:
          */
     const vector<QString>& getParticipants() const {return participants;}
 
+    QString toString() const{
+        std::stringstream s;
+        for (size_t i=0;i<participants.size();++i)
+            s<<qPrintable(participants[i])<<" ";
+        return QString::fromStdString(s.str());
+    }
     /*!
          *  \brief ajouterParticipant
          *
@@ -211,6 +221,12 @@ public:
          */
     void supprimmerParticipant(const QString & parti);
 
+    QString& afficherParticipants(std::ostream &f) const {
+        for (size_t i=0;i<participants.size();++i)
+            f<<qPrintable(participants[i])<<" ";
+    }
+
+
     /*!
          *  \brief afficher
          *
@@ -218,6 +234,7 @@ public:
          *
          *  \param f : Flux sur lequel on écrit
          */
+
     void afficher(std::ostream& f) const {
          Activite::afficher(f);
          for (size_t i=0;i<participants.size();++i)

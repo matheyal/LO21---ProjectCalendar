@@ -18,16 +18,19 @@ FenetreSupModActivite::FenetreSupModActivite(QMainWindow *parent) : QMainWindow(
     dispoActivite->setDisabled(true);
     echeanceActivite = new QDateTimeEdit;
     echeanceActivite->setDisabled(true);
-    dureeActivite = new QSpinBox;
-    dureeActivite->setMinimum(0);
-    dureeActivite->setMaximum(12);
+    dureeActivite = new QTimeEdit;
     dureeActivite->setDisabled(true);
+    dureeActivite->stepBy(30);
     lieuActivite = new QLineEdit;
     lieuActivite->setDisabled(true);
     personne = new QLineEdit;
     personne->setDisabled(true);
-    participant = new QPushButton("Ajouter un participant");
+    supprimerParticipant = new QLineEdit;
+    supprimerParticipant->setDisabled(true);
+    participant = new QLineEdit;
     participant->setDisabled(true);
+    ajoutParticipant = new QLineEdit;
+    ajoutParticipant->setDisabled(true);
     mod = new QPushButton("Modifier");
     mod->setDisabled(true);
     ann = new QPushButton("Réinitialiser");
@@ -43,9 +46,11 @@ FenetreSupModActivite::FenetreSupModActivite(QMainWindow *parent) : QMainWindow(
     layout21Form->addRow("Duree", dureeActivite);
     layout21Form->addRow("Lieu", lieuActivite);
     layout21Form->addRow("Interlocuteur", personne);
+    layout21Form->addRow("Participants", participant);
+    layout21Form->addRow("Ajouter un participant", ajoutParticipant);
+    layout21Form->addRow("Supprimer un participant", supprimerParticipant);
 
     horizontal=new QHBoxLayout;
-    horizontal->addWidget(participant);
     horizontal->addWidget(supp);
     horizontal->addWidget(mod);
     horizontal->addWidget(ann);
@@ -70,15 +75,21 @@ FenetreSupModActivite::FenetreSupModActivite(QMainWindow *parent) : QMainWindow(
     QObject::connect(ann, SIGNAL(clicked()), this, SLOT(load()));
     QObject::connect(supp, SIGNAL(clicked()), this, SLOT(supprimer()));
     QObject::connect(supp, SIGNAL(clicked()), this, SLOT(close()));
-    QObject::connect(dispoActivite, SIGNAL(dateChanged(const QDateTime)), this, SLOT(checkDate(const QDateTime&)));
-    QObject::connect(echeanceActivite, SIGNAL(dateChanged(const QDateTime&)), this, SLOT(checkDate(const QDateTime&)));
+    QObject::connect(dispoActivite, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkDate(const QDateTime&)));
+    QObject::connect(echeanceActivite, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkDate(const QDateTime&)));
 
 }
 
 void FenetreSupModActivite::load(){
         ActiviteManager& am= ActiviteManager::getInstance();
         if(am.trouverActivite(idActivite->currentText())){
+            QTime time(am.trouverActivite(idActivite->currentText())->getDuree().getDureeEnHeures(), am.trouverActivite(idActivite->currentText())->getDuree().getDureeEnMinutes());
             participant->setDisabled(true);
+            participant->clear();
+            ajoutParticipant->setDisabled(true);
+            ajoutParticipant->clear();
+            supprimerParticipant->setDisabled(true);
+            supprimerParticipant->clear();
             personne->setDisabled(true);
             mod->setEnabled(true);
             ann->setEnabled(true);
@@ -91,14 +102,21 @@ void FenetreSupModActivite::load(){
             titreActivite->setText(am.trouverActivite(idActivite->currentText())->getTitre());
             dispoActivite->setDateTime(am.trouverActivite(idActivite->currentText())->getDate());
             echeanceActivite->setDateTime(am.trouverActivite(idActivite->currentText())->getEcheance());
-            dureeActivite->setValue(am.trouverActivite(idActivite->currentText())->getDuree().getDureeEnHeures());
+            dureeActivite->setTime(time);
             lieuActivite->setText(am.trouverActivite(idActivite->currentText())->getLieu());
             if (typeid(*(am.trouverActivite(idActivite->currentText())))==typeid(Reunion)){
-                participant->setEnabled(true);
+                ajoutParticipant->setEnabled(true);
+                supprimerParticipant->setEnabled(true);
+                participant->setText(am.trouverActivite(idActivite->currentText())->toString());
                 personne->setDisabled(true);
+                personne->clear();
             }
             if (typeid(*(am.trouverActivite(idActivite->currentText())))==typeid(Rdv)){
-                participant->setDisabled(true);
+                ajoutParticipant->setDisabled(true);
+                ajoutParticipant->clear();
+                supprimerParticipant->setDisabled(true);
+                supprimerParticipant->clear();
+                participant->clear();
                 personne->setEnabled(true);
                 personne->setText(am.trouverActivite(idActivite->currentText())->getInterlocuteur());
             }
@@ -112,14 +130,29 @@ void FenetreSupModActivite::load(){
             dureeActivite->clear();
             dureeActivite->setDisabled(true);
             lieuActivite->setDisabled(true);
+            ajoutParticipant->clear();
+            ajoutParticipant->setDisabled(true);
+            supprimerParticipant->clear();
+            supprimerParticipant->setDisabled(true);
+            participant->clear();
         }
 }
 
     void FenetreSupModActivite::modifier(){
         ActiviteManager& am= ActiviteManager::getInstance();
+        Duree du(dureeActivite->time().hour(), dureeActivite->time().minute());
         am.trouverActivite(idActivite->currentText())->setTitre(titreActivite->text());
         am.trouverActivite(idActivite->currentText())->setDateDisponibilite(dispoActivite->dateTime());
         am.trouverActivite(idActivite->currentText())->setEcheance(echeanceActivite->dateTime());
+        am.trouverActivite(idActivite->currentText())->setDuree(du);
+        if (typeid(*(am.trouverActivite(idActivite->currentText())))==typeid(Reunion)){
+            am.trouverActivite(idActivite->currentText())->ajouterParticipant(ajoutParticipant->text());
+            am.trouverActivite(idActivite->currentText())->supprimmerParticipant(supprimerParticipant->text());
+        }
+        if (typeid(*(am.trouverActivite(idActivite->currentText())))==typeid(Rdv)){
+            am.trouverActivite(idActivite->currentText())->setInterlocuteur(personne->text());
+        }
+
     }
 
     void FenetreSupModActivite::checkDate(const QDateTime& d){

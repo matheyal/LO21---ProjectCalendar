@@ -55,7 +55,9 @@ public slots:
 protected:
     void chargerFichier();
 
+
     QList<QTreeWidgetItem*>  treeProjets;
+    QList<QTreeWidgetItem*> tachei;
 
     QWidget *mainWindow;
     QTabWidget *barreOnglet;

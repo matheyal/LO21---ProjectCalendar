@@ -23,7 +23,7 @@ private:
     QLineEdit *titreActivite;
     QDateTimeEdit *dispoActivite;
     QDateTimeEdit *echeanceActivite;
-    QSpinBox *dureeActivite;
+    QTimeEdit *dureeActivite;
     QLineEdit *lieuActivite;
     QLineEdit *personne;
 
