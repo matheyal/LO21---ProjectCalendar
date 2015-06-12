@@ -7,10 +7,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     setWindowTitle("Project Calendar");
 
     //Chargement d'un fichier XML
-<<<<<<< HEAD
     //new FenetreSave;
-=======
->>>>>>> 8b6af522ae7d8bea45532ccf7824d8f0737c610c
+
     //FenetreLoad* fl = new FenetreLoad(this);
     //fl->show();
     chargerFichier();
@@ -136,10 +134,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
             tree =  new QTreeWidget;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 8b6af522ae7d8bea45532ccf7824d8f0737c610c
             ProjetManager& pm = ProjetManager::getInstance();
             vector<Projet*> pro = *pm.getProjets();
             for(size_t i=0;i<pro.size();i++)
@@ -364,21 +358,4 @@ void MainWindow::chargerFichier(){
     }
 }
 
-<<<<<<< HEAD
 
-void MainWindow::addTreeProjet(QString titre)
-{
-    QTreeWidgetItem* projeti = new QTreeWidgetItem;
-    projeti->setText(0, titre);
-    treeProjets.push_back(projeti);
-}
-
-void MainWindow::addTreeTaches(QString titre, int k)
-{
-    QTreeWidgetItem* tachei = new QTreeWidgetItem;
-    tachei->setText(0, titre);
-    //tachei->setBackground(0, QBrush(QColor::fromRgbF(0, 1, 0, 1)));
-    treeProjets[k]->addChild(tachei);
-}
-=======
->>>>>>> 8b6af522ae7d8bea45532ccf7824d8f0737c610c
