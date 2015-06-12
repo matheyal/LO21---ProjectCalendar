@@ -54,7 +54,7 @@ void ExportXML::save(const QString& f){
             //Durée uniquement si tache unitaire
             if ((typeid(**it2) ==  typeid(TacheUnitaire)) || (typeid(**it2) == typeid(TachePreemptable))){
                 QString str;
-                str.setNum((*it2)->getDuree());
+                str.setNum((*it2)->getDuree().getDureeEnMinutes());
                 stream.writeTextElement("duree",str);
             }
 

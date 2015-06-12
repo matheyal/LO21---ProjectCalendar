@@ -11,17 +11,19 @@ public :
 
 private slots:
     void enregistrerTacheComposite();
-    void checkDate(const QDate& d);
+    void checkDate(const QDateTime &d);
+    void load();
 
 private:
     QWidget *tacheComposite;
 
     QLineEdit* titreComposite;
     QComboBox* idProjet;
+    QComboBox* idSousCompo;
     QLineEdit* idComposite;
 
-    QDateEdit *dispoComposite;
-    QDateEdit *echeanceComposite;
+    QDateTimeEdit *dispoComposite;
+    QDateTimeEdit *echeanceComposite;
 
     QPushButton *enregistrerComposite;
     QPushButton* quitterComposite;

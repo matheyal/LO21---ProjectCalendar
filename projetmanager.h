@@ -140,7 +140,7 @@ public:
          * \param d : date de disponibilite du projet
          * \param ech : date d'écheance du projet
          */
-    Projet* ajouterProjet(const QString& id, const QString& ti, const QString& desc, const QDate& d,const QDate& ech);
+    Projet* ajouterProjet(const QString& id, const QString& ti, const QString& desc, const QDateTime& d,const QDateTime& ech);
 
     /*!
          *  \brief supprimerProjet

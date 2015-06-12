@@ -8,8 +8,8 @@ FenetreProjet::FenetreProjet(QMainWindow *parent) : QMainWindow(parent)
     idProjet = new QLineEdit;
     titreProjet = new QLineEdit;
     descriptionProjet = new QTextEdit;
-    dispoProjet = new QDateEdit(QDate::currentDate());
-    echeanceProjet = new QDateEdit(QDate::currentDate());
+    dispoProjet = new QDateTimeEdit(QDateTime::currentDateTime());
+    echeanceProjet = new QDateTimeEdit(QDateTime::currentDateTime());
     enregistrerProjet = new QPushButton("Enregister");
     annuler = new QPushButton("annuler");
 
@@ -31,8 +31,8 @@ FenetreProjet::FenetreProjet(QMainWindow *parent) : QMainWindow(parent)
     QObject::connect(enregistrerProjet, SIGNAL(clicked()), this, SLOT(saveProjet()));
     QObject::connect(enregistrerProjet, SIGNAL(clicked()), this, SLOT(close()));
     QObject::connect(annuler, SIGNAL(clicked()), this, SLOT(cancel()));
-    QObject::connect(dispoProjet, SIGNAL(dateChanged(const QDate)), this, SLOT(checkDate(const QDate&)));
-    QObject::connect(echeanceProjet, SIGNAL(dateChanged(const QDate&)), this, SLOT(checkDate(const QDate&)));
+    QObject::connect(dispoProjet, SIGNAL(dateChanged(const QDateTime)), this, SLOT(checkDate(const QDateTime&)));
+    QObject::connect(echeanceProjet, SIGNAL(dateChanged(const QDateTime&)), this, SLOT(checkDate(const QDateTime&)));
 
     groupeNouveauProjet = new QGroupBox("Rentrer un nouveau projet dans la base de donnee", this);
     groupeNouveauProjet->setLayout(layoutNouveauProjet);
@@ -51,23 +51,23 @@ void FenetreProjet::saveProjet()
     ProjetManager& pm= ProjetManager::getInstance();
     if(pm.trouverProjet(idProjet->text()))
         QMessageBox::warning(this, "erreur","sauvegarde impossible, id deja utilise");
-    else pm.ajouterProjet(idProjet->text(), titreProjet->text(), descriptionProjet->toPlainText(), dispoProjet->date(), echeanceProjet->date());
+    else pm.ajouterProjet(idProjet->text(), titreProjet->text(), descriptionProjet->toPlainText(), dispoProjet->dateTime(), echeanceProjet->dateTime());
 }
 
 void FenetreProjet::cancel(){
     idProjet->clear();
     titreProjet->clear();
     descriptionProjet->clear();
-    dispoProjet->setDate(QDate::currentDate());
-    echeanceProjet->setDate(QDate::currentDate());
+    dispoProjet->setDateTime(QDateTime::currentDateTime());
+    echeanceProjet->setDateTime(QDateTime::currentDateTime());
 }
 
 
-void FenetreProjet::checkDate(const QDate& d){
-    if(d==dispoProjet->date() && d<QDate::currentDate())
-        dispoProjet->setDate(QDate::currentDate());
-    if(d==dispoProjet->date() && echeanceProjet->date()<dispoProjet->date())
-        echeanceProjet->setDate(dispoProjet->date());
-    else if (d==echeanceProjet->date() && echeanceProjet->date()<dispoProjet->date())
-            dispoProjet->setDate(echeanceProjet->date());
+void FenetreProjet::checkDate(const QDateTime& d){
+    if(d==dispoProjet->dateTime() && d<QDateTime::currentDateTime())
+        dispoProjet->setDateTime(QDateTime::currentDateTime());
+    if(d==dispoProjet->dateTime() && echeanceProjet->dateTime()<dispoProjet->dateTime())
+        echeanceProjet->setDateTime(dispoProjet->dateTime());
+    else if (d==echeanceProjet->dateTime() && echeanceProjet->dateTime()<dispoProjet->dateTime())
+            dispoProjet->setDateTime(echeanceProjet->dateTime());
 }

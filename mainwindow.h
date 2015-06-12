@@ -54,12 +54,17 @@ public slots:
 
 protected:
     void chargerFichier();
+<<<<<<< HEAD
 
     void addTreeProjet(QString titre);
     void addTreeTaches(QString titre, int k);
 
     QList<QTreeWidgetItem*>  treeProjets;
     QList<QList<QTreeWidgetItem*> > treeTaches;
+=======
+
+    QList<QTreeWidgetItem*>  treeProjets;
+>>>>>>> 8b6af522ae7d8bea45532ccf7824d8f0737c610c
 
     QWidget *mainWindow;
     QTabWidget *barreOnglet;

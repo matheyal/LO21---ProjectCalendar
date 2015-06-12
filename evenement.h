@@ -23,8 +23,8 @@ class Evenement {
 protected:
     QString id;/*!< Identifiant de l'evenement*/
     QString titre;/*!< Titre de l'evenement*/
-    QDate dispo;/*!< Date de disponibilite de l'evenement*/
-    QDate echeance;/*!< Date d'echeance de l'evenement*/
+    QDateTime dispo;/*!< Date de disponibilite de l'evenement*/
+    QDateTime echeance;/*!< Date d'echeance de l'evenement*/
     bool estProg;/*!< Booleen permettant de savoir si un evenement est programmé*/
 public: 
     /*!
@@ -38,7 +38,7 @@ public:
          *  \param ech : Date d'echeance de l'evenement
          *  \param b : Etat de programmation de l'evenement
          */
-    Evenement(const QString& ident, const QString& t, const QDate& d,const QDate& ech, bool b=false):id(ident),titre(t),dispo(d),echeance(ech), estProg(b){std::cout<<"\ncreation d'un evenement";}
+    Evenement(const QString& ident, const QString& t, const QDateTime& d,const QDateTime& ech, bool b=false):id(ident),titre(t),dispo(d),echeance(ech), estProg(b){std::cout<<"\ncreation d'un evenement";}
 
     /*!
          *  \brief getId
@@ -66,14 +66,21 @@ public:
          *
          *  Accesseur en lecture de la date de disponibilite de l'evenement
          */
-    QDate getDate() const{return dispo;}
+    QDateTime getDate() const{return dispo;}
 
     /*!
          *  \brief getEcheance
          *
          *  Accesseur en lecture de la date d'écheance de l'evenement
          */
-    QDate getEcheance() const{return echeance;}
+    QDateTime getEcheance() const{return echeance;}
+
+    /*!
+         *  \brief getDuree
+         *
+         *  Méthode virtuelle pure. Permet d'accéder à la durée d'une classe fille en passant par un pointeur d'Evenement
+         */
+    //virtual const Duree& getDuree() const = 0;
 
     /*!
          *  \brief setTitre
@@ -91,7 +98,7 @@ public:
          *
          *  \param d : date avec laquelle on veut initialiser la date de disponibilite de l'evenement
          */
-    void setDateDisponibilite(const QDate& d) {dispo = d;}
+    void setDateDisponibilite(const QDateTime& d) {dispo = d;}
 
     /*!
          *  \brief setEcheance
@@ -100,7 +107,7 @@ public:
          *
          *  \param ech : date avec laquelle on veut initialiser la date d'echeance de l'evenement
          */
-    void setEcheance(const QDate& ech) {echeance = ech;}
+    void setEcheance(const QDateTime& ech) {echeance = ech;}
 
     /*!
          *  \brief setEffectue

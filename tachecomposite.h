@@ -66,7 +66,7 @@ public:
          * \param ech : date d'écheance de la tache composite
          *
          */
-    TacheComposite(const QString& ident, const QString& t, const QDate& d,const QDate& ech, bool b=false):Tache(ident,t,d,ech,b), soustaches(0){std::cout<<"\ncreation d'une tache composite\n";}
+    TacheComposite(const QString& ident, const QString& t, const QDateTime& d,const QDateTime& ech, bool b=false):Tache(ident,t,d,ech,b), soustaches(0){std::cout<<"\ncreation d'une tache composite\n";}
 
     /*!
          *  \brief ajouterTacheUnitaire
@@ -156,7 +156,7 @@ public:
          *
          *
          */
-    int getDuree() const{return 0;}
+    Duree getDuree() const{return 0;}
 
 
 

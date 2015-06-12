@@ -7,8 +7,8 @@ std::ostream& operator<<(std::ostream& fout, const TachePreemptable& t){
 
 void TachePreemptable::commencer()
 {
-    setDebut(QDate::currentDate());
-    setFin(getDebut().addDays(getDuree()));
+    setDebut(QDateTime::currentDateTime());
+    setFin(getDebut().addSecs(getDuree().getDureeEnMinutes()*60));
     setEnCours(true);
 }
 
@@ -20,8 +20,11 @@ void TachePreemptable::interruption()
         return;
     }
     setEnCours(false);
-    int diff = getDebut().daysTo(QDate::currentDate());
-    setReste(getDuree() - diff);
+
+    int diff = getDebut().secsTo(QDateTime::currentDateTime());
+    int y=getDuree().getDureeEnMinutes()*60 - diff;
+
+    setReste(y*360);
 }
 
 void TachePreemptable::reprise()
@@ -32,6 +35,6 @@ void TachePreemptable::reprise()
         return;
     }
     setEnCours(true);
-    setFin(QDate::currentDate().addDays(getReste()));
+    setFin(QDateTime::currentDateTime().addSecs(getReste().getDureeEnMinutes()*60));
 }
 

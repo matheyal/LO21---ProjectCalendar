@@ -8,6 +8,6 @@ std::ostream& operator<<(std::ostream& fout, const TacheUnitaire& t){
 
 void TacheUnitaire::commencer()
 {
-    setDebut(QDate::currentDate());
-    setFin(getDebut().addDays(getDuree()));
+    setDebut(QDateTime::currentDateTime());
+    setFin(getDebut().addSecs(getDuree().getDureeEnMinutes()*60));
 }

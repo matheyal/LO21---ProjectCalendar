@@ -23,7 +23,7 @@ Projet* ProjetManager::trouverProjet(const QString &id) const
 }
 
 
-Projet* ProjetManager::ajouterProjet(const QString& id, const QString &ti, const QString &desc, const QDate &d, const QDate &ech)
+Projet* ProjetManager::ajouterProjet(const QString& id, const QString &ti, const QString &desc, const QDateTime &d, const QDateTime &ech)
 {
     Projet* newP = new Projet(id, ti, desc, d, ech);
     projets.push_back(newP);
