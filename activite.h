@@ -49,7 +49,7 @@ public:
          *  Accesseur en lecture de la duree de l'activite
          */
 
-    const Duree& getDuree()const{return duree;}
+    const Duree getDuree()const{return duree;}
 
     /*!
          *  \brief getLieu
@@ -101,13 +101,14 @@ public:
          *  Destructeur de la classe Activite
          */
     ~Activite() {}
+
     /*!
          *  \brief getInterlocuteur
          *
          *  Accesseur en lecture sur l'interlocuteur
          */
 
-    virtual const QString& getInterlocuteur() const { return 0; }
+    virtual const QString getInterlocuteur() const { return 0; }
 
     /*!
          *  \brief setInterlocuteur
@@ -123,13 +124,6 @@ public:
          *  Methode retournant le nombre de participants inscrit à la réunion
          */
     virtual int getNbParticipants() const {return 0;}
-
-    /*!
-         *  \brief getParticipants
-         *
-         *  Accesseur en lecture des participants de la réunion
-         */
-    virtual const vector<QString>& getParticipants() const {vector<QString> v; return v;}
 
     /*!
          *  \brief ajouterParticipant
@@ -278,7 +272,7 @@ public:
          *  Accesseur en lecture sur l'interlocuteur
          */
 
-    const QString& getInterlocuteur() const { return personne; }
+    const QString getInterlocuteur() const { return personne; }
 
     /*!
          *  \brief setInterlocuteur

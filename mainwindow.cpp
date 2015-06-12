@@ -110,20 +110,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
             // Ajouter au calendrier
 
-            ajoutProjet = new QPushButton("Projet");
             ajoutTache = new QPushButton("Tache");
             ajoutActivite= new QPushButton("Activite");
 
-
             layoutAjout  =new QHBoxLayout;
-            layoutAjout->addWidget(ajoutProjet);
             layoutAjout->addWidget(ajoutTache);
             layoutAjout->addWidget(ajoutActivite);
 
             groupeAjout = new QGroupBox("Programmer", onglet2);
             groupeAjout->setLayout(layoutAjout);
 
-            QObject::connect(ajoutProjet, SIGNAL(clicked()), this, SLOT(ajoutProjetCalendrier()));
             QObject::connect(ajoutTache, SIGNAL(clicked()), this, SLOT(ajoutTacheCalendrier()));
             QObject::connect(ajoutActivite, SIGNAL(clicked()), this, SLOT(ajoutActiviteCalendrier()));
 
@@ -308,25 +304,6 @@ void MainWindow::supModActivite()
     p->show();
 }
 
-
-void MainWindow::ajoutProjetCalendrier()
-{
-    QMessageBox::information(this, "information", "Projet ajoute");
-}
-
-
-void MainWindow::ajoutTacheCalendrier()
-{
-    /*AjoutTacheCalendrier *t = new AjoutTacheCalendrier;
-    t->show();*/
-}
-
-void MainWindow::ajoutActiviteCalendrier()
-{
-    /*AjoutActiviteCalendrier *t = new AjoutActiviteCalendrier;
-    t->show();*/
-}
-
 void MainWindow::ajouterPrecedence(){
     FenetrePrecedence* pr = new FenetrePrecedence();
     pr->show();
@@ -354,5 +331,16 @@ void MainWindow::chargerFichier(){
     if (ret == QMessageBox::Yes){
        new FenetreLoad();
     }
+}
+
+void MainWindow::ajoutTacheCalendrier(){
+    FenetreAjoutProgTache* f = new FenetreAjoutProgTache(this);
+    f->show();
+}
+
+void MainWindow::ajoutActiviteCalendrier()
+{
+    FenetreAjoutProgActivite* f = new FenetreAjoutProgActivite(this);
+    f->show();
 }
 

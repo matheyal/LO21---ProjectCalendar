@@ -128,7 +128,7 @@ public:
         *  Méthode virtuelle pure pour permettre l'appel de getDuree() sur un pointeur de Tache
         *
         */
-    virtual Duree getDuree() const =0;
+    const Duree getDuree() const = 0;
 
     /*!
         *  \brief afficherSousTaches()

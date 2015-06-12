@@ -25,6 +25,7 @@
 #include "fenetreprecedence.h"
 #include "fenetreactivite.h"
 #include "vuesemaine.h"
+#include "fenetreajoutprogrammation.h"
 
 
 class MainWindow: public QMainWindow
@@ -47,10 +48,9 @@ public slots:
     void ajouterTacheComposite();
     void nouvelleActivite();
     void supModActivite();
-    void ajoutProjetCalendrier();
     void ajoutTacheCalendrier();
-    void ajouterPrecedence();
     void ajoutActiviteCalendrier();
+    void ajouterPrecedence();
 
 protected:
     void chargerFichier();
