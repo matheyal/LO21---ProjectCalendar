@@ -137,6 +137,8 @@ public:
 
     virtual QString toString() const{ return "";}
 
+    virtual const vector<QString>& getParticipants() const {vector<QString> v; return v;}
+
     virtual const QString getParticipant(int i) const {i++;return 0;}
 
     /*!
@@ -146,7 +148,7 @@ public:
          *
          *  \param parti : nom du participant que l'on veut supprimer de la réunion
          */
-    virtual void supprimmerParticipant(const QString & ){};
+    virtual void supprimerParticipant(const QString & ){};
 
 };
 
@@ -222,7 +224,7 @@ public:
          *
          *  \param parti : nom du participant que l'on veut supprimer de la réunion
          */
-    void supprimmerParticipant(const QString & parti);
+    void supprimerParticipant(const QString & parti);
 
     /*!
          *  \brief afficher

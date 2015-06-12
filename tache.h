@@ -175,7 +175,8 @@ public:
 
     void supprimerPrecedence(const QString& id){
         for (size_t i=0;i<tachesPrecedentes.size();++i)
-            tachesPrecedentes.erase(tachesPrecedentes.begin()+i);
+            if(tachesPrecedentes[i]->getId()==id)
+                tachesPrecedentes.erase(tachesPrecedentes.begin()+i);
     }
 };
 

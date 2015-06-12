@@ -92,6 +92,7 @@ void FenetreSupModTache::load(){
     if(pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())){
         supprimerSousTache->setDisabled(true);
         supprimerSousTache->clear();
+        supprimerSousTache->addItem("");
         supprimerPrecedence->clear();
         supprimerPrecedence->addItem("");
         supprimerPrecedence->setEnabled(true);
@@ -148,6 +149,7 @@ void FenetreSupModTache::load(){
         pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())->supprimerPrecedence(supprimerPrecedence->currentText());
         if (typeid(*((pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText()))))==typeid(TacheComposite)){
             pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())->supprimerSousTache(supprimerSousTache->currentText());
+            pm.trouverProjet(idProjet->currentText())->supprimerTache(supprimerSousTache->currentText());
         }
         if (typeid(*(pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())))==typeid(TacheUnitaire)){
             pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())->setDuree(du);
