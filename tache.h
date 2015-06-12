@@ -24,8 +24,8 @@ class Tache : public Evenement {
 friend class Projet; /*!< Projet est ami de la classe Tache */
 private:
     vector<Tache*> tachesPrecedentes; /*!< Tableau de pointeurs de taches représentant les taches précédentes */
-    QDateTime debut; /*!< Date avec horaire représentant le début d'une tache */
-    QDateTime fin; /*!< Date avec horaire représentant la fin d'une tache  */
+    QDate debut; /*!< Date avec horaire représentant le début d'une tache */
+    QDate fin; /*!< Date avec horaire représentant la fin d'une tache  */
 public:
     /*!
          *  \brief Type
@@ -46,7 +46,7 @@ public:
          * \param b: Booleen représentant l'état de la tache à ajouter (par défaut non programmée)
          *
          */
-    Tache(const QString& ident, const QString& t, const QDate& d,const QDate& ech, bool b=false): Evenement(ident,t,d,ech,b), tachesPrecedentes(0), debut(QDateTime::currentDateTime()), fin(QDateTime::currentDateTime()){std::cout<<"\ncreation d'une tache";}
+    Tache(const QString& ident, const QString& t, const QDate& d,const QDate& ech, bool b=false): Evenement(ident,t,d,ech,b), tachesPrecedentes(0), debut(QDate::currentDate()), fin(QDate::currentDate()){}
 
     /*!
          *  \brief afficher
@@ -92,14 +92,14 @@ public:
         *
         *  \param d : la date de début avec laquelle on veut initialiser la tache en question
         */
-    void setDebut(QDateTime d){debut=d;}
+    void setDebut(QDate d){debut=d;}
 
     /*!
         *  \brief getDebut
         *
         *  Accesseur en lecture sur la date de début (format date+horaire) d'une tache
         */
-    QDateTime getDebut() const {return debut;}
+    QDate getDebut() const {return debut;}
 
     /*!
         *  \brief setFin
@@ -108,14 +108,14 @@ public:
         *
         *  \param f : la date de fin avec laquelle on veut initialiser la tache en question
         */
-    void setFin(QDateTime f){fin=f;}
+    void setFin(QDate f){fin=f;}
 
     /*!
         *  \brief getFin
         *
         *  Accesseur en lecture sur la date de fin (format date+horaire) d'une tache
         */
-    QDateTime getFin() const{return fin;}
+    QDate getFin() const{return fin;}
 
     /*!
         *  \brief getDuree
@@ -123,7 +123,7 @@ public:
         *  Méthode virtuelle pure pour permettre l'appel de getDuree() sur un pointeur de Tache
         *
         */
-    virtual Duree getDuree() const =0;
+    virtual int getDuree() const =0;
 
     /*!
         *  \brief afficherSousTaches()

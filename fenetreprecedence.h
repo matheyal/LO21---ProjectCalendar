@@ -6,12 +6,21 @@
 
 class FenetrePrecedence : public QMainWindow
 {
+    Q_OBJECT
+
 public:
     FenetrePrecedence(QMainWindow* parent=0);
+
+private slots :
+    void ajouterPrecedence();
+    void load();
+
+
 private:
     QWidget *fenetrePrecedence;
 
-    QComboBox* tache;
+    QComboBox* projets;
+    QComboBox* taches;
     QComboBox* precedente;
 
     QPushButton* ajouter;

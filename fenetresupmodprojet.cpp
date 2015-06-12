@@ -77,7 +77,17 @@ void FenetreSupModProjet::load(){
         descriptionProjet->setText(pm.trouverProjet(idProjet->currentText())->getDesc());
         dispoProjet->setDate(pm.trouverProjet(idProjet->currentText())->getDispo());
         echeanceProjet->setDate(pm.trouverProjet(idProjet->currentText())->getEcheance());
-    }else QMessageBox::warning(this, "erreur","Ce projet n'existe pas");
+    }else {
+        titreProjet->clear();
+        titreProjet->setDisabled(true);
+        descriptionProjet->clear();
+        descriptionProjet->setDisabled(true);
+        dispoProjet->clear();
+        dispoProjet->setDisabled(true);
+        echeanceProjet->clear();
+        echeanceProjet->setDisabled(true);
+    }
+
 
 }
 

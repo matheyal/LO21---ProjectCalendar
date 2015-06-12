@@ -6,10 +6,26 @@
 #include "timing.h"
 #include "fenetreprojet.h"
 #include "fenetresupmodprojet.h"
-/*#include "tacheunitaire.h"
-#include "tachecomposite.h"
-#include "tacheunitairepreemptee.h"
-#include "ajouttachecalendrier.h"*/
+#include <iostream>
+#include "activite.h"
+#include "agenda.h"
+#include "evenement.h"
+#include "programmation.h"
+#include "projet.h"
+#include "projetmanager.h"
+#include "tache.h"
+#include "fenetrecomposite.h"
+#include "fenetreunitaire.h"
+#include <vector>
+#include <unistd.h>
+#include "export.h"
+#include "fenetresupmodactivite.h"
+#include "fenetresave.h"
+#include "fenetreload.h"
+#include "fenetreprecedence.h"
+#include "fenetreactivite.h"
+#include "vuesemaine.h"
+
 
 class MainWindow: public QMainWindow
 {
@@ -20,6 +36,10 @@ public :
     MainWindow(QWidget *parent=0);
     //Méthode permettant de redéfinir l'action effectuée en sortie de l'application (ici demander si sauvegarde ou non)
     void closeEvent(QCloseEvent *event);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4471386f2ffcd5f0a02456e02bf79ef5af8eb6a0
 
 public slots:
     void chargerProjet();
@@ -29,13 +49,23 @@ public slots:
     void ajouterProjet();
     void ajouterTacheUnitaire();
     void ajouterTacheComposite();
-    void ajoutEvenement();
+    void nouvelleActivite();
+    void supModActivite();
     void ajoutProjetCalendrier();
     void ajoutTacheCalendrier();
     void ajouterPrecedence();
+    void ajoutActiviteCalendrier();
 
 protected:
     void chargerFichier();
+<<<<<<< HEAD
+=======
+    void addTreeProjet(QString titre);
+    void addTreeTaches(QString titre, int k);
+
+    QList<QTreeWidgetItem*>  treeProjets;
+    QList<QList<QTreeWidgetItem*> > treeTaches;
+>>>>>>> 4471386f2ffcd5f0a02456e02bf79ef5af8eb6a0
 
     QWidget *mainWindow;
     QTabWidget *barreOnglet;
@@ -45,6 +75,7 @@ protected:
 
     QVBoxLayout* layout21;
     QHBoxLayout* layoutMenu;
+
 
     QMenu *menuFichier;
     QMenuBar* barreMenu;
@@ -56,16 +87,17 @@ protected:
     QLabel* label3;
     QLabel* label4;
 
+    QComboBox* choixProjet;
     QLineEdit* titreProjet;
 
     QPushButton* nouveau;
-    QPushButton* charger;
     QPushButton* supmod;
     QPushButton* unitaire;
     QPushButton* precedence;
     QPushButton* composite;
     QPushButton* ajoutProjet;
     QPushButton* ajoutTache;
+    QPushButton* ajoutActivite;
 
     QTextEdit* description;
 
@@ -98,31 +130,18 @@ protected:
 
     //onglet 3
 
-    QGroupBox* groupeEvenement;
+    QGroupBox* groupeActivite;
+    QVBoxLayout *layoutOnglet3;
 
-    QLineEdit* titreEvenement;
-
-    QTextEdit* descriptionEvenement;
-
-    QDateTimeEdit* debutEvenement;
-    QDateTime* dateActuelle;
-    QDateTimeEdit* finEvenement;
-
-    QPushButton* ajouterEvenement;
-
-    QHBoxLayout* layoutOnglet3;
-    QHBoxLayout* layoutDebutFin;
-    QFormLayout* layoutDebutEvenement;
-    QFormLayout* layoutFinEvenement;
-    QFormLayout* layoutTitreDescriptionEvenement;
-    QVBoxLayout* layoutEvenement;
-    QHBoxLayout* layoutAjouterEvenement;
+    QPushButton* nouvact;
+    QPushButton* supmodact;
+    QHBoxLayout * layoutBoutonActivite;
+    QHBoxLayout *modifierActivite;
 
     QPushButton* quitter;
+    QHBoxLayout *layoutHorizontal2;
+    QVBoxLayout* layout;
 
-    QPushButton *chargerTache;
-    QLineEdit *titreTache;
-    QLineEdit *dureeTache;
 };
 
 #endif // MAINWINDOW_H

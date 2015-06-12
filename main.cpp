@@ -39,8 +39,7 @@ int main(int argc, char *argv[])
     a.ajouterProg(pm.trouverProjet("1")->trouverTache("1"),QDate(1999,10,15), Horaire(14,30));
     a.supprimerProg(rdv);
     a.afficherProg();
-
-/* ----- Test export ----- */
+*/
 
 /* ----- Test export ----- */
 /*
@@ -83,8 +82,6 @@ int main(int argc, char *argv[])
         std::cout<<e.getInfo().toStdString()<<std::endl;
     }
 */
-
-  // return a.exec();
 
     QApplication app(argc, argv);
     MainWindow fenetre;
