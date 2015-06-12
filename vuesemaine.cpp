@@ -2,11 +2,7 @@
 
 VueSemaine::VueSemaine(QWidget* parent):QWidget(parent){
 
-    calendrier = new QCalendarWidget(this);
-    calendrier->hide();
     vueSemaine = new QTableView(this);
-    vueSemaine->setMinimumWidth(800);
-    vueSemaine->setMinimumHeight(700);
     semainePrecedente = new QPushButton("<<<");
     semainePrecedente->setMaximumWidth(200);
     semaineSuivante = new QPushButton(">>>");
