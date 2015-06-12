@@ -11,9 +11,8 @@ FenetreActivite::FenetreActivite(QMainWindow *parent) : QMainWindow(parent)
     titreActivite = new QLineEdit;
     dispoActivite = new QDateTimeEdit(QDateTime::currentDateTime());
     echeanceActivite = new QDateTimeEdit(QDateTime::currentDateTime());
-    dureeActivite = new QSpinBox;
-    dureeActivite->setMinimum(0);
-    dureeActivite->setMaximum(12);
+    dureeActivite = new QTimeEdit;
+    dureeActivite->stepBy(30);
     lieuActivite= new QLineEdit;
     personne = new QLineEdit;
     personne->setDisabled(true);
@@ -37,15 +36,14 @@ FenetreActivite::FenetreActivite(QMainWindow *parent) : QMainWindow(parent)
     horizontal->addWidget(annuler);
 
     layoutNouvelleActivite = new QVBoxLayout;
- //   layoutNouvelleActivite->addLayout(hor);
     layoutNouvelleActivite->addLayout(layout21Form);
     layoutNouvelleActivite->addLayout(horizontal);
 
     QObject::connect(enregistrerActivite, SIGNAL(clicked()), this, SLOT(saveActivite()));
     QObject::connect(enregistrerActivite, SIGNAL(clicked()), this, SLOT(close()));
     QObject::connect(annuler, SIGNAL(clicked()), this, SLOT(cancel()));
-    QObject::connect(dispoActivite, SIGNAL(dateChanged(const QDateTime)), this, SLOT(checkDate(const QDateTime&)));
-    QObject::connect(echeanceActivite, SIGNAL(dateChanged(const QDateTime&)), this, SLOT(checkDate(const QDateTime&)));
+    QObject::connect(dispoActivite, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkDate(const QDateTime&)));
+    QObject::connect(echeanceActivite, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkDate(const QDateTime&)));
     QObject::connect(reunion, SIGNAL(stateChanged(int)), this, SLOT(checkType()));
     QObject::connect(rdv, SIGNAL(stateChanged(int)), this, SLOT(checkType()));
 
@@ -64,13 +62,14 @@ FenetreActivite::FenetreActivite(QMainWindow *parent) : QMainWindow(parent)
 void FenetreActivite::saveActivite()
 {
     ActiviteManager& am= ActiviteManager::getInstance();
+    Duree du(dureeActivite->time().hour(), dureeActivite->time().minute());
     if(am.trouverActivite(idActivite->text()))
         QMessageBox::warning(this, "erreur","sauvegarde impossible, id deja utilise");
     else if(reunion->isChecked())
-        am.ajouterReunion(idActivite->text(), titreActivite->text(), dispoActivite->dateTime(), echeanceActivite->dateTime(), Duree(dureeActivite->value()), lieuActivite->text());
+        am.ajouterReunion(idActivite->text(), titreActivite->text(), dispoActivite->dateTime(), echeanceActivite->dateTime(), du, lieuActivite->text());
     else if (rdv->isChecked())
-        am.ajouterRdv(idActivite->text(), titreActivite->text(), dispoActivite->dateTime(), echeanceActivite->dateTime(), Duree(dureeActivite->value()), personne->text(), lieuActivite->text());
-    else am.ajouterActivite(idActivite->text(), titreActivite->text(), dispoActivite->dateTime(), echeanceActivite->dateTime(), Duree(dureeActivite->value()), lieuActivite->text());
+        am.ajouterRdv(idActivite->text(), titreActivite->text(), dispoActivite->dateTime(), echeanceActivite->dateTime(), du, personne->text(), lieuActivite->text());
+    else am.ajouterActivite(idActivite->text(), titreActivite->text(), dispoActivite->dateTime(), echeanceActivite->dateTime(), du, lieuActivite->text());
 
 }
 

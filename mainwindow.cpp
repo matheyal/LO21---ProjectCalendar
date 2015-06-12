@@ -7,6 +7,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     setWindowTitle("Project Calendar");
 
     //Chargement d'un fichier XML
+    //new FenetreSave;
+
     //FenetreLoad* fl = new FenetreLoad(this);
     //fl->show();
     chargerFichier();
@@ -348,4 +350,5 @@ void MainWindow::chargerFichier(){
        new FenetreLoad();
     }
 }
+
 

@@ -15,5 +15,4 @@ void Reunion::supprimmerParticipant(const QString & parti){
         }
         ++ite;
     }
-    throw CalendarException( "la personne n'exite pas!");
 }

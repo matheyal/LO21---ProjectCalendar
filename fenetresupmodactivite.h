@@ -25,11 +25,13 @@ private:
     QDateTimeEdit *dispoActivite;
     QDateTimeEdit *echeanceActivite;
 
-    QSpinBox *dureeActivite;
+    QTimeEdit *dureeActivite;
     QLineEdit *lieuActivite;
     QLineEdit *personne;
+    QLineEdit *participant;
+    QLineEdit *ajoutParticipant;
+    QLineEdit *supprimerParticipant;
 
-    QPushButton *participant;
     QPushButton *supp;
     QPushButton* ann;
     QPushButton* mod;
