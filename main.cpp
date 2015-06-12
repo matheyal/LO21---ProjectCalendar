@@ -83,11 +83,6 @@ int main(int argc, char *argv[])
     }
 */
 
-    ActiviteManager& am=ActiviteManager::getInstance();
-    am.ajouterReunion("A","reu",QDateTime(QDate(12,10,1994)),QDateTime(QDate(12,10,2000)),Duree(12,20),"bf");
-    for(std::size_t i=0;i<am.trouverActivite("A")->getParticipants().size();++i) {
-        std::cout<<"1";
-    }
     QApplication app(argc, argv);
     MainWindow fenetre;
     fenetre.showMaximized();
