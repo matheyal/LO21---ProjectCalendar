@@ -126,5 +126,18 @@
                 <heure>21H15</heure>
             </programmation>
         </activite>
+        <activite reunion="false" rdv="true">
+            <identificateur>Rdv</identificateur>
+            <titre>Rdv styleyy</titre>
+            <disponibilite>2015-06-12T21:53:04</disponibilite>
+            <echeance>2016-06-12T21:53:04</echeance>
+            <duree>120</duree>
+            <lieu>Salle de rdv</lieu>
+            <interlocuteur>Ta mère</interlocuteur>
+            <programmation>
+                <date>2015-06-13T10:52:38</date>
+                <heure>10H52</heure>
+            </programmation>
+        </activite>
     </activites>
 </projectcalendar>

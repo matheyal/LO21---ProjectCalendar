@@ -1,4 +1,5 @@
 #include "projetmanager.h"
+#include "activitemanager.h"
 #include "agenda.h"
 #include "import.h"
 
@@ -248,6 +249,128 @@ void ImportXML::load(const QString& f){
                     xml.readNext();
                 } // Fin while composites
             } // Fin if composites
+            if(xml.name() == "activites"){
+                ActiviteManager& AM = ActiviteManager::getInstance();
+                while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "activites")) {
+                    if(xml.tokenType() == QXmlStreamReader::StartElement) {
+                        if(xml.name() == "activite") {
+                            QString id_activite, titre_activite, lieu_activite, interlocuteur_activite;
+                            QDateTime dispo_activite, echeance_activite, date_prog;
+                            Duree duree_activite;
+                            bool reunion, rdv, programmed = false;
+                            vector<QString> participants_activite;
+                            Horaire heure_prog(1,1);
+
+                            //Lecture des attributs
+                            QXmlStreamAttributes attributes = xml.attributes();
+                            if(attributes.hasAttribute("reunion")) {
+                                QString val =attributes.value("reunion").toString();
+                                reunion=(val == "true" ? true : false);
+                            }
+                            if(attributes.hasAttribute("rdv")) {
+                                QString val =attributes.value("rdv").toString();
+                                rdv=(val == "true" ? true : false);
+                            }
+
+                            xml.readNext();
+                            while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "activite")){
+                                if(xml.tokenType() == QXmlStreamReader::StartElement) {
+                                    if(xml.name() == "identificateur") {
+                                        xml.readNext(); id_activite=xml.text().toString();
+                                        //qDebug()<<"id="<<id_tache<<"\n";
+                                    }
+
+                                    // We've found titre.
+                                    if(xml.name() == "titre") {
+                                        xml.readNext(); titre_activite=xml.text().toString();
+                                        //qDebug()<<"titre="<<titre_tache<<"\n";
+                                    }
+                                    // We've found disponibilite
+                                    if(xml.name() == "disponibilite") {
+                                        xml.readNext();
+                                        dispo_activite =QDateTime::fromString(xml.text().toString(),Qt::ISODate);
+                                        //qDebug()<<"disp="<<disponibilite_tache.toString(Qt::ISODate)<<"\n";
+                                    }
+                                    // We've found echeance
+                                    if(xml.name() == "echeance") {
+                                        xml.readNext();
+                                        echeance_activite=QDateTime::fromString(xml.text().toString(),Qt::ISODate);
+                                        //qDebug()<<"echeance="<<echeance_tache.toString(Qt::ISODate)<<"\n";
+                                    }
+                                    // We've found duree
+                                    if(xml.name() == "duree") {
+                                        xml.readNext();
+                                        duree_activite=xml.text().toString().toInt();
+                                        //qDebug()<<"duree="<<duree_tache.getDureeEnMinutes()<<"\n";
+                                    }
+                                    // We've found lieu
+                                    if(xml.name() == "lieu") {
+                                        xml.readNext();
+                                        lieu_activite=xml.text().toString();
+                                        //qDebug()<<"duree="<<duree_tache.getDureeEnMinutes()<<"\n";
+                                    }
+                                    //WE've found participants
+                                    if(xml.name() == "participants") {
+                                        xml.readNext();
+                                        QString participant;
+                                        while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "participants")){
+                                            if(xml.tokenType() == QXmlStreamReader::StartElement) {
+                                                if(xml.name() == "participant") {
+                                                    xml.readNext();
+                                                    participant=xml.text().toString();
+                                                    participants_activite.push_back(participant);
+                                                }
+                                            }
+                                        }//Fin while participants
+                                    }//Fin if participants
+                                    //We've found interlocuteur
+                                    if(xml.name() == "interlocuteur") {
+                                        xml.readNext();
+                                        interlocuteur_activite=xml.text().toString();
+                                    }
+                                    // We've found programmation
+                                    if(xml.name() == "programmation") {
+                                        xml.readNext();
+                                        programmed = true;
+                                        while(!(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "programmation")){
+                                            if(xml.tokenType() == QXmlStreamReader::StartElement) {
+                                                if(xml.name() == "date"){
+                                                    xml.readNext();
+                                                    date_prog = QDateTime::fromString(xml.text().toString(), Qt::ISODate);
+                                                }
+                                                if(xml.name() == "heure"){
+                                                    xml.readNext();
+                                                    heure_prog.setFromString(xml.text().toString());
+                                                }
+                                            }
+                                            xml.readNext();
+                                        }//Fin while programmation
+                                        xml.readNext();
+                                    }//Fin if programmation
+
+                                }//Fin if activite
+                                xml.readNext();
+                            }//Fin while activite
+                            if(reunion){
+                                Reunion* reu = AM.ajouterReunion(id_activite,titre_activite,dispo_activite,echeance_activite,duree_activite,lieu_activite);
+                                for(vector<QString>::iterator it = participants_activite.begin() ; it != participants_activite.end() ; ++it)
+                                    reu->ajouterParticipant(*it);
+                            }
+                            else if (rdv){
+                                AM.ajouterRdv(id_activite,titre_activite,dispo_activite,echeance_activite,duree_activite,interlocuteur_activite, lieu_activite);
+                            }
+                            else{
+                                AM.ajouterActivite(id_activite,titre_activite,dispo_activite,echeance_activite,duree_activite,lieu_activite);
+                            }
+                            if(programmed){
+                                A.ajouterProg(AM.trouverActivite(id_activite), date_prog, heure_prog);
+                            }
+
+                        }//Fin if activite
+                    }
+                    xml.readNext();
+                }//Fin while activites
+            }//Fin if activites
         }
     } // Fin lecture document
     // Error handling.
