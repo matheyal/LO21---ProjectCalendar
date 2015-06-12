@@ -31,6 +31,8 @@ private:
 
 public:
     VueSemaine(QWidget* parent=0);
+    int getJours(QDate& date, int j){return date.addDays(-date.dayOfWeek()+j).day();}
+    int getMois(QDate& date, int j){return date.addDays(-date.dayOfWeek()+j).month();}
 
 public slots:
     void updateVueSemaine();

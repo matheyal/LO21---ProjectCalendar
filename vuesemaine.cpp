@@ -5,7 +5,8 @@ VueSemaine::VueSemaine(QWidget* parent):QWidget(parent){
     calendrier = new QCalendarWidget(this);
     calendrier->hide();
     vueSemaine = new QTableView(this);
-    vueSemaine->setMinimumWidth(760);
+    vueSemaine->setMinimumWidth(765);
+    vueSemaine->setMinimumHeight(700);
     semainePrecedente = new QPushButton("<<<");
     semainePrecedente->setMaximumWidth(200);
     semaineSuivante = new QPushButton(">>>");
@@ -15,7 +16,7 @@ VueSemaine::VueSemaine(QWidget* parent):QWidget(parent){
     choixSemaine->setCalendarPopup(true);
     choixSemaine->setMinimumWidth(150);
 
-    ListeJours<<"Lundi"<<"Mardi"<<"Mercredi"<<"Jeudi"<<"Vendredi"<<"Samedi"<<"Dimanche";
+    //ListeJours<<"Lundi"<<"Mardi"<<"Mercredi"<<"Jeudi"<<"Vendredi"<<"Samedi"<<"Dimanche";
 
     for (unsigned int i = 0; i < 48 ; ++i){
         int heure = i/2;
@@ -77,6 +78,17 @@ VueSemaine::VueSemaine(QWidget* parent):QWidget(parent){
 
 void VueSemaine::updateVueSemaine(){
     date = choixSemaine->date();
+
+    //Modification des dates des jours dans le header
+    ListeJours.clear();
+    ListeJours<<QString("Lundi %0/%1").arg(getJours(date, 1)).arg(getMois(date,1))
+              <<QString("Mardi %0/%1").arg(getJours(date, 2)).arg(getMois(date,2))
+              <<QString("Mercredi %0/%1").arg(getJours(date, 3)).arg(getMois(date,3))
+              <<QString("Jeudi %0/%1").arg(getJours(date, 4)).arg(getMois(date,4))
+              <<QString("Vendredi %0/%1").arg(getJours(date, 5)).arg(getMois(date,5))
+              <<QString("Samedi %0/%1").arg(getJours(date, 6)).arg(getMois(date,6))
+              <<QString("Dimanche %0/%1").arg(getJours(date, 7)).arg(getMois(date,7));
+    model->setHorizontalHeaderLabels(ListeJours);
 
     //Nettoyage de la vue
     for (int jour = 0; jour < 7; ++jour){
