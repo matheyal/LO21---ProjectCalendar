@@ -13,7 +13,7 @@ FenetreAjoutProgTache::FenetreAjoutProgTache(QMainWindow *parent):QMainWindow(pa
     idTache = new QComboBox(this);
     idTache->setDisabled(true);
     titreTache = new QLineEdit(this);
-    titreTache->setDisabled(true);
+    titreTache->setReadOnly(true);
     dateHeureTache = new QDateTimeEdit(QDateTime::currentDateTime());
     enregistrerProgTache = new QPushButton("Enregistrer",this);
     quitterProgTache = new QPushButton("Quitter",this);
@@ -22,7 +22,7 @@ FenetreAjoutProgTache::FenetreAjoutProgTache(QMainWindow *parent):QMainWindow(pa
     layoutChoixProjetTache->addRow("Projet", idProjet);
     layoutChoixProjetTache->addRow("ID", idTache);
     layoutChoixProjetTache->addRow("Titre", titreTache);
-    layoutChoixProjetTache->addRow("Date & Heure", dateHeureTache);
+    layoutChoixProjetTache->addRow("Date et Heure", dateHeureTache);
 
     layoutEnregistrerQuitter  =new QHBoxLayout;
     layoutEnregistrerQuitter->addWidget(enregistrerProgTache);
@@ -46,8 +46,11 @@ void FenetreAjoutProgTache::updateIdTache(QString s){
     Projet* projet = pm.trouverProjet(s);
     idTache->setDisabled(false);
     idTache->clear();
-    for(vector<Tache*>::const_iterator it = projet->getTaches()->begin() ; it != projet->getTaches()->end() ; ++it)
-        idTache->addItem((*it)->getId());
+    for(vector<Tache*>::const_iterator it = projet->getTaches()->begin() ; it != projet->getTaches()->end() ; ++it){
+        if(!(*it)->getStatus()){
+            idTache->addItem((*it)->getId());
+        }
+    }
 }
 
 void FenetreAjoutProgTache::updateTitreTache(QString s){
@@ -94,7 +97,7 @@ FenetreAjoutProgActivite::FenetreAjoutProgActivite(QMainWindow *parent):QMainWin
     }
 
     titreActivite = new QLineEdit(this);
-    titreActivite->setDisabled(true);
+    titreActivite->setReadOnly(true);
 
     dateHeureActivite = new QDateTimeEdit(QDateTime::currentDateTime());
     enregistrerProgActivite = new QPushButton("Enregistrer",this);

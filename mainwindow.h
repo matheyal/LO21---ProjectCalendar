@@ -1,7 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include<QtWidgets>
 #include "calendar.h"
 #include "timing.h"
 #include "fenetreprojet.h"
@@ -27,7 +26,8 @@
 #include "vuesemaine.h"
 #include "fenetresupmodtache.h"
 #include "fenetreajoutprogrammation.h"
-
+#include "qt.h"
+#include "fenetresupmodprogrammation.h"
 
 class MainWindow: public QMainWindow
 {
@@ -41,9 +41,7 @@ public :
 
 public slots:
     void chargerProjet();
-    void sauvegarderProjet();
     void supmodProjet();
-    void enregistrerTache();
     void ajouterProjet();
     void ajouterTacheUnitaire();
     void ajouterTacheComposite();
@@ -54,6 +52,7 @@ public slots:
     void ajoutActiviteCalendrier();
     void treeView();
     void ajouterPrecedence();
+    void supModProgrammation();
 
 protected:
     void chargerFichier();
@@ -92,9 +91,10 @@ protected:
     QPushButton* composite;
     QPushButton *supmodtache;
     QPushButton* ajoutProjet;
-    QPushButton* ajoutActivite;
+    QPushButton* ajoutProgActivite;
     QPushButton* refresh;
-    QPushButton *ajoutTache;
+    QPushButton *ajoutProgTache;
+    QPushButton* supModProg;
     QTextEdit* description;
 
     QDateTimeEdit* dispoProjet;
@@ -107,16 +107,18 @@ protected:
     QGroupBox* groupeAjout;
     QGroupBox* groupeTree;
 
-    QHBoxLayout* layoutBoutonProjet;
+    QVBoxLayout* layoutBoutonProjet;
     QFormLayout* layoutTitreDescription;
     QFormLayout* layoutDispoProjet;
     QFormLayout* layoutEcheanceProjet;
     QHBoxLayout* layoutDispoEcheance;
     QVBoxLayout* layoutProjet;
 
-    QHBoxLayout* layoutTache;
+    QHBoxLayout* layoutAjoutTache;
+    QVBoxLayout* layoutTache;
 
-    QHBoxLayout* layoutAjout;
+    QHBoxLayout* layoutAjoutProg;
+    QVBoxLayout* layoutProg;
 
     QHBoxLayout* layoutTree;
 
@@ -131,7 +133,7 @@ protected:
 
     QPushButton* nouvact;
     QPushButton* supmodact;
-    QHBoxLayout * layoutBoutonActivite;
+    QVBoxLayout * layoutBoutonActivite;
     QHBoxLayout *modifierActivite;
 
     QPushButton* quitter;

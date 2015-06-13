@@ -57,9 +57,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
             label1 = new QLabel("Projet");
             nouveau = new QPushButton("Nouveau Projet");
-            supmod=new QPushButton("Supprimer ou modifier Projet");
+            supmod=new QPushButton("Modifier ou supprimer Projet");
 
-            layoutBoutonProjet = new QHBoxLayout;
+            layoutBoutonProjet = new QVBoxLayout;
             layoutBoutonProjet->addWidget(nouveau);
             layoutBoutonProjet->addWidget(supmod);
 
@@ -80,10 +80,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             supmodtache =new QPushButton("Modifier ou supprimer une tache");
 
 
-            layoutTache = new QHBoxLayout;
-            layoutTache->addWidget(unitaire);
-            layoutTache->addWidget(composite);
-            layoutTache->addWidget(precedence);
+            layoutAjoutTache = new QHBoxLayout;
+            layoutAjoutTache->addWidget(unitaire);
+            layoutAjoutTache->addWidget(composite);
+            layoutAjoutTache->addWidget(precedence);
+            layoutTache = new QVBoxLayout;
+            layoutTache->addLayout(layoutAjoutTache);
             layoutTache->addWidget(supmodtache);
 
             groupeTache = new QGroupBox("Tache", onglet2);
@@ -98,10 +100,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             //Activité
 
 
-            nouvact= new QPushButton("nouvelle activité");
-            supmodact = new QPushButton("supprimer ou modifier une activité"),
+            nouvact= new QPushButton("Nouvelle activité");
+            supmodact = new QPushButton("Modifier ou supprimer une activité"),
 
-            layoutBoutonActivite = new QHBoxLayout;
+            layoutBoutonActivite = new QVBoxLayout;
             layoutBoutonActivite->addWidget(nouvact);
             layoutBoutonActivite->addWidget(supmodact);
 
@@ -113,18 +115,24 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
             // Ajouter au calendrier
 
-            ajoutTache = new QPushButton("Tache");
-            ajoutActivite= new QPushButton("Activite");
+            ajoutProgTache = new QPushButton("Tache");
+            ajoutProgActivite= new QPushButton("Activite");
+            supModProg = new QPushButton("Modifier ou supprimer une programmation");
 
-            layoutAjout  =new QHBoxLayout;
-            layoutAjout->addWidget(ajoutTache);
-            layoutAjout->addWidget(ajoutActivite);
+            layoutAjoutProg  =new QHBoxLayout;
+            layoutAjoutProg->addWidget(ajoutProgTache);
+            layoutAjoutProg->addWidget(ajoutProgActivite);
+
+            layoutProg = new QVBoxLayout;
+            layoutProg->addLayout(layoutAjoutProg);
+            layoutProg->addWidget(supModProg);
 
             groupeAjout = new QGroupBox("Programmer", onglet2);
-            groupeAjout->setLayout(layoutAjout);
+            groupeAjout->setLayout(layoutProg);
 
-            QObject::connect(ajoutTache, SIGNAL(clicked()), this, SLOT(ajoutTacheCalendrier()));
-            QObject::connect(ajoutActivite, SIGNAL(clicked()), this, SLOT(ajoutActiviteCalendrier()));
+            QObject::connect(ajoutProgTache, SIGNAL(clicked()), this, SLOT(ajoutTacheCalendrier()));
+            QObject::connect(ajoutProgActivite, SIGNAL(clicked()), this, SLOT(ajoutActiviteCalendrier()));
+            QObject::connect(supModProg,SIGNAL(clicked()), this, SLOT(supModProgrammation()));
 
 
             // Tree view
@@ -198,14 +206,6 @@ void MainWindow::supmodProjet(){
     FenetreSupModProjet *p=new FenetreSupModProjet;
     p->show();
 }
-
-void MainWindow::sauvegarderProjet()
-{
-
-    // choix du chemin d'enregistrement
-    QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer une tache", QString());
-}
-
 
 void MainWindow::ajouterProjet()
 {
@@ -356,6 +356,11 @@ void MainWindow::ajoutTacheCalendrier(){
 void MainWindow::ajoutActiviteCalendrier()
 {
     FenetreAjoutProgActivite* f = new FenetreAjoutProgActivite();
+    f->show();
+}
+
+void MainWindow::supModProgrammation(){
+    FenetreSupModProg* f = new FenetreSupModProg();
     f->show();
 }
 
