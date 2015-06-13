@@ -28,7 +28,7 @@ FenetreComposite::FenetreComposite(QMainWindow *parent) : QMainWindow(parent)
 
     layoutTitreProjetDispoEcheanceDuree = new QFormLayout;
     layoutTitreProjetDispoEcheanceDuree->addRow("Projet", idProjet);
-    layoutTitreProjetDispoEcheanceDuree->addRow("Sous Tache : ", idSousCompo);
+    layoutTitreProjetDispoEcheanceDuree->addRow("Composite : ", idSousCompo);
     layoutTitreProjetDispoEcheanceDuree->addRow("ID", idComposite);
     layoutTitreProjetDispoEcheanceDuree->addRow("Titre", titreComposite);
     layoutTitreProjetDispoEcheanceDuree->addRow("Dispo", dispoComposite);
@@ -59,30 +59,21 @@ FenetreComposite::FenetreComposite(QMainWindow *parent) : QMainWindow(parent)
     QObject::connect(quitterComposite, SIGNAL(clicked()), this, SLOT(close()));
 }
 
+
+void FenetreComposite::checkModifier(){
+    if(!idProjet->currentText().isEmpty() && !idComposite->text().isEmpty() && !titreComposite->text().isEmpty()){
+        enregistrerComposite->setEnabled(true);
+    }
+    else enregistrerComposite->setDisabled(true);
+}
+
+
 void FenetreComposite::enregistrerTacheComposite()
 {
     ProjetManager& pm = ProjetManager::getInstance();
-    if(idProjet->currentText().isEmpty())
-    {
-        QMessageBox::warning(this, "erreur","Rentrer un projet");
-        dispoComposite->setDateTime(QDateTime::currentDateTime());
-        echeanceComposite->setDateTime(QDateTime::currentDateTime());
-    }
-    else if(!(pm.trouverProjet(idProjet->currentText())))
+    if(!(pm.trouverProjet(idProjet->currentText())))
     {
         QMessageBox::warning(this, "erreur","sauvegarde impossible, projet inexistant");
-        dispoComposite->setDateTime(QDateTime::currentDateTime());
-        echeanceComposite->setDateTime(QDateTime::currentDateTime());
-    }
-    else if(dispoComposite->dateTime()<QDateTime::currentDateTime())
-    {
-        QMessageBox::warning(this, "erreur","sauvegarde impossible, date du jour supérieure");
-        dispoComposite->setDateTime(QDateTime::currentDateTime());
-        echeanceComposite->setDateTime(QDateTime::currentDateTime());
-    }
-    else if(titreComposite->text().isEmpty())
-    {
-        QMessageBox::warning(this, "erreur","Rentrer un titre pour la tache");
         dispoComposite->setDateTime(QDateTime::currentDateTime());
         echeanceComposite->setDateTime(QDateTime::currentDateTime());
     }

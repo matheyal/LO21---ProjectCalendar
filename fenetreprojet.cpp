@@ -11,6 +11,7 @@ FenetreProjet::FenetreProjet(QMainWindow *parent) : QMainWindow(parent)
     dispoProjet = new QDateTimeEdit(QDateTime::currentDateTime());
     echeanceProjet = new QDateTimeEdit(QDateTime::currentDateTime());
     enregistrerProjet = new QPushButton("Enregister");
+    enregistrerProjet->setDisabled(true);
     annuler = new QPushButton("annuler");
 
     layout21Form = new QFormLayout;
@@ -31,8 +32,13 @@ FenetreProjet::FenetreProjet(QMainWindow *parent) : QMainWindow(parent)
     QObject::connect(enregistrerProjet, SIGNAL(clicked()), this, SLOT(saveProjet()));
     QObject::connect(enregistrerProjet, SIGNAL(clicked()), this, SLOT(close()));
     QObject::connect(annuler, SIGNAL(clicked()), this, SLOT(cancel()));
-    QObject::connect(dispoProjet, SIGNAL(dateChanged(const QDateTime)), this, SLOT(checkDate(const QDateTime&)));
-    QObject::connect(echeanceProjet, SIGNAL(dateChanged(const QDateTime&)), this, SLOT(checkDate(const QDateTime&)));
+    QObject::connect(dispoProjet, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkDate(const QDateTime&)));
+    QObject::connect(echeanceProjet, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkDate(const QDateTime&)));
+    QObject::connect(idProjet, SIGNAL(textChanged(QString)), this, SLOT(checkModifier()));
+    QObject::connect(titreProjet, SIGNAL(textChanged(QString)), this, SLOT(checkModifier()));
+    QObject::connect(descriptionProjet, SIGNAL(textChanged()), this, SLOT(checkModifier()));
+    QObject::connect(echeanceProjet, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkModifier()));
+    QObject::connect(dispoProjet, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkModifier()));
 
     groupeNouveauProjet = new QGroupBox("Rentrer un nouveau projet dans la base de donnee", this);
     groupeNouveauProjet->setLayout(layoutNouveauProjet);
@@ -45,13 +51,23 @@ FenetreProjet::FenetreProjet(QMainWindow *parent) : QMainWindow(parent)
     setCentralWidget(fenetreProjet);
 }
 
+void FenetreProjet::checkModifier(){
+    if(!idProjet->text().isEmpty() && !titreProjet->text().isEmpty() && !descriptionProjet->toPlainText().isEmpty() && dispoProjet->dateTime().secsTo(echeanceProjet->dateTime())>0){
+        enregistrerProjet->setEnabled(true);
+    }
+    else enregistrerProjet->setDisabled(true);
+}
+
 
 void FenetreProjet::saveProjet()
 {
     ProjetManager& pm= ProjetManager::getInstance();
     if(pm.trouverProjet(idProjet->text()))
         QMessageBox::warning(this, "erreur","sauvegarde impossible, id deja utilise");
-    else pm.ajouterProjet(idProjet->text(), titreProjet->text(), descriptionProjet->toPlainText(), dispoProjet->dateTime(), echeanceProjet->dateTime());
+    else {
+        pm.ajouterProjet(idProjet->text(), titreProjet->text(), descriptionProjet->toPlainText(), dispoProjet->dateTime(), echeanceProjet->dateTime());
+        QMessageBox::information(this, "bravo", "projet ajouté");
+    }
 }
 
 void FenetreProjet::cancel(){

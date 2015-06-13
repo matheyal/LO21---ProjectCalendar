@@ -94,6 +94,34 @@
                 </tache>
             </taches>
         </projet>
+        <projet>
+            <identificateur>6</identificateur>
+            <titre>aude</titre>
+            <description>yeah</description>
+            <disponibilite></disponibilite>
+            <echeance>2015-06-16T13:46:01</echeance>
+            <taches>
+                <tache preemptive="false" composite="false" unitaire="true">
+                    <identificateur>1</identificateur>
+                    <titre>unitaire</titre>
+                    <disponibilite>2015-06-13T13:46:31</disponibilite>
+                    <echeance>2015-06-13T14:47:31</echeance>
+                    <duree>60</duree>
+                </tache>
+                <tache preemptive="false" composite="true" unitaire="false">
+                    <identificateur>2</identificateur>
+                    <titre>compo1</titre>
+                    <disponibilite>2015-06-13T14:10:53</disponibilite>
+                    <echeance>2015-06-13T15:10:53</echeance>
+                </tache>
+                <tache preemptive="false" composite="true" unitaire="false">
+                    <identificateur>3</identificateur>
+                    <titre>compo2</titre>
+                    <disponibilite>2015-06-13T14:11:23</disponibilite>
+                    <echeance>2015-06-13T14:14:23</echeance>
+                </tache>
+            </taches>
+        </projet>
     </projets>
     <precedences>
         <precedence id_projet="1" id_tache="3">
@@ -111,6 +139,9 @@
         </composite>
         <composite id_projet="composition" id_tache="compo">
             <id_composant>compocm</id_composant>
+        </composite>
+        <composite id_projet="6" id_tache="2">
+            <id_composant>3</id_composant>
         </composite>
     </composites>
     <activites>

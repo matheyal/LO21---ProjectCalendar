@@ -16,6 +16,7 @@ FenetreActivite::FenetreActivite(QMainWindow *parent) : QMainWindow(parent)
     personne = new QLineEdit;
     personne->setDisabled(true);
     enregistrerActivite = new QPushButton("Enregister");
+    enregistrerActivite->setDisabled(true);
     annuler = new QPushButton("annuler");
 
 
@@ -45,6 +46,15 @@ FenetreActivite::FenetreActivite(QMainWindow *parent) : QMainWindow(parent)
     QObject::connect(echeanceActivite, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkDate(const QDateTime&)));
     QObject::connect(reunion, SIGNAL(stateChanged(int)), this, SLOT(checkType()));
     QObject::connect(rdv, SIGNAL(stateChanged(int)), this, SLOT(checkType()));
+    QObject::connect(idActivite, SIGNAL(textChanged(QString)), this, SLOT(checkModifier()));
+    QObject::connect(titreActivite, SIGNAL(textChanged(QString)), this, SLOT(checkModifier()));
+    QObject::connect(dureeActivite, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkModifier()));
+    QObject::connect(lieuActivite, SIGNAL(textChanged(QString)), this, SLOT(checkModifier()));
+    QObject::connect(personne, SIGNAL(textChanged(QString)), this, SLOT(checkModifier()));
+    QObject::connect(rdv, SIGNAL(stateChanged(int)), this, SLOT(checkModifier()));
+    QObject::connect(dispoActivite, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkModifier()));
+    QObject::connect(echeanceActivite, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkModifier()));
+
 
     groupeNouvelleActivite = new QGroupBox("Rentrer un nouveau Activite dans la base de donnee", this);
     groupeNouvelleActivite->setLayout(layoutNouvelleActivite);
@@ -70,6 +80,15 @@ void FenetreActivite::saveActivite()
         am.ajouterRdv(idActivite->text(), titreActivite->text(), dispoActivite->dateTime(), echeanceActivite->dateTime(), du, personne->text(), lieuActivite->text());
     else am.ajouterActivite(idActivite->text(), titreActivite->text(), dispoActivite->dateTime(), echeanceActivite->dateTime(), du, lieuActivite->text());
 
+}
+
+void FenetreActivite::checkModifier(){
+    if(!idActivite->text().isEmpty() && !titreActivite->text().isEmpty() && !lieuActivite->text().isEmpty() && dureeActivite->time()>QTime(0,0) && dispoActivite->dateTime().secsTo(echeanceActivite->dateTime())>QTime(0,0,0).secsTo(dureeActivite->time())){
+        if(rdv->isChecked() && personne->text().isEmpty())
+            enregistrerActivite->setDisabled(true);
+        else enregistrerActivite->setEnabled(true);
+    }
+    else enregistrerActivite->setDisabled(true);
 }
 
 void FenetreActivite::cancel(){
@@ -102,5 +121,8 @@ void FenetreActivite::checkType(){
         reunion->setDisabled(true);
         personne->setEnabled(true);
     }else reunion->setEnabled(true);
-    if (!rdv->isChecked() && !reunion->isChecked()) personne->setDisabled(true);
+    if (!rdv->isChecked() && !reunion->isChecked()){
+        personne->clear();
+        personne->setDisabled(true);
+    }
 }

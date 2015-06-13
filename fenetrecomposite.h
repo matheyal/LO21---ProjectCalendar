@@ -13,6 +13,7 @@ private slots:
     void enregistrerTacheComposite();
     void checkDate(const QDateTime &d);
     void load();
+    void checkModifier();
 
 private:
     QWidget *tacheComposite;

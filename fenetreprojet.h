@@ -16,6 +16,7 @@ private slots:
     void saveProjet();
     void cancel();
     void checkDate(const QDateTime &d);
+    void checkModifier();
 
 private:
     QLineEdit *idProjet;

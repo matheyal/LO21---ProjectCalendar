@@ -14,6 +14,7 @@ private slots:
     void enregistrerTacheUnitaire();
     void checkDate(const QDateTime &d);
     void load();
+    void checkModifier();
 
 private:
     QWidget *fenetreUnitaire;

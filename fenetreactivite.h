@@ -15,6 +15,7 @@ private slots:
     void cancel();
     void checkDate(const QDateTime &d);
     void checkType();
+    void checkModifier();
 
 private:
     QLineEdit *idActivite;

@@ -22,6 +22,7 @@ FenetreUnitaire::FenetreUnitaire(QMainWindow* parent) : QMainWindow(parent)
     dureeUnitaire = new QTimeEdit;
     preemptive = new QCheckBox;
     enregistrerUnitaire = new QPushButton("Enregistrer");
+    enregistrerUnitaire->setDisabled(true);
     quitterUnitaire = new QPushButton("Quitter");
 
 
@@ -58,44 +59,30 @@ FenetreUnitaire::FenetreUnitaire(QMainWindow* parent) : QMainWindow(parent)
     QObject::connect(dispoUnitaire, SIGNAL(dateChanged(const QDate)), this, SLOT(checkDate(const QDate&)));
     QObject::connect(echeanceUnitaire, SIGNAL(dateChanged(const QDate&)), this, SLOT(checkDate(const QDate&)));
     QObject::connect(quitterUnitaire, SIGNAL(clicked()), this, SLOT(close()));
+    QObject::connect(idUnitaire, SIGNAL(textChanged(QString)), this, SLOT(checkModifier()));
+    QObject::connect(titreUnitaire, SIGNAL(textChanged(QString)), this, SLOT(checkModifier()));
+    QObject::connect(dureeUnitaire, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkModifier()));
+    QObject::connect(dispoUnitaire, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkModifier()));
+    QObject::connect(echeanceUnitaire, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkModifier()));
 }
+
+void FenetreUnitaire::checkModifier(){
+    if(!idProjet->currentText().isEmpty() && !idUnitaire->text().isEmpty() && !titreUnitaire->text().isEmpty() && dureeUnitaire->time()>QTime(0,0) && dispoUnitaire->dateTime().secsTo(echeanceUnitaire->dateTime())>QTime(0,0,0).secsTo(dureeUnitaire->time())){
+        if (!preemptive->isChecked() && dureeUnitaire->time()>QTime(12,00))
+            enregistrerUnitaire->setDisabled(true);
+        else enregistrerUnitaire->setEnabled(true);
+    }
+    else enregistrerUnitaire->setDisabled(true);
+}
+
+
 void FenetreUnitaire::enregistrerTacheUnitaire()
 {
     Duree du(dureeUnitaire->time().hour(), dureeUnitaire->time().minute());
     ProjetManager& pm = ProjetManager::getInstance();
-    if(idProjet->currentText().isEmpty())
-    {
-        QMessageBox::warning(this, "erreur","Rentrer un projet");
-        dispoUnitaire->setDateTime(QDateTime::currentDateTime());
-        echeanceUnitaire->setDateTime(QDateTime::currentDateTime());
-    }
-    else if(!(pm.trouverProjet(idProjet->currentText())))
-    {
-        QMessageBox::warning(this, "erreur","sauvegarde impossible, projet inexistant");
-        dispoUnitaire->setDateTime(QDateTime::currentDateTime());
-        echeanceUnitaire->setDateTime(QDateTime::currentDateTime());
-    }
-    else if(dispoUnitaire->dateTime()<QDateTime::currentDateTime())
-    {
-        QMessageBox::warning(this, "erreur","sauvegarde impossible, date du jour supérieure");
-        dispoUnitaire->setDateTime(QDateTime::currentDateTime());
-        echeanceUnitaire->setDateTime(QDateTime::currentDateTime());
-    }
-    else if(titreUnitaire->text().isEmpty())
-    {
-        QMessageBox::warning(this, "erreur","Rentrer un titre pour la tache");
-        dispoUnitaire->setDateTime(QDateTime::currentDateTime());
-        echeanceUnitaire->setDateTime(QDateTime::currentDateTime());
-    }
-    else if(pm.trouverProjet(idProjet->currentText())->trouverTache(idUnitaire->text()))
+    if(pm.trouverProjet(idProjet->currentText())->trouverTache(idUnitaire->text()))
     {
         QMessageBox::warning(this, "erreur","sauvegarde impossible, tache deja existante");
-        dispoUnitaire->setDateTime(QDateTime::currentDateTime());
-        echeanceUnitaire->setDateTime(QDateTime::currentDateTime());
-    }
-    else if(pm.trouverProjet(idProjet->currentText())->getDispo()>dispoUnitaire->dateTime())
-    {
-        QMessageBox::warning(this, "erreur","sauvegarde impossible, date de dispo de la tache inferieure a la date de dispo du projet");
         dispoUnitaire->setDateTime(QDateTime::currentDateTime());
         echeanceUnitaire->setDateTime(QDateTime::currentDateTime());
     }
@@ -104,16 +91,6 @@ void FenetreUnitaire::enregistrerTacheUnitaire()
         QMessageBox::warning(this, "erreur","sauvegarde impossible, date d'echeance de la tache superieure a la date d'echeance du projet");
         dispoUnitaire->setDateTime(QDateTime::currentDateTime());
         echeanceUnitaire->setDateTime(QDateTime::currentDateTime());
-    }
-    else if((du.getDureeEnMinutes()*60)>dispoUnitaire->dateTime().secsTo(echeanceUnitaire->dateTime()))
-    {
-        QMessageBox::warning(this, "erreur","sauvegarde impossible, duree trop longue");
-        dispoUnitaire->setDateTime(QDateTime::currentDateTime());
-        echeanceUnitaire->setDateTime(QDateTime::currentDateTime());
-    }
-    else if(du.getDureeEnMinutes()==0)
-    {
-        QMessageBox::warning(this, "erreur", "les taches ne peuvent pas avoir de duree nulle");
     }
     else if(preemptive->isChecked())
     {
@@ -148,7 +125,7 @@ void FenetreUnitaire::enregistrerTacheUnitaire()
             }
             else if(pm.trouverProjet(idProjet->currentText())->getTache(idComposite->currentText()).getDate()>dispoUnitaire->dateTime())
             {
-                QMessageBox::warning(this, "erreur", "date dispo de la composite superierue a la dispo que la date que vous ajoutez");
+                QMessageBox::warning(this, "erreur", "date dispo de la composite superieure a la dispo de la date que vous ajoutez");
             }
             else{
             pm.trouverProjet(idProjet->currentText())->ajouterTachePreemptable(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), du);
@@ -161,11 +138,7 @@ void FenetreUnitaire::enregistrerTacheUnitaire()
         }
 
     }
-    else if(Duree(12,0)<du)
-    {
-        QMessageBox::warning(this, "alerte", "Duree ne peut pas etre supérieure a 12h pour une tache unitaire non preemptable");
-    }
-        else if(idComposite->currentText()!="")
+    else if(idComposite->currentText()!="")
     {
         pm.trouverProjet(idProjet->currentText())->ajouterTacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), du);
         pm.trouverProjet(idProjet->currentText())->getTache(idComposite->currentText()).ajouterSousTache(new TacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), du));
@@ -193,6 +166,8 @@ void FenetreUnitaire::enregistrerTacheUnitaire()
 }
 void FenetreUnitaire::checkDate(const QDateTime& d)
 {
+    if(d==dispoUnitaire->dateTime() && d<QDateTime::currentDateTime())
+        dispoUnitaire->setDateTime(QDateTime::currentDateTime());
     if(d==dispoUnitaire->dateTime() && echeanceUnitaire->dateTime()<dispoUnitaire->dateTime())
         echeanceUnitaire->setDateTime(dispoUnitaire->dateTime());
     else if (d==echeanceUnitaire->dateTime() && echeanceUnitaire->dateTime()<dispoUnitaire->dateTime())
