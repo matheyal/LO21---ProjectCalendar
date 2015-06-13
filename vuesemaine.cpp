@@ -56,6 +56,7 @@ VueSemaine::VueSemaine(QWidget* parent):QWidget(parent){
 
     this->setLayout(Vlayout);
 
+
     //Connexion des widgets
     QObject::connect(semainePrecedente, SIGNAL(clicked()), choixSemaine, SLOT(semainePrecedente()));
     QObject::connect(semaineSuivante, SIGNAL(clicked()), choixSemaine, SLOT(semaineSuivante()));

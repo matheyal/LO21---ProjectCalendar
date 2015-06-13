@@ -14,7 +14,7 @@ public:
 private slots :
     void ajouterPrecedence();
     void load();
-
+    void checkModifier();
 
 private:
     QWidget *fenetrePrecedence;

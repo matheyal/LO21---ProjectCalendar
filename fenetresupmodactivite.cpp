@@ -84,8 +84,8 @@ void FenetreSupModActivite::load(){
             ajoutParticipant->clear();
             supprimerParticipant->setDisabled(true);
             supprimerParticipant->clear();
-            supprimerParticipant->addItem("");
             personne->setDisabled(true);
+            personne->clear();
             mod->setEnabled(true);
             ann->setEnabled(true);
             supp->setEnabled(true);
@@ -101,18 +101,13 @@ void FenetreSupModActivite::load(){
             lieuActivite->setText(am.trouverActivite(idActivite->currentText())->getLieu());
             if (typeid(*(am.trouverActivite(idActivite->currentText())))==typeid(Reunion)){
                 ajoutParticipant->setEnabled(true);
+                supprimerParticipant->addItem("");
                 supprimerParticipant->setEnabled(true);
                 for(vector<QString>::const_iterator it = (am.trouverActivite(idActivite->currentText())->getParticipants()).begin(); it != (am.trouverActivite(idActivite->currentText())->getParticipants()).end(); ++it){
                     supprimerParticipant->addItem(*it);
                 }
-                personne->setDisabled(true);
-                personne->clear();
             }
             if (typeid(*(am.trouverActivite(idActivite->currentText())))==typeid(Rdv)){
-                ajoutParticipant->setDisabled(true);
-                ajoutParticipant->clear();
-                supprimerParticipant->setDisabled(true);
-                supprimerParticipant->clear();
                 personne->setEnabled(true);
                 personne->setText(am.trouverActivite(idActivite->currentText())->getInterlocuteur());
             }
@@ -125,11 +120,14 @@ void FenetreSupModActivite::load(){
             echeanceActivite->setDisabled(true);
             dureeActivite->clear();
             dureeActivite->setDisabled(true);
+            lieuActivite->clear();
             lieuActivite->setDisabled(true);
             ajoutParticipant->clear();
             ajoutParticipant->setDisabled(true);
             supprimerParticipant->clear();
             supprimerParticipant->setDisabled(true);
+            personne->clear();
+            personne->setDisabled(true);
         }
 }
 
