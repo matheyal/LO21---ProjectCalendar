@@ -41,6 +41,7 @@ public:
         *
         */
     QString& getInfo() { return info; }
+
 };
 
 /*! \class TacheComposite
@@ -149,6 +150,7 @@ public:
     void afficher(std::ostream& f)const {Evenement::afficher(f);}
 
 
+
     /*!
          *  \brief getDuree
          *
@@ -156,7 +158,7 @@ public:
          *
          *
          */
-    Duree getDuree() const{return 0;}
+    const Duree getDuree() const{return Duree(0,0);}
 
 
 

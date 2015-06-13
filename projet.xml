@@ -6,26 +6,26 @@
             <titre>cool</titre>
             <description>c'est cool !</description>
             <disponibilite></disponibilite>
-            <echeance>2000-10-12</echeance>
+            <echeance>2000-10-12T00:00:00</echeance>
             <taches>
                 <tache preemptive="false" composite="true" unitaire="false">
                     <identificateur>1</identificateur>
                     <titre>compo</titre>
-                    <disponibilite>1994-10-12</disponibilite>
-                    <echeance>2000-10-12</echeance>
+                    <disponibilite>1994-10-12T00:00:00</disponibilite>
+                    <echeance>2000-10-12T00:00:00</echeance>
                 </tache>
                 <tache preemptive="false" composite="false" unitaire="true">
                     <identificateur>2</identificateur>
                     <titre>unit2</titre>
-                    <disponibilite>1999-10-12</disponibilite>
-                    <echeance>2002-10-12</echeance>
+                    <disponibilite>1999-10-12T00:00:00</disponibilite>
+                    <echeance>2002-10-12T00:00:00</echeance>
                     <duree>230</duree>
                 </tache>
                 <tache preemptive="false" composite="true" unitaire="false">
                     <identificateur>3</identificateur>
                     <titre>compo3</titre>
-                    <disponibilite>2004-10-12</disponibilite>
-                    <echeance>2008-10-12</echeance>
+                    <disponibilite>2004-10-12T00:00:00</disponibilite>
+                    <echeance>2008-10-12T00:00:00</echeance>
                 </tache>
             </taches>
         </projet>
@@ -34,7 +34,7 @@
             <titre>projet2</titre>
             <description>test2.2</description>
             <disponibilite></disponibilite>
-            <echeance>2015-06-10</echeance>
+            <echeance>2015-06-10T00:00:00</echeance>
             <taches/>
         </projet>
         <projet>
@@ -42,7 +42,7 @@
             <titre>projet3</titre>
             <description>top mega cool</description>
             <disponibilite></disponibilite>
-            <echeance>2015-06-10</echeance>
+            <echeance>2015-06-10T00:00:00</echeance>
             <taches/>
         </projet>
         <projet>
@@ -50,28 +50,47 @@
             <titre>projet4</titre>
             <description>Test de la mort qui tue</description>
             <disponibilite></disponibilite>
-            <echeance>2015-06-11</echeance>
+            <echeance>2015-06-11T00:00:00</echeance>
             <taches/>
         </projet>
         <projet>
             <identificateur>composition</identificateur>
             <titre>composition</titre>
             <description>hehehe</description>
-            <disponibilite>2015-06-12</disponibilite>
-            <echeance>2019-06-12</echeance>
+            <disponibilite></disponibilite>
+            <echeance>2019-06-12T00:00:00</echeance>
             <taches>
                 <tache preemptive="false" composite="true" unitaire="false">
                     <identificateur>compo</identificateur>
                     <titre>compo</titre>
-                    <disponibilite>2015-06-12</disponibilite>
-                    <echeance>2015-06-16</echeance>
+                    <disponibilite>2015-06-12T00:00:00</disponibilite>
+                    <echeance>2015-06-16T00:00:00</echeance>
+                    <programmation>
+                        <date>2015-06-12T20:05:56</date>
+                        <heure>20H05</heure>
+                    </programmation>
                 </tache>
                 <tache preemptive="false" composite="false" unitaire="true">
                     <identificateur>compocm</identificateur>
                     <titre>souscompo</titre>
-                    <disponibilite>2015-06-12</disponibilite>
-                    <echeance>2015-06-16</echeance>
-                    <duree>1</duree>
+                    <disponibilite>2015-06-12T00:00:00</disponibilite>
+                    <echeance>2016-06-16T00:00:00</echeance>
+                    <duree>90</duree>
+                    <programmation>
+                        <date>2015-06-13T00:00:00</date>
+                        <heure>10H30</heure>
+                    </programmation>
+                </tache>
+                <tache preemptive="false" composite="false" unitaire="true">
+                    <identificateur>tacheDurée</identificateur>
+                    <titre>tache avec une durée</titre>
+                    <disponibilite>2015-06-12T20:08:51</disponibilite>
+                    <echeance>2017-06-12T20:06:51</echeance>
+                    <duree>120</duree>
+                    <programmation>
+                        <date>2015-06-14T11:08:29</date>
+                        <heure>11H08</heure>
+                    </programmation>
                 </tache>
             </taches>
         </projet>
@@ -80,6 +99,9 @@
         <precedence id_projet="1" id_tache="3">
             <id_precedence>2</id_precedence>
             <id_precedence>1</id_precedence>
+        </precedence>
+        <precedence id_projet="composition" id_tache="tacheDurée">
+            <id_precedence>compo</id_precedence>
         </precedence>
     </precedences>
     <composites>
@@ -91,4 +113,31 @@
             <id_composant>compocm</id_composant>
         </composite>
     </composites>
+    <activites>
+        <activite reunion="false" rdv="false">
+            <identificateur>Activite2</identificateur>
+            <titre>Activité de ouf</titre>
+            <disponibilite>2015-06-12T21:14:18</disponibilite>
+            <echeance>2017-06-12T21:14:18</echeance>
+            <duree>120</duree>
+            <lieu>UTC</lieu>
+            <programmation>
+                <date>2015-06-12T21:15:51</date>
+                <heure>21H15</heure>
+            </programmation>
+        </activite>
+        <activite reunion="false" rdv="true">
+            <identificateur>Rdv</identificateur>
+            <titre>Rdv styleyy</titre>
+            <disponibilite>2015-06-12T21:53:04</disponibilite>
+            <echeance>2016-06-12T21:53:04</echeance>
+            <duree>120</duree>
+            <lieu>Salle de rdv</lieu>
+            <interlocuteur>Ta mère</interlocuteur>
+            <programmation>
+                <date>2015-06-13T10:52:38</date>
+                <heure>10H52</heure>
+            </programmation>
+        </activite>
+    </activites>
 </projectcalendar>

@@ -76,16 +76,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             //Nouvelle Tache
 
             unitaire = new QPushButton("Unitaire");
-            unitaire->setDisabled(false);
             composite = new QPushButton("Composite");
-            composite->setDisabled(false);
             precedence = new QPushButton("Precedence");
-            precedence->setDisabled(false);
+            supmodtache =new QPushButton("Modifier ou supprimer une tache");
+
 
             layoutTache = new QHBoxLayout;
             layoutTache->addWidget(unitaire);
             layoutTache->addWidget(composite);
             layoutTache->addWidget(precedence);
+            layoutTache->addWidget(supmodtache);
 
             groupeTache = new QGroupBox("Tache", onglet2);
             groupeTache->setLayout(layoutTache);
@@ -93,8 +93,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
             QObject::connect(unitaire, SIGNAL(clicked()), this, SLOT(ajouterTacheUnitaire()));
             QObject::connect(composite, SIGNAL(clicked()), this, SLOT(ajouterTacheComposite()));
             QObject::connect(precedence, SIGNAL(clicked()), this, SLOT(ajouterPrecedence()));
+            QObject::connect(supmodtache, SIGNAL(clicked()), this, SLOT(supModTache()));
 
-            QObject::connect(&timer, SIGNAL(QTimer::timeout()), this, SLOT(refresh()));
 
             //Activité
 
@@ -114,20 +114,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
             // Ajouter au calendrier
 
-            ajoutProjet = new QPushButton("Projet");
             ajoutTache = new QPushButton("Tache");
             ajoutActivite= new QPushButton("Activite");
 
-
             layoutAjout  =new QHBoxLayout;
-            layoutAjout->addWidget(ajoutProjet);
             layoutAjout->addWidget(ajoutTache);
             layoutAjout->addWidget(ajoutActivite);
 
             groupeAjout = new QGroupBox("Programmer", onglet2);
             groupeAjout->setLayout(layoutAjout);
 
-            QObject::connect(ajoutProjet, SIGNAL(clicked()), this, SLOT(ajoutProjetCalendrier()));
             QObject::connect(ajoutTache, SIGNAL(clicked()), this, SLOT(ajoutTacheCalendrier()));
             QObject::connect(ajoutActivite, SIGNAL(clicked()), this, SLOT(ajoutActiviteCalendrier()));
 
@@ -239,6 +235,12 @@ void MainWindow::ajouterTacheComposite()
     t->show();
 }
 
+void MainWindow::supModTache(){
+    FenetreSupModTache *p=new FenetreSupModTache;
+    p->show();
+}
+
+
 
 void MainWindow::nouvelleActivite()
 {
@@ -250,25 +252,6 @@ void MainWindow::supModActivite()
 {
     FenetreSupModActivite *p=new FenetreSupModActivite;
     p->show();
-}
-
-
-void MainWindow::ajoutProjetCalendrier()
-{
-    QMessageBox::information(this, "information", "Projet ajoute");
-}
-
-
-void MainWindow::ajoutTacheCalendrier()
-{
-    /*AjoutTacheCalendrier *t = new AjoutTacheCalendrier;
-    t->show();*/
-}
-
-void MainWindow::ajoutActiviteCalendrier()
-{
-    /*AjoutActiviteCalendrier *t = new AjoutActiviteCalendrier;
-    t->show();*/
 }
 
 void MainWindow::ajouterPrecedence(){
@@ -375,4 +358,14 @@ void MainWindow::treeView()
     }
 }
 
+void MainWindow::ajoutTacheCalendrier(){
+    FenetreAjoutProgTache* f = new FenetreAjoutProgTache();
+    f->show();
+}
+
+void MainWindow::ajoutActiviteCalendrier()
+{
+    FenetreAjoutProgActivite* f = new FenetreAjoutProgActivite();
+    f->show();
+}
 

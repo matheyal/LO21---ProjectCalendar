@@ -20,7 +20,6 @@ private:
     QComboBox *idActivite;
     QLineEdit *titreActivite;
 
-    QTextEdit* descriptionActivite;
 
     QDateTimeEdit *dispoActivite;
     QDateTimeEdit *echeanceActivite;

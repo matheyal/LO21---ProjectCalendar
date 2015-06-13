@@ -21,13 +21,11 @@ private:
     QDate date;
     QStringList ListeJours, ListeHeures;
     QTableView* vueSemaine;
-    QCalendarWidget* calendrier;
     ChoixSemaine* choixSemaine;
     QStandardItemModel* model;
     QHBoxLayout *Hlayout1, *Hlayout2;
     QVBoxLayout* Vlayout;
     QPushButton *semaineSuivante, *semainePrecedente;
-    QLabel *semaineCourante;
 
 public:
     VueSemaine(QWidget* parent=0);

@@ -25,6 +25,8 @@
 #include "fenetreprecedence.h"
 #include "fenetreactivite.h"
 #include "vuesemaine.h"
+#include "fenetresupmodtache.h"
+#include "fenetreajoutprogrammation.h"
 
 
 class MainWindow: public QMainWindow
@@ -45,13 +47,13 @@ public slots:
     void ajouterProjet();
     void ajouterTacheUnitaire();
     void ajouterTacheComposite();
+    void supModTache();
     void nouvelleActivite();
     void supModActivite();
-    void ajoutProjetCalendrier();
     void ajoutTacheCalendrier();
-    void ajouterPrecedence();
     void ajoutActiviteCalendrier();
     void treeView();
+    void ajouterPrecedence();
 
 protected:
     void chargerFichier();
@@ -88,11 +90,11 @@ protected:
     QPushButton* unitaire;
     QPushButton* precedence;
     QPushButton* composite;
+    QPushButton *supmodtache;
     QPushButton* ajoutProjet;
-    QPushButton* ajoutTache;
     QPushButton* ajoutActivite;
     QPushButton* refresh;
-
+    QPushButton *ajoutTache;
     QTextEdit* description;
 
     QDateTimeEdit* dispoProjet;
@@ -136,8 +138,6 @@ protected:
     QHBoxLayout *layoutHorizontal2;
     QVBoxLayout* layout;
 
-
-    QTimer timer;
 
 };
 

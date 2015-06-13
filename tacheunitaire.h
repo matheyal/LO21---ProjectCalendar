@@ -43,7 +43,7 @@ public:
          *
          *  Accesseur en lecture de la duree de la tache unitaire
          */
-    Duree getDuree() const{return duree;}
+    const Duree getDuree() const{return duree;}
 
 
     /*!
@@ -71,7 +71,7 @@ public:
         *  Accesseur en écriture qui initialise la durée de la tache unitaire en question
         *
         */
-    void setDuree(int d){duree=d;}
+    void setDuree(Duree d){duree=d;}
 
     /*!
         *  \brief getSousTaches

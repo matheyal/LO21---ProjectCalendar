@@ -4,8 +4,8 @@
 FenetreLoad::FenetreLoad(){
     QString filename = getOpenFileName(this, tr("Load project"), "..", tr("XML Files (*.xml)"));
     ProjetManager::getInstance().load(new ImportXML, filename);
-    //Evenement* ev = ProjetManager::getInstance().trouverProjet("1")->trouverTache("2");
-    //Agenda::getInstance().ajouterProg(ev,QDate(2015,6,12), Horaire(10,30));
+    //Evenement* ev = ProjetManager::getInstance().trouverProjet("composition")->trouverTache("compocm");
+    //Agenda::getInstance().ajouterProg(ev,QDateTime(QDate(2015,6,13)), Horaire(10,30));
     /*
     fenetreLoad = new QWidget;
 
