@@ -29,9 +29,13 @@ private:
     QVBoxLayout* Vlayout1;
 
     vector<QString> listeTitresEvenements;
+    vector<Evenement*> listeEvenements;
+    vector<QDateTime> listeDisposEvenements;
+    vector<QDateTime> listeEcheancesEvenements;
+    vector<QDateTime> listeProgsEvenements;
 
 public slots:
-    void updateTitreEvenement(int i);
+    void updateInfosEvenement();
     void supprimerProgrammation();
     void modifierProgrammtion();
 };

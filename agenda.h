@@ -98,6 +98,8 @@ private:
         */
    Agenda& operator=(const Agenda& a);
 
+   vector<Programmation*>::iterator trouverProgrammationIterator(Evenement* e);
+
    /*! \struct Handler
       * \brief classe permettant d'appliquer le design pattern Singleton
       *

@@ -48,6 +48,11 @@ Programmation* Agenda::trouverProgrammation(Evenement* e) const{
     return 0;
 }
 
+vector<Programmation*>::iterator Agenda::trouverProgrammationIterator(Evenement* e){
+    for(vector<Programmation*>::iterator it = progs.begin() ; it != progs.end() ; ++it)
+        if (e==(*it)->getEvenement()) return it;
+    return progs.end();
+}
 
 void Agenda::addItem(Programmation* p){
             progs.push_back(p);
@@ -64,9 +69,9 @@ void Agenda::afficherProg(){
 
 void Agenda::supprimerProg(Evenement* e)
 {
-    for(std::size_t i=0; i< progs.size(); ++i)
-    {
-        if(trouverProgrammation(e)) progs.erase(progs.begin()+i);
+    vector<Programmation*>::iterator it = trouverProgrammationIterator(e);
+    if(it != progs.end()) {
+        progs.erase(it);
         return;
     }
     throw AgendaException("Prog inexistante");

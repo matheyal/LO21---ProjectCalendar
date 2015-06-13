@@ -74,6 +74,10 @@ public:
           *  \param f : Flux sur lequel on écrit
           */
      void afficher(std::ostream& f) const;
+
+     void setDate(QDateTime& d){date = d;}
+
+     void setHoraire(Horaire& h){heure = h;}
 };
 
 #endif // PROGRAMMATION

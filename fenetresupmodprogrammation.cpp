@@ -1,5 +1,7 @@
 #include "fenetresupmodprogrammation.h"
 
+class Activite; class Reunion; class Rdv;
+
 FenetreSupModProg::FenetreSupModProg(QMainWindow *parent):QMainWindow(parent){
     Agenda& A = Agenda::getInstance();
     fenetreSupModProg = new QWidget;
@@ -7,9 +9,19 @@ FenetreSupModProg::FenetreSupModProg(QMainWindow *parent):QMainWindow(parent){
     idEvenement = new QComboBox;
     idEvenement->addItem("");
     listeTitresEvenements.push_back("");
+    listeEvenements.push_back(0);
+    listeDisposEvenements.push_back(QDateTime());
+    listeEcheancesEvenements.push_back(QDateTime());
+    listeProgsEvenements.push_back(QDateTime());
     for(vector<Programmation*>::const_iterator it = A.getProgramamtions()->begin() ; it != A.getProgramamtions()->end(); ++it){
         idEvenement->addItem((*it)->getEvenement()->getId());
+        listeEvenements.push_back((*it)->getEvenement());
         listeTitresEvenements.push_back((*it)->getEvenement()->getTitre());
+        listeDisposEvenements.push_back((*it)->getEvenement()->getDate());
+        listeEcheancesEvenements.push_back((*it)->getEvenement()->getEcheance());
+        QDate dateProg = (*it)->getDate().date();
+        QTime heureProg = QTime((*it)->getHoraire().getHeure(), (*it)->getHoraire().getMinute());
+        listeProgsEvenements.push_back(QDateTime(dateProg,heureProg));
     }
     titreEvenement = new QLineEdit;
     titreEvenement->setReadOnly(true);
@@ -49,21 +61,56 @@ FenetreSupModProg::FenetreSupModProg(QMainWindow *parent):QMainWindow(parent){
     fenetreSupModProg->setLayout(layout);
     setCentralWidget(fenetreSupModProg);
 
-    QObject::connect(idEvenement, SIGNAL(currentIndexChanged(int)), this, SLOT(updateTitreEvenement(int)));
-    QObject::connect(reinitProg, SIGNAL(clicked()), this, SLOT(close()));
-
+    QObject::connect(idEvenement, SIGNAL(currentIndexChanged(int)), this, SLOT(updateInfosEvenement()));
+    QObject::connect(reinitProg, SIGNAL(clicked()),this, SLOT(updateInfosEvenement()));
+    QObject::connect(modifierProg, SIGNAL(clicked()), this, SLOT(modifierProgrammtion()));
+    QObject::connect(supprimerProg, SIGNAL(clicked()), this, SLOT(supprimerProgrammation()));
 
 }
 
-void FenetreSupModProg::updateTitreEvenement(int i){
+void FenetreSupModProg::updateInfosEvenement(){
+    int i = idEvenement->currentIndex();
     QString titre = listeTitresEvenements[i];
     titreEvenement->setText(titre);
+    QDateTime dispo = listeDisposEvenements[i];
+    dispoEvenement->setDateTime(dispo);
+    QDateTime echeance = listeEcheancesEvenements[i];
+    echeanceEvenement->setDateTime(echeance);
+    QDateTime prog = listeProgsEvenements[i];
+    dateHeureProg->setDateTime(prog);
 }
 
 void FenetreSupModProg::supprimerProgrammation(){
-
+    int i = idEvenement->currentIndex();
+    if(listeEvenements[i]){
+        try{
+            Evenement* e = listeEvenements[i];
+            Agenda& A = Agenda::getInstance();
+            A.supprimerProg(e);
+        }
+        catch(AgendaException& e){
+            QMessageBox::warning(this, "Erreur",e.getInfo());
+        }
+    }
+    this->close();
 }
 
 void FenetreSupModProg::modifierProgrammtion(){
-
+    int i = idEvenement->currentIndex();
+    if (dateHeureProg->dateTime() != listeProgsEvenements[i]){ //La date de programmation a pas été changée
+        if (listeEvenements[i]){ //L'événement sélectionné existe bien
+            try{
+                Evenement* e = listeEvenements[i];
+                Programmation* p = Agenda::getInstance().trouverProgrammation(e);
+                QDateTime date = dateHeureProg->dateTime();
+                Horaire horaire(dateHeureProg->time().hour(), dateHeureProg->time().minute());
+                p->setDate(date);
+                p->setHoraire(horaire);
+            }
+            catch(AgendaException& e){
+                QMessageBox::warning(this, "Erreur",e.getInfo());
+            }
+        }
+    }
+    this->close();
 }

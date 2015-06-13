@@ -130,7 +130,7 @@
             <identificateur>precedence</identificateur>
             <titre>Test ajout programmation avec precedence</titre>
             <description>blabla</description>
-            <disponibilite>2015-06-13T16:47:03</disponibilite>
+            <disponibilite></disponibilite>
             <echeance>2018-06-13T16:47:03</echeance>
             <taches>
                 <tache preemptive="false" composite="false" unitaire="true">
@@ -140,8 +140,8 @@
                     <echeance>2017-06-13T16:46:41</echeance>
                     <duree>120</duree>
                     <programmation>
-                        <date>2015-06-14T10:00:58</date>
-                        <heure>10H00</heure>
+                        <date>2015-06-14T11:00:00</date>
+                        <heure>11H00</heure>
                     </programmation>
                 </tache>
                 <tache preemptive="false" composite="false" unitaire="true">
