@@ -52,6 +52,7 @@ public slots:
     void supModActivite();
     void ajoutTacheCalendrier();
     void ajoutActiviteCalendrier();
+    void treeView();
     void ajouterPrecedence();
 
 protected:
@@ -92,8 +93,8 @@ protected:
     QPushButton *supmodtache;
     QPushButton* ajoutProjet;
     QPushButton* ajoutActivite;
+    QPushButton* refresh;
     QPushButton *ajoutTache;
-
     QTextEdit* description;
 
     QDateTimeEdit* dispoProjet;
@@ -136,6 +137,7 @@ protected:
     QPushButton* quitter;
     QHBoxLayout *layoutHorizontal2;
     QVBoxLayout* layout;
+
 
 };
 

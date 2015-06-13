@@ -132,67 +132,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
             tree =  new QTreeWidget;
 
-            ProjetManager& pm = ProjetManager::getInstance();
-            vector<Projet*> pro = *pm.getProjets();
-            for(size_t i=0;i<pro.size();i++)
-            {
-                QTreeWidgetItem* projeti = new QTreeWidgetItem;
-                projeti->setText(0, pro[i]->getTitre());
-                tree->addTopLevelItem(projeti);
-                vector<Tache*> tac= *pm.trouverProjet(pro[i]->getId())->getTaches();
-                size_t siz=tac.size();
-                for(size_t k =0;k<siz;k++)
-                {
-                    QTreeWidgetItem* tachei = new QTreeWidgetItem;
-                    tachei->setText(0, tac[k]->getTitre());
-                    projeti->addChild(tachei);
-                    if(tac[k]->Type()=="14TacheComposite")
-                    {
-                        vector<Tache*> taccomp=*tac[k]->getSousTaches();
-                        for(size_t h=0;h<taccomp.size();h++)
-                        {
-                            siz--;
-                            QTreeWidgetItem* sousTache1 = new QTreeWidgetItem;
-                            sousTache1->setText(0, taccomp[h]->getTitre());
-                            tachei->addChild(sousTache1);
-                            if(taccomp[h]->Type()=="14TacheComposite")
-                            {
-                                siz--;
-                                if(taccomp[h]->getSousTaches())
-                                {
-                                    vector<Tache*> taccomp1=*taccomp[h]->getSousTaches();
-                                    for(size_t j=0;j<taccomp1.size();j++)
-                                    {
-                                        siz--;
-                                        QTreeWidgetItem* sousTache2 = new QTreeWidgetItem;
-                                        sousTache2->setText(0, taccomp1[j]->getTitre());
-                                        sousTache1->addChild(sousTache2);
-                                        if(taccomp1[j]->Type()=="14TacheComposite")
-                                        {
-                                            siz--;
-                                            if(taccomp1[j]->getSousTaches())
-                                            {
-                                                vector<Tache*> taccomp2=*tac[j]->getSousTaches();
-                                                for(size_t z=0;z<taccomp2.size();z++)
-                                                {
-                                                    siz--;
-                                                    QTreeWidgetItem* sousTache3 = new QTreeWidgetItem;
-                                                    sousTache3->setText(0, taccomp2[z]->getTitre());
-                                                    if(!taccomp2[z]->getInTree())
-                                                    {
-                                                        sousTache2->addChild(sousTache3);
-                                                        taccomp2[z]->setInTree(true);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            treeView();
+
+            refresh = new QPushButton("Refresh");
+            refresh->setMaximumWidth(100);
 
             layoutTree = new QHBoxLayout;
             layoutTree->addWidget(tree);
@@ -213,19 +156,22 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
 
 
-
     //Cr�ation du bouton quitter
 
     quitter = new QPushButton("Quitter");
     quitter->setMaximumWidth(100);
 
 
+
         //Cr�ation d'un layout horizontal pour le bouton "quitter"
         layoutHorizontal2 = new QHBoxLayout;
         layoutHorizontal2->addWidget(quitter);
+        layoutHorizontal2->addWidget(refresh);
+
 
         // Connection pour le bouton quitter
         QObject::connect(quitter, SIGNAL(clicked()), this, SLOT(close()));
+        QObject::connect(refresh, SIGNAL(clicked()), this, SLOT(treeView()));
 
     //Attachement de ces onglets � la barre d'onglet
 
@@ -238,6 +184,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     layout->addLayout(layoutHorizontal2);
 
     mainWindow->setLayout(layout);
+
 
     setCentralWidget(mainWindow);
 }
@@ -333,6 +280,81 @@ void MainWindow::chargerFichier(){
                 QMessageBox::Yes | QMessageBox::No);
     if (ret == QMessageBox::Yes){
        new FenetreLoad();
+    }
+}
+
+void MainWindow::treeView()
+{
+    tree->clear();
+    ProjetManager& pm = ProjetManager::getInstance();
+    vector<Projet*> pro = *pm.getProjets();
+    for(size_t i=0;i<pro.size();i++)
+    {
+        QTreeWidgetItem* projeti = new QTreeWidgetItem;
+        projeti->setText(0, pro[i]->getTitre());
+        projeti->setTextColor(0,Qt::blue);
+        tree->addTopLevelItem(projeti);
+        vector<Tache*> tac= *pm.trouverProjet(pro[i]->getId())->getTaches();
+        size_t siz=tac.size();
+        for(size_t k =0;k<siz;k++)
+        {
+            QTreeWidgetItem* tachei = new QTreeWidgetItem;
+            tachei->setText(0, tac[k]->getTitre());
+            if(tac[k]->getStatus()) tachei->setTextColor(0,Qt::green);
+            else tachei->setTextColor(0, Qt::red);
+            projeti->addChild(tachei);
+            if(tac[k]->Type()=="14TacheComposite")
+            {
+                vector<Tache*> taccomp=*tac[k]->getSousTaches();
+                for(size_t h=0;h<taccomp.size();h++)
+                {
+                    siz--;
+                    QTreeWidgetItem* sousTache1 = new QTreeWidgetItem;
+                    sousTache1->setText(0, taccomp[h]->getTitre());
+                    if(taccomp[h]->getStatus()) sousTache1->setTextColor(0,Qt::green);
+                    else sousTache1->setTextColor(0, Qt::red);
+                    tachei->addChild(sousTache1);
+                    if(taccomp[h]->Type()=="14TacheComposite")
+                    {
+                        siz--;
+                        if(taccomp[h]->getSousTaches())
+                        {
+                            vector<Tache*> taccomp1=*taccomp[h]->getSousTaches();
+                            for(size_t j=0;j<taccomp1.size();j++)
+                            {
+                                siz--;
+                                QTreeWidgetItem* sousTache2 = new QTreeWidgetItem;
+                                sousTache2->setText(0, taccomp1[j]->getTitre());
+                                if(taccomp1[j]->getStatus()) sousTache2->setTextColor(0,Qt::green);
+                                else sousTache2->setTextColor(0, Qt::red);
+                                sousTache1->addChild(sousTache2);
+                                if(taccomp1[j]->Type()=="14TacheComposite")
+                                {
+                                    siz--;
+                                    if(taccomp1[j]->getSousTaches())
+                                    {
+                                        vector<Tache*> taccomp2=*tac[j]->getSousTaches();
+                                        for(size_t z=0;z<taccomp2.size();z++)
+                                        {
+                                            siz--;
+                                            QTreeWidgetItem* sousTache3 = new QTreeWidgetItem;
+                                            sousTache3->setText(0, taccomp2[z]->getTitre());
+                                            if(taccomp2[z]->getStatus()) sousTache3->setTextColor(0,Qt::green);
+                                            else sousTache3->setTextColor(0, Qt::red);
+                                            if(!taccomp2[z]->getInTree())
+                                            {
+                                                sousTache2->addChild(sousTache3);
+                                                taccomp2[z]->setInTree(true);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
