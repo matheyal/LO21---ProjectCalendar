@@ -5,6 +5,7 @@ FenetrePrecedence::FenetrePrecedence(QMainWindow* parent):QMainWindow(parent)
     fenetrePrecedence = new QWidget;
 
     projets = new QComboBox;
+    projets->addItem("");
     ProjetManager& pm=ProjetManager::getInstance();
     for(vector<Projet*>::const_iterator it = (*pm.getProjets()).begin(); it != (*pm.getProjets()).end(); ++it){
         projets->addItem((*it)->getId());
@@ -15,9 +16,8 @@ FenetrePrecedence::FenetrePrecedence(QMainWindow* parent):QMainWindow(parent)
     precedente->setDisabled(true);
 
     ajouter = new QPushButton("Ajouter");
-    ajouter->setDisabled(false);
+    ajouter->setDisabled(true);
     quitter = new QPushButton("quitter");
-    quitter->setDisabled(false);
 
     layoutFormulaire = new QFormLayout;
     layoutFormulaire->addRow("Projet : ", projets);
@@ -37,6 +37,9 @@ FenetrePrecedence::FenetrePrecedence(QMainWindow* parent):QMainWindow(parent)
     QObject::connect(projets, SIGNAL(currentIndexChanged(int)), this, SLOT(load()));
     QObject::connect(ajouter, SIGNAL(clicked()), this, SLOT(ajouterPrecedence()));
     QObject::connect(quitter, SIGNAL(clicked()), this, SLOT(close()));
+    QObject::connect(projets, SIGNAL(currentIndexChanged(int)), this, SLOT(checkModifier()));
+    QObject::connect(taches, SIGNAL(currentIndexChanged(int)), this, SLOT(checkModifier()));
+    QObject::connect(precedente, SIGNAL(currentIndexChanged(int)), this, SLOT(checkModifier()));
 
     setCentralWidget(fenetrePrecedence);
 }
@@ -59,6 +62,13 @@ void FenetrePrecedence::load()
             precedente->addItem(tac[i]->getId());
         }
     }
+}
+
+void FenetrePrecedence::checkModifier(){
+    if(!projets->currentText().isEmpty() && !taches->currentText().isEmpty() && !precedente->currentText().isEmpty() && taches->currentText()!=precedente->currentText()){
+       ajouter->setEnabled(true);
+    }
+    else ajouter->setDisabled(true);
 }
 
 void FenetrePrecedence::ajouterPrecedence()

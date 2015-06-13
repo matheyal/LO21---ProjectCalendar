@@ -107,6 +107,10 @@
                     <disponibilite>2015-06-13T13:46:31</disponibilite>
                     <echeance>2015-06-13T14:47:31</echeance>
                     <duree>60</duree>
+                    <programmation>
+                        <date>2015-06-13T14:33:02</date>
+                        <heure>14H33</heure>
+                    </programmation>
                 </tache>
                 <tache preemptive="false" composite="true" unitaire="false">
                     <identificateur>2</identificateur>

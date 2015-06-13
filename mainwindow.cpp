@@ -24,12 +24,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         layoutMenu = new QHBoxLayout;
         layoutMenu->addWidget(barreMenu);
 
-    //Cr�ation de 3 onglets
+    //Cr�ation de 2 onglets
 
     barreOnglet= new QTabWidget;
     onglet1 = new QWidget;
     onglet2 = new QWidget;
-    onglet3 = new QWidget;
 
     //Onglet numero 1
     VueSemaine* Semaine = new VueSemaine(this);
@@ -173,7 +172,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         QObject::connect(quitter, SIGNAL(clicked()), this, SLOT(close()));
         QObject::connect(refresh, SIGNAL(clicked()), this, SLOT(treeView()));
 
-    //Attachement de ces onglets � la barre d'onglet
+
+        //Attachement de ces onglets � la barre d'onglet
 
     barreOnglet->addTab(onglet1, "Calendrier");
     barreOnglet->addTab(onglet2, "Evenement");
@@ -206,16 +206,6 @@ void MainWindow::sauvegarderProjet()
     QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer une tache", QString());
 }
 
-void MainWindow::enregistrerTache()
-{
-    /*QDate d2(2015,10, 10);
-    QDate d3(2015, 11, 11);
-    Duree d1(1,0);
-    Tache& t=m.ajouterTache("1", titreTache->text(),d1,d2, d3);
-
-    QMessageBox::information(this, "Enregistrement de la tache", t.getTitre());*/
-
-}
 
 void MainWindow::ajouterProjet()
 {
