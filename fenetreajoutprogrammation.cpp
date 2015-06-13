@@ -67,7 +67,7 @@ void FenetreAjoutProgTache::saveProg(){
     else if(idTache->currentText().isEmpty()){
         QMessageBox::warning(this, "Erreur","Rentrer une tache");
     }
-    else if (dateHeure<projet->getDispo() || dateHeure>projet->getEcheance()){
+    else if (dateHeure < projet->getDispo() || dateHeure > projet->getEcheance()){
         QMessageBox::warning(this, "Erreur","Date incompatible avec les dates du projet");
         dateHeureTache->setDateTime(QDateTime::currentDateTime());
     }
@@ -79,7 +79,7 @@ void FenetreAjoutProgTache::saveProg(){
         this->close();
         }
         catch(AgendaException& e){
-            QMessageBox::warning(this, "Erreur","Ajout impossible");
+            QMessageBox::warning(this, "Erreur",e.getInfo());
         }
     }
 }

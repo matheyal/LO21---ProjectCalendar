@@ -56,8 +56,8 @@ FenetreUnitaire::FenetreUnitaire(QMainWindow* parent) : QMainWindow(parent)
 
     QObject::connect(idProjet, SIGNAL(currentIndexChanged(int)), this, SLOT(load()));
     QObject::connect(enregistrerUnitaire, SIGNAL(clicked()), this, SLOT(enregistrerTacheUnitaire()));
-    QObject::connect(dispoUnitaire, SIGNAL(dateChanged(const QDate)), this, SLOT(checkDate(const QDate&)));
-    QObject::connect(echeanceUnitaire, SIGNAL(dateChanged(const QDate&)), this, SLOT(checkDate(const QDate&)));
+    QObject::connect(dispoUnitaire, SIGNAL(dateTimeChanged(const QDate)), this, SLOT(checkDate(const QDate&)));
+    QObject::connect(echeanceUnitaire, SIGNAL(dateTimeChanged(const QDate&)), this, SLOT(checkDate(const QDate&)));
     QObject::connect(quitterUnitaire, SIGNAL(clicked()), this, SLOT(close()));
     QObject::connect(idUnitaire, SIGNAL(textChanged(QString)), this, SLOT(checkModifier()));
     QObject::connect(titreUnitaire, SIGNAL(textChanged(QString)), this, SLOT(checkModifier()));

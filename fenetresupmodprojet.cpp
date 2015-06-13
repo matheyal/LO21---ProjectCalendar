@@ -49,8 +49,8 @@ FenetreSupModProjet::FenetreSupModProjet(QMainWindow *parent) : QMainWindow(pare
     QObject::connect(ann, SIGNAL(clicked()), this, SLOT(load()));
     QObject::connect(supp, SIGNAL(clicked()), this, SLOT(supprimer()));
     QObject::connect(supp, SIGNAL(clicked()), this, SLOT(close()));
-    QObject::connect(dispoProjet, SIGNAL(dateChanged(const QDateTime)), this, SLOT(checkDate(const QDateTime&)));
-    QObject::connect(echeanceProjet, SIGNAL(dateChanged(const QDateTime&)), this, SLOT(checkDate(const QDateTime&)));
+    QObject::connect(dispoProjet, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkDate(const QDateTime&)));
+    QObject::connect(echeanceProjet, SIGNAL(dateTimeChanged(const QDateTime&)), this, SLOT(checkDate(const QDateTime&)));
 
     groupeNouveauProjet = new QGroupBox("Rentrer un nouveau projet dans la base de donnee", this);
     groupeNouveauProjet->setLayout(layoutNouveauProjet);

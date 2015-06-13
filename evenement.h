@@ -12,6 +12,8 @@
 using namespace std;
 using namespace TIME;
 
+class Tache;
+
 /*! \class Evenement
    * \brief classe representant les evenements.
    *
@@ -157,6 +159,8 @@ public:
     {
         return dispo<e.dispo && echeance<e.echeance;
     }
+
+    virtual const vector<Tache*>* getTachesPrecedentes() const = 0;
 
 };
 

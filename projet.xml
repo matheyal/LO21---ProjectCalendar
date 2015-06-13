@@ -122,6 +122,33 @@
                 </tache>
             </taches>
         </projet>
+        <projet>
+            <identificateur>precedence</identificateur>
+            <titre>Test ajout programmation avec precedence</titre>
+            <description>blabla</description>
+            <disponibilite>2015-06-13T16:47:03</disponibilite>
+            <echeance>2018-06-13T16:47:03</echeance>
+            <taches>
+                <tache preemptive="false" composite="false" unitaire="true">
+                    <identificateur>tache1</identificateur>
+                    <titre>tache1</titre>
+                    <disponibilite>2015-06-13T16:48:41</disponibilite>
+                    <echeance>2017-06-13T16:46:41</echeance>
+                    <duree>120</duree>
+                    <programmation>
+                        <date>2015-06-14T10:00:58</date>
+                        <heure>10H00</heure>
+                    </programmation>
+                </tache>
+                <tache preemptive="false" composite="false" unitaire="true">
+                    <identificateur>tache2</identificateur>
+                    <titre>tache2</titre>
+                    <disponibilite>2015-06-13T16:47:03</disponibilite>
+                    <echeance>2016-06-13T16:47:03</echeance>
+                    <duree>120</duree>
+                </tache>
+            </taches>
+        </projet>
     </projets>
     <precedences>
         <precedence id_projet="1" id_tache="3">
@@ -130,6 +157,9 @@
         </precedence>
         <precedence id_projet="composition" id_tache="tacheDurée">
             <id_precedence>compo</id_precedence>
+        </precedence>
+        <precedence id_projet="precedence" id_tache="tache2">
+            <id_precedence>tache1</id_precedence>
         </precedence>
     </precedences>
     <composites>

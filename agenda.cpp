@@ -1,6 +1,4 @@
 #include "agenda.h"
-#include "programmation.h"
-#include "calendar.h"
 
 Agenda::Handler Agenda::handler=Agenda::Handler();
 Agenda::Agenda(): progs(0){}
@@ -20,6 +18,22 @@ Programmation& Agenda::ajouterProg(Evenement* e, const QDateTime& d, const Horai
     if (trouverProgrammation(e)) throw AgendaException("erreur, tache deja existante dans le projet");
     if (e->getDate()<d && d<e->getEcheance()){
         if(e->getStatus()==false){
+            //on vérifie qu'une tache precédente n'est pas programmée avant la tache qu'on programme
+            const vector<Tache*>* preced = e->getTachesPrecedentes();
+            if (preced){ //Si l'événement a des precedences
+                for(vector<Tache*>::const_iterator it = preced->begin() ; it != preced->end() ; ++it){
+                    if((*it)->getStatus()){//Si la précédence est programmée
+                        //On vérifie la cohérence des dates
+                        Programmation* prog = trouverProgrammation(*it);
+                        if(prog->getDate() > d)
+                            throw AgendaException("Impossible de programmer une tache avant de ses tâches précédentes");
+                        else if (prog->getDate() == d && h < prog->getHoraire())
+                            throw AgendaException("Impossible de programmer une tache avant de ses tâches précédentes");
+                    }
+                }
+            }
+            //L'événement n'est pas encore programmé et la date choisie est cohérente avec ses taches précédentes.
+            //On peut créer la programmation
             Programmation* newt=new Programmation(d,h,e);
             e->setEffectue(true);
             addItem(newt);

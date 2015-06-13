@@ -13,6 +13,7 @@ using namespace std;
 #include "timing.h"
 #include "programmation.h"
 #include "evenement.h"
+#include "tache.h"
 
 using namespace TIME;
 

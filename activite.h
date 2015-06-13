@@ -150,6 +150,8 @@ public:
          */
     virtual void supprimerParticipant(const QString & ){};
 
+    const vector<Tache*>* getTachesPrecedentes() const{return 0;}
+
 };
 
 
