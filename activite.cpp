@@ -7,12 +7,10 @@ void Reunion::ajouterParticipant(const QString & parti){
 }
 
 void Reunion::supprimerParticipant(const QString & parti){
-    vector<QString>::iterator ite = participants.begin();
-    while(ite != participants.end()){
-        if((*ite) == parti){
-            participants.erase(ite);
+    for(std::size_t i=0;i<participants.size();++i){
+        if(participants[i] == parti){
+            participants.erase(participants.begin()+i);
             return;
         }
-        ++ite;
     }
 }

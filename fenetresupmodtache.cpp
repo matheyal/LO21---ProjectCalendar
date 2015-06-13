@@ -96,6 +96,7 @@ void FenetreSupModTache::load(){
         supprimerPrecedence->clear();
         supprimerPrecedence->addItem("");
         supprimerPrecedence->setEnabled(true);
+        dureeTache->clear();
         mod->setEnabled(true);
         ann->setEnabled(true);
         supp->setEnabled(true);
@@ -111,13 +112,10 @@ void FenetreSupModTache::load(){
         }
         if (typeid(*(pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())))==typeid(TacheUnitaire)){
             QTime time(pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())->getDuree().getDureeEnHeures(), pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())->getDuree().getDureeEnMinutes());
-            supprimerSousTache->clear();
             dureeTache->setEnabled(true);
             dureeTache->setTime(time);
         }
         if (typeid(*(pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())))==typeid(TacheComposite)){
-            dureeTache->clear();
-            dureeTache->setDisabled(true);
             supprimerSousTache->setEnabled(true);
             for(vector<Tache*>::const_iterator it = (*pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())->getSousTaches()).begin(); it != (*pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText())->getSousTaches()).end(); ++it){
                 supprimerSousTache->addItem((*it)->getId());
