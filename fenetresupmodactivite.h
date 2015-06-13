@@ -27,9 +27,8 @@ private:
     QTimeEdit *dureeActivite;
     QLineEdit *lieuActivite;
     QLineEdit *personne;
-    QLineEdit *participant;
     QLineEdit *ajoutParticipant;
-    QLineEdit *supprimerParticipant;
+    QComboBox *supprimerParticipant;
 
     QPushButton *supp;
     QPushButton* ann;

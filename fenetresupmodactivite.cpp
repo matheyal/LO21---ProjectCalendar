@@ -24,10 +24,8 @@ FenetreSupModActivite::FenetreSupModActivite(QMainWindow *parent) : QMainWindow(
     lieuActivite->setDisabled(true);
     personne = new QLineEdit;
     personne->setDisabled(true);
-    supprimerParticipant = new QLineEdit;
+    supprimerParticipant = new QComboBox;
     supprimerParticipant->setDisabled(true);
-    participant = new QLineEdit;
-    participant->setDisabled(true);
     ajoutParticipant = new QLineEdit;
     ajoutParticipant->setDisabled(true);
     mod = new QPushButton("Modifier");
@@ -45,7 +43,6 @@ FenetreSupModActivite::FenetreSupModActivite(QMainWindow *parent) : QMainWindow(
     layout21Form->addRow("Duree", dureeActivite);
     layout21Form->addRow("Lieu", lieuActivite);
     layout21Form->addRow("Interlocuteur", personne);
-    layout21Form->addRow("Participants", participant);
     layout21Form->addRow("Ajouter un participant", ajoutParticipant);
     layout21Form->addRow("Supprimer un participant", supprimerParticipant);
 
@@ -83,12 +80,11 @@ void FenetreSupModActivite::load(){
         ActiviteManager& am= ActiviteManager::getInstance();
         if(am.trouverActivite(idActivite->currentText())){
             QTime time(am.trouverActivite(idActivite->currentText())->getDuree().getDureeEnHeures(), am.trouverActivite(idActivite->currentText())->getDuree().getDureeEnMinutes());
-            participant->setDisabled(true);
-            participant->clear();
             ajoutParticipant->setDisabled(true);
             ajoutParticipant->clear();
             supprimerParticipant->setDisabled(true);
             supprimerParticipant->clear();
+            supprimerParticipant->addItem("");
             personne->setDisabled(true);
             mod->setEnabled(true);
             ann->setEnabled(true);
@@ -106,7 +102,9 @@ void FenetreSupModActivite::load(){
             if (typeid(*(am.trouverActivite(idActivite->currentText())))==typeid(Reunion)){
                 ajoutParticipant->setEnabled(true);
                 supprimerParticipant->setEnabled(true);
-                participant->setText(am.trouverActivite(idActivite->currentText())->toString());
+                for(vector<QString>::const_iterator it = (am.trouverActivite(idActivite->currentText())->getParticipants()).begin(); it != (am.trouverActivite(idActivite->currentText())->getParticipants()).end(); ++it){
+                    supprimerParticipant->addItem(*it);
+                }
                 personne->setDisabled(true);
                 personne->clear();
             }
@@ -115,7 +113,6 @@ void FenetreSupModActivite::load(){
                 ajoutParticipant->clear();
                 supprimerParticipant->setDisabled(true);
                 supprimerParticipant->clear();
-                participant->clear();
                 personne->setEnabled(true);
                 personne->setText(am.trouverActivite(idActivite->currentText())->getInterlocuteur());
             }
@@ -133,7 +130,6 @@ void FenetreSupModActivite::load(){
             ajoutParticipant->setDisabled(true);
             supprimerParticipant->clear();
             supprimerParticipant->setDisabled(true);
-            participant->clear();
         }
 }
 
@@ -146,7 +142,7 @@ void FenetreSupModActivite::load(){
         am.trouverActivite(idActivite->currentText())->setDuree(du);
         if (typeid(*(am.trouverActivite(idActivite->currentText())))==typeid(Reunion)){
             am.trouverActivite(idActivite->currentText())->ajouterParticipant(ajoutParticipant->text());
-            am.trouverActivite(idActivite->currentText())->supprimmerParticipant(supprimerParticipant->text());
+            am.trouverActivite(idActivite->currentText())->supprimerParticipant(supprimerParticipant->currentText());
         }
         if (typeid(*(am.trouverActivite(idActivite->currentText())))==typeid(Rdv)){
             am.trouverActivite(idActivite->currentText())->setInterlocuteur(personne->text());

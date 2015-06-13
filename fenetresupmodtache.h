@@ -28,8 +28,6 @@ private:
     QDateTimeEdit *echeanceTache;
 
     QTimeEdit *dureeTache;
-    QLineEdit *precedentes;
-    QLineEdit *soustaches;
 
     QPushButton *supp;
     QPushButton* ann;
