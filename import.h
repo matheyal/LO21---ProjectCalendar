@@ -4,16 +4,16 @@
 
 /*!
  * \file import.h
- * \brief Fichier gerant l'import de données à partir d'un fichier au format XML
+ * \brief Fichier définissant les classes ImportStrategy et ImportXML permettant l'import d'un calendrier
  */
 
 #include "qt.h"
 
 /*! \class ImportStrategy
-   * \brief classe permettant ...
+   * \brief Classe définissant l'interface d'import du calendrier
    *
    *  Classe abstraite.
-   *  Utilisation du design pattern Strategy
+   *  Implémente le design pattern Strategy
    */
 class ImportStrategy {
 public: 
@@ -22,13 +22,15 @@ public:
          *
          *  Methode virtuelle pure mise en place pour l'application du design pattern strategy
          *
-         *  \param f : ...
+         *  \param f : nom du fichier de destination
          */
     virtual void load (const QString& f) = 0;
 };
 
 /*! \class ImportXML
-   * \brief classe permettant l'import des evenements à partir d'un fichier XML
+   * \brief classe permettant l'import d'un calendrier depuis un fichier XML
+   *
+   * Implémentation de l'interface d'import ImportStrategy pour l'import depuis un fichier XML
    *
    */
 class ImportXML : public ImportStrategy{
@@ -36,9 +38,9 @@ public:
     /*!
          *  \brief load
          *
-         *  Redéfinition de la méthode load pour ...
+         *  Redéfinition de la méthode load pour l'import depuis un fichier XML
          *
-         *  \param f : ...
+         *  \param f : nom du fichier de destination
          */
     void load(const QString &f);
 };
