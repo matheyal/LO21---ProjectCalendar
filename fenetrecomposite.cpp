@@ -5,6 +5,7 @@
 FenetreComposite::FenetreComposite(QMainWindow *parent) : QMainWindow(parent)
 {
     tacheComposite = new QWidget;
+    setWindowTitle("Ajouter une tache composite");
 
     titreComposite = new QLineEdit;
     titreComposite->setDisabled(true);
@@ -16,6 +17,10 @@ FenetreComposite::FenetreComposite(QMainWindow *parent) : QMainWindow(parent)
     idComposite->setDisabled(true);
     idProjet = new QComboBox(this);
     idProjet->addItem("");
+    dispoProjet= new QDateTimeEdit;
+    echeanceProjet= new QDateTimeEdit;
+    dispoProjet->setReadOnly(true);
+    echeanceProjet->setReadOnly(true);
     ProjetManager& pm=ProjetManager::getInstance();
     for(ProjetManager::projets_iterator it = pm.begin_projets() ; it != pm.end_projets() ; ++it){
         idProjet->addItem((*it)->getId());
@@ -28,6 +33,8 @@ FenetreComposite::FenetreComposite(QMainWindow *parent) : QMainWindow(parent)
 
     layoutTitreProjetDispoEcheanceDuree = new QFormLayout;
     layoutTitreProjetDispoEcheanceDuree->addRow("Projet", idProjet);
+    layoutTitreProjetDispoEcheanceDuree->addRow("Dispo projet", dispoProjet);
+    layoutTitreProjetDispoEcheanceDuree->addRow("Echeance projet", echeanceProjet);
     layoutTitreProjetDispoEcheanceDuree->addRow("Composite : ", idSousCompo);
     layoutTitreProjetDispoEcheanceDuree->addRow("ID", idComposite);
     layoutTitreProjetDispoEcheanceDuree->addRow("Titre", titreComposite);
@@ -142,21 +149,36 @@ void FenetreComposite::checkDate(const QDateTime& d)
 
 void FenetreComposite::load()
 {
-    idSousCompo->setEnabled(true);
-    titreComposite->setEnabled(true);
-    echeanceComposite->setEnabled(true);
-    dispoComposite->setEnabled(true);
-    idComposite->setEnabled(true);
-    idSousCompo->clear();
-    idSousCompo->addItem("");
+
     ProjetManager& pm= ProjetManager::getInstance();
     Projet* projet = pm.trouverProjet(idProjet->currentText());
+    idComposite->clear();
+    idSousCompo->clear();
+    titreComposite->clear();
+    echeanceComposite->setDateTime(QDateTime::currentDateTime());
+    dispoComposite->setDateTime(QDateTime::currentDateTime());
+
     if(projet)
     {
+        idSousCompo->setEnabled(true);
+        titreComposite->setEnabled(true);
+        echeanceComposite->setEnabled(true);
+        dispoComposite->setEnabled(true);
+        idComposite->setEnabled(true);
+        idSousCompo->clear();
+        idSousCompo->addItem("");
+        dispoProjet->setDateTime(projet->getDispo());
+        echeanceProjet->setDateTime(projet->getEcheance());
         for(Projet::taches_iterator it = projet->begin_taches() ; it != projet->end_taches() ; ++it){
             if(typeid(**it) == typeid(TacheComposite)){
                 idSousCompo->addItem((*it)->getId());
             }
         }
+    }else{
+        dispoComposite->setDisabled(true);
+        idComposite->setDisabled(true);
+        idSousCompo->setDisabled(true);
+        echeanceComposite->setDisabled(true);
+        titreComposite->setDisabled(true);
     }
 }

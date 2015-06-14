@@ -3,6 +3,8 @@
 FenetrePrecedence::FenetrePrecedence(QMainWindow* parent):QMainWindow(parent)
 {
     fenetrePrecedence = new QWidget;
+    setWindowTitle("Ajouter une relation de précédence");
+
 
     projets = new QComboBox;
     projets->addItem("");

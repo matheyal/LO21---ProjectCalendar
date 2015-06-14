@@ -4,6 +4,7 @@
 FenetreProjet::FenetreProjet(QMainWindow *parent) : QMainWindow(parent)
 {
     fenetreProjet = new QWidget;
+    setWindowTitle("Ajouter un Projet");
 
     idProjet = new QLineEdit;
     titreProjet = new QLineEdit;

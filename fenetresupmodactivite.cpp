@@ -4,6 +4,7 @@
 FenetreSupModActivite::FenetreSupModActivite(QMainWindow *parent) : QMainWindow(parent)
 {
     fenetreSupModActivite = new QWidget;
+    setWindowTitle("Supprimer ou modifier une activite");
 
     idActivite = new QComboBox(this);
     idActivite->addItem("");

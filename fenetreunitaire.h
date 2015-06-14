@@ -34,6 +34,8 @@ private:
     QComboBox* idProjet;/*!< Liste déroulante permettant de renseigner le projet dans lequel on veut ajouter la tache unitaire*/
     QComboBox* idComposite; /*!< Liste déroulante permettant de renseigner la tache composite dont on veut créer en tant que sous tache une tache unitaire(on peut ne sélectionner aucune tache si on souhaite créer la tache unitaire directement dans le projet)*/
 
+    QDateTimeEdit *dispoProjet;/*!< Champs datetime permettant de renseigner la date et l'heure de disponibilité du projet*/
+    QDateTimeEdit *echeanceProjet;/*!< Champs datetime permettant de renseigner la date et l'heure d'échéance du projet*/
     QDateTimeEdit *dispoUnitaire;/*!< Champs datetime permettant de renseigner la date et l'heure de disponibilité de la tache unitaire*/
     QDateTimeEdit *echeanceUnitaire; /*!< Champs datetime permettant de renseigner la date et l'heure d'échéance de la tache unitaire*/
     QTimeEdit* dureeUnitaire;/*!< Champs durée permettant de renseigner la durée de la tache unitaire*/

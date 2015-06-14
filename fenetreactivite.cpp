@@ -4,6 +4,8 @@
 FenetreActivite::FenetreActivite(QMainWindow *parent) : QMainWindow(parent)
 {
     fenetreActivite = new QWidget;
+    setWindowTitle("Ajouter une activité");
+
 
     idActivite = new QLineEdit;
     reunion = new QCheckBox;
