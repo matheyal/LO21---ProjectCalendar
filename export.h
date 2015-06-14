@@ -12,7 +12,7 @@
    * \brief classe permettant ...
    *
    *  Classe abstraite.
-   *  Utilisation du design pattern Strategy
+   *  Implémentation design pattern Strategy
    */
 class ExportStrategy {
 public:

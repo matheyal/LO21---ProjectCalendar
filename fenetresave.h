@@ -19,7 +19,7 @@
 class FenetreSave : public QFileDialog{
     Q_OBJECT
 public:
-    FenetreSave();
+    FenetreSave(); /*< Constructeur : affiche une fentere de choix du fichier de sauvegarde puis exporte le calendrier dans ce fichier avec la méthode save() de ProjetManager */
 };
 
 
