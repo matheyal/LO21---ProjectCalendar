@@ -80,13 +80,14 @@ void FenetreUnitaire::enregistrerTacheUnitaire()
 {
     Duree du(dureeUnitaire->time().hour(), dureeUnitaire->time().minute());
     ProjetManager& pm = ProjetManager::getInstance();
-    if(pm.trouverProjet(idProjet->currentText())->trouverTache(idUnitaire->text()))
+    Projet* projet = pm.trouverProjet(idProjet->currentText());
+    if(projet->trouverTache(idUnitaire->text()))
     {
         QMessageBox::warning(this, "erreur","sauvegarde impossible, tache deja existante");
         dispoUnitaire->setDateTime(QDateTime::currentDateTime());
         echeanceUnitaire->setDateTime(QDateTime::currentDateTime());
     }
-    else if(pm.trouverProjet(idProjet->currentText())->getEcheance()<echeanceUnitaire->dateTime())
+    else if(projet->getEcheance()<echeanceUnitaire->dateTime())
     {
         QMessageBox::warning(this, "erreur","sauvegarde impossible, date d'echeance de la tache superieure a la date d'echeance du projet");
         dispoUnitaire->setDateTime(QDateTime::currentDateTime());
@@ -96,17 +97,17 @@ void FenetreUnitaire::enregistrerTacheUnitaire()
     {
         if(idComposite->currentText()!="")
         {
-            if(pm.trouverProjet(idProjet->currentText())->getTache(idComposite->currentText()).getEcheance()<echeanceUnitaire->dateTime())
+            if(projet->getTache(idComposite->currentText()).getEcheance()<echeanceUnitaire->dateTime())
             {
                 QMessageBox::warning(this, "erreur", "date echeance de la composite inferieure a l'echeance de la tache que vous ajoutez");
             }
-            else if(pm.trouverProjet(idProjet->currentText())->getTache(idComposite->currentText()).getDate()>dispoUnitaire->dateTime())
+            else if(projet->getTache(idComposite->currentText()).getDate()>dispoUnitaire->dateTime())
             {
                 QMessageBox::warning(this, "erreur", "date dispo de la composite superierue a la dispo que la date que vous ajoutez");
             }
             else {
-            pm.trouverProjet(idProjet->currentText())->ajouterTacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), du);
-            pm.trouverProjet(idProjet->currentText())->getTache(idComposite->currentText()).ajouterSousTache(pm.trouverProjet(idProjet->currentText())->trouverTache(idUnitaire->text()));
+            projet->ajouterTacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), du);
+            projet->getTache(idComposite->currentText()).ajouterSousTache(projet->trouverTache(idUnitaire->text()));
             idUnitaire->setText("");
             idComposite->setCurrentIndex(0);
             idProjet->setCurrentIndex(0);
@@ -119,29 +120,20 @@ void FenetreUnitaire::enregistrerTacheUnitaire()
         }
         else
         {
-            if(pm.trouverProjet(idProjet->currentText())->getTache(idComposite->currentText()).getEcheance()<echeanceUnitaire->dateTime())
-            {
-                QMessageBox::warning(this, "erreur", "date echeance de la composite inferieure a l'echeance de la tache que vous ajoutez");
-            }
-            else if(pm.trouverProjet(idProjet->currentText())->getTache(idComposite->currentText()).getDate()>dispoUnitaire->dateTime())
-            {
-                QMessageBox::warning(this, "erreur", "date dispo de la composite superieure a la dispo de la date que vous ajoutez");
-            }
-            else{
-            pm.trouverProjet(idProjet->currentText())->ajouterTachePreemptable(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), du);
+            projet->ajouterTachePreemptable(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), du);
             idUnitaire->setText("");
             idProjet->setCurrentIndex(0);
             titreUnitaire->setText("");
             dispoUnitaire->setDateTime(QDateTime::currentDateTime());
             echeanceUnitaire->setDateTime(QDateTime::currentDateTime());
-            dureeUnitaire->clear();}
+            dureeUnitaire->clear();
         }
 
     }
     else if(idComposite->currentText()!="")
     {
-        pm.trouverProjet(idProjet->currentText())->ajouterTacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), du);
-        pm.trouverProjet(idProjet->currentText())->getTache(idComposite->currentText()).ajouterSousTache(pm.trouverProjet(idProjet->currentText())->trouverTache(idUnitaire->text()));
+        projet->ajouterTacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), du);
+        projet->getTache(idComposite->currentText()).ajouterSousTache(projet->trouverTache(idUnitaire->text()));
         idUnitaire->setText("");
         idComposite->setCurrentIndex(0);
         idProjet->setCurrentIndex(0);
@@ -153,7 +145,7 @@ void FenetreUnitaire::enregistrerTacheUnitaire()
     }
     else
     {
-        pm.trouverProjet(idProjet->currentText())->ajouterTacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), du);
+        projet->ajouterTacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), du);
         idUnitaire->setText("");
         idProjet->setCurrentIndex(0);
         titreUnitaire->setText("");
