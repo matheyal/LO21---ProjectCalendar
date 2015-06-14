@@ -111,7 +111,9 @@ FenetreAjoutProgActivite::FenetreAjoutProgActivite(QMainWindow *parent):QMainWin
     idActivite = new QComboBox;
     idActivite->addItem("");
     for(ActiviteManager::activites_iterator it = AM.begin_activites() ; it != AM.end_activites() ; ++it){
-        idActivite->addItem((*it)->getId());
+        if(!(*it)->getStatus()){
+            idActivite->addItem((*it)->getId());
+        }
     }
 
     titreActivite = new QLineEdit;
