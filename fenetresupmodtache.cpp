@@ -147,7 +147,6 @@ void FenetreSupModTache::modifier(){
     tache->setTitre(titreTache->text());
     tache->setDateDisponibilite(dispoTache->dateTime());
     tache->setEcheance(echeanceTache->dateTime());
-    tache->setDuree(du);
     tache->supprimerPrecedence(supprimerPrecedence->currentText());
     if (typeid(*tache)==typeid(TacheComposite)){
         tache->supprimerSousTache(supprimerSousTache->currentText());

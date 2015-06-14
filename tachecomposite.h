@@ -100,7 +100,14 @@ public:
          */
     const Duree getDuree() const{return Duree(0,0);}
 
-
+    /*!
+         *  \brief setDuree
+         *
+         *  Définition de la méthode virtuelle pure de la classe Tache, pour pouvoir instancier TacheCompos
+         *
+         *  \param d : la duree avec laquelle on veut initialiser la duree de l'activité
+         */
+    virtual void setDuree(Duree d) {d.getHeures();}
 
     /*!
          *  \brief trouverTache
@@ -120,19 +127,22 @@ public:
         */
     void commencer();
 
+    /*!
+         *  \brief begin_soustaches
+         *
+         *  Retourne un soustaches_iterator sur la première sous tache
+         *
+         */
     soustaches_iterator begin_soustaches() const{return soustaches_iterator(soustaches.begin());}
+
+    /*!
+         *  \brief begin_soustaches
+         *
+         *  Retourne un soustaches_iterator sur la première sous tache
+         *
+         */
     soustaches_iterator end_soustaches() const {return soustaches_iterator(soustaches.end());}
 };
-
-/*!
-     *  \brief operator<<
-     *
-     *  Surcharge de l'opérator << pour permettre d'afficher les caractéristiques d'une tache composite sur le flux de sortie.
-     *
-     *  \param f : Flux sur lequel on écrit
-     *  \param t : Tache composite que l'on souhaite afficher
-     *
-     */
 
 #endif // TACHECOMPOSITE
 

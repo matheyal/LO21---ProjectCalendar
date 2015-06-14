@@ -14,6 +14,10 @@
 
 class Projet;/*!< Déclaration au préalable de la classe Projet pour pouvoir l'utiliser dans la classe Tache*/
 
+/*! \class soustaches_iterator
+   * \brief Iterator sur les sous taches d'une TacheComposite
+   *
+   */
 class soustaches_iterator : public vector<Tache*>::const_iterator{
 public:
     soustaches_iterator():vector<Tache*>::const_iterator(){}
@@ -112,8 +116,22 @@ public:
         */
     const Duree getDuree() const = 0;
 
+    /*!
+        *  \brief withPrecedence
+        *
+        *  Retourne true si la tache a des precedences, false sinon.
+        *
+        */
+    bool withPrecedence() const { return !tachesPrecedentes.empty();}
 
-    virtual void setDuree(Duree ) {}
+    /*!
+         *  \brief setDuree
+         *
+         *  Méthode virtuelle pure définissant l'interface pour la modification de la durée d'une TacheUnitaire
+         *
+         *  \param d : la duree avec laquelle on veut initialiser la duree de l'activité
+         */
+    virtual void setDuree(Duree d) = 0;
 
     /*!
         *  \brief ajouterSousTache()
@@ -121,32 +139,58 @@ public:
         *  Méthode virtuelle pour permettre l'appel de ajouterSousTache() sur une Tache
         *
         */
-    virtual void ajouterSousTache(Tache*){};
+    virtual void ajouterSousTache(Tache*){}
 
+    /*!
+         *  \brief begin_soustaches
+         *
+         *  Méthode virtuelle créant une interface pour accéder à begin_soustaches dans la classe fille TacheUnitaire
+         *  Retourne un soustaches_iterator vide
+         *
+         */
     virtual soustaches_iterator begin_soustaches() const{return soustaches_iterator();}
+
+    /*!
+         *  \brief end_soustaches
+         *
+         *  Méthode virtuelle créant une interface pour accéder à end_soustaches dans la classe fille TacheUnitaire
+         *  Retourne un soustaches_iterator vide
+         *
+         */
     virtual soustaches_iterator end_soustaches() const {return soustaches_iterator();}
 
     /*!
-        *  \brief getTachesPrecedentes
-        *
-        *  Accesseur en lecture sur le tableau de précédente de la classe Tache
-        *
-        */
-
+         *  \brief begin_precedences
+         *
+         *  Retourne un precedences_iterator sur la première tache précédente
+         *
+         */
     precedences_iterator begin_precedences() const {return precedences_iterator(tachesPrecedentes.begin());}
-    precedences_iterator end_precedences() const {return precedences_iterator(tachesPrecedentes.end());}
 
-    bool withPrecedence() const { return !tachesPrecedentes.empty();}
+    /*!
+         *  \brief end_precedences
+         *
+         *  Retourne un precedences_iterator sur la dernière tache précédente
+         *
+         */
+    precedences_iterator end_precedences() const {return precedences_iterator(tachesPrecedentes.end());}
 
     /*!
         *  \brief addPrecedence
         *
-        *  Méthode permettant d'ajouter une précédence à une tache
+        *  Méthode permettant d'ajouter une précédence à la tache
         *
         *  \param t : pointeur sur la tache à ajouter en précédence
         */
     void addPrecedence(Tache* t){addItem(t);}
 
+    /*!
+        *  \brief supprimerPrecedence
+        *
+        *  Méthode permettant de supprimer une précédence de la tache
+        *
+        *  \param id : id de la tache à supprimer
+        */
     void supprimerPrecedence(const QString& id){
         for (size_t i=0;i<tachesPrecedentes.size();++i)
             if(tachesPrecedentes[i]->getId()==id)

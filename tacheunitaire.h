@@ -69,16 +69,5 @@ public:
 
 };
 
-/*!
-     *  \brief operator<<
-     *
-     *  Surcharge de l'opérator << pour permettre d'afficher les caractéristiques d'une tache unitaire sur le flux de sortie.
-     *
-     *  \param fout : Flux sur lequel on écrit
-     *  \param t : Tache unitaire que l'on souhaite afficher
-     *
-     */
-
-
 #endif // TACHEUNITAIRE
 
