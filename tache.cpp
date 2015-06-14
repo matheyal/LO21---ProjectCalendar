@@ -20,7 +20,3 @@ void Tache::addItem(Tache *t)
     tachesPrecedentes.push_back(t);
 }
 
-void Tache::afficherPrecedence()
-{
-    for(std::size_t i=0; i<tachesPrecedentes.size(); i++) tachesPrecedentes[i]->afficher(std::cout);
-}

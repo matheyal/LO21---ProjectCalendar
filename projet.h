@@ -12,7 +12,6 @@
 #include "tachepreemptable.h"
 #include "tache.h"
 #include "qt.h"
-#include "calendar.h"
 #include "timing.h"
 
 /*! \class ProjetException
@@ -89,7 +88,8 @@ private:
           *  Destructeur privé de la classe Projet
           */
      ~Projet();
-
+     Projet(const Projet&);
+     Projet& operator=(const Projet&);
      friend class ProjetManager; /*!< Classe ProjetManager amie de Projet : seul ProjetManager pourra construire des programmations*/
 
 public:
@@ -154,13 +154,6 @@ public:
 
      void supprimerTache(const QString& ident);
 
-
-     /*!
-          *  \brief afficherTaches
-          *
-          *  Parcours du tableau des taches pour afficher toutes les taches reliées au projet en question
-          */
-     void afficherTaches() const;
 
      /*!
           *  \brief getTache
@@ -266,14 +259,13 @@ public:
           */
      void setEcheance(const QDateTime& ech){echeance  = ech;}
 
-     /*!
-          *  \brief getTaches
-          *
-          *  Accesseur en lecture du tableau de taches d'un projet
-          *
-          */
-     const vector<Tache*>* getTaches() const{return &taches;}
-
+     class taches_iterator : public vector<Tache*>::const_iterator{
+     public:
+         taches_iterator():vector<Tache*>::const_iterator(){}
+         taches_iterator(vector<Tache*>::const_iterator it):vector<Tache*>::const_iterator(it){}
+     };
+     taches_iterator begin_taches() const {return taches_iterator(taches.begin());}
+     taches_iterator end_taches() const{return taches_iterator(taches.end());}
 };
 
 /*!

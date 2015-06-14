@@ -161,29 +161,6 @@ public:
          */
     Projet* trouverProjet(const QString &id) const;
 
-    /*!
-         *  \brief afficherProjets
-         *
-         *  Affiche l'ensemble des projets du projetManager
-         *
-         */
-    void afficherProjets() const;
-
-    /*!
-         *  \brief size
-         *
-         *  Renvoie le nombre de projets contenus dans le tableau de projets du ProjetManager
-         *
-         */
-    unsigned int size() const {return projets.size();}
-
-    /*!
-         *  \brief getProjets
-         *
-         *  Accesseurs en lecture sur le tableau de projets du ProjetManager
-         *
-         */
-    const vector<Projet*>* getProjets() const{return &projets;}
 
     /*!
          *  \brief save
@@ -196,6 +173,14 @@ public:
     void save(ExportStrategy *strategy ,const QString& f){strategy->save(f);}
 
     void load(ImportStrategy* strategy, const QString& f){strategy->load(f);}
+
+    class projets_iterator : public vector<Projet*>::const_iterator{
+    public:
+        projets_iterator():vector<Projet*>::const_iterator(){}
+        projets_iterator(typename vector<Projet*>::const_iterator it):vector<Projet*>::const_iterator(it){}
+    };
+    projets_iterator begin_projets() const {return projets_iterator(projets.begin());}
+    projets_iterator end_projets() const {return projets_iterator(projets.end());}
 };
 
 #endif // PROJETMANAGER

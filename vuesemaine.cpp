@@ -88,9 +88,8 @@ void VueSemaine::updateVueSemaine(){
     vueSemaine->clearSpans();
 
     //Parcours des programmations pour placer les objets dans la vue
-    Agenda& agenda = Agenda::getInstance();
-    const vector<Programmation*>* progs = agenda.getProgramamtions();
-    for(vector<Programmation*>::const_iterator it = progs->begin(); it != progs->end(); ++it){
+    Agenda& A = Agenda::getInstance();
+    for(Agenda::programmations_iterator it = A.begin_programmations() ; it != A.end_programmations() ; ++it){
         if ((*it)->getDate2() >= date.addDays(-date.dayOfWeek()+1) && (*it)->getDate2() <= date.addDays(-date.dayOfWeek()+7)){
             //Vérifie si la date de la programmation en cours est dans la semaine séléctionnée
             QStandardItem *item = new QStandardItem();

@@ -30,30 +30,6 @@
             </taches>
         </projet>
         <projet>
-            <identificateur>2</identificateur>
-            <titre>projet2</titre>
-            <description>test2.2</description>
-            <disponibilite></disponibilite>
-            <echeance>2015-06-10T00:00:00</echeance>
-            <taches/>
-        </projet>
-        <projet>
-            <identificateur>3</identificateur>
-            <titre>projet3</titre>
-            <description>top mega cool</description>
-            <disponibilite></disponibilite>
-            <echeance>2015-06-10T00:00:00</echeance>
-            <taches/>
-        </projet>
-        <projet>
-            <identificateur>4</identificateur>
-            <titre>projet4</titre>
-            <description>Test de la mort qui tue</description>
-            <disponibilite></disponibilite>
-            <echeance>2015-06-11T00:00:00</echeance>
-            <taches/>
-        </projet>
-        <projet>
             <identificateur>composition</identificateur>
             <titre>composition</titre>
             <description>hehehe</description>
@@ -77,8 +53,8 @@
                     <echeance>2016-06-16T00:00:00</echeance>
                     <duree>90</duree>
                     <programmation>
-                        <date>2015-06-13T00:00:00</date>
-                        <heure>10H30</heure>
+                        <date>2015-06-13T11:30:00</date>
+                        <heure>11H30</heure>
                     </programmation>
                 </tache>
                 <tache preemptive="false" composite="false" unitaire="true">
@@ -91,6 +67,13 @@
                         <date>2015-06-14T11:08:29</date>
                         <heure>11H08</heure>
                     </programmation>
+                </tache>
+                <tache preemptive="false" composite="false" unitaire="true">
+                    <identificateur>newtache</identificateur>
+                    <titre>newtache</titre>
+                    <disponibilite>2015-06-13T23:54:12</disponibilite>
+                    <echeance>2018-06-13T23:53:12</echeance>
+                    <duree>60</duree>
                 </tache>
             </taches>
         </projet>
@@ -126,6 +109,46 @@
                 </tache>
             </taches>
         </projet>
+        <projet>
+            <identificateur>precedence</identificateur>
+            <titre>Test ajout programmation avec precedence</titre>
+            <description>blabla</description>
+            <disponibilite></disponibilite>
+            <echeance>2018-06-13T16:47:03</echeance>
+            <taches>
+                <tache preemptive="false" composite="false" unitaire="true">
+                    <identificateur>tache1</identificateur>
+                    <titre>tache1</titre>
+                    <disponibilite>2015-06-13T16:48:41</disponibilite>
+                    <echeance>2017-06-13T16:46:41</echeance>
+                    <duree>120</duree>
+                    <programmation>
+                        <date>2015-06-14T11:00:00</date>
+                        <heure>11H00</heure>
+                    </programmation>
+                </tache>
+                <tache preemptive="false" composite="false" unitaire="true">
+                    <identificateur>tache2</identificateur>
+                    <titre>tache2</titre>
+                    <disponibilite>2015-06-13T16:47:03</disponibilite>
+                    <echeance>2016-06-13T16:47:03</echeance>
+                    <duree>120</duree>
+                    <programmation>
+                        <date>2015-06-15T10:00:29</date>
+                        <heure>10H00</heure>
+                    </programmation>
+                </tache>
+            </taches>
+        </projet>
+        <projet>
+            <identificateur>OKLM</identificateur>
+            <titre>4h44. Bonne nuit !</titre>
+            <description>Il est 4h44, je pense que j'ai bien bossé :)
+Bonne nuit !</description>
+            <disponibilite></disponibilite>
+            <echeance>2019-06-14T04:44:31</echeance>
+            <taches/>
+        </projet>
     </projets>
     <precedences>
         <precedence id_projet="1" id_tache="3">
@@ -134,6 +157,9 @@
         </precedence>
         <precedence id_projet="composition" id_tache="tacheDurée">
             <id_precedence>compo</id_precedence>
+        </precedence>
+        <precedence id_projet="precedence" id_tache="tache2">
+            <id_precedence>tache1</id_precedence>
         </precedence>
     </precedences>
     <composites>
@@ -170,9 +196,23 @@
             <lieu>Salle de rdv</lieu>
             <interlocuteur>Ta mère</interlocuteur>
             <programmation>
-                <date>2015-06-13T10:52:38</date>
-                <heure>10H52</heure>
+                <date>2015-06-13T08:52:00</date>
+                <heure>08H52</heure>
             </programmation>
+        </activite>
+        <activite reunion="true" rdv="false">
+            <identificateur>Reunion</identificateur>
+            <titre>Reunion de ouf</titre>
+            <disponibilite>2015-06-14T01:34:07</disponibilite>
+            <echeance>2018-06-14T01:34:07</echeance>
+            <duree>0</duree>
+            <lieu>Sartroucity</lieu>
+            <participants>
+                <participant>Alexis</participant>
+                <participant>Aude</participant>
+                <participant>Marceau</participant>
+                <participant>Marie</participant>
+            </participants>
         </activite>
     </activites>
 </projectcalendar>

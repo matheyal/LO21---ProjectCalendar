@@ -12,7 +12,7 @@ void ImportXML::load(const QString& f){
     QFile fin(f);
     // If we can't open it, let's show an error message.
     if (!fin.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        throw CalendarException("Erreur ouverture fichier tâches");
+        throw AgendaException("Erreur ouverture fichier tâches");
     }
     // QXmlStreamReader takes any QIODevice.
     QXmlStreamReader xml(&fin);
@@ -38,7 +38,6 @@ void ImportXML::load(const QString& f){
                             QString description_projet;
                             QDateTime disponibilite_projet;
                             QDateTime echeance_projet;
-                            vector<Tache*> taches_projet;
 
                             xml.readNext();
                             //We're going to loop over the things because the order might change.
@@ -321,6 +320,7 @@ void ImportXML::load(const QString& f){
                                                     participants_activite.push_back(participant);
                                                 }
                                             }
+                                            xml.readNext();
                                         }//Fin while participants
                                     }//Fin if participants
                                     //We've found interlocuteur
@@ -376,7 +376,7 @@ void ImportXML::load(const QString& f){
     // Error handling.
     //qDebug()<<"fin load\n";
     if(xml.hasError()) {
-        throw CalendarException("Erreur lecteur fichier taches, parser xml");
+        throw AgendaException("Erreur lecteur fichier taches, parser xml");
     }
     // Removes any device() or data from the reader * and resets its internal state to the initial state.
     xml.clear();

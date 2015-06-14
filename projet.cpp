@@ -7,13 +7,6 @@ Tache* Projet::trouverTache(const QString& id)const{
     return 0;
 }
 
-void Projet::afficherTaches() const {
-    for(std::size_t i=0;i<taches.size();++i) {
-        std::cout<<"Tache "<<i<<": "<<std::endl;
-        taches[i]->afficher(std::cout);
-        std::cout<<"\n\n";
-    }
-}
 
 
 TacheUnitaire& Projet::ajouterTacheUnitaire(const QString& id, const QString& t, const QDateTime &dispo, const QDateTime &deadline, const Duree &dur, bool b){
@@ -50,7 +43,7 @@ void Projet::supprimerTache(const QString& ident){
         if (ident==taches[i]->getId())
         {
             if (taches[i]->getStatus()){
-                throw CalendarException("erreur, supprimer d'abord la programmation de cette tache");
+                throw ProjetException("erreur, supprimer d'abord la programmation de cette tache");
             }
             taches.erase(taches.begin()+i);
             return;
@@ -60,7 +53,7 @@ void Projet::supprimerTache(const QString& ident){
 
 Tache& Projet::getTache(const QString& id){
     Tache* t=trouverTache(id);
-    if (!t) throw CalendarException("erreur, Projet, tache inexistante");
+    if (!t) throw ProjetException("erreur, Projet, tache inexistante");
     return *t;
 }
 

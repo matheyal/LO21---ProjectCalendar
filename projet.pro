@@ -22,7 +22,6 @@ TEMPLATE = app
 SOURCES += main.cpp \
     agenda.cpp \
     timing.cpp \
-    programmation.cpp \
     evenement.cpp \
     activite.cpp \
     tache.cpp \
@@ -46,7 +45,9 @@ SOURCES += main.cpp \
     fenetresupmodactivite.cpp \
     vuesemaine.cpp \
     fenetresupmodtache.cpp \
-    fenetreajoutprogrammation.cpp
+    fenetreajoutprogrammation.cpp \
+    fenetresupmodprogrammation.cpp \
+    treeview.cpp
 
 HEADERS += \
     agenda.h \
@@ -59,7 +60,6 @@ HEADERS += \
     tachecomposite.h \
     projet.h \
     projetmanager.h \
-    calendar.h \
     tachepreemptable.h \
     qt.h \
     export.h \
@@ -77,4 +77,6 @@ HEADERS += \
     fenetresupmodactivite.h \
     vuesemaine.h \
     fenetresupmodtache.h \
-    fenetreajoutprogrammation.h
+    fenetreajoutprogrammation.h \
+    fenetresupmodprogrammation.h \
+    treeview.h

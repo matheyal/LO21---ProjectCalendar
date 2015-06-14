@@ -21,7 +21,6 @@ class TachePreemptable : public TacheUnitaire {
 private:
     bool enCours; /*!< Booleen permettant de savoir si une tache est en cours d'éxécution ou non */
     Duree reste; /*!< Duree d'éxécution qu'il reste de la tache préemptable */
-public:
 
     /*!
          *  \brief TachePreemptable
@@ -36,11 +35,12 @@ public:
          *
          */
     TachePreemptable(const QString& ident, const QString& t, const QDateTime& d,const QDateTime& ech,const Duree& du, bool b=false):TacheUnitaire(ident,t,d,ech, du,b), enCours(false), reste(getDuree()){std::cout<<" qui est preemptable\n";}
+    ~TachePreemptable(){};
+    TachePreemptable(const TachePreemptable&);
+    TachePreemptable& operator=(const TachePreemptable&);
+    friend class Projet;
+public:
 
-    //Duree getDuree() const{return getDuree();}
-
-    //void afficher(std::ostream& f)const {Evenement::afficher(f);std::cout<<"\nDuree : "<<getDuree();}
-    ~TachePreemptable(){}
     /*!
         *  \brief commencer
         *

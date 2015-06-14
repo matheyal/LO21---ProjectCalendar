@@ -12,6 +12,14 @@
 using namespace std;
 using namespace TIME;
 
+class Tache;
+
+class precedences_iterator : public vector<Tache*>::const_iterator{
+public:
+    precedences_iterator():vector<Tache*>::const_iterator(){}
+    precedences_iterator(vector<Tache*>::const_iterator it):vector<Tache*>::const_iterator(it){}
+};
+
 /*! \class Evenement
    * \brief classe representant les evenements.
    *
@@ -20,7 +28,7 @@ using namespace TIME;
    */
 
 class Evenement {
-protected:
+private:
     QString id;/*!< Identifiant de l'evenement*/
     QString titre;/*!< Titre de l'evenement*/
     QDateTime dispo;/*!< Date de disponibilite de l'evenement*/
@@ -116,7 +124,7 @@ public:
          *
          *  \param effect : valeur avec laquelle on veut changer le status de l'evenement (vrai ou faux)
          */
-     void setEffectue(bool effect){estProg=effect;}
+     void setEstProg(bool effect){estProg=effect;}
 
     /*!
          *  \brief Destructeur
@@ -124,27 +132,6 @@ public:
          *  Destructeur de la classe Evenement
          */
      virtual ~Evenement() {}
-
-    /*!
-         *  \brief Type
-         *
-         *  Methode qui retourne le type "Evenement"
-         */
-    virtual QString Type() const=0;
-
-    /*!
-         *  \brief afficher
-         *
-         *  Permet d'afficher un evenement avec tous ces parametres
-         *  Methode virtuelle pure : la classe Evenement est abstraite
-         *
-         *  \param f : Flux sur lequel on écrit
-         */
-    virtual void afficher(std::ostream& f) const{
-        f<<"\n\nID : "<<qPrintable(id)<<"\nTitre : "<<qPrintable(titre)<<"\nDispo : "<<qPrintable(dispo.toString(Qt::ISODate))<<"\nEcheance : "<<qPrintable(echeance.toString(Qt::ISODate))<< " \nEst programme:";
-        if (estProg) f<<"vrai";
-        else f<<"faux";
-    }
 
     /*!
          *  \brief operator<
@@ -158,18 +145,13 @@ public:
         return dispo<e.dispo && echeance<e.echeance;
     }
 
+    virtual precedences_iterator begin_precedences() const = 0;
+    virtual precedences_iterator end_precedences() const = 0;
+
+    virtual bool withPrecedence() const = 0;
+
 };
 
-/*!
-     *  \brief operator<<
-     *
-     *  Surcharge de l'opérator << pour permettre d'afficher un evenement sur le flux de sortie.
-     *
-     *  \param fout : Flux sur lequel on écrit
-     *  \param e : Evenement que l'on souhaite afficher
-     *
-     */
-std::ostream& operator<<(std::ostream& fout, const Evenement& e);
 
 /*!
      *  \brief operator==

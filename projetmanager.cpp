@@ -40,10 +40,3 @@ void ProjetManager::supprimerProjet(const QString& id)
         }
     }
 }
-
-void ProjetManager::afficherProjets() const {
-    for(std::size_t i=0;i<projets.size();++i) {
-        std::cout<<"Projet "<<i<<" :"<<"\n"<<*projets[i]<<std::endl;
-        projets[i]->afficherTaches();
-    }
-}

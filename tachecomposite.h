@@ -8,8 +8,6 @@
 
 #include "timing.h"
 #include "tache.h"
-#include "tacheunitaire.h"
-#include "tachepreemptable.h"
 #include <vector>
 
 
@@ -53,9 +51,6 @@ public:
 class TacheComposite : public Tache {
 private:
     vector<Tache*> soustaches; /*!< Tableau de taches représentant les sous taches d'une tache composite */
-
-public:
-
     /*!
          *  \brief Constructeur
          *
@@ -68,46 +63,12 @@ public:
          *
          */
     TacheComposite(const QString& ident, const QString& t, const QDateTime& d,const QDateTime& ech, bool b=false):Tache(ident,t,d,ech,b), soustaches(0){std::cout<<"\ncreation d'une tache composite\n";}
+    ~TacheComposite(){};
+    TacheComposite(const TacheComposite&);
+    TacheComposite& operator=(const TacheComposite&);
+    friend class Projet;
+public:
 
-    /*!
-         *  \brief ajouterTacheUnitaire
-         *
-         *  Ajoute une tache unitaire comme sous tache de la tache composite en question
-         *
-         * \param ident : identifiant de la tache unitaire à ajouter
-         * \param t : titre de la tache unitaire à ajouter
-         * \param d : date de disponibilite de la tache unitaire à ajouter
-         * \param ech : date d'écheance de la tache unitaire à ajouter
-         *
-         */
-    //TacheUnitaire& ajouterTacheUnitaire(const QString& id, const QString& t, const QDate& dispo, const QDate& deadline, const Duree& dur);
-
-    /*!
-         *  \brief ajouterTachePreemptable
-         *
-         *  Ajoute une tache préemptable comme sous tache de la tache composite en question
-         *
-         * \param ident : identifiant de la tache préemptable à ajouter
-         * \param t : titre de la tache préemptable à ajouter
-         * \param d : date de disponibilite de la tache préemptable à ajouter
-         * \param ech : date d'écheance de la tache préemptable à ajouter
-         * \param dur : duree de la tache préemptable à ajouter
-         *
-         */
-    //TachePreemptable& ajouterTachePreemptable(const QString& id, const QString& t, const QDate& dispo, const QDate& deadline, const Duree& dur);
-
-    /*!
-         *  \brief ajouterTacheComposite
-         *
-         *  Ajoute une tache composite comme sous tache de la tache composite en question
-         *
-         * \param ident : identifiant de la tache composite à ajouter
-         * \param t : titre de la tache composite à ajouter
-         * \param d : date de disponibilite de la tache composite à ajouter
-         * \param ech : date d'écheance de la tache composite à ajouter
-         *
-         */
-    //TacheComposite& ajouterTacheComposite(const QString& id, const QString& t, const QDate& dispo, const QDate& deadline);
 
     /*!
          *  \brief ajouterSousTache
@@ -128,27 +89,6 @@ public:
          *
          */
     void supprimerSousTache(const QString& ident);
-
-    /*!
-         *  \brief afficherSousTaches
-         *
-         *  Affiche le tableau des sous taches d'une tache composite
-         *
-         *
-         */
-
-    void afficherSousTaches() const ;
-
-    /*!
-         *  \brief afficher
-         *
-         *  Appelle la méthode de Evenement pour afficher une tache composite (n'affiche pas les sous taches)
-         *
-         * \param f : flux de sortie sur lequel on affiche les informations de la tache composite
-         *
-         */
-    void afficher(std::ostream& f)const {Evenement::afficher(f);}
-
 
 
     /*!
@@ -180,13 +120,8 @@ public:
         */
     void commencer();
 
-    /*!
-        *  \brief getSousTaches
-        *
-        *  Accesseur en lecture sur le tableau des sous taches d'une tache composite
-        *
-        */
-    const vector<Tache*>* getSousTaches() const{return &soustaches;}
+    soustaches_iterator begin_soustaches() const{return soustaches_iterator(soustaches.begin());}
+    soustaches_iterator end_soustaches() const {return soustaches_iterator(soustaches.end());}
 };
 
 /*!
@@ -198,7 +133,6 @@ public:
      *  \param t : Tache composite que l'on souhaite afficher
      *
      */
-std::ostream& operator<<(std::ostream& fout, const TacheComposite& t);
 
 #endif // TACHECOMPOSITE
 

@@ -39,7 +39,8 @@ private:
          *  Destructeur de la classe Programmation
          */
     ~Programmation();
-
+    Programmation(const Programmation&);
+    Programmation& operator=(const Programmation&);
     friend class Agenda; /*!< Classe Agenda amie de Programmation : seul Agenda pourra construire des programmations*/
 public:
     /*!
@@ -73,7 +74,10 @@ public:
           *
           *  \param f : Flux sur lequel on écrit
           */
-     void afficher(std::ostream& f) const;
+
+     void setDate(QDateTime& d){date = d;}
+
+     void setHoraire(Horaire& h){heure = h;}
 };
 
 #endif // PROGRAMMATION

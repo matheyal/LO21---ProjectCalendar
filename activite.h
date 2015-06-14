@@ -10,11 +10,16 @@ using namespace std;
 #include "qt.h"
 #include "timing.h"
 #include "evenement.h"
-#include "calendar.h"
 #include <vector>
 #include <sstream>
 #include <iostream>
 #include <typeinfo>
+
+class participants_iterator : public vector<QString>::const_iterator{
+public:
+    participants_iterator():vector<QString>::const_iterator(){}
+    participants_iterator(vector<QString>::const_iterator it):vector<QString>::const_iterator(it){}
+};
 
 /*! \class Activite
    * \brief classe representant une Activite traditionnelle
@@ -27,7 +32,6 @@ class Activite : public Evenement {
 protected:
     Duree duree;/*!< Duree de l'evenement*/
     QString lieu;/*!< Lieu de l'evenement*/
-public:
     /*!
          *  \brief Constructeur
          *
@@ -42,6 +46,16 @@ public:
          *  \param b : Etat de programmation de l'evenement
          */
     Activite(const QString& ident, const QString& t, const QDateTime& d,const QDateTime& ech,const Duree& du,const QString& li,bool b=false): Evenement(ident,t,d,ech,b), duree(du),lieu(li){}
+    /*!
+         *  \brief Destructeur
+         *
+         *  Destructeur de la classe Activite
+         */
+    ~Activite() {}
+    Activite (const Activite&);
+    Activite& operator=(const Activite&);
+    friend class ActiviteManager;
+public:
 
     /*!
          *  \brief getDuree
@@ -76,31 +90,6 @@ public:
          */
     void setDuree(Duree newDuree) { duree = newDuree; }
 
-    /*!
-         *  \brief Type
-         *
-         *  Methode qui retourne le type "Activite"
-         */
-    QString Type() const {return typeid(*this).name();}
-
-    /*!
-         *  \brief afficher
-         *
-         *  Permet d'afficher une activite avec tous ces parametres.
-         *
-         *  \param f : Flux sur lequel on écrit
-         */
-    void afficher(std::ostream& f) const {
-         Evenement::afficher(f);
-         f<<"\nDuree="<<duree<<"\nLieu="<<lieu.toStdString()<<"\n";
-    }
-
-    /*!
-         *  \brief Destructeur
-         *
-         *  Destructeur de la classe Activite
-         */
-    ~Activite() {}
 
     /*!
          *  \brief getInterlocuteur
@@ -118,12 +107,6 @@ public:
          * \param interl : initialise notre interlocuteur avec ce nom
          */
     virtual void setInterlocuteur(const QString& ) {}
-    /*!
-         *  \brief getNbParticipants
-         *
-         *  Methode retournant le nombre de participants inscrit à la réunion
-         */
-    virtual int getNbParticipants() const {return 0;}
 
     /*!
          *  \brief ajouterParticipant
@@ -135,12 +118,6 @@ public:
 
     virtual void ajouterParticipant(const QString &){};
 
-    virtual QString toString() const{ return "";}
-
-    virtual const vector<QString>& getParticipants() const {vector<QString> v; return v;}
-
-    virtual const QString getParticipant(int i) const {i++;return 0;}
-
     /*!
          *  \brief supprimmerParticipant
          *
@@ -149,6 +126,14 @@ public:
          *  \param parti : nom du participant que l'on veut supprimer de la réunion
          */
     virtual void supprimerParticipant(const QString & ){};
+
+    virtual participants_iterator begin_participants() const {return participants_iterator();}
+    virtual participants_iterator end_participants() const {return participants_iterator();}
+
+    precedences_iterator begin_precedences() const {return precedences_iterator();}
+    precedences_iterator end_precedences() const {return precedences_iterator();}
+
+    bool withPrecedence() const { return false;}
 
 };
 
@@ -162,7 +147,6 @@ public:
 class Reunion : public Activite {
 private:
     vector<QString> participants;/*!< Liste des participants à la reunion*/
-public:
     /*!
          *  \brief Constructeur
          *
@@ -176,38 +160,19 @@ public:
          *  \param li : Lieu de l'activite
          *  \param b : Etat de programmation de l'evenement
          */
-     Reunion(const QString& ident, const QString& t, const QDateTime& d,const QDateTime& ech,const Duree& du,const QString& li,bool b=false):Activite(ident,t,d,ech,du,li,b){}
+    Reunion(const QString& ident, const QString& t, const QDateTime& d,const QDateTime& ech,const Duree& du,const QString& li,bool b=false):Activite(ident,t,d,ech,du,li,b){}
 
     /*!
-         *  \brief Type
+         *  \brief Destructeur
          *
-         *  Methode qui retourne le type "Reunion"
+         *  Destructeur de la classe Reunion
          */
+     ~Reunion() {}
+    Reunion (const Reunion&);
+    Reunion& operator=(const Reunion&);
+    friend class ActiviteManager;
+public:
 
-    QString Type() const {return typeid(*this).name();}
-
-    /*!
-         *  \brief getNbParticipants
-         *
-         *  Methode retournant le nombre de participants inscrit à la réunion
-         */
-    int getNbParticipants() const {return static_cast<int>(participants.size());}
-
-    /*!
-         *  \brief getParticipants
-         *
-         *  Accesseur en lecture des participants de la réunion
-         */
-    const vector<QString>& getParticipants() const {return participants;}
-
-    const QString getParticipant(int i) const {return participants[i];}
-
-    QString toString() const{
-        std::stringstream s;
-        for (size_t i=0;i<participants.size();++i)
-            s<<qPrintable(participants[i])<<" ";
-        return QString::fromStdString(s.str());
-    }
     /*!
          *  \brief ajouterParticipant
          *
@@ -226,26 +191,9 @@ public:
          */
     void supprimerParticipant(const QString & parti);
 
-    /*!
-         *  \brief afficher
-         *
-         *  Permet d'afficher une reunion avec tous ces parametres.
-         *
-         *  \param f : Flux sur lequel on écrit
-         */
 
-    void afficher(std::ostream& f) const {
-         Activite::afficher(f);
-         for (size_t i=0;i<participants.size();++i)
-             f<<"Participants: "<<qPrintable(participants[i]);
-    }
-
-    /*!
-         *  \brief Destructeur
-         *
-         *  Destructeur de la classe Reunion
-         */
-     ~Reunion() {}
+    participants_iterator begin_participants() const {return participants_iterator(participants.begin());}
+    participants_iterator end_participants() const {return participants_iterator(participants.end());}
 };
 
 
@@ -258,14 +206,6 @@ public:
 class Rdv : public Activite{
 private:
     QString personne;/*!< représente l'interlocuteur du rendez vous */
-public: 
-    /*!
-         *  \brief Type
-         *
-         *  Methode qui retourne le type "Rendez-vous"
-         */
-    QString Type() const {return typeid(*this).name();}
-
     /*!
          *  \brief Constructeur
          *
@@ -281,7 +221,16 @@ public:
          *  \param b : Etat de programmation de l'evenement
          */
     Rdv(const QString& ident, const QString& t, const QDateTime& d,const QDateTime& ech,const Duree& du, const QString& pers, const QString& li,bool b=false):Activite(ident,t,d,ech,du,li,b),personne(pers){}
-
+    /*!
+         *  \brief Destructeur
+         *
+         *  Destructeur de la classe Rendez vous
+         */
+     ~Rdv() {}
+    Rdv (const Rdv&);
+    Rdv& operator=(const Rdv&);
+    friend class ActiviteManager;
+public: 
     /*!
          *  \brief getInterlocuteur
          *
@@ -299,24 +248,6 @@ public:
          */
     void setInterlocuteur(const QString& interl) { personne = interl; }
 
-    /*!
-         *  \brief afficher
-         *
-         *  Permet d'afficher un rendez-vous avec tous ces parametres.
-         *
-         *  \param f : Flux sur lequel on écrit
-         */
-    void afficher(std::ostream& f) const {
-         Activite::afficher(f);
-         f<<"Interlocuteur="<<personne.toStdString();
-    }
-
-    /*!
-         *  \brief Destructeur
-         *
-         *  Destructeur de la classe Rendez vous
-         */
-     ~Rdv() {}
 };
 
 #endif // ACTIVITE

@@ -11,7 +11,7 @@ FenetreUnitaire::FenetreUnitaire(QMainWindow* parent) : QMainWindow(parent)
     idProjet = new QComboBox(this);
     idProjet->addItem("");
     ProjetManager& pm=ProjetManager::getInstance();
-    for(vector<Projet*>::const_iterator it = (*pm.getProjets()).begin(); it != (*pm.getProjets()).end(); ++it){
+    for(ProjetManager::projets_iterator it = pm.begin_projets() ; it != pm.end_projets() ; ++it){
         idProjet->addItem((*it)->getId());
     }
     idComposite = new QComboBox;
@@ -56,8 +56,8 @@ FenetreUnitaire::FenetreUnitaire(QMainWindow* parent) : QMainWindow(parent)
 
     QObject::connect(idProjet, SIGNAL(currentIndexChanged(int)), this, SLOT(load()));
     QObject::connect(enregistrerUnitaire, SIGNAL(clicked()), this, SLOT(enregistrerTacheUnitaire()));
-    QObject::connect(dispoUnitaire, SIGNAL(dateChanged(const QDate)), this, SLOT(checkDate(const QDate&)));
-    QObject::connect(echeanceUnitaire, SIGNAL(dateChanged(const QDate&)), this, SLOT(checkDate(const QDate&)));
+    QObject::connect(dispoUnitaire, SIGNAL(dateTimeChanged(const QDateTime)), this, SLOT(checkDate(const QDate)));
+    QObject::connect(echeanceUnitaire, SIGNAL(dateTimeChanged(const QDateTime)), this, SLOT(checkDate(const QDate)));
     QObject::connect(quitterUnitaire, SIGNAL(clicked()), this, SLOT(close()));
     QObject::connect(idUnitaire, SIGNAL(textChanged(QString)), this, SLOT(checkModifier()));
     QObject::connect(titreUnitaire, SIGNAL(textChanged(QString)), this, SLOT(checkModifier()));
@@ -106,7 +106,7 @@ void FenetreUnitaire::enregistrerTacheUnitaire()
             }
             else {
             pm.trouverProjet(idProjet->currentText())->ajouterTacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), du);
-            pm.trouverProjet(idProjet->currentText())->getTache(idComposite->currentText()).ajouterSousTache(new TachePreemptable(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), du));
+            pm.trouverProjet(idProjet->currentText())->getTache(idComposite->currentText()).ajouterSousTache(pm.trouverProjet(idProjet->currentText())->trouverTache(idUnitaire->text()));
             idUnitaire->setText("");
             idComposite->setCurrentIndex(0);
             idProjet->setCurrentIndex(0);
@@ -141,7 +141,7 @@ void FenetreUnitaire::enregistrerTacheUnitaire()
     else if(idComposite->currentText()!="")
     {
         pm.trouverProjet(idProjet->currentText())->ajouterTacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), du);
-        pm.trouverProjet(idProjet->currentText())->getTache(idComposite->currentText()).ajouterSousTache(new TacheUnitaire(idUnitaire->text(),titreUnitaire->text(),dispoUnitaire->dateTime(), echeanceUnitaire->dateTime(), du));
+        pm.trouverProjet(idProjet->currentText())->getTache(idComposite->currentText()).ajouterSousTache(pm.trouverProjet(idProjet->currentText())->trouverTache(idUnitaire->text()));
         idUnitaire->setText("");
         idComposite->setCurrentIndex(0);
         idProjet->setCurrentIndex(0);
@@ -180,14 +180,12 @@ void FenetreUnitaire::load()
     idComposite->clear();
     idComposite->addItem("");
     ProjetManager& pm= ProjetManager::getInstance();
-    if(pm.trouverProjet(idProjet->currentText()))
+    Projet* projet = pm.trouverProjet(idProjet->currentText());
+    if(projet)
     {
-        vector<Tache*> tac= *pm.trouverProjet(idProjet->currentText())->getTaches();
-        for(size_t i=0; i<tac.size();i++)
-        {
-            if(tac[i]->Type()=="14TacheComposite")
-            {
-                idComposite->addItem(tac[i]->getId());
+        for(Projet::taches_iterator it = projet->begin_taches() ; it != projet->end_taches() ; ++it){
+            if(typeid(**it) == typeid(TacheComposite)){
+                idComposite->addItem((*it)->getId());
             }
         }
     }

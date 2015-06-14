@@ -6,7 +6,6 @@
  * \brief Fichier gerant l'export de données au format XML
  */
 
-#include "calendar.h"
 #include "qt.h"
 
 /*! \class ExportStrategy

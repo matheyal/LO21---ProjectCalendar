@@ -14,6 +14,12 @@
 
 class Projet;/*!< Déclaration au préalable de la classe Projet pour pouvoir l'utiliser dans la classe Tache*/
 
+class soustaches_iterator : public vector<Tache*>::const_iterator{
+public:
+    soustaches_iterator():vector<Tache*>::const_iterator(){}
+    soustaches_iterator(vector<Tache*>::const_iterator it):vector<Tache*>::const_iterator(it){}
+};
+
 /*! \class Tache
    * \brief classe abstraite representant une tache de manière générale
    *
@@ -28,12 +34,6 @@ private:
     QDateTime fin; /*!< Date avec horaire représentant la fin d'une tache  */
     bool inTree;
 public:
-    /*!
-         *  \brief Type
-         *
-         *  Methode qui retourne le type "Tache"
-         */
-    QString Type() const {return typeid(*this).name();}
 
     bool getInTree(){return inTree;}
 
@@ -51,18 +51,9 @@ public:
          * \param b: Booleen représentant l'état de la tache à ajouter (par défaut non programmée)
          *
          */
-    Tache(const QString& ident, const QString& t, const QDateTime& d,const QDateTime& ech, bool b=false): Evenement(ident,t,d,ech,b), tachesPrecedentes(0), debut(QDateTime::currentDateTime()), fin(QDateTime::currentDateTime()){}
-
-    virtual void supprimerSousTache(const QString& ){};
-    /*!
-         *  \brief afficher
-         *
-         *
-         * Methode virtuelle pure (classe Tache abstraite)
-         * Permettra d'afficher des taches spécialisant la classe Tache ici définie
-         *
-         */
-    virtual void afficher(std::ostream& f)const =0;
+    Tache(const QString& ident, const QString& t, const QDateTime& d,const QDateTime& ech, bool b=false): Evenement(ident,t,d,ech,b), tachesPrecedentes(0), debut(QDateTime::currentDateTime()), fin(QDateTime::currentDateTime()), inTree(false){}
+    ~Tache(){};
+    virtual void supprimerSousTache(const QString& ){}
 
     /*!
         *  \brief addItem
@@ -72,16 +63,6 @@ public:
         *  \param t : la tache représentant la précédence à ajouter
         */
     void addItem(Tache* t);
-
-    /*!
-        *  \brief afficherPrecedence
-        *
-        *  Methode qui affiche les caractéristiques des taches précédentes d'une tache
-        *
-        *  \param t : la tache à ajouter au projet
-        */
-
-    void afficherPrecedence();
 
     /*!
         *  \brief commencer
@@ -131,30 +112,19 @@ public:
         */
     const Duree getDuree() const = 0;
 
-    /*!
-        *  \brief afficherSousTaches()
-        *
-        *  Méthode virtuelle pure pour permettre l'appel de afficherSousTache() sur une Tache
-        *
-        */
+
     virtual void setDuree(Duree ) {}
-    virtual void afficherSousTaches()const =0;
 
     /*!
         *  \brief ajouterSousTache()
         *
-        *  Méthode virtuelle pure pour permettre l'appel de ajouterSousTache() sur une Tache
+        *  Méthode virtuelle pour permettre l'appel de ajouterSousTache() sur une Tache
         *
         */
-    virtual void ajouterSousTache(Tache*)=0;
+    virtual void ajouterSousTache(Tache*){};
 
-    /*!
-        *  \brief getSousTaches
-        *
-        *  Méthode virtuelle pure pour permettre l'appel de getSousTaches() sur un pointeur de Tache
-        *
-        */
-    virtual const vector<Tache*>* getSousTaches() const = 0;
+    virtual soustaches_iterator begin_soustaches() const{return soustaches_iterator();}
+    virtual soustaches_iterator end_soustaches() const {return soustaches_iterator();}
 
     /*!
         *  \brief getTachesPrecedentes
@@ -162,7 +132,11 @@ public:
         *  Accesseur en lecture sur le tableau de précédente de la classe Tache
         *
         */
-    const vector<Tache*>* getTachesPrecedentes() const{return &tachesPrecedentes;}
+
+    precedences_iterator begin_precedences() const {return precedences_iterator(tachesPrecedentes.begin());}
+    precedences_iterator end_precedences() const {return precedences_iterator(tachesPrecedentes.end());}
+
+    bool withPrecedence() const { return !tachesPrecedentes.empty();}
 
     /*!
         *  \brief addPrecedence

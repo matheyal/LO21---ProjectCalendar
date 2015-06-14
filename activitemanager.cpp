@@ -55,12 +55,4 @@ void ActiviteManager::supprimerActivite(const QString& id)
     }
 }
 
-void ActiviteManager::afficherActivites() const
-{
-    for(std::size_t i=0;i<activites.size();++i)
-    {
-        std::cout<<"Activite "<<i<<" :"<<"\n"<<*activites[i]<<std::endl;
-    }
-}
-
 

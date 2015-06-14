@@ -22,8 +22,6 @@ private:
     static const int DUREE_MAX = 12; /*!< Variable statique pour implémentée la contrainte de durée maximum d'une tacheu- unitaire : 12h */
     Duree duree; /*!< Duree de la tache Unitaire */
 
-public:
-
     /*!
          *  \brief TacheUnitaire
          *
@@ -37,6 +35,12 @@ public:
          *
          */
     TacheUnitaire(const QString& ident, const QString& t, const QDateTime& d,const QDateTime& ech,const Duree& du,bool b=false):Tache(ident,t,d,ech,b),duree(du){std::cout<<"\ncreation d'une tache unitaire\n";}
+    TacheUnitaire(const TacheUnitaire&);
+    TacheUnitaire& operator=(const TacheUnitaire&);
+    ~TacheUnitaire(){};
+    friend class Projet;
+    friend class TachePreemptable;
+public:
 
     /*!
          *  \brief getDuree
@@ -44,17 +48,6 @@ public:
          *  Accesseur en lecture de la duree de la tache unitaire
          */
     const Duree getDuree() const{return duree;}
-
-
-    /*!
-         *  \brief afficher
-         *
-         *  Specialisation de la méthode afficher de Evenement pour afficher une tache unitaire
-         *
-         * \param f : flux de sortie sur lequel on affiche les informations de la tache unitaire
-         *
-         */
-    void afficher(std::ostream& f)const {Evenement::afficher(f);std::cout<<"\nDuree : "<<getDuree();}
 
     /*!
         *  \brief commencer
@@ -73,30 +66,6 @@ public:
         */
     void setDuree(Duree d){duree=d;}
 
-    /*!
-        *  \brief getSousTaches
-        *
-        *  Déclaration de getSousTaches pour ne pas avoir de classe abstraite
-        *
-        */
-    const vector<Tache*>* getSousTaches() const{return 0;}
-
-    /*!
-        *  \brief afficherSousTaches()
-        *
-        *  Méthode virtuelle pure pour permettre l'appel de afficherSousTache() sur une Tache
-        *
-        */
-    void afficherSousTaches()const {}
-
-    /*!
-        *  \brief ajouterSousTache()
-        *
-        *  Méthode virtuelle pure pour permettre l'appel de ajouterSousTache() sur une Tache
-        *
-        */
-    void ajouterSousTache(Tache* ){}
-
 
 };
 
@@ -109,7 +78,7 @@ public:
      *  \param t : Tache unitaire que l'on souhaite afficher
      *
      */
-std::ostream& operator<<(std::ostream& fout, const TacheUnitaire& t);
+
 
 #endif // TACHEUNITAIRE
 

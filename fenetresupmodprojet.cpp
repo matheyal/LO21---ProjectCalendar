@@ -8,7 +8,7 @@ FenetreSupModProjet::FenetreSupModProjet(QMainWindow *parent) : QMainWindow(pare
     idProjet = new QComboBox(this);
     idProjet->addItem("");
     ProjetManager& pm=ProjetManager::getInstance();
-    for(vector<Projet*>::const_iterator it = (*pm.getProjets()).begin(); it != (*pm.getProjets()).end(); ++it){
+    for(ProjetManager::projets_iterator it = pm.begin_projets() ; it != pm.end_projets() ; ++it){
         idProjet->addItem((*it)->getId());
     }
 
@@ -49,8 +49,8 @@ FenetreSupModProjet::FenetreSupModProjet(QMainWindow *parent) : QMainWindow(pare
     QObject::connect(ann, SIGNAL(clicked()), this, SLOT(load()));
     QObject::connect(supp, SIGNAL(clicked()), this, SLOT(supprimer()));
     QObject::connect(supp, SIGNAL(clicked()), this, SLOT(close()));
-    QObject::connect(dispoProjet, SIGNAL(dateChanged(const QDateTime)), this, SLOT(checkDate(const QDateTime&)));
-    QObject::connect(echeanceProjet, SIGNAL(dateChanged(const QDateTime&)), this, SLOT(checkDate(const QDateTime&)));
+    QObject::connect(dispoProjet, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkDate(const QDateTime&)));
+    QObject::connect(echeanceProjet, SIGNAL(dateTimeChanged(const QDateTime&)), this, SLOT(checkDate(const QDateTime&)));
 
     groupeNouveauProjet = new QGroupBox("Rentrer un nouveau projet dans la base de donnee", this);
     groupeNouveauProjet->setLayout(layoutNouveauProjet);
@@ -100,8 +100,6 @@ void FenetreSupModProjet::modifier(){
 }
 
 void FenetreSupModProjet::checkDate(const QDateTime& d){
-    if(d==dispoProjet->dateTime() && d<QDateTime::currentDateTime())
-        dispoProjet->setDateTime(QDateTime::currentDateTime());
     if(d==dispoProjet->dateTime() && echeanceProjet->dateTime()<dispoProjet->dateTime())
         echeanceProjet->setDateTime(dispoProjet->dateTime());
     else if (d==echeanceProjet->dateTime() && echeanceProjet->dateTime()<dispoProjet->dateTime())

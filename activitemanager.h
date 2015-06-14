@@ -188,37 +188,15 @@ public:
          */
     Activite* trouverActivite(const QString &id) const;
 
-    /*!
-         *  \brief afficherActivites
-         *
-         *  Affiche l'ensemble des activités du ActiviteManager
-         *
-         */
-    void afficherActivites() const;
 
-    /*!
-         *  \brief size
-         *
-         *  Renvoie le nombre d'activités contenues dans le tableau d'activités du ActiviteManager
-         *
-         */
-    unsigned int size() const {return activites.size();}
+    class activites_iterator : public vector<Activite*>::const_iterator{
+    public:
+        activites_iterator():vector<Activite*>::const_iterator(){}
+        activites_iterator(vector<Activite*>::const_iterator it):vector<Activite*>::const_iterator(it){}
+    };
+    activites_iterator begin_activites() const {return activites_iterator(activites.begin());}
+    activites_iterator end_activites() const {return activites_iterator(activites.end());}
 
-    /*!
-         *  \brief getActivites
-         *
-         *  Accesseurs en lecture sur le tableau d'activités du ActiviteManager
-         *
-         */
-    const vector<Activite*>* getActivites() const{return &activites;}
-
-    /*!
-         *  \brief save
-         *
-         *  Methode permettant de sauvegarder l'ensemble des activités dans un fichier XML
-         *
-         */
-    //void save(ExportStrategy *strategy ,const QString& f){strategy->save(f);}
 };
 
 #endif // ACTIVITEMANAGER_H

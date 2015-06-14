@@ -13,6 +13,7 @@ using namespace std;
 #include "timing.h"
 #include "programmation.h"
 #include "evenement.h"
+#include "tache.h"
 
 using namespace TIME;
 
@@ -96,6 +97,8 @@ private:
         *  d'un objet Agenda (application du design pattern Singleton)
         */
    Agenda& operator=(const Agenda& a);
+
+   vector<Programmation*>::iterator trouverProgrammationIterator(Evenement* e);
 
    /*! \struct Handler
       * \brief classe permettant d'appliquer le design pattern Singleton
@@ -181,10 +184,13 @@ public:
         *
         */
 
-   void afficherProg();
-
-   const vector<Programmation*>* getProgramamtions() const{return &progs;}
-
+   class programmations_iterator : public vector<Programmation*>::const_iterator{
+   public:
+       programmations_iterator():vector<Programmation*>::const_iterator(){}
+       programmations_iterator(vector<Programmation*>::const_iterator it):vector<Programmation*>::const_iterator(it){}
+   };
+   programmations_iterator begin_programmations() const {return programmations_iterator(progs.begin());}
+   programmations_iterator end_programmations() const {return programmations_iterator(progs.end());}
 };
 
 #endif // AGENDA

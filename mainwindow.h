@@ -1,8 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include<QtWidgets>
-#include "calendar.h"
 #include "timing.h"
 #include "fenetreprojet.h"
 #include "fenetresupmodprojet.h"
@@ -27,7 +25,9 @@
 #include "vuesemaine.h"
 #include "fenetresupmodtache.h"
 #include "fenetreajoutprogrammation.h"
-
+#include "qt.h"
+#include "fenetresupmodprogrammation.h"
+#include "treeview.h"
 
 class MainWindow: public QMainWindow
 {
@@ -41,9 +41,7 @@ public :
 
 public slots:
     void chargerProjet();
-    void sauvegarderProjet();
     void supmodProjet();
-    void enregistrerTache();
     void ajouterProjet();
     void ajouterTacheUnitaire();
     void ajouterTacheComposite();
@@ -52,11 +50,14 @@ public slots:
     void supModActivite();
     void ajoutTacheCalendrier();
     void ajoutActiviteCalendrier();
-    void treeView();
     void ajouterPrecedence();
+    void supModProgrammation();
+    void refreshViews();
 
 protected:
     void chargerFichier();
+    QTreeWidgetItem* tacheToTreeView(Tache* tache);
+    QTreeWidgetItem* projetToTreeView(Projet* projet);
 
 
     QList<QTreeWidgetItem*>  treeProjets;
@@ -71,9 +72,7 @@ protected:
     QVBoxLayout* layout21;
     QHBoxLayout* layoutMenu;
 
-
-    QMenu *menuFichier;
-    QMenuBar* barreMenu;
+    VueSemaine* Semaine;
 
     //onglet 2
 
@@ -92,31 +91,34 @@ protected:
     QPushButton* composite;
     QPushButton *supmodtache;
     QPushButton* ajoutProjet;
-    QPushButton* ajoutActivite;
+    QPushButton* ajoutProgActivite;
     QPushButton* refresh;
-    QPushButton *ajoutTache;
+    QPushButton *ajoutProgTache;
+    QPushButton* supModProg;
     QTextEdit* description;
 
     QDateTimeEdit* dispoProjet;
     QDateTimeEdit* echeanceProjet;
 
-    QTreeWidget* tree;
+    TreeView* tree;
 
     QGroupBox* groupeProjet;
     QGroupBox* groupeTache;
     QGroupBox* groupeAjout;
     QGroupBox* groupeTree;
 
-    QHBoxLayout* layoutBoutonProjet;
+    QVBoxLayout* layoutBoutonProjet;
     QFormLayout* layoutTitreDescription;
     QFormLayout* layoutDispoProjet;
     QFormLayout* layoutEcheanceProjet;
     QHBoxLayout* layoutDispoEcheance;
     QVBoxLayout* layoutProjet;
 
-    QHBoxLayout* layoutTache;
+    QHBoxLayout* layoutAjoutTache;
+    QVBoxLayout* layoutTache;
 
-    QHBoxLayout* layoutAjout;
+    QHBoxLayout* layoutAjoutProg;
+    QVBoxLayout* layoutProg;
 
     QHBoxLayout* layoutTree;
 
@@ -131,7 +133,7 @@ protected:
 
     QPushButton* nouvact;
     QPushButton* supmodact;
-    QHBoxLayout * layoutBoutonActivite;
+    QVBoxLayout * layoutBoutonActivite;
     QHBoxLayout *modifierActivite;
 
     QPushButton* quitter;
