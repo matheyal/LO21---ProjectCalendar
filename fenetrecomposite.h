@@ -34,6 +34,8 @@ private:
     QLineEdit* idComposite;/*!< Zone de texte permettant de renseigner l'identifiant de la tache composite*/
     QLineEdit* titreComposite;  /*!< Zone de texte permettant de renseigner le titre de la tache composite*/
 
+    QDateTimeEdit *dispoProjet;/*!< Champs datetime permettant de renseigner la date et l'heure de disponibilité du projet*/
+    QDateTimeEdit *echeanceProjet;/*!< Champs datetime permettant de renseigner la date et l'heure d'échéance du projet*/
     QDateTimeEdit *dispoComposite;  /*!< Champs datetime permettant de renseigner la date et l'heure de disponibilité de la tache composite*/
     QDateTimeEdit *echeanceComposite;  /*!< Champs datetime permettant de renseigner la date et l'heure d'échéance de la tache composite*/
 

@@ -4,6 +4,7 @@
 FenetreSupModTache::FenetreSupModTache(QMainWindow *parent) : QMainWindow(parent)
 {
     fenetreSupModTache = new QWidget;
+    setWindowTitle("Supprimer ou modifier une tache");
 
     idProjet= new QComboBox(this);
     idProjet->addItem("");

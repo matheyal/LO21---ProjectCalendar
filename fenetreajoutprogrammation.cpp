@@ -2,6 +2,7 @@
 
 FenetreAjoutProgTache::FenetreAjoutProgTache(QMainWindow *parent):QMainWindow(parent){
     fenetreAjoutProgTache = new QWidget;
+    setWindowTitle("Programmer une tache");
 
     idProjet = new QComboBox;
     ProjetManager& pm = ProjetManager::getInstance();
@@ -106,7 +107,10 @@ void FenetreAjoutProgTache::saveProg(){
 }
 
 FenetreAjoutProgActivite::FenetreAjoutProgActivite(QMainWindow *parent):QMainWindow(parent){
+
     fenetreAjoutProgActivite = new QWidget;
+    setWindowTitle("Programmer une activité");
+
     ActiviteManager& AM = ActiviteManager::getInstance();
     idActivite = new QComboBox;
     idActivite->addItem("");

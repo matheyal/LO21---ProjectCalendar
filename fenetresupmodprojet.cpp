@@ -4,6 +4,7 @@
 FenetreSupModProjet::FenetreSupModProjet(QMainWindow *parent) : QMainWindow(parent)
 {
     fenetreSupModProjet = new QWidget;
+    setWindowTitle("Supprimer ou modifier un projet");
 
     idProjet = new QComboBox(this);
     idProjet->addItem("");

@@ -7,10 +7,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     setWindowTitle("Project Calendar");
 
     //Chargement d'un fichier XML
-    //new FenetreSave;
-
-    //FenetreLoad* fl = new FenetreLoad(this);
-    //fl->show();
     chargerFichier();
 
     //Cr�ation de 2 onglets

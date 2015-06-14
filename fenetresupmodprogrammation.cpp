@@ -5,6 +5,7 @@ class Activite; class Reunion; class Rdv;
 FenetreSupModProg::FenetreSupModProg(QMainWindow *parent):QMainWindow(parent){
     Agenda& A = Agenda::getInstance();
     fenetreSupModProg = new QWidget;
+    setWindowTitle("Supprimer ou modifier une programmation");
 
     idEvenement = new QComboBox;
     idEvenement->addItem("");
