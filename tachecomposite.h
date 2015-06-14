@@ -180,14 +180,6 @@ public:
         */
     void commencer();
 
-    /*!
-        *  \brief getSousTaches
-        *
-        *  Accesseur en lecture sur le tableau des sous taches d'une tache composite
-        *
-        */
-    const vector<Tache*>* getSousTaches() const{return &soustaches;}
-
     soustaches_iterator begin_soustaches() const{return soustaches_iterator(soustaches.begin());}
     soustaches_iterator end_soustaches() const {return soustaches_iterator(soustaches.end());}
 };

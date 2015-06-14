@@ -74,14 +74,6 @@ public:
     void setDuree(Duree d){duree=d;}
 
     /*!
-        *  \brief getSousTaches
-        *
-        *  Déclaration de getSousTaches pour ne pas avoir de classe abstraite
-        *
-        */
-    const vector<Tache*>* getSousTaches() const{return 0;}
-
-    /*!
         *  \brief afficherSousTaches()
         *
         *  Méthode virtuelle pure pour permettre l'appel de afficherSousTache() sur une Tache

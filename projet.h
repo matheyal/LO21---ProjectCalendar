@@ -266,14 +266,6 @@ public:
           */
      void setEcheance(const QDateTime& ech){echeance  = ech;}
 
-     /*!
-          *  \brief getTaches
-          *
-          *  Accesseur en lecture du tableau de taches d'un projet
-          *
-          */
-     const vector<Tache*>* getTaches() const{return &taches;}
-
      class taches_iterator : public vector<Tache*>::const_iterator{
      public:
          taches_iterator():vector<Tache*>::const_iterator(){}

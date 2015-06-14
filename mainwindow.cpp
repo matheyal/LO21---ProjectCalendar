@@ -273,9 +273,43 @@ void MainWindow::chargerFichier(){
     }
 }
 
+QTreeWidgetItem* MainWindow::tacheToTreeView(Tache* tache){
+    QTreeWidgetItem* item = new QTreeWidgetItem;
+    item->setText(0, tache->getTitre());
+    if(tache->getStatus()) item->setTextColor(0,Qt::green);
+    else item->setTextColor(0,Qt::red);
+
+    if (typeid(*tache) == typeid(TacheComposite)){
+        for(soustaches_iterator it = tache->begin_soustaches() ; it != tache->end_soustaches() ; ++it){
+            item->addChild(tacheToTreeView((*it)));
+            (*it)->setInTree(true);
+        }
+    }
+    return item;
+}
+
+QTreeWidgetItem* MainWindow::projetToTreeView(Projet* projet){
+    QTreeWidgetItem* item = new QTreeWidgetItem;
+    item->setText(0, projet->getTitre());
+    item->setTextColor(0, Qt::blue);
+    for(Projet::taches_iterator it = projet->begin_taches() ; it != projet->end_taches() ; ++it)
+    {
+        if(!(*it)->getInTree()){
+            item->addChild(tacheToTreeView((*it)));
+        }
+    }
+    return item;
+}
+
 void MainWindow::treeView()
 {
     tree->clear();
+    ProjetManager& pm = ProjetManager::getInstance();
+    for(ProjetManager::projets_iterator it1 = pm.begin_projets() ; it1 != pm.end_projets() ; ++it1)
+    {
+        tree->addTopLevelItem(projetToTreeView((*it1)));
+    }
+    /*tree->clear();
     ProjetManager& pm = ProjetManager::getInstance();
     vector<Projet*> pro = *pm.getProjets();
     for(size_t i=0;i<pro.size();i++)
@@ -345,7 +379,7 @@ void MainWindow::treeView()
                 }
             }
         }
-    }
+    }*/
 }
 
 void MainWindow::ajoutTacheCalendrier(){

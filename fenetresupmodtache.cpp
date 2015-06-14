@@ -139,38 +139,38 @@ void FenetreSupModTache::load(){
         }
 }
 
-    void FenetreSupModTache::modifier(){
-        ProjetManager& pm= ProjetManager::getInstance();
-        Duree du(dureeTache->time().hour(), dureeTache->time().minute());
-        Tache* tache = pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText());
-        tache->setTitre(titreTache->text());
-        tache->setDateDisponibilite(dispoTache->dateTime());
-        tache->setEcheance(echeanceTache->dateTime());
+void FenetreSupModTache::modifier(){
+    ProjetManager& pm= ProjetManager::getInstance();
+    Duree du(dureeTache->time().hour(), dureeTache->time().minute());
+    Tache* tache = pm.trouverProjet(idProjet->currentText())->trouverTache(idTache->currentText());
+    tache->setTitre(titreTache->text());
+    tache->setDateDisponibilite(dispoTache->dateTime());
+    tache->setEcheance(echeanceTache->dateTime());
+    tache->setDuree(du);
+    tache->supprimerPrecedence(supprimerPrecedence->currentText());
+    if (typeid(*tache)==typeid(TacheComposite)){
+        tache->supprimerSousTache(supprimerSousTache->currentText());
+        pm.trouverProjet(idProjet->currentText())->supprimerTache(supprimerSousTache->currentText());
+    }
+    if (typeid(*tache)==typeid(TacheUnitaire)){
         tache->setDuree(du);
-        tache->supprimerPrecedence(supprimerPrecedence->currentText());
-        if (typeid(*tache)==typeid(TacheComposite)){
-            tache->supprimerSousTache(supprimerSousTache->currentText());
-            pm.trouverProjet(idProjet->currentText())->supprimerTache(supprimerSousTache->currentText());
-        }
-        if (typeid(*tache)==typeid(TacheUnitaire)){
-            tache->setDuree(du);
-
-        }
 
     }
 
-    void FenetreSupModTache::checkDate(const QDateTime& d){
-        //if(d==dispoTache->dateTime() && d<QDateTime::currentDateTime())
-            //dispoTache->setDateTime(QDateTime::currentDateTime());
-        if(d==dispoTache->dateTime() && echeanceTache->dateTime()<dispoTache->dateTime())
-            echeanceTache->setDateTime(dispoTache->dateTime());
-        if (d==echeanceTache->dateTime() && echeanceTache->dateTime()<dispoTache->dateTime())
-            dispoTache->setDateTime(echeanceTache->dateTime());
-    }
+}
 
-    void FenetreSupModTache::supprimer(){
-        ProjetManager& pm= ProjetManager::getInstance();
-        pm.trouverProjet(idProjet->currentText())->supprimerTache(idTache->currentText());
-    }
+void FenetreSupModTache::checkDate(const QDateTime& d){
+    //if(d==dispoTache->dateTime() && d<QDateTime::currentDateTime())
+        //dispoTache->setDateTime(QDateTime::currentDateTime());
+    if(d==dispoTache->dateTime() && echeanceTache->dateTime()<dispoTache->dateTime())
+        echeanceTache->setDateTime(dispoTache->dateTime());
+    if (d==echeanceTache->dateTime() && echeanceTache->dateTime()<dispoTache->dateTime())
+        dispoTache->setDateTime(echeanceTache->dateTime());
+}
+
+void FenetreSupModTache::supprimer(){
+    ProjetManager& pm= ProjetManager::getInstance();
+    pm.trouverProjet(idProjet->currentText())->supprimerTache(idTache->currentText());
+}
 
 

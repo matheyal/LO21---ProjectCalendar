@@ -178,14 +178,6 @@ public:
     unsigned int size() const {return projets.size();}
 
     /*!
-         *  \brief getProjets
-         *
-         *  Accesseurs en lecture sur le tableau de projets du ProjetManager
-         *
-         */
-    const vector<Projet*>* getProjets() const{return &projets;}
-
-    /*!
          *  \brief save
          *
          *  Methode permettant de sauvegarder l'ensemble des projets selon une méthode spécifiée par le paramètre strategy. (Design pattern strategy)

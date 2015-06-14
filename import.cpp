@@ -38,7 +38,6 @@ void ImportXML::load(const QString& f){
                             QString description_projet;
                             QDateTime disponibilite_projet;
                             QDateTime echeance_projet;
-                            vector<Tache*> taches_projet;
 
                             xml.readNext();
                             //We're going to loop over the things because the order might change.

@@ -57,9 +57,9 @@ public:
          * \param b: Booleen représentant l'état de la tache à ajouter (par défaut non programmée)
          *
          */
-    Tache(const QString& ident, const QString& t, const QDateTime& d,const QDateTime& ech, bool b=false): Evenement(ident,t,d,ech,b), tachesPrecedentes(0), debut(QDateTime::currentDateTime()), fin(QDateTime::currentDateTime()){}
+    Tache(const QString& ident, const QString& t, const QDateTime& d,const QDateTime& ech, bool b=false): Evenement(ident,t,d,ech,b), tachesPrecedentes(0), debut(QDateTime::currentDateTime()), fin(QDateTime::currentDateTime()), inTree(false){}
 
-    virtual void supprimerSousTache(const QString& ){};
+    virtual void supprimerSousTache(const QString& ){}
     /*!
          *  \brief afficher
          *
@@ -153,14 +153,6 @@ public:
         *
         */
     virtual void ajouterSousTache(Tache*)=0;
-
-    /*!
-        *  \brief getSousTaches
-        *
-        *  Méthode virtuelle pure pour permettre l'appel de getSousTaches() sur un pointeur de Tache
-        *
-        */
-    virtual const vector<Tache*>* getSousTaches() const = 0;
 
     virtual soustaches_iterator begin_soustaches() const{return soustaches_iterator();}
     virtual soustaches_iterator end_soustaches() const {return soustaches_iterator();}

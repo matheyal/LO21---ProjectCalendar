@@ -56,6 +56,8 @@ public slots:
 
 protected:
     void chargerFichier();
+    QTreeWidgetItem* tacheToTreeView(Tache* tache);
+    QTreeWidgetItem* projetToTreeView(Projet* projet);
 
 
     QList<QTreeWidgetItem*>  treeProjets;
