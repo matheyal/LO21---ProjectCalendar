@@ -47,7 +47,8 @@ SOURCES += main.cpp \
     vuesemaine.cpp \
     fenetresupmodtache.cpp \
     fenetreajoutprogrammation.cpp \
-    fenetresupmodprogrammation.cpp
+    fenetresupmodprogrammation.cpp \
+    treeview.cpp
 
 HEADERS += \
     agenda.h \
@@ -79,4 +80,5 @@ HEADERS += \
     vuesemaine.h \
     fenetresupmodtache.h \
     fenetreajoutprogrammation.h \
-    fenetresupmodprogrammation.h
+    fenetresupmodprogrammation.h \
+    treeview.h

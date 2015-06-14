@@ -13,17 +13,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //fl->show();
     chargerFichier();
 
-    //Cr�ation d'une barre d'outil MENU
-
-    barreMenu = new QMenuBar;
-
-    menuFichier = new QMenu("Fichier");
-    barreMenu->addMenu(menuFichier);
-
-        //Cr�ation d'un layout pour le menu
-        layoutMenu = new QHBoxLayout;
-        layoutMenu->addWidget(barreMenu);
-
     //Cr�ation de 2 onglets
 
     barreOnglet= new QTabWidget;
@@ -31,124 +20,108 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     onglet2 = new QWidget;
 
     //Onglet numero 1
-    VueSemaine* Semaine = new VueSemaine(this);
+    Semaine = new VueSemaine(this);
     QVBoxLayout* layout1 = new QVBoxLayout;
     layout1->addWidget(Semaine);
-/*
-    QTableWidget* tableau= new QTableWidget(10,7);
 
-    QVBoxLayout *layout1 = new QVBoxLayout;
-    layout1->addWidget(tableau);
+    onglet1->setLayout(layout1);
 
-    //Premiere case du tableau
-    QDate *today = new QDate(QDate::currentDate());
-    for(int i=0;i<7; i++)
-    {
-        QTableWidgetItem* a = new QTableWidgetItem((today->addDays(i)).toString());
-        tableau->setHorizontalHeaderItem(i,a);
-    }
-*/
+    //Onglet numero 2
 
-        onglet1->setLayout(layout1);
+        //Selectionner projet
 
-        //Onglet numero 2
+        label1 = new QLabel("Projet");
+        nouveau = new QPushButton("Nouveau Projet");
+        supmod=new QPushButton("Modifier ou supprimer Projet");
 
-            //Selectionner projet
-
-            label1 = new QLabel("Projet");
-            nouveau = new QPushButton("Nouveau Projet");
-            supmod=new QPushButton("Modifier ou supprimer Projet");
-
-            layoutBoutonProjet = new QVBoxLayout;
-            layoutBoutonProjet->addWidget(nouveau);
-            layoutBoutonProjet->addWidget(supmod);
+        layoutBoutonProjet = new QVBoxLayout;
+        layoutBoutonProjet->addWidget(nouveau);
+        layoutBoutonProjet->addWidget(supmod);
 
 
-            groupeProjet = new QGroupBox("Projet", onglet2);
-            groupeProjet->setLayout(layoutBoutonProjet);
+        groupeProjet = new QGroupBox("Projet", onglet2);
+        groupeProjet->setLayout(layoutBoutonProjet);
 
 
-            QObject::connect(nouveau, SIGNAL(clicked()), this, SLOT(ajouterProjet()));
-            QObject::connect(supmod, SIGNAL(clicked()), this, SLOT(supmodProjet()));
+        QObject::connect(nouveau, SIGNAL(clicked()), this, SLOT(ajouterProjet()));
+        QObject::connect(supmod, SIGNAL(clicked()), this, SLOT(supmodProjet()));
 
 
-            //Nouvelle Tache
+        //Nouvelle Tache
 
-            unitaire = new QPushButton("Unitaire");
-            composite = new QPushButton("Composite");
-            precedence = new QPushButton("Precedence");
-            supmodtache =new QPushButton("Modifier ou supprimer une tache");
-
-
-            layoutAjoutTache = new QHBoxLayout;
-            layoutAjoutTache->addWidget(unitaire);
-            layoutAjoutTache->addWidget(composite);
-            layoutAjoutTache->addWidget(precedence);
-            layoutTache = new QVBoxLayout;
-            layoutTache->addLayout(layoutAjoutTache);
-            layoutTache->addWidget(supmodtache);
-
-            groupeTache = new QGroupBox("Tache", onglet2);
-            groupeTache->setLayout(layoutTache);
-
-            QObject::connect(unitaire, SIGNAL(clicked()), this, SLOT(ajouterTacheUnitaire()));
-            QObject::connect(composite, SIGNAL(clicked()), this, SLOT(ajouterTacheComposite()));
-            QObject::connect(precedence, SIGNAL(clicked()), this, SLOT(ajouterPrecedence()));
-            QObject::connect(supmodtache, SIGNAL(clicked()), this, SLOT(supModTache()));
+        unitaire = new QPushButton("Unitaire");
+        composite = new QPushButton("Composite");
+        precedence = new QPushButton("Precedence");
+        supmodtache =new QPushButton("Modifier ou supprimer une tache");
 
 
-            //Activité
+        layoutAjoutTache = new QHBoxLayout;
+        layoutAjoutTache->addWidget(unitaire);
+        layoutAjoutTache->addWidget(composite);
+        layoutAjoutTache->addWidget(precedence);
+        layoutTache = new QVBoxLayout;
+        layoutTache->addLayout(layoutAjoutTache);
+        layoutTache->addWidget(supmodtache);
+
+        groupeTache = new QGroupBox("Tache", onglet2);
+        groupeTache->setLayout(layoutTache);
+
+        QObject::connect(unitaire, SIGNAL(clicked()), this, SLOT(ajouterTacheUnitaire()));
+        QObject::connect(composite, SIGNAL(clicked()), this, SLOT(ajouterTacheComposite()));
+        QObject::connect(precedence, SIGNAL(clicked()), this, SLOT(ajouterPrecedence()));
+        QObject::connect(supmodtache, SIGNAL(clicked()), this, SLOT(supModTache()));
 
 
-            nouvact= new QPushButton("Nouvelle activité");
-            supmodact = new QPushButton("Modifier ou supprimer une activité"),
-
-            layoutBoutonActivite = new QVBoxLayout;
-            layoutBoutonActivite->addWidget(nouvact);
-            layoutBoutonActivite->addWidget(supmodact);
-
-            groupeActivite = new QGroupBox("Activite", this);
-            groupeActivite->setLayout(layoutBoutonActivite);
-
-            QObject::connect(nouvact,SIGNAL(clicked()), this, SLOT(nouvelleActivite()));
-            QObject::connect(supmodact,SIGNAL(clicked()), this, SLOT(supModActivite()));
-
-            // Ajouter au calendrier
-
-            ajoutProgTache = new QPushButton("Tache");
-            ajoutProgActivite= new QPushButton("Activite");
-            supModProg = new QPushButton("Modifier ou supprimer une programmation");
-
-            layoutAjoutProg  =new QHBoxLayout;
-            layoutAjoutProg->addWidget(ajoutProgTache);
-            layoutAjoutProg->addWidget(ajoutProgActivite);
-
-            layoutProg = new QVBoxLayout;
-            layoutProg->addLayout(layoutAjoutProg);
-            layoutProg->addWidget(supModProg);
-
-            groupeAjout = new QGroupBox("Programmer", onglet2);
-            groupeAjout->setLayout(layoutProg);
-
-            QObject::connect(ajoutProgTache, SIGNAL(clicked()), this, SLOT(ajoutTacheCalendrier()));
-            QObject::connect(ajoutProgActivite, SIGNAL(clicked()), this, SLOT(ajoutActiviteCalendrier()));
-            QObject::connect(supModProg,SIGNAL(clicked()), this, SLOT(supModProgrammation()));
+        //Activité
 
 
-            // Tree view
+        nouvact= new QPushButton("Nouvelle activité");
+        supmodact = new QPushButton("Modifier ou supprimer une activité"),
 
-            tree =  new QTreeWidget;
+        layoutBoutonActivite = new QVBoxLayout;
+        layoutBoutonActivite->addWidget(nouvact);
+        layoutBoutonActivite->addWidget(supmodact);
 
-            treeView();
+        groupeActivite = new QGroupBox("Activite", this);
+        groupeActivite->setLayout(layoutBoutonActivite);
 
-            refresh = new QPushButton("Refresh");
-            refresh->setMaximumWidth(100);
+        QObject::connect(nouvact,SIGNAL(clicked()), this, SLOT(nouvelleActivite()));
+        QObject::connect(supmodact,SIGNAL(clicked()), this, SLOT(supModActivite()));
 
-            layoutTree = new QHBoxLayout;
-            layoutTree->addWidget(tree);
+        // Ajouter au calendrier
 
-            groupeTree = new QGroupBox("Tree-View", onglet2);
-            groupeTree->setLayout(layoutTree);
+        ajoutProgTache = new QPushButton("Tache");
+        ajoutProgActivite= new QPushButton("Activite");
+        supModProg = new QPushButton("Modifier ou supprimer une programmation");
+
+        layoutAjoutProg  =new QHBoxLayout;
+        layoutAjoutProg->addWidget(ajoutProgTache);
+        layoutAjoutProg->addWidget(ajoutProgActivite);
+
+        layoutProg = new QVBoxLayout;
+        layoutProg->addLayout(layoutAjoutProg);
+        layoutProg->addWidget(supModProg);
+
+        groupeAjout = new QGroupBox("Programmer", onglet2);
+        groupeAjout->setLayout(layoutProg);
+
+        QObject::connect(ajoutProgTache, SIGNAL(clicked()), this, SLOT(ajoutTacheCalendrier()));
+        QObject::connect(ajoutProgActivite, SIGNAL(clicked()), this, SLOT(ajoutActiviteCalendrier()));
+        QObject::connect(supModProg,SIGNAL(clicked()), this, SLOT(supModProgrammation()));
+
+
+        // Tree view
+
+        tree =  new TreeView;
+
+        refresh = new QPushButton("Refresh");
+        refresh->setMaximumWidth(100);
+
+        layoutTree = new QHBoxLayout;
+        layoutTree->addWidget(tree);
+
+        groupeTree = new QGroupBox("Tree-View", onglet2);
+        groupeTree->setLayout(layoutTree);
 
         layoutDemiOnglet2 = new QVBoxLayout;
         layoutOnglet2 = new QHBoxLayout;
@@ -178,7 +151,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
         // Connection pour le bouton quitter
         QObject::connect(quitter, SIGNAL(clicked()), this, SLOT(close()));
-        QObject::connect(refresh, SIGNAL(clicked()), this, SLOT(treeView()));
+        QObject::connect(refresh, SIGNAL(clicked()), this, SLOT(refreshViews()));
 
 
         //Attachement de ces onglets � la barre d'onglet
@@ -186,8 +159,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     barreOnglet->addTab(onglet1, "Calendrier");
     barreOnglet->addTab(onglet2, "Evenement");
 
+    QObject::connect(barreOnglet, SIGNAL(currentChanged(int)), this, SLOT(refreshViews()));
+
     layout = new QVBoxLayout;
-    layout->addLayout(layoutMenu);
     layout->addWidget(barreOnglet);
     layout->addLayout(layoutHorizontal2);
 
@@ -273,115 +247,6 @@ void MainWindow::chargerFichier(){
     }
 }
 
-QTreeWidgetItem* MainWindow::tacheToTreeView(Tache* tache){
-    QTreeWidgetItem* item = new QTreeWidgetItem;
-    item->setText(0, tache->getTitre());
-    if(tache->getStatus()) item->setTextColor(0,Qt::green);
-    else item->setTextColor(0,Qt::red);
-
-    if (typeid(*tache) == typeid(TacheComposite)){
-        for(soustaches_iterator it = tache->begin_soustaches() ; it != tache->end_soustaches() ; ++it){
-            item->addChild(tacheToTreeView((*it)));
-            (*it)->setInTree(true);
-        }
-    }
-    return item;
-}
-
-QTreeWidgetItem* MainWindow::projetToTreeView(Projet* projet){
-    QTreeWidgetItem* item = new QTreeWidgetItem;
-    item->setText(0, projet->getTitre());
-    item->setTextColor(0, Qt::blue);
-    for(Projet::taches_iterator it = projet->begin_taches() ; it != projet->end_taches() ; ++it)
-    {
-        if(!(*it)->getInTree()){
-            item->addChild(tacheToTreeView((*it)));
-        }
-    }
-    return item;
-}
-
-void MainWindow::treeView()
-{
-    tree->clear();
-    ProjetManager& pm = ProjetManager::getInstance();
-    for(ProjetManager::projets_iterator it1 = pm.begin_projets() ; it1 != pm.end_projets() ; ++it1)
-    {
-        tree->addTopLevelItem(projetToTreeView((*it1)));
-    }
-    /*tree->clear();
-    ProjetManager& pm = ProjetManager::getInstance();
-    vector<Projet*> pro = *pm.getProjets();
-    for(size_t i=0;i<pro.size();i++)
-    {
-        QTreeWidgetItem* projeti = new QTreeWidgetItem;
-        projeti->setText(0, pro[i]->getTitre());
-        projeti->setTextColor(0,Qt::blue);
-        tree->addTopLevelItem(projeti);
-        vector<Tache*> tac= *pm.trouverProjet(pro[i]->getId())->getTaches();
-        size_t siz=tac.size();
-        for(size_t k =0;k<siz;k++)
-        {
-            QTreeWidgetItem* tachei = new QTreeWidgetItem;
-            tachei->setText(0, tac[k]->getTitre());
-            if(tac[k]->getStatus()) tachei->setTextColor(0,Qt::green);
-            else tachei->setTextColor(0, Qt::red);
-            projeti->addChild(tachei);
-            if(tac[k]->Type()=="14TacheComposite")
-            {
-                vector<Tache*> taccomp=*tac[k]->getSousTaches();
-                for(size_t h=0;h<taccomp.size();h++)
-                {
-                    siz--;
-                    QTreeWidgetItem* sousTache1 = new QTreeWidgetItem;
-                    sousTache1->setText(0, taccomp[h]->getTitre());
-                    if(taccomp[h]->getStatus()) sousTache1->setTextColor(0,Qt::green);
-                    else sousTache1->setTextColor(0, Qt::red);
-                    tachei->addChild(sousTache1);
-                    if(taccomp[h]->Type()=="14TacheComposite")
-                    {
-                        siz--;
-                        if(taccomp[h]->getSousTaches())
-                        {
-                            vector<Tache*> taccomp1=*taccomp[h]->getSousTaches();
-                            for(size_t j=0;j<taccomp1.size();j++)
-                            {
-                                siz--;
-                                QTreeWidgetItem* sousTache2 = new QTreeWidgetItem;
-                                sousTache2->setText(0, taccomp1[j]->getTitre());
-                                if(taccomp1[j]->getStatus()) sousTache2->setTextColor(0,Qt::green);
-                                else sousTache2->setTextColor(0, Qt::red);
-                                sousTache1->addChild(sousTache2);
-                                if(taccomp1[j]->Type()=="14TacheComposite")
-                                {
-                                    siz--;
-                                    if(taccomp1[j]->getSousTaches())
-                                    {
-                                        vector<Tache*> taccomp2=*tac[j]->getSousTaches();
-                                        for(size_t z=0;z<taccomp2.size();z++)
-                                        {
-                                            siz--;
-                                            QTreeWidgetItem* sousTache3 = new QTreeWidgetItem;
-                                            sousTache3->setText(0, taccomp2[z]->getTitre());
-                                            if(taccomp2[z]->getStatus()) sousTache3->setTextColor(0,Qt::green);
-                                            else sousTache3->setTextColor(0, Qt::red);
-                                            if(!taccomp2[z]->getInTree())
-                                            {
-                                                sousTache2->addChild(sousTache3);
-                                                taccomp2[z]->setInTree(true);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }*/
-}
-
 void MainWindow::ajoutTacheCalendrier(){
     FenetreAjoutProgTache* f = new FenetreAjoutProgTache();
     f->show();
@@ -396,5 +261,14 @@ void MainWindow::ajoutActiviteCalendrier()
 void MainWindow::supModProgrammation(){
     FenetreSupModProg* f = new FenetreSupModProg();
     f->show();
+}
+
+void MainWindow::refreshViews(){
+    int onglet = barreOnglet->currentIndex();
+    switch(onglet){
+    case 0: Semaine->updateVueSemaine(); break;
+    case 1: tree->updateTreeView(); break;
+    default:break;
+    }
 }
 

@@ -28,6 +28,7 @@
 #include "fenetreajoutprogrammation.h"
 #include "qt.h"
 #include "fenetresupmodprogrammation.h"
+#include "treeview.h"
 
 class MainWindow: public QMainWindow
 {
@@ -50,9 +51,9 @@ public slots:
     void supModActivite();
     void ajoutTacheCalendrier();
     void ajoutActiviteCalendrier();
-    void treeView();
     void ajouterPrecedence();
     void supModProgrammation();
+    void refreshViews();
 
 protected:
     void chargerFichier();
@@ -72,9 +73,7 @@ protected:
     QVBoxLayout* layout21;
     QHBoxLayout* layoutMenu;
 
-
-    QMenu *menuFichier;
-    QMenuBar* barreMenu;
+    VueSemaine* Semaine;
 
     //onglet 2
 
@@ -102,7 +101,7 @@ protected:
     QDateTimeEdit* dispoProjet;
     QDateTimeEdit* echeanceProjet;
 
-    QTreeWidget* tree;
+    TreeView* tree;
 
     QGroupBox* groupeProjet;
     QGroupBox* groupeTache;

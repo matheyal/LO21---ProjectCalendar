@@ -30,30 +30,6 @@
             </taches>
         </projet>
         <projet>
-            <identificateur>2</identificateur>
-            <titre>projet2</titre>
-            <description>test2.2</description>
-            <disponibilite></disponibilite>
-            <echeance>2015-06-10T00:00:00</echeance>
-            <taches/>
-        </projet>
-        <projet>
-            <identificateur>3</identificateur>
-            <titre>projet3</titre>
-            <description>top mega cool</description>
-            <disponibilite></disponibilite>
-            <echeance>2015-06-10T00:00:00</echeance>
-            <taches/>
-        </projet>
-        <projet>
-            <identificateur>4</identificateur>
-            <titre>projet4</titre>
-            <description>Test de la mort qui tue</description>
-            <disponibilite></disponibilite>
-            <echeance>2015-06-11T00:00:00</echeance>
-            <taches/>
-        </projet>
-        <projet>
             <identificateur>composition</identificateur>
             <titre>composition</titre>
             <description>hehehe</description>
@@ -222,6 +198,10 @@
             <echeance>2018-06-14T01:16:14</echeance>
             <duree>120</duree>
             <lieu>Sartroucity!</lieu>
+            <programmation>
+                <date>2015-06-14T15:00:25</date>
+                <heure>15H00</heure>
+            </programmation>
         </activite>
         <activite reunion="true" rdv="false">
             <identificateur>Reunion</identificateur>
