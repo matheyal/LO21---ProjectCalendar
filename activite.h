@@ -35,7 +35,8 @@ protected:
     /*!
          *  \brief Constructeur
          *
-         *  Constructeur de la classe Activite
+         *  Constructeur privé de la classe Activite
+         *  Permet d'éviter l'instanciation d'objet Activite
          *
          *  \param ident : Identifiant de l'activite
          *  \param t : Titre de l'activite
@@ -49,12 +50,22 @@ protected:
     /*!
          *  \brief Destructeur
          *
-         *  Destructeur de la classe Activite
+         *  Destructeur privé de la classe Activite
          */
     ~Activite() {}
+    /*!
+         *  \brief Constructeur de recopie
+         *
+         *  Constructeur de recopie privé de la classe Activite
+         */
     Activite (const Activite&);
+    /*!
+         *  \brief opérateur d'affectation
+         *
+         *  Opérateur d'affectation privé de la classe Activite
+         */
     Activite& operator=(const Activite&);
-    friend class ActiviteManager;
+    friend class ActiviteManager; /*!< Classe ActiviteManager amie de Activite : seul ActiviteManager pourra instancier des Activite*/
 public:
 
     /*!
@@ -150,7 +161,8 @@ private:
     /*!
          *  \brief Constructeur
          *
-         *  Constructeur de la classe Reunion
+         *  Constructeur privé de la classe Reunion
+         *  Permet d'éviter l'instanciation d'objet Reunion
          *
          *  \param ident : Identifiant de l'activite
          *  \param t : Titre de l'activite
@@ -165,12 +177,22 @@ private:
     /*!
          *  \brief Destructeur
          *
-         *  Destructeur de la classe Reunion
+         *  Destructeur privé de la classe Reunion
          */
      ~Reunion() {}
+    /*!
+         *  \brief Constructeur de recopie
+         *
+         *  Constructeur de recopie privé de la classe Reunion
+         */
     Reunion (const Reunion&);
+    /*!
+         *  \brief Opérateur d'affectation
+         *
+         *  Opérateur d'affectation privé de la classe Reunion
+         */
     Reunion& operator=(const Reunion&);
-    friend class ActiviteManager;
+    friend class ActiviteManager; /*!< Classe ActiviteManager amie de Reunion : seul ActiviteManager pourra instancier des Reunion*/
 public:
 
     /*!
@@ -209,7 +231,8 @@ private:
     /*!
          *  \brief Constructeur
          *
-         *  Constructeur de la classe Rendez-vous
+         *  Constructeur privé de la classe Rdv
+         *  Permet d'éviter l'instanciation d'objet Rdv
          *
          *  \param ident : Identifiant de l'activite
          *  \param t : Titre de l'activite
@@ -224,12 +247,23 @@ private:
     /*!
          *  \brief Destructeur
          *
-         *  Destructeur de la classe Rendez vous
+         *  Destructeur privé de la classe Rendez vous
          */
      ~Rdv() {}
+    /*!
+         *  \brief Constructeur de recopie
+         *
+         *  Constructeur de recopie privé de la classe Rendez vous
+         */
     Rdv (const Rdv&);
+    /*!
+         *  \brief Opérateur d'affectation
+         *
+         *  Opérateur d'affectation privé de la classe Rendez vous
+         */
     Rdv& operator=(const Rdv&);
-    friend class ActiviteManager;
+    friend class ActiviteManager; /*!< Classe ActiviteManager amie de Rdv : seul ActiviteManager pourra instancier des Rdv*/
+
 public: 
     /*!
          *  \brief getInterlocuteur

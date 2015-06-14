@@ -49,12 +49,12 @@ FenetreSupModTache::FenetreSupModTache(QMainWindow *parent) : QMainWindow(parent
     horizontal->addWidget(mod);
     horizontal->addWidget(ann);
 
-    layoutNouvelleTache = new QVBoxLayout;
-    layoutNouvelleTache->addLayout(layout21Form);
-    layoutNouvelleTache->addLayout(horizontal);
+    layoutTache = new QVBoxLayout;
+    layoutTache->addLayout(layout21Form);
+    layoutTache->addLayout(horizontal);
 
     groupeTache = new QGroupBox("Supprimer ou modifier une tache", this);
-    groupeTache->setLayout(layoutNouvelleTache);
+    groupeTache->setLayout(layoutTache);
 
     layout = new QHBoxLayout;
     layout->addWidget(groupeTache);

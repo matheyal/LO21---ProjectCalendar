@@ -3,7 +3,7 @@
 
 /*!
  * \file evenement.h
- * \brief Fichier gerant les evenements diverses presents dans l'agenda
+ * \brief Fichier gerant les evenements divers presents dans l'agenda
  */
 
 #include "timing.h"

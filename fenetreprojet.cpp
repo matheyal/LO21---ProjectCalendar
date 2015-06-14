@@ -12,7 +12,7 @@ FenetreProjet::FenetreProjet(QMainWindow *parent) : QMainWindow(parent)
     echeanceProjet = new QDateTimeEdit(QDateTime::currentDateTime());
     enregistrerProjet = new QPushButton("Enregister");
     enregistrerProjet->setDisabled(true);
-    annuler = new QPushButton("annuler");
+    quitter= new QPushButton("quitter");
 
     layout21Form = new QFormLayout;
     layout21Form->addRow("Id", idProjet);
@@ -23,15 +23,14 @@ FenetreProjet::FenetreProjet(QMainWindow *parent) : QMainWindow(parent)
 
     horizontal=new QHBoxLayout;
     horizontal->addWidget(enregistrerProjet);
-    horizontal->addWidget(annuler);
+    horizontal->addWidget(quitter);
 
     layoutNouveauProjet = new QVBoxLayout;
     layoutNouveauProjet->addLayout(layout21Form);
     layoutNouveauProjet->addLayout(horizontal);
 
     QObject::connect(enregistrerProjet, SIGNAL(clicked()), this, SLOT(saveProjet()));
-    QObject::connect(enregistrerProjet, SIGNAL(clicked()), this, SLOT(close()));
-    QObject::connect(annuler, SIGNAL(clicked()), this, SLOT(cancel()));
+    QObject::connect(quitter, SIGNAL(clicked()), this, SLOT(close()));
     QObject::connect(dispoProjet, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkDate(const QDateTime&)));
     QObject::connect(echeanceProjet, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkDate(const QDateTime&)));
     QObject::connect(idProjet, SIGNAL(textChanged(QString)), this, SLOT(checkModifier()));
@@ -67,16 +66,10 @@ void FenetreProjet::saveProjet()
     else {
         pm.ajouterProjet(idProjet->text(), titreProjet->text(), descriptionProjet->toPlainText(), dispoProjet->dateTime(), echeanceProjet->dateTime());
         QMessageBox::information(this, "bravo", "projet ajouté");
+        this->close();
     }
 }
 
-void FenetreProjet::cancel(){
-    idProjet->clear();
-    titreProjet->clear();
-    descriptionProjet->clear();
-    dispoProjet->setDateTime(QDateTime::currentDateTime());
-    echeanceProjet->setDateTime(QDateTime::currentDateTime());
-}
 
 
 void FenetreProjet::checkDate(const QDateTime& d){

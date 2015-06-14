@@ -17,7 +17,7 @@ FenetreActivite::FenetreActivite(QMainWindow *parent) : QMainWindow(parent)
     personne->setDisabled(true);
     enregistrerActivite = new QPushButton("Enregister");
     enregistrerActivite->setDisabled(true);
-    annuler = new QPushButton("annuler");
+    quitter = new QPushButton("quitter");
 
 
     layout21Form = new QFormLayout;
@@ -33,15 +33,14 @@ FenetreActivite::FenetreActivite(QMainWindow *parent) : QMainWindow(parent)
 
     horizontal=new QHBoxLayout;
     horizontal->addWidget(enregistrerActivite);
-    horizontal->addWidget(annuler);
+    horizontal->addWidget(quitter);
 
     layoutNouvelleActivite = new QVBoxLayout;
     layoutNouvelleActivite->addLayout(layout21Form);
     layoutNouvelleActivite->addLayout(horizontal);
 
     QObject::connect(enregistrerActivite, SIGNAL(clicked()), this, SLOT(saveActivite()));
-    QObject::connect(enregistrerActivite, SIGNAL(clicked()), this, SLOT(close()));
-    QObject::connect(annuler, SIGNAL(clicked()), this, SLOT(cancel()));
+    QObject::connect(quitter, SIGNAL(clicked()), this, SLOT(close()));
     QObject::connect(dispoActivite, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkDate(const QDateTime&)));
     QObject::connect(echeanceActivite, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkDate(const QDateTime&)));
     QObject::connect(reunion, SIGNAL(stateChanged(int)), this, SLOT(checkType()));
@@ -56,7 +55,7 @@ FenetreActivite::FenetreActivite(QMainWindow *parent) : QMainWindow(parent)
     QObject::connect(echeanceActivite, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkModifier()));
 
 
-    groupeNouvelleActivite = new QGroupBox("Rentrer un nouveau Activite dans la base de donnee", this);
+    groupeNouvelleActivite = new QGroupBox("Rentrez un nouveau Activite dans la base de donnee", this);
     groupeNouvelleActivite->setLayout(layoutNouvelleActivite);
 
     layout = new QHBoxLayout;
@@ -74,12 +73,16 @@ void FenetreActivite::saveActivite()
     Duree du(dureeActivite->time().hour(), dureeActivite->time().minute());
     if(am.trouverActivite(idActivite->text()))
         QMessageBox::warning(this, "erreur","sauvegarde impossible, id deja utilise");
-    else if(reunion->isChecked())
+    else if(reunion->isChecked()){
         am.ajouterReunion(idActivite->text(), titreActivite->text(), dispoActivite->dateTime(), echeanceActivite->dateTime(), du, lieuActivite->text());
-    else if (rdv->isChecked())
+        this->close();
+    }else if (rdv->isChecked()){
         am.ajouterRdv(idActivite->text(), titreActivite->text(), dispoActivite->dateTime(), echeanceActivite->dateTime(), du, personne->text(), lieuActivite->text());
-    else am.ajouterActivite(idActivite->text(), titreActivite->text(), dispoActivite->dateTime(), echeanceActivite->dateTime(), du, lieuActivite->text());
-
+        this->close();
+    }else{
+        am.ajouterActivite(idActivite->text(), titreActivite->text(), dispoActivite->dateTime(), echeanceActivite->dateTime(), du, lieuActivite->text());
+        this->close();
+    }
 }
 
 void FenetreActivite::checkModifier(){
@@ -89,17 +92,6 @@ void FenetreActivite::checkModifier(){
         else enregistrerActivite->setEnabled(true);
     }
     else enregistrerActivite->setDisabled(true);
-}
-
-void FenetreActivite::cancel(){
-    idActivite->clear();
-    titreActivite->clear();
-    dispoActivite->setDateTime(QDateTime::currentDateTime());
-    echeanceActivite->setDateTime(QDateTime::currentDateTime());
-    dureeActivite->clear();
-    lieuActivite->clear();
-    reunion->setChecked(false);
-    rdv->setChecked(false);
 }
 
 

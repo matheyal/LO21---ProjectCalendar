@@ -3,7 +3,7 @@
 
 FenetreSupModProjet::FenetreSupModProjet(QMainWindow *parent) : QMainWindow(parent)
 {
-    fenetreProjet = new QWidget;
+    fenetreSupModProjet = new QWidget;
 
     idProjet = new QComboBox(this);
     idProjet->addItem("");
@@ -39,9 +39,9 @@ FenetreSupModProjet::FenetreSupModProjet(QMainWindow *parent) : QMainWindow(pare
     horizontal->addWidget(mod);
     horizontal->addWidget(ann);
 
-    layoutNouveauProjet = new QVBoxLayout;
-    layoutNouveauProjet->addLayout(layout21Form);
-    layoutNouveauProjet->addLayout(horizontal);
+    layoutProjet = new QVBoxLayout;
+    layoutProjet->addLayout(layout21Form);
+    layoutProjet->addLayout(horizontal);
 
     QObject::connect(idProjet, SIGNAL(currentIndexChanged(int)), this, SLOT(load()));
     QObject::connect(mod, SIGNAL(clicked()), this, SLOT(modifier()));
@@ -52,15 +52,15 @@ FenetreSupModProjet::FenetreSupModProjet(QMainWindow *parent) : QMainWindow(pare
     QObject::connect(dispoProjet, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkDate(const QDateTime&)));
     QObject::connect(echeanceProjet, SIGNAL(dateTimeChanged(const QDateTime&)), this, SLOT(checkDate(const QDateTime&)));
 
-    groupeNouveauProjet = new QGroupBox("Rentrer un nouveau projet dans la base de donnee", this);
-    groupeNouveauProjet->setLayout(layoutNouveauProjet);
+    groupeProjet = new QGroupBox("Rentrer un nouveau projet dans la base de donnee", this);
+    groupeProjet->setLayout(layoutProjet);
 
     layout = new QHBoxLayout;
-    layout->addWidget(groupeNouveauProjet);
+    layout->addWidget(groupeProjet);
 
-    fenetreProjet->setLayout(layout);
+    fenetreSupModProjet->setLayout(layout);
 
-    setCentralWidget(fenetreProjet);
+    setCentralWidget(fenetreSupModProjet);
 }
 
 void FenetreSupModProjet::load(){    

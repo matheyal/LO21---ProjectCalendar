@@ -32,7 +32,13 @@ FenetreAjoutProgTache::FenetreAjoutProgTache(QMainWindow *parent):QMainWindow(pa
     Vlayout->addLayout(layoutChoixProjetTache);
     Vlayout->addLayout(layoutEnregistrerQuitter);
 
-    fenetreAjoutProgTache->setLayout(Vlayout);
+    groupeNouvelleProgTache = new QGroupBox("Rentrez une programmation");
+    groupeNouvelleProgTache->setLayout(Vlayout);
+
+    layout= new QHBoxLayout;
+    layout->addWidget(groupeNouvelleProgTache);
+
+    fenetreAjoutProgTache->setLayout(layout);
     setCentralWidget(fenetreAjoutProgTache);
 
     QObject::connect(quitterProgTache, SIGNAL(clicked()),this, SLOT(close()));

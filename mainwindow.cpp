@@ -28,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     //Onglet numero 2
 
-        //Selectionner projet
+        //Projet
 
         label1 = new QLabel("Projet");
         nouveau = new QPushButton("Nouveau Projet");
@@ -47,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         QObject::connect(supmod, SIGNAL(clicked()), this, SLOT(supmodProjet()));
 
 
-        //Nouvelle Tache
+        //Tache
 
         unitaire = new QPushButton("Unitaire");
         composite = new QPushButton("Composite");
@@ -171,10 +171,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     setCentralWidget(mainWindow);
 }
 
-void MainWindow::chargerProjet()
-{
-    QString dossier = QFileDialog::getExistingDirectory(this);
-}
 
 void MainWindow::supmodProjet(){
     FenetreSupModProjet *p=new FenetreSupModProjet;

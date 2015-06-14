@@ -3,7 +3,7 @@
 
 FenetreSupModActivite::FenetreSupModActivite(QMainWindow *parent) : QMainWindow(parent)
 {
-    fenetreActivite = new QWidget;
+    fenetreSupModActivite = new QWidget;
 
     idActivite = new QComboBox(this);
     idActivite->addItem("");
@@ -51,19 +51,19 @@ FenetreSupModActivite::FenetreSupModActivite(QMainWindow *parent) : QMainWindow(
     horizontal->addWidget(mod);
     horizontal->addWidget(ann);
 
-    layoutNouvelleActivite = new QVBoxLayout;
-    layoutNouvelleActivite->addLayout(layout21Form);
-    layoutNouvelleActivite->addLayout(horizontal);
+    layoutActivite = new QVBoxLayout;
+    layoutActivite->addLayout(layout21Form);
+    layoutActivite->addLayout(horizontal);
 
     groupeActivite = new QGroupBox("Supprimer ou modifier une activité", this);
-    groupeActivite->setLayout(layoutNouvelleActivite);
+    groupeActivite->setLayout(layoutActivite);
 
     layout = new QHBoxLayout;
     layout->addWidget(groupeActivite);
 
-    fenetreActivite->setLayout(layout);
+    fenetreSupModActivite->setLayout(layout);
 
-    setCentralWidget(fenetreActivite);
+    setCentralWidget(fenetreSupModActivite);
 
     QObject::connect(idActivite, SIGNAL(currentIndexChanged(int)), this, SLOT(load()));
     QObject::connect(mod, SIGNAL(clicked()), this, SLOT(modifier()));
