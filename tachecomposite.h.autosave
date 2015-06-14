@@ -103,7 +103,7 @@ public:
     /*!
          *  \brief setDuree
          *
-         *  Méthode virtuelle pure définissant l'interface pour la modification de la durée d'une TacheUnitaire
+         *  Définition de la méthode virtuelle pure de la classe Tache, pour pouvoir instancier TacheCompos
          *
          *  \param d : la duree avec laquelle on veut initialiser la duree de l'activité
          */

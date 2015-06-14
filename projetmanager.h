@@ -174,12 +174,30 @@ public:
 
     void load(ImportStrategy* strategy, const QString& f){strategy->load(f);}
 
+    /*! \class projets_iterator
+       * \brief Iterator sur les projetsdu ProjetManager
+       *
+       */
     class projets_iterator : public vector<Projet*>::const_iterator{
     public:
         projets_iterator():vector<Projet*>::const_iterator(){}
         projets_iterator(typename vector<Projet*>::const_iterator it):vector<Projet*>::const_iterator(it){}
     };
+
+    /*!
+         *  \brief begin_projets()
+         *
+         *  Retourne un projets_iterator sur le premier projet du ProjetManager
+         *
+         */
     projets_iterator begin_projets() const {return projets_iterator(projets.begin());}
+
+    /*!
+         *  \brief end_projets()
+         *
+         *  Retourne un projets_iterator sur le dernier projet du ProjetManager
+         *
+         */
     projets_iterator end_projets() const {return projets_iterator(projets.end());}
 };
 

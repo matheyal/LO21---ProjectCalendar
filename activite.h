@@ -131,7 +131,7 @@ public:
          *  \param parti : nom du participant que l'on veut rajouter à la réunion
          */
 
-    virtual void ajouterParticipant(const QString &){};
+    virtual void ajouterParticipant(const QString &){}
 
     /*!
          *  \brief supprimmerParticipant
@@ -140,7 +140,7 @@ public:
          *
          *  \param parti : nom du participant que l'on veut supprimer de la réunion
          */
-    virtual void supprimerParticipant(const QString & ){};
+    virtual void supprimerParticipant(const QString & ){}
 
     /*!
          *  \brief begin_participant
@@ -163,7 +163,7 @@ public:
     /*!
          *  \brief begin_precedences
          *
-         *  Retourne un precedences_iterator sur la première tache précédente
+         *  Une activité n'a pas de précédence donc retourne un precedences_iterator vide
          *
          */
     precedences_iterator begin_precedences() const {return precedences_iterator();}
@@ -171,7 +171,7 @@ public:
     /*!
          *  \brief end_precedences
          *
-         *  Retourne un precedences_iterator sur la dernière tache précédente
+         *  Une activité n'a pas de précédence donc retourne un precedences_iterator vide
          *
          */
     precedences_iterator end_precedences() const {return precedences_iterator();}
