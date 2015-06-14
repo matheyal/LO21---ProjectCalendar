@@ -47,12 +47,9 @@ VueSemaine::VueSemaine(QWidget* parent):QWidget(parent){
     Hlayout1->addWidget(choixSemaine,0, Qt::AlignCenter);
     Hlayout1->addWidget(semaineSuivante,0, Qt::AlignLeft);
 
-    Hlayout2 = new QHBoxLayout;
-    Hlayout2->addWidget(vueSemaine);//,0,Qt::AlignHCenter);
-
     Vlayout = new QVBoxLayout;
     Vlayout->addLayout(Hlayout1);
-    Vlayout->addLayout(Hlayout2);
+    Vlayout->addWidget(vueSemaine);
 
     this->setLayout(Vlayout);
 
@@ -65,7 +62,7 @@ VueSemaine::VueSemaine(QWidget* parent):QWidget(parent){
 }
 
 void VueSemaine::updateVueSemaine(){
-    date = choixSemaine->date();
+    QDate date = choixSemaine->date();
 
     //Modification des dates des jours dans le header
     ListeJours.clear();

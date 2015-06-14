@@ -19,7 +19,7 @@
 class TreeView : public QTreeWidget{
     Q_OBJECT
 private:
-    vector<QTreeWidgetItem*> items;/*!< vector contenant tous les item du tere view*/
+    vector<QTreeWidgetItem*> items;/*!< vector contenant tous les item du tree view*/
     QTreeWidgetItem* projetToTreeView(Projet* projet);/*!< convertir un projet en un item ajoutable au tree view*/
     QTreeWidgetItem* tacheToTreeView(Tache* tache);/*!< convertir une tache en un item ajoutable au tree view*/
 public:
