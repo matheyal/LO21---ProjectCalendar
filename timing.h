@@ -73,6 +73,8 @@ namespace TIME {
         void setDuree(unsigned int minutes) { nb_minutes=minutes; }
 		unsigned int getDureeEnMinutes() const { return nb_minutes; } //<!Retourne la duree en minutes
 		double getDureeEnHeures() const { return double(nb_minutes)/60; } //<!Retourne la duree en heures
+        unsigned int getHeures() const {return nb_minutes/60;}
+        unsigned int getMinutes() const {return nb_minutes%60;}
 		void afficher(std::ostream& f=std::cout) const { f<<std::setfill('0')<<std::setw(2)<<nb_minutes/60<<"H"<<std::setw(2)<<nb_minutes%60<<std::setfill(' '); } //<!Affiche la duree sous le format hhHmm
         bool operator<(const Duree& d) const;
     private:

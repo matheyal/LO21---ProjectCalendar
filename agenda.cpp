@@ -19,9 +19,8 @@ Programmation& Agenda::ajouterProg(Evenement* e, const QDateTime& d, const Horai
     if (e->getDate()<d && d<e->getEcheance()){
         if(e->getStatus()==false){
             //on vérifie qu'une tache precédente n'est pas programmée avant la tache qu'on programme
-            const vector<Tache*>* preced = e->getTachesPrecedentes();
-            if (preced){ //Si l'événement a des precedences
-                for(vector<Tache*>::const_iterator it = preced->begin() ; it != preced->end() ; ++it){
+            if (e->withPrecedence()){ //Si l'événement a des precedences
+                for(precedences_iterator it = e->begin_precedences() ; it != e->end_precedences() ; ++it){
                     if((*it)->getStatus()){//Si la précédence est programmée
                         //On vérifie la cohérence des dates
                         Programmation* prog = trouverProgrammation(*it);
@@ -35,7 +34,7 @@ Programmation& Agenda::ajouterProg(Evenement* e, const QDateTime& d, const Horai
             //L'événement n'est pas encore programmé et la date choisie est cohérente avec ses taches précédentes.
             //On peut créer la programmation
             Programmation* newt=new Programmation(d,h,e);
-            e->setEffectue(true);
+            e->setEstProg(true);
             addItem(newt);
             return *newt;
         }else throw AgendaException("l'evenement est déjà programmé");
@@ -72,6 +71,7 @@ void Agenda::supprimerProg(Evenement* e)
     vector<Programmation*>::iterator it = trouverProgrammationIterator(e);
     if(it != progs.end()) {
         progs.erase(it);
+        e->setEstProg(false);
         return;
     }
     throw AgendaException("Prog inexistante");

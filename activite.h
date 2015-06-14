@@ -16,6 +16,12 @@ using namespace std;
 #include <iostream>
 #include <typeinfo>
 
+class participants_iterator : public vector<QString>::const_iterator{
+public:
+    participants_iterator():vector<QString>::const_iterator(){}
+    participants_iterator(vector<QString>::const_iterator it):vector<QString>::const_iterator(it){}
+};
+
 /*! \class Activite
    * \brief classe representant une Activite traditionnelle
    *
@@ -137,10 +143,6 @@ public:
 
     virtual QString toString() const{ return "";}
 
-    virtual const vector<QString>& getParticipants() const {vector<QString> v; return v;}
-
-    virtual const QString getParticipant(int i) const {i++;return 0;}
-
     /*!
          *  \brief supprimmerParticipant
          *
@@ -150,7 +152,13 @@ public:
          */
     virtual void supprimerParticipant(const QString & ){};
 
-    const vector<Tache*>* getTachesPrecedentes() const{return 0;}
+    virtual participants_iterator begin_participants() const {return participants_iterator();}
+    virtual participants_iterator end_participants() const {return participants_iterator();}
+
+    precedences_iterator begin_precedences() const {return precedences_iterator();}
+    precedences_iterator end_precedences() const {return precedences_iterator();}
+
+    bool withPrecedence() const { return false;}
 
 };
 
@@ -194,15 +202,6 @@ public:
          *  Methode retournant le nombre de participants inscrit à la réunion
          */
     int getNbParticipants() const {return static_cast<int>(participants.size());}
-
-    /*!
-         *  \brief getParticipants
-         *
-         *  Accesseur en lecture des participants de la réunion
-         */
-    const vector<QString>& getParticipants() const {return participants;}
-
-    const QString getParticipant(int i) const {return participants[i];}
 
     QString toString() const{
         std::stringstream s;
@@ -248,6 +247,9 @@ public:
          *  Destructeur de la classe Reunion
          */
      ~Reunion() {}
+
+    participants_iterator begin_participants() const {return participants_iterator(participants.begin());}
+    participants_iterator end_participants() const {return participants_iterator(participants.end());}
 };
 
 

@@ -186,8 +186,13 @@ public:
 
    void afficherProg();
 
-   const vector<Programmation*>* getProgramamtions() const{return &progs;}
-
+   class programmations_iterator : public vector<Programmation*>::const_iterator{
+   public:
+       programmations_iterator():vector<Programmation*>::const_iterator(){}
+       programmations_iterator(vector<Programmation*>::const_iterator it):vector<Programmation*>::const_iterator(it){}
+   };
+   programmations_iterator begin_programmations() const {return programmations_iterator(progs.begin());}
+   programmations_iterator end_programmations() const {return programmations_iterator(progs.end());}
 };
 
 #endif // AGENDA

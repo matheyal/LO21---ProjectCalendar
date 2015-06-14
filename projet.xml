@@ -77,8 +77,8 @@
                     <echeance>2016-06-16T00:00:00</echeance>
                     <duree>90</duree>
                     <programmation>
-                        <date>2015-06-13T00:00:00</date>
-                        <heure>10H30</heure>
+                        <date>2015-06-13T11:30:00</date>
+                        <heure>11H30</heure>
                     </programmation>
                 </tache>
                 <tache preemptive="false" composite="false" unitaire="true">
@@ -91,6 +91,13 @@
                         <date>2015-06-14T11:08:29</date>
                         <heure>11H08</heure>
                     </programmation>
+                </tache>
+                <tache preemptive="false" composite="false" unitaire="true">
+                    <identificateur>newtache</identificateur>
+                    <titre>newtache</titre>
+                    <disponibilite>2015-06-13T23:54:12</disponibilite>
+                    <echeance>2018-06-13T23:53:12</echeance>
+                    <duree>60</duree>
                 </tache>
             </taches>
         </projet>
@@ -150,6 +157,10 @@
                     <disponibilite>2015-06-13T16:47:03</disponibilite>
                     <echeance>2016-06-13T16:47:03</echeance>
                     <duree>120</duree>
+                    <programmation>
+                        <date>2015-06-15T10:00:29</date>
+                        <heure>10H00</heure>
+                    </programmation>
                 </tache>
             </taches>
         </projet>
@@ -200,9 +211,31 @@
             <lieu>Salle de rdv</lieu>
             <interlocuteur>Ta mère</interlocuteur>
             <programmation>
-                <date>2015-06-13T10:52:38</date>
-                <heure>10H52</heure>
+                <date>2015-06-13T08:52:00</date>
+                <heure>08H52</heure>
             </programmation>
+        </activite>
+        <activite reunion="false" rdv="false">
+            <identificateur>newActivity</identificateur>
+            <titre>newActivity</titre>
+            <disponibilite>2015-06-14T01:16:14</disponibilite>
+            <echeance>2018-06-14T01:16:14</echeance>
+            <duree>120</duree>
+            <lieu>Sartroucity!</lieu>
+        </activite>
+        <activite reunion="true" rdv="false">
+            <identificateur>Reunion</identificateur>
+            <titre>Reunion de ouf</titre>
+            <disponibilite>2015-06-14T01:34:07</disponibilite>
+            <echeance>2018-06-14T01:34:07</echeance>
+            <duree>0</duree>
+            <lieu>Sartroucity</lieu>
+            <participants>
+                <participant>Alexis</participant>
+                <participant>Aude</participant>
+                <participant>Marceau</participant>
+                <participant>Marie</participant>
+            </participants>
         </activite>
     </activites>
 </projectcalendar>

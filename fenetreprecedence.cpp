@@ -7,7 +7,7 @@ FenetrePrecedence::FenetrePrecedence(QMainWindow* parent):QMainWindow(parent)
     projets = new QComboBox;
     projets->addItem("");
     ProjetManager& pm=ProjetManager::getInstance();
-    for(vector<Projet*>::const_iterator it = (*pm.getProjets()).begin(); it != (*pm.getProjets()).end(); ++it){
+    for(ProjetManager::projets_iterator it = pm.begin_projets() ; it != pm.end_projets() ; ++it){
         projets->addItem((*it)->getId());
     }
     taches=new QComboBox;
@@ -53,13 +53,12 @@ void FenetrePrecedence::load()
     taches->addItem("");
     precedente->addItem("");
     ProjetManager& pm= ProjetManager::getInstance();
-    if(pm.trouverProjet(projets->currentText()))
+    Projet* projet = pm.trouverProjet(projets->currentText());
+    if(projet)
     {
-        vector<Tache*> tac= *pm.trouverProjet(projets->currentText())->getTaches();
-        for(size_t i=0; i<tac.size();i++)
-        {
-            taches->addItem(tac[i]->getId());
-            precedente->addItem(tac[i]->getId());
+        for(Projet::taches_iterator it = projet->begin_taches() ; it != projet->end_taches() ; ++it){
+            taches->addItem((*it)->getId());
+            precedente->addItem((*it)->getId());
         }
     }
 }

@@ -196,6 +196,14 @@ public:
     void save(ExportStrategy *strategy ,const QString& f){strategy->save(f);}
 
     void load(ImportStrategy* strategy, const QString& f){strategy->load(f);}
+
+    class projets_iterator : public vector<Projet*>::const_iterator{
+    public:
+        projets_iterator():vector<Projet*>::const_iterator(){}
+        projets_iterator(typename vector<Projet*>::const_iterator it):vector<Projet*>::const_iterator(it){}
+    };
+    projets_iterator begin_projets() const {return projets_iterator(projets.begin());}
+    projets_iterator end_projets() const {return projets_iterator(projets.end());}
 };
 
 #endif // PROJETMANAGER

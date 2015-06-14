@@ -8,7 +8,7 @@ FenetreSupModProjet::FenetreSupModProjet(QMainWindow *parent) : QMainWindow(pare
     idProjet = new QComboBox(this);
     idProjet->addItem("");
     ProjetManager& pm=ProjetManager::getInstance();
-    for(vector<Projet*>::const_iterator it = (*pm.getProjets()).begin(); it != (*pm.getProjets()).end(); ++it){
+    for(ProjetManager::projets_iterator it = pm.begin_projets() ; it != pm.end_projets() ; ++it){
         idProjet->addItem((*it)->getId());
     }
 

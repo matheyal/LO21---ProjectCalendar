@@ -187,6 +187,9 @@ public:
         *
         */
     const vector<Tache*>* getSousTaches() const{return &soustaches;}
+
+    soustaches_iterator begin_soustaches() const{return soustaches_iterator(soustaches.begin());}
+    soustaches_iterator end_soustaches() const {return soustaches_iterator(soustaches.end());}
 };
 
 /*!

@@ -6,7 +6,7 @@ FenetreAjoutProgTache::FenetreAjoutProgTache(QMainWindow *parent):QMainWindow(pa
     idProjet = new QComboBox(this);
     ProjetManager& pm = ProjetManager::getInstance();
     idProjet->addItem("");
-    for(vector<Projet*>::const_iterator it = (*pm.getProjets()).begin(); it != (*pm.getProjets()).end(); ++it){
+    for(ProjetManager::projets_iterator it = pm.begin_projets() ; it != pm.end_projets() ; ++it){
         idProjet->addItem((*it)->getId());
     }
 
@@ -46,7 +46,7 @@ void FenetreAjoutProgTache::updateIdTache(QString s){
     Projet* projet = pm.trouverProjet(s);
     idTache->setDisabled(false);
     idTache->clear();
-    for(vector<Tache*>::const_iterator it = projet->getTaches()->begin() ; it != projet->getTaches()->end() ; ++it){
+    for(Projet::taches_iterator it = projet->begin_taches() ; it != projet->end_taches() ; ++it){
         if(!(*it)->getStatus()){
             idTache->addItem((*it)->getId());
         }
@@ -92,7 +92,7 @@ FenetreAjoutProgActivite::FenetreAjoutProgActivite(QMainWindow *parent):QMainWin
     ActiviteManager& AM = ActiviteManager::getInstance();
     idActivite = new QComboBox(this);
     idActivite->addItem("");
-    for(vector<Activite*>::const_iterator it = AM.getActivites()->begin(); it != AM.getActivites()->end(); ++it){
+    for(ActiviteManager::activites_iterator it = AM.begin_activites() ; it != AM.end_activites() ; ++it){
         idActivite->addItem((*it)->getId());
     }
 
@@ -143,7 +143,7 @@ void FenetreAjoutProgActivite::saveActivite(){
         this->close();
         }
         catch(AgendaException& e){
-            QMessageBox::warning(this, "Erreur","Ajout impossible");
+            QMessageBox::warning(this, "Erreur",e.getInfo());
         }
     }
 }

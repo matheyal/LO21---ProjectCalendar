@@ -321,6 +321,7 @@ void ImportXML::load(const QString& f){
                                                     participants_activite.push_back(participant);
                                                 }
                                             }
+                                            xml.readNext();
                                         }//Fin while participants
                                     }//Fin if participants
                                     //We've found interlocuteur

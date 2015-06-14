@@ -17,7 +17,7 @@ FenetreComposite::FenetreComposite(QMainWindow *parent) : QMainWindow(parent)
     idProjet = new QComboBox(this);
     idProjet->addItem("");
     ProjetManager& pm=ProjetManager::getInstance();
-    for(vector<Projet*>::const_iterator it = (*pm.getProjets()).begin(); it != (*pm.getProjets()).end(); ++it){
+    for(ProjetManager::projets_iterator it = pm.begin_projets() ; it != pm.end_projets() ; ++it){
         idProjet->addItem((*it)->getId());
     }
     idSousCompo = new QComboBox;
@@ -145,14 +145,12 @@ void FenetreComposite::load()
     idSousCompo->clear();
     idSousCompo->addItem("");
     ProjetManager& pm= ProjetManager::getInstance();
-    if(pm.trouverProjet(idProjet->currentText()))
+    Projet* projet = pm.trouverProjet(idProjet->currentText());
+    if(projet)
     {
-        vector<Tache*> tac= *pm.trouverProjet(idProjet->currentText())->getTaches();
-        for(size_t i=0; i<tac.size();i++)
-        {
-            if(tac[i]->Type()=="14TacheComposite")
-            {
-                idSousCompo->addItem(tac[i]->getId());
+        for(Projet::taches_iterator it = projet->begin_taches() ; it != projet->end_taches() ; ++it){
+            if(typeid(**it) == typeid(TacheComposite)){
+                idSousCompo->addItem((*it)->getId());
             }
         }
     }

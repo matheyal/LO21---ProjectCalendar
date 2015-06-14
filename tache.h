@@ -14,6 +14,12 @@
 
 class Projet;/*!< Déclaration au préalable de la classe Projet pour pouvoir l'utiliser dans la classe Tache*/
 
+class soustaches_iterator : public vector<Tache*>::const_iterator{
+public:
+    soustaches_iterator():vector<Tache*>::const_iterator(){}
+    soustaches_iterator(vector<Tache*>::const_iterator it):vector<Tache*>::const_iterator(it){}
+};
+
 /*! \class Tache
    * \brief classe abstraite representant une tache de manière générale
    *
@@ -156,13 +162,20 @@ public:
         */
     virtual const vector<Tache*>* getSousTaches() const = 0;
 
+    virtual soustaches_iterator begin_soustaches() const{return soustaches_iterator();}
+    virtual soustaches_iterator end_soustaches() const {return soustaches_iterator();}
+
     /*!
         *  \brief getTachesPrecedentes
         *
         *  Accesseur en lecture sur le tableau de précédente de la classe Tache
         *
         */
-    const vector<Tache*>* getTachesPrecedentes() const{return &tachesPrecedentes;}
+
+    precedences_iterator begin_precedences() const {return precedences_iterator(tachesPrecedentes.begin());}
+    precedences_iterator end_precedences() const {return precedences_iterator(tachesPrecedentes.end());}
+
+    bool withPrecedence() const { return !tachesPrecedentes.empty();}
 
     /*!
         *  \brief addPrecedence

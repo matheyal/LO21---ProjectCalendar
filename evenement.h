@@ -14,6 +14,12 @@ using namespace TIME;
 
 class Tache;
 
+class precedences_iterator : public vector<Tache*>::const_iterator{
+public:
+    precedences_iterator():vector<Tache*>::const_iterator(){}
+    precedences_iterator(vector<Tache*>::const_iterator it):vector<Tache*>::const_iterator(it){}
+};
+
 /*! \class Evenement
    * \brief classe representant les evenements.
    *
@@ -118,7 +124,7 @@ public:
          *
          *  \param effect : valeur avec laquelle on veut changer le status de l'evenement (vrai ou faux)
          */
-     void setEffectue(bool effect){estProg=effect;}
+     void setEstProg(bool effect){estProg=effect;}
 
     /*!
          *  \brief Destructeur
@@ -160,7 +166,10 @@ public:
         return dispo<e.dispo && echeance<e.echeance;
     }
 
-    virtual const vector<Tache*>* getTachesPrecedentes() const = 0;
+    virtual precedences_iterator begin_precedences() const = 0;
+    virtual precedences_iterator end_precedences() const = 0;
+
+    virtual bool withPrecedence() const = 0;
 
 };
 

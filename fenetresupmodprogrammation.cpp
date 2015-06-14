@@ -13,7 +13,7 @@ FenetreSupModProg::FenetreSupModProg(QMainWindow *parent):QMainWindow(parent){
     listeDisposEvenements.push_back(QDateTime());
     listeEcheancesEvenements.push_back(QDateTime());
     listeProgsEvenements.push_back(QDateTime());
-    for(vector<Programmation*>::const_iterator it = A.getProgramamtions()->begin() ; it != A.getProgramamtions()->end(); ++it){
+    for(Agenda::programmations_iterator it = A.begin_programmations() ; it != A.end_programmations() ; ++it){
         idEvenement->addItem((*it)->getEvenement()->getId());
         listeEvenements.push_back((*it)->getEvenement());
         listeTitresEvenements.push_back((*it)->getEvenement()->getTitre());

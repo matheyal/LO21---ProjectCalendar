@@ -17,8 +17,7 @@ void ExportXML::save(const QString& f){
     stream.writeStartElement("projectcalendar");
     //Liste des projets dans la balise <projets>
     stream.writeStartElement("projets");
-    const vector<Projet*>* projets = PM.getProjets();
-    for(vector<Projet*>::const_iterator it1 = projets->begin(); it1 != projets->end(); ++it1){
+    for(ProjetManager::projets_iterator it1 = PM.begin_projets() ; it1 != PM.end_projets() ; ++it1){
         //chaque projet est dans une balise <projet>
         stream.writeStartElement("projet");
         stream.writeTextElement("identificateur",(*it1)->getId());
@@ -28,8 +27,7 @@ void ExportXML::save(const QString& f){
         stream.writeTextElement("echeance",(*it1)->getEcheance().toString(Qt::ISODate));
         //Liste des taches du projet et de leurs programmations dans une balise <taches>
         stream.writeStartElement("taches");
-        const vector<Tache*>* taches = (*it1)->getTaches();
-        for (vector<Tache*>::const_iterator it2 = taches->begin() ; it2 != taches->end() ; ++it2){
+        for(Projet::taches_iterator it2 = (*it1)->begin_taches() ; it2 != (*it1)->end_taches() ; ++it2){
             //Chaque tache dans une balise <tache>
             stream.writeStartElement("tache");
             //Met l'attribut preemptive à true si tache préemptable, false sinon
@@ -79,15 +77,13 @@ void ExportXML::save(const QString& f){
 
     //Liste des précédences de Taches dans la balise <precedences>
     stream.writeStartElement("precedences");
-    for(vector<Projet*>::const_iterator it1 = projets->begin(); it1 != projets->end(); ++it1){ //Itération sur les projets
-        const vector<Tache*>* taches = (*it1)->getTaches();
-        for (vector<Tache*>::const_iterator it2 = taches->begin() ; it2 != taches->end() ; ++it2){ //Itération sur les taches du projet
-            const vector<Tache*>* tachesPrecedentes = (*it2)->getTachesPrecedentes();
-            if (!tachesPrecedentes->empty()){ //La tache a des contraintes de precedence
+    for(ProjetManager::projets_iterator it1 = PM.begin_projets() ; it1 != PM.end_projets() ; ++it1){ //Itération sur les projets
+        for(Projet::taches_iterator it2 = (*it1)->begin_taches() ; it2 != (*it1)->end_taches() ; ++it2){ //Itération sur les taches du projet
+            if ((*it2)->withPrecedence()){ //La tache a des contraintes de precedence
                 stream.writeStartElement("precedence");
                 stream.writeAttribute("id_projet", (*it1)->getId());
                 stream.writeAttribute("id_tache", (*it2)->getId());
-                for (vector<Tache*>::const_iterator it3 = tachesPrecedentes->begin() ; it3 != tachesPrecedentes->end() ; ++it3) //Pour chaque tache, itération sur les taches précédentes
+                for(precedences_iterator it3 = (*it2)->begin_precedences() ; it3 != (*it2)->end_precedences() ; ++it3) //Pour chaque tache, itération sur les taches précédentes
                     stream.writeTextElement("id_precedence", (*it3)->getId());
                 stream.writeEndElement(); // Fin <precedence>
             }
@@ -97,16 +93,15 @@ void ExportXML::save(const QString& f){
 
     //Liste des composants pour les taches compositees
     stream.writeStartElement("composites");
-    for(vector<Projet*>::const_iterator it1 = projets->begin(); it1 != projets->end(); ++it1){ //Itération sur les projets
-        const vector<Tache*>* taches = (*it1)->getTaches();
-        for (vector<Tache*>::const_iterator it2 = taches->begin() ; it2 != taches->end() ; ++it2){ //Itération sur les taches du projet
+    for(ProjetManager::projets_iterator it1 = PM.begin_projets() ; it1 != PM.end_projets() ; ++it1){ //Itération sur les projets
+        for(Projet::taches_iterator it2 = (*it1)->begin_taches() ; it2 != (*it1)->end_taches() ; ++it2){ //Itération sur les taches du projet
             if (typeid(**it2) == typeid(TacheComposite)){
-                const vector<Tache*>* sousTaches = (*it2)->getSousTaches();
-                if (!sousTaches->empty()){
+                soustaches_iterator it3 = (*it2)->begin_soustaches();
+                if (it3 != (*it2)->end_soustaches()) { //on teste si la tache a des taches composants
                     stream.writeStartElement("composite");
                     stream.writeAttribute("id_projet", (*it1)->getId());
                     stream.writeAttribute("id_tache", (*it2)->getId());
-                    for (vector<Tache*>::const_iterator it3 = sousTaches->begin() ; it3 != sousTaches->end() ; ++it3) //Pour chaque tache, itération sur les sous taches
+                    for(it3 = (*it2)->begin_soustaches() ; it3 != (*it2)->end_soustaches() ; ++it3) //Pour chaque tache, itération sur les sous taches
                         stream.writeTextElement("id_composant", (*it3)->getId());
                     stream.writeEndElement(); // Fin <composite>
                 }
@@ -118,8 +113,7 @@ void ExportXML::save(const QString& f){
     //Liste des activités et de leurs programmations
     stream.writeStartElement("activites");
     ActiviteManager& AM = ActiviteManager::getInstance();
-    const vector<Activite*>* activites = AM.getActivites();
-    for(vector<Activite*>::const_iterator it1 = activites->begin(); it1 != activites->end(); ++it1){
+    for(ActiviteManager::activites_iterator it1 = AM.begin_activites() ; it1 != AM.end_activites() ; ++it1){
         stream.writeStartElement("activite");
         //Met l'attribut reunion à true si c'est une reunion, false sinon
         if (typeid(**it1) == typeid(Reunion))
@@ -141,8 +135,9 @@ void ExportXML::save(const QString& f){
         stream.writeTextElement("lieu",(*it1)->getLieu());
         if (typeid(**it1) == typeid(Reunion)){ // C'est un réunion, on ajoute la liste des participants
             stream.writeStartElement("participants");
-            for(int i = 0 ; i < (*it1)->getNbParticipants() ; i++){
-                stream.writeTextElement("participant",(*it1)->getParticipant(i));
+            //for(int i = 0 ; i < (*it1)->getNbParticipants() ; i++){
+            for(participants_iterator it2 = (*it1)->begin_participants() ; it2 != (*it1)->end_participants() ; ++it2){
+                stream.writeTextElement("participant",*it2);
             }
             stream.writeEndElement();// Fin <participants
         }

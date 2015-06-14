@@ -204,21 +204,14 @@ public:
          */
     unsigned int size() const {return activites.size();}
 
-    /*!
-         *  \brief getActivites
-         *
-         *  Accesseurs en lecture sur le tableau d'activités du ActiviteManager
-         *
-         */
-    const vector<Activite*>* getActivites() const{return &activites;}
+    class activites_iterator : public vector<Activite*>::const_iterator{
+    public:
+        activites_iterator():vector<Activite*>::const_iterator(){}
+        activites_iterator(vector<Activite*>::const_iterator it):vector<Activite*>::const_iterator(it){}
+    };
+    activites_iterator begin_activites() const {return activites_iterator(activites.begin());}
+    activites_iterator end_activites() const {return activites_iterator(activites.end());}
 
-    /*!
-         *  \brief save
-         *
-         *  Methode permettant de sauvegarder l'ensemble des activités dans un fichier XML
-         *
-         */
-    //void save(ExportStrategy *strategy ,const QString& f){strategy->save(f);}
 };
 
 #endif // ACTIVITEMANAGER_H

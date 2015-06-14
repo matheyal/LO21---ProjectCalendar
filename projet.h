@@ -274,6 +274,13 @@ public:
           */
      const vector<Tache*>* getTaches() const{return &taches;}
 
+     class taches_iterator : public vector<Tache*>::const_iterator{
+     public:
+         taches_iterator():vector<Tache*>::const_iterator(){}
+         taches_iterator(vector<Tache*>::const_iterator it):vector<Tache*>::const_iterator(it){}
+     };
+     taches_iterator begin_taches() const {return taches_iterator(taches.begin());}
+     taches_iterator end_taches() const{return taches_iterator(taches.end());}
 };
 
 /*!
