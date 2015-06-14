@@ -43,11 +43,11 @@ FenetreUnitaire::FenetreUnitaire(QMainWindow* parent) : QMainWindow(parent)
     layoutTitreProjetDispoEcheanceDuree->addRow("Echeance projet", echeanceProjet);
     layoutTitreProjetDispoEcheanceDuree->addRow("Composite : ", idComposite);
     layoutTitreProjetDispoEcheanceDuree->addRow("ID", idUnitaire);
+    layoutTitreProjetDispoEcheanceDuree->addRow("preemptive", preemptive);
     layoutTitreProjetDispoEcheanceDuree->addRow("Titre", titreUnitaire);
     layoutTitreProjetDispoEcheanceDuree->addRow("Dispo", dispoUnitaire);
     layoutTitreProjetDispoEcheanceDuree->addRow("Echeance", echeanceUnitaire);
     layoutTitreProjetDispoEcheanceDuree->addRow("Duree", dureeUnitaire);
-    layoutTitreProjetDispoEcheanceDuree->addRow("preemptive", preemptive);
 
     layoutEnregistrerQuitter  =new QHBoxLayout;
     layoutEnregistrerQuitter->addWidget(enregistrerUnitaire);
