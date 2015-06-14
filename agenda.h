@@ -184,12 +184,30 @@ public:
         *
         */
 
+   /*! \class programmations_iterator
+      * \brief Iterator sur les programmations de l'Agenda
+      *
+      */
    class programmations_iterator : public vector<Programmation*>::const_iterator{
    public:
        programmations_iterator():vector<Programmation*>::const_iterator(){}
        programmations_iterator(vector<Programmation*>::const_iterator it):vector<Programmation*>::const_iterator(it){}
    };
+
+   /*!
+        *  \brief begin_programmations()
+        *
+        *  Retourne un programmations_iterator sur la première programmation de l'Agenda
+        *
+        */
    programmations_iterator begin_programmations() const {return programmations_iterator(progs.begin());}
+
+   /*!
+        *  \brief end_programmations()
+        *
+        *  Retourne un programmations_iterator sur la dernière programmation de l'Agenda
+        *
+        */
    programmations_iterator end_programmations() const {return programmations_iterator(progs.end());}
 };
 

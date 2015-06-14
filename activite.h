@@ -15,6 +15,10 @@ using namespace std;
 #include <iostream>
 #include <typeinfo>
 
+/*! \class participants_iterator
+   * \brief Iterator sur les participants d'une Réunion
+   *
+   */
 class participants_iterator : public vector<QString>::const_iterator{
 public:
     participants_iterator():vector<QString>::const_iterator(){}
@@ -138,10 +142,38 @@ public:
          */
     virtual void supprimerParticipant(const QString & ){};
 
+    /*!
+         *  \brief begin_participant
+         *
+         *  Méthode virtuelle créant une interface pour accéder à begin_participant dans la classe fille Réunion
+         *  Retourne un participants_iterator vide
+         *
+         */
     virtual participants_iterator begin_participants() const {return participants_iterator();}
+
+    /*!
+         *  \brief end_participant
+         *
+         * Méthode virtuelle créant une interface pour accéder à end_participant dans la classe fille Réunion
+         * Retourne un participants_iterator vide.
+         *
+         */
     virtual participants_iterator end_participants() const {return participants_iterator();}
 
+    /*!
+         *  \brief begin_precedences
+         *
+         *  Retourne un precedences_iterator sur la première tache précédente
+         *
+         */
     precedences_iterator begin_precedences() const {return precedences_iterator();}
+
+    /*!
+         *  \brief end_precedences
+         *
+         *  Retourne un precedences_iterator sur la dernière tache précédente
+         *
+         */
     precedences_iterator end_precedences() const {return precedences_iterator();}
 
     bool withPrecedence() const { return false;}
@@ -213,8 +245,20 @@ public:
          */
     void supprimerParticipant(const QString & parti);
 
-
+    /*!
+         *  \brief begin_participants
+         *
+         *  Retourne un participants_iterator sur le premier participant
+         *
+         */
     participants_iterator begin_participants() const {return participants_iterator(participants.begin());}
+
+    /*!
+         *  \brief end_participants
+         *
+         *  Retourne un participants_iterator sur le dernier participant
+         *
+         */
     participants_iterator end_participants() const {return participants_iterator(participants.end());}
 };
 

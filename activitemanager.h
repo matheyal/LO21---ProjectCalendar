@@ -188,13 +188,30 @@ public:
          */
     Activite* trouverActivite(const QString &id) const;
 
-
+    /*! \class activites_iterator
+       * \brief Iterator sur les activites de ActiviteManager
+       *
+       */
     class activites_iterator : public vector<Activite*>::const_iterator{
     public:
         activites_iterator():vector<Activite*>::const_iterator(){}
         activites_iterator(vector<Activite*>::const_iterator it):vector<Activite*>::const_iterator(it){}
     };
+
+    /*!
+         *  \brief begin_activites
+         *
+         *  Retourne un activites_iterator sur la première activité de ActiviteManager
+         *
+         */
     activites_iterator begin_activites() const {return activites_iterator(activites.begin());}
+
+    /*!
+         *  \brief end_activites
+         *
+         *  Retourne un activites_iterator sur la dernière activité de ActiviteManager
+         *
+         */
     activites_iterator end_activites() const {return activites_iterator(activites.end());}
 
 };
