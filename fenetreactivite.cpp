@@ -57,7 +57,7 @@ FenetreActivite::FenetreActivite(QMainWindow *parent) : QMainWindow(parent)
     QObject::connect(echeanceActivite, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkModifier()));
 
 
-    groupeNouvelleActivite = new QGroupBox("Rentrez un nouveau Activite dans la base de donnee", this);
+    groupeNouvelleActivite = new QGroupBox("Rentrez une nouvelle activité dans la base de donnée");
     groupeNouvelleActivite->setLayout(layoutNouvelleActivite);
 
     layout = new QHBoxLayout;

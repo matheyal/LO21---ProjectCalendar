@@ -66,7 +66,7 @@ void FenetreProjet::saveProjet()
         QMessageBox::warning(this, "erreur","sauvegarde impossible, id deja utilise");
     else {
         pm.ajouterProjet(idProjet->text(), titreProjet->text(), descriptionProjet->toPlainText(), dispoProjet->dateTime(), echeanceProjet->dateTime());
-        QMessageBox::information(this, "bravo", "projet ajouté");
+        QMessageBox::about(this, "bravo", "projet ajouté");
         this->close();
     }
 }

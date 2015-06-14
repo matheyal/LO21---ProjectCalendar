@@ -11,31 +11,24 @@ Tache* Projet::trouverTache(const QString& id)const{
 
 TacheUnitaire& Projet::ajouterTacheUnitaire(const QString& id, const QString& t, const QDateTime &dispo, const QDateTime &deadline, const Duree &dur, bool b){
     if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet");
-
-    if (dispo<deadline && dur<Duree(12,0)){
-        TacheUnitaire* newt=new TacheUnitaire(id,t,dispo,deadline, dur, b);
-        addItem(newt);
-        return *newt;
-    }else throw ProjetException("erreur, les dates ne concordent pas");
+    TacheUnitaire* newt=new TacheUnitaire(id,t,dispo,deadline, dur, b);
+    addItem(newt);
+    return *newt;
 }
 
 TachePreemptable& Projet::ajouterTachePreemptable(const QString& id, const QString& t, const QDateTime& dispo, const QDateTime& deadline, const Duree& dur, bool b){
     if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet");
-    if (dispo<deadline){
-        TachePreemptable* newt=new TachePreemptable(id,t,dispo,deadline, dur, b);
-        addItem(newt);
-        return *newt;
-    }else throw ProjetException("erreur, les dates ne concordent pas");
+    TachePreemptable* newt=new TachePreemptable(id,t,dispo,deadline, dur, b);
+    addItem(newt);
+    return *newt;
 }
 
 
 TacheComposite& Projet::ajouterTacheComposite(const QString& id, const QString& t, const QDateTime &dispo, const QDateTime &deadline, bool b){
     if (trouverTache(id)) throw ProjetException("erreur, tache deja existante dans le projet");
-    if (dispo<deadline){
-        TacheComposite* newt=new TacheComposite(id,t,dispo,deadline, b);
-        addItem(newt);
-        return *newt;
-    }else throw ProjetException("erreur, les dates ne concordent pas");
+    TacheComposite* newt=new TacheComposite(id,t,dispo,deadline, b);
+    addItem(newt);
+    return *newt;
 }
 
 void Projet::supprimerTache(const QString& ident){
@@ -53,7 +46,6 @@ void Projet::supprimerTache(const QString& ident){
 
 Tache& Projet::getTache(const QString& id){
     Tache* t=trouverTache(id);
-    if (!t) throw ProjetException("erreur, Projet, tache inexistante");
     return *t;
 }
 
