@@ -54,14 +54,19 @@ FenetreComposite::FenetreComposite(QMainWindow *parent) : QMainWindow(parent)
 
     QObject::connect(idProjet, SIGNAL(currentIndexChanged(int)), this, SLOT(load()));
     QObject::connect(enregistrerComposite, SIGNAL(clicked()), this, SLOT(enregistrerTacheComposite()));
-    QObject::connect(dispoComposite, SIGNAL(dateChanged(const QDateTime)), this, SLOT(checkDate(const QDateTime&)));
-    QObject::connect(echeanceComposite, SIGNAL(dateChanged(const QDateTime&)), this, SLOT(checkDate(const QDateTime&)));
+    QObject::connect(dispoComposite, SIGNAL(dateTimeChanged(const QDateTime)), this, SLOT(checkDate(const QDateTime&)));
+    QObject::connect(echeanceComposite, SIGNAL(dateTimeChanged(const QDateTime&)), this, SLOT(checkDate(const QDateTime&)));
     QObject::connect(quitterComposite, SIGNAL(clicked()), this, SLOT(close()));
+    QObject::connect(idProjet, SIGNAL(currentIndexChanged(int)), this, SLOT(checkModifier()));
+    QObject::connect(idComposite, SIGNAL(textChanged(QString)), this, SLOT(checkModifier()));
+    QObject::connect(titreComposite, SIGNAL(textChanged(QString)), this, SLOT(checkModifier()));
+    QObject::connect(echeanceComposite, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkModifier()));
+    QObject::connect(dispoComposite, SIGNAL(dateTimeChanged(QDateTime)), this, SLOT(checkModifier()));
 }
 
 
 void FenetreComposite::checkModifier(){
-    if(!idProjet->currentText().isEmpty() && !idComposite->text().isEmpty() && !titreComposite->text().isEmpty()){
+    if(!idProjet->currentText().isEmpty() && !idComposite->text().isEmpty() && !titreComposite->text().isEmpty() && dispoComposite->dateTime().secsTo(echeanceComposite->dateTime())>0){
         enregistrerComposite->setEnabled(true);
     }
     else enregistrerComposite->setDisabled(true);
