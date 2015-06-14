@@ -30,6 +30,8 @@ private:
     QLineEdit* titreTache;/*!< Zone de texte permettant de renseigner le titre de la tache*/
 
     QDateTimeEdit *dateHeureTache; /*!< Champs datetime permettant de renseigner la date et l'heure de la programmtion de la tache*/
+    QDateTimeEdit* dispoTache; /*!< Champs datetime readonly permettant d'afficher la date de disponibilite de la tache sélectionnée*/
+    QDateTimeEdit* echeanceTache; /*!< Champs datetime readonly permettant d'afficher la date d'échéance de la tache sélectionnée*/
 
     QPushButton *enregistrerProgTache; /*!< Boutton permettant d'ajouter une nouvelle programmation*/
     QPushButton* quitterProgTache;/*!< Boutton permettant de quitter la fenetre en cours*/
@@ -43,7 +45,7 @@ private:
 
 private slots:
     void updateIdTache(QString s); /*!< Slot permettant de charger les taches présentes dans le projet sélectionné*/
-    void updateTitreTache(QString s);/*!< Slot permettant de charger le titre de la tache sélectionnée*/
+    void updateInfosTache(QString s);/*!< Slot permettant de charger le titre de la tache sélectionnée*/
     void saveProg(); /*!< Slot permettant de sauvegarder la programmation*/
 };
 
@@ -64,6 +66,8 @@ private:
     QComboBox* idActivite; /*!< Liste déroulante permettant de choisir l'activité à programmer*/
     QLineEdit* titreActivite;/*!< Zone de texte permettant de renseigner le titre de l'activite*/
 
+    QDateTimeEdit* dispoActivite; /*!< Champs datetime readonly permettant d'afficher la date de disponibilite de l'activité sélectionnée*/
+    QDateTimeEdit* echeanceActivite; /*!< Champs datetime readonly permettant d'afficher la date d'échéance de l'activité sélectionnée*/
     QDateTimeEdit *dateHeureActivite;/*!< Champs datetime permettant de renseigner la date et l'heure de la programmtion de l'activité*/
 
     QPushButton *enregistrerProgActivite; /*!< Bouton permettant d'ajouter une nouvelle programmation*/
@@ -75,7 +79,7 @@ private:
     QVBoxLayout* Vlayout;/*!< layout permettant de rassembler les deux précédents layout sur un plan vertical*/
 
 private slots:
-    void updateTitreActivite(QString s);/*!< Slot permettant de charger le titre de l'activité sélectionnée*/
+    void updateInfosActivite(QString s);/*!< Slot permettant de charger le titre de l'activité sélectionnée*/
     void saveActivite();/*!< Slot permettant de sauvegarder la programmation*/
 };
 

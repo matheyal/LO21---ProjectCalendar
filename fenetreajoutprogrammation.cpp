@@ -1,27 +1,33 @@
 #include "fenetreajoutprogrammation.h"
 
 FenetreAjoutProgTache::FenetreAjoutProgTache(QMainWindow *parent):QMainWindow(parent){
-    fenetreAjoutProgTache = new QWidget(this);
+    fenetreAjoutProgTache = new QWidget;
 
-    idProjet = new QComboBox(this);
+    idProjet = new QComboBox;
     ProjetManager& pm = ProjetManager::getInstance();
     idProjet->addItem("");
     for(ProjetManager::projets_iterator it = pm.begin_projets() ; it != pm.end_projets() ; ++it){
         idProjet->addItem((*it)->getId());
     }
 
-    idTache = new QComboBox(this);
+    idTache = new QComboBox;
     idTache->setDisabled(true);
-    titreTache = new QLineEdit(this);
+    titreTache = new QLineEdit;
     titreTache->setReadOnly(true);
+    dispoTache = new QDateTimeEdit;
+    dispoTache->setReadOnly(true);
+    echeanceTache = new QDateTimeEdit;
+    echeanceTache->setReadOnly(true);
     dateHeureTache = new QDateTimeEdit(QDateTime::currentDateTime());
-    enregistrerProgTache = new QPushButton("Enregistrer",this);
-    quitterProgTache = new QPushButton("Quitter",this);
+    enregistrerProgTache = new QPushButton("Enregistrer");
+    quitterProgTache = new QPushButton("Quitter");
 
-    layoutChoixProjetTache = new QFormLayout(this);
+    layoutChoixProjetTache = new QFormLayout;
     layoutChoixProjetTache->addRow("Projet", idProjet);
     layoutChoixProjetTache->addRow("ID", idTache);
     layoutChoixProjetTache->addRow("Titre", titreTache);
+    layoutChoixProjetTache->addRow("Disponibilité", dispoTache);
+    layoutChoixProjetTache->addRow("Échéance",echeanceTache);
     layoutChoixProjetTache->addRow("Date et Heure", dateHeureTache);
 
     layoutEnregistrerQuitter  =new QHBoxLayout;
@@ -43,26 +49,32 @@ FenetreAjoutProgTache::FenetreAjoutProgTache(QMainWindow *parent):QMainWindow(pa
 
     QObject::connect(quitterProgTache, SIGNAL(clicked()),this, SLOT(close()));
     QObject::connect(idProjet, SIGNAL(currentTextChanged(QString)),this, SLOT(updateIdTache(QString)));
-    QObject::connect(idTache, SIGNAL(currentTextChanged(QString)), this, SLOT(updateTitreTache(QString)));
+    QObject::connect(idTache, SIGNAL(currentTextChanged(QString)), this, SLOT(updateInfosTache(QString)));
     QObject::connect(enregistrerProgTache, SIGNAL(clicked()), this, SLOT(saveProg()));
 }
 
 void FenetreAjoutProgTache::updateIdTache(QString s){
-    ProjetManager& pm = ProjetManager::getInstance();
-    Projet* projet = pm.trouverProjet(s);
     idTache->setDisabled(false);
     idTache->clear();
-    for(Projet::taches_iterator it = projet->begin_taches() ; it != projet->end_taches() ; ++it){
-        if(!(*it)->getStatus()){
-            idTache->addItem((*it)->getId());
+    ProjetManager& pm = ProjetManager::getInstance();
+    Projet* projet = pm.trouverProjet(s);
+    if(projet){
+        for(Projet::taches_iterator it = projet->begin_taches() ; it != projet->end_taches() ; ++it){
+            if(!(*it)->getStatus()){
+                idTache->addItem((*it)->getId());
+            }
         }
     }
 }
 
-void FenetreAjoutProgTache::updateTitreTache(QString s){
+void FenetreAjoutProgTache::updateInfosTache(QString s){
     QString id_projet = idProjet->currentText();
-    QString titre = ProjetManager::getInstance().trouverProjet(id_projet)->trouverTache(s)->getTitre();
-    titreTache->setText(titre);
+    if(s!=""){
+        Tache* tache = ProjetManager::getInstance().trouverProjet(id_projet)->trouverTache(s);
+        titreTache->setText(tache->getTitre());
+        dispoTache->setDateTime(tache->getDate());
+        echeanceTache->setDateTime(tache->getEcheance());
+    }
 }
 
 void FenetreAjoutProgTache::saveProg(){
@@ -94,24 +106,30 @@ void FenetreAjoutProgTache::saveProg(){
 }
 
 FenetreAjoutProgActivite::FenetreAjoutProgActivite(QMainWindow *parent):QMainWindow(parent){
-    fenetreAjoutProgActivite = new QWidget(this);
+    fenetreAjoutProgActivite = new QWidget;
     ActiviteManager& AM = ActiviteManager::getInstance();
-    idActivite = new QComboBox(this);
+    idActivite = new QComboBox;
     idActivite->addItem("");
     for(ActiviteManager::activites_iterator it = AM.begin_activites() ; it != AM.end_activites() ; ++it){
         idActivite->addItem((*it)->getId());
     }
 
-    titreActivite = new QLineEdit(this);
+    titreActivite = new QLineEdit;
     titreActivite->setReadOnly(true);
 
+    dispoActivite = new QDateTimeEdit;
+    dispoActivite->setReadOnly(true);
+    echeanceActivite = new QDateTimeEdit;
+    echeanceActivite->setReadOnly(true);
     dateHeureActivite = new QDateTimeEdit(QDateTime::currentDateTime());
-    enregistrerProgActivite = new QPushButton("Enregistrer",this);
-    quitterProgActivite = new QPushButton("Quitter",this);
+    enregistrerProgActivite = new QPushButton("Enregistrer");
+    quitterProgActivite = new QPushButton("Quitter");
 
-    layoutChoixActivite = new QFormLayout(this);
+    layoutChoixActivite = new QFormLayout;
     layoutChoixActivite->addRow("ID", idActivite);
     layoutChoixActivite->addRow("Titre", titreActivite);
+    layoutChoixActivite->addRow("Disponibilité", dispoActivite);
+    layoutChoixActivite->addRow("Échéance", echeanceActivite);
     layoutChoixActivite->addRow("Date & Heure", dateHeureActivite);
 
     layoutEnregistrerQuitter  =new QHBoxLayout;
@@ -126,13 +144,18 @@ FenetreAjoutProgActivite::FenetreAjoutProgActivite(QMainWindow *parent):QMainWin
     setCentralWidget(fenetreAjoutProgActivite);
 
     QObject::connect(quitterProgActivite, SIGNAL(clicked()),this, SLOT(close()));
-    QObject::connect(idActivite, SIGNAL(currentTextChanged(QString)), this, SLOT(updateTitreActivite(QString)));
+    QObject::connect(idActivite, SIGNAL(currentTextChanged(QString)), this, SLOT(updateInfosActivite(QString)));
     QObject::connect(enregistrerProgActivite, SIGNAL(clicked()), this, SLOT(saveActivite()));
 }
 
-void FenetreAjoutProgActivite::updateTitreActivite(QString s){
-    QString titre = ActiviteManager::getInstance().trouverActivite(s)->getTitre();
-    titreActivite->setText(titre);
+void FenetreAjoutProgActivite::updateInfosActivite(QString s){
+    Activite* activite = ActiviteManager::getInstance().trouverActivite(s);
+
+    if (activite){
+        titreActivite->setText(activite->getTitre());
+        dispoActivite->setDateTime(activite->getDate());
+        echeanceActivite->setDateTime(activite->getEcheance());
+    }
 }
 
 void FenetreAjoutProgActivite::saveActivite(){

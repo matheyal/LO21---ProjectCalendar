@@ -74,6 +74,10 @@
                     <disponibilite>2015-06-13T23:54:12</disponibilite>
                     <echeance>2018-06-13T23:53:12</echeance>
                     <duree>60</duree>
+                    <programmation>
+                        <date>2015-06-17T17:47:07</date>
+                        <heure>17H47</heure>
+                    </programmation>
                 </tache>
             </taches>
         </projet>
